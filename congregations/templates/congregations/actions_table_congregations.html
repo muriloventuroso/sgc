@@ -1,0 +1,9 @@
+<div class="dropdown">
+    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+        {% trans 'Alter' %}
+    </button>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="{% url 'edit_congregation' record.pk %}">{% trans 'Edit' %}</a>
+        <a class="dropdown-item" href="{% url 'delete_congregation' record.pk %}" onclick="return confirm('Are you sure?');">{% trans 'Delete' %}</a>
+    </div>
+</div>

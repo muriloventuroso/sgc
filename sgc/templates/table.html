@@ -1,0 +1,114 @@
+{% spaceless %}
+{% load django_tables2 %}
+{% load i18n %}
+{% load tables %}
+
+{% if table.page %}
+<div class="table-responsive table-scroll">
+{% endif %}
+{% block table %}
+<table cellspacing="0" class="table table-small-font table-bordered table-striped">
+    {% block table.thead %}
+    <thead>
+        <tr>
+        {% for column in table.columns %}
+            {% if column.orderable %}
+            <th {{ column.attrs.th.as_html }}><a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header|title }}</a></th>
+            {% else %}
+            <th {{ column.attrs.th.as_html }}>{{ column.header|title }}</th>
+            {% endif %}
+        {% endfor %}
+        </tr>
+    </thead>
+    {% endblock table.thead %}
+    {% block table.tbody %}
+    <tbody>
+        {% for row in table.page.object_list|default:table.rows %} {# support pagination #}
+        {% block table.tbody.row %}
+        <tr class="{{ forloop.counter|divisibleby:2|yesno:"even,odd" }}"> {# avoid cycle for Django 1.2-1.6 compatibility #}
+            {% for column, cell in row.items %}
+                <td {{ column.attrs.td.as_html }}>{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>
+            {% endfor %}
+        </tr>
+        {% endblock table.tbody.row %}
+        {% empty %}
+        {% if table.empty_text %}
+        {% block table.tbody.empty_text %}
+        <tr><td colspan="{{ table.columns|length }}">{{ table.empty_text }}</td></tr>
+        {% endblock table.tbody.empty_text %}
+        {% endif %}
+        {% endfor %}
+    </tbody>
+    {% endblock table.tbody %}
+    {% block table.tfoot %}
+    <tfoot></tfoot>
+    {% endblock table.tfoot %}
+</table>
+{% endblock table %}
+
+{% if table.page %}
+{% with table.page.paginator.count as total %}
+{% with table.page.object_list|length as count %}
+{% block pagination %}
+
+        <ul class="pagination">
+            {% if table.page.number > 1 %}
+            <li class="page-item">
+                <a class="page-link" title="{% trans 'Primeiro' %}" href="{% querystring table.prefixed_page_field=1 %}" aria-label="Primeiro">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            {% if table.page.has_previous %}
+            <li class="page-item">
+                <a class="page-link" title="{% trans 'Anterior' %}" href="{% querystring table.prefixed_page_field=table.page.previous_page_number %}" aria-label="Previous">
+                    <span aria-hidden="true">&lsaquo;</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% for i in table.paginator.num_pages|range_paginator:table.page.number %}
+            <li class="page-item {% active_pagination i table.page.number %}">
+                <a class="page-link" href="{% querystring table.prefixed_page_field=i %}">{{i}}</a>
+            </li>
+            {% endfor %}
+
+            {% if table.page.has_next %}
+            <li class="page-item">
+                <a class="page-link" title="{% trans 'Próximo' %}" href="{% querystring table.prefixed_page_field=table.page.next_page_number %}" aria-label="Next">
+                    <span aria-hidden="true">&rsaquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            {% if table.page.number < table.paginator.num_pages %}
+            <li class="page-item">
+                <a class="page-link" title="{% trans 'Último' %}" href="{% querystring table.prefixed_page_field=table.paginator.num_pages %}" aria-label="Último">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    <ul class="pagination">
+        {% if table.page.has_previous or table.page.has_next %}
+        {% block pagination.current %}<li class="current">{% blocktrans with table.page.number as current and table.paginator.num_pages as total %}Page {{ current }} of {{ total }}{% endblocktrans %}</li>{% endblock pagination.current %}
+        {% endif %}
+
+        {% block pagination.cardinality %}<li class="cardinality"> - {% if total != count %}{% blocktrans %}{{ count }} of {{ total }}{% endblocktrans %}{% else %}{{ total }}{% endif %} {% if total == 1 %}{{ table.data.verbose_name }}{% else %}{{ table.data.verbose_name_plural }}{% endif %}</li>{% endblock pagination.cardinality %}
+    </ul>
+{% block table.report %}
+        {% if table.is_configured %}
+            {% for label, format in table.formats %}
+                <a target="_blank" href="{% querystring table.param_report=format %}">
+                    <img src="{{ STATIC_URL }}img/{{ format }}_icon.png" title="{{ label }}"/>
+                </a>
+            {% endfor %}
+        {% endif %}
+    {% endblock table.report %}
+
+{% endblock pagination %}
+
+{% endwith %}
+{% endwith %}
+</div>
+{% endif %}
+{% endspaceless %}
