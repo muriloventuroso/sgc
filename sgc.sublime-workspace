@@ -215,42 +215,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "sgc/templates/base.html",
-			"settings":
-			{
-				"buffer_size": 19054,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "congregations/forms.py",
-			"settings":
-			{
-				"buffer_size": 883,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "static/js/main.js",
-			"settings":
-			{
-				"buffer_size": 872,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "congregations/models.py",
-			"settings":
-			{
-				"buffer_size": 2323,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -264,6 +228,10 @@
 		"selected_items":
 		[
 			[
+				"pus",
+				"Git: Push"
+			],
+			[
 				"push",
 				"Git: Push"
 			],
@@ -273,7 +241,7 @@
 			],
 			[
 				"add",
-				"Git: Add All"
+				"AngularJS: Toggle - Disable Built-in Directive Completions"
 			],
 			[
 				"install",
@@ -290,10 +258,6 @@
 			[
 				"Package Control: remo",
 				"Package Control: Remove Package"
-			],
-			[
-				"pus",
-				"Git: Push"
 			],
 			[
 				"term",
@@ -364,14 +328,26 @@
 	[
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/js"
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static"
 	],
 	"file_history":
 	[
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/base.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/js/bootstrap.min.js",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/js/popper.min.js",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/bootstrap.min.css",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/js/bootstrap-select.js",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/bootstrap-select.min.css",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/forms.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/js/main.js",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/models.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/.git/config",
+		"/home/muriloventuroso/Dev/Python/sgc-env/lib/python3.6/site-packages/bootstrap_datepicker/widgets.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/style.css",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templatetags/menu.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates/congregations/actions_table_congregations.html",
 		"/home/muriloventuroso/Dev/Python/mkt-env/lib/python3.6/site-packages/bootstrap3/renderers.py",
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/css/style.css",
 		"/home/muriloventuroso/Dev/Python/mkt-env/lib/python3.6/site-packages/bootstrap3/templatetags/bootstrap3.py",
@@ -485,25 +461,11 @@
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/backend/file_upload.py",
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/wizard_sms.js",
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/wizard_tvoz.js",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/sms.js",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/api2/sms/helpers.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/lib/python3.5/site-packages/bootstrap3/renderers.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/bootstrap-select.pt_br.js",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/controle/acoes_tabela.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/ferramentas/ura/adicionar_ura.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/ferramentas/ura/editar_ura.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/ferramentas/ura/acoes_tabela_ura.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/ferramentas/audio/adicionar_audio.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/ferramentas/audio/acoes_tabela_audio.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/rotas/editar_rota.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/rotas/acoes_tabela_rotas.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/gateways/forms.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/gateways/editar_gateway_sms.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/gateways/editar_gateway_tvoz.html"
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/sms.js"
 	],
 	"find":
 	{
-		"height": 25.0
+		"height": 38.0
 	},
 	"find_in_files":
 	{
@@ -514,9 +476,26 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"dropdown",
+			"dropdown-menu",
+			"dropdown",
+			"DROPDOWN_ITEM",
+			"DROPDOWN_MENU",
+			"ClassName",
+			"dropdown-menu",
+			".toggle",
+			"toggle",
+			"top",
+			"dropdown",
+			"top",
+			"0",
+			"0px",
+			"top",
+			"dropdo",
+			"top"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -534,128 +513,8 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "sgc/templates/base.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19054,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1303,
-								1303
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "congregations/forms.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 883,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								883,
-								883
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "static/js/main.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 872,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1,
-								1
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "congregations/models.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2323,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								362,
-								362
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -738,7 +597,7 @@
 		[
 			[
 				"",
-				"~/Dev/Python/mkt-env/otima-mkt/mkt.sublime-project"
+				"~/Dev/Python/enginedialer-env/engine-dialer/engine-dialer.sublime-project"
 			]
 		],
 		"width": 380.0

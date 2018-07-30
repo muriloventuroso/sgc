@@ -24,5 +24,6 @@ urlpatterns = [
     path('login/', sgc.views.login, {}, 'login'),
     path('logout/', logout_then_login, {'login_url': '/login/'}, 'logout'),
     path('congregations/', include('congregations.urls')),
+    path('meetings/', include('meetings.urls')),
     path('', sgc.views.home, {}, 'home')
 ]
