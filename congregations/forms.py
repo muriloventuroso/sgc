@@ -20,7 +20,7 @@ class FormPublisher(forms.ModelForm):
     tags = forms.MultipleChoiceField(label=_("Tags"), choices=TAGS)
     baptism_date = forms.DateField(
         input_formats=['%d/%m/%Y'], required=True, label=_('Baptism Date'),
-        widget=DatePicker(options={"format": "DD/MM/YYYY"}, format="DD/MM/YYYY", fontawesome=True))
+        widget=DatePicker(options={"format": "dd/mm/yyyy"}, format="dd/mm/yyyy", fontawesome=True))
 
     class Meta:
         model = Publisher

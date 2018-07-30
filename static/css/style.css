@@ -889,8 +889,7 @@ aside.left-panel {
       .navbar .navbar-nav li.active .menu-icon, .navbar .navbar-nav li:hover .toggle_nav_button:before,
       .navbar .navbar-nav li .toggle_nav_button.nav-open:before {
         color: #fff !important; }
-      .navbar .navbar-nav li .dropdown-toggle:after {
-        display: none; }
+
       .navbar .navbar-nav li > a {
         background: none !important;
         color: #c8c9ce !important;
@@ -1259,7 +1258,7 @@ header .form-inline {
 
 .dropdown-menu {
   border-radius: 0;
-  transform: none !important; }
+}
 
 .for-notification .dropdown-menu .dropdown-item {
   padding: 5px 15px !important;
@@ -2238,3 +2237,7 @@ header .form-inline {
           padding: 5px; } }
 
 /*# sourceMappingURL=style.css.map */
+.bootstrap-select > .btn {
+  border: 1px solid #ced4da !important;
+  border-radius: .25rem !important;
+}

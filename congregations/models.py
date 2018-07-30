@@ -8,7 +8,7 @@ TAGS = [
     ('reader_w', _("Reader Watchtower")),
     ('prayer', _("Prayer")),
     ('elder', _("Elder")),
-    ('studant', _("Studant"))
+    ('student', _("Student"))
 ]
 
 

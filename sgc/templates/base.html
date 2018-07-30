@@ -20,6 +20,7 @@
     <link href="{% static 'css/flag-icon.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/cs-skin-elastic.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap-select.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap-datepicker.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
@@ -49,7 +50,7 @@
                         <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <li class="menu-item-has-children dropdown {% show_entry app 'congregations' %}">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-home"></i>{% trans 'Congregations' %}</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="{% show_expanded app 'congregations' %}"> <i class="menu-icon fa fa-home"></i>{% trans 'Congregations' %}</a>
                         <ul class="sub-menu children dropdown-menu {% show_entry app 'congregations' %}">
                             <li><i class="fa fa-home"></i><a href="{% url 'congregations' %}">{% trans 'Congregations' %}</a></li>
                             <li><i class="fa fa-users"></i><a href="{% url 'groups' %}">{% trans 'Groups' %}</a></li>
@@ -133,7 +134,6 @@
             <div class="header-menu">
 
                 <div class="col-sm-7">
-                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
                         <button class="search-trigger"><i class="fa fa-search"></i></button>
                         <div class="form-inline">
@@ -308,6 +308,7 @@
         {% endif %}
         {% endblock %}
         <div class="content mt-3">
+
             {% block content %}
             {% endblock %}
 
@@ -316,14 +317,17 @@
 
     <!-- Right Panel -->
 
-    
-
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/bootstrap-select.js' %}"></script>
+    <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-datepicker.pt-BR.min.js' %}"></script>
     <script>
     $(document).ready(function() {
         $('select').each(function(){
             if($(this).is(':visible')){
-                $(this).selectpicker();
+                $(this).selectpicker({liveSearch: true});
             }
         });
     });

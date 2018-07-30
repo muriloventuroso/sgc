@@ -1,0 +1,768 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"confir",
+				"confirmacao__nome"
+			],
+			[
+				"cofi",
+				"confirmacao_sms"
+			],
+			[
+				"confirmaca",
+				"confirmacao__nome"
+			],
+			[
+				"confirma",
+				"confirmacao_sms"
+			],
+			[
+				"empresa",
+				"empresa_profile\tstatement"
+			],
+			[
+				"exibir",
+				"exibir_confirmacao_sms\tstatement"
+			],
+			[
+				"confirm",
+				"confirmacao_sms"
+			],
+			[
+				"del",
+				"delimiter\tstatement"
+			],
+			[
+				"centro",
+				"centro_custos_id\tstatement"
+			],
+			[
+				"centr",
+				"centro_custos_id\tstatement"
+			],
+			[
+				"read",
+				"ready\t$(document).ready"
+			],
+			[
+				"limite",
+				"limite_ativas\tstatement"
+			],
+			[
+				"adicion",
+				"adicional_valor"
+			],
+			[
+				"get",
+				"get_empresa_id\tfunction"
+			],
+			[
+				"itens_",
+				"itens_adicionais\tstatement"
+			],
+			[
+				"TIPOS",
+				"TIPOS_ADICIONAIS_VALOR"
+			],
+			[
+				"compan",
+				"company_request\tstatement"
+			],
+			[
+				"Empresa",
+				"EmpresaProfile"
+			],
+			[
+				"compa",
+				"company_request"
+			],
+			[
+				"comp",
+				"companyRequest"
+			],
+			[
+				"json",
+				"json_request"
+			],
+			[
+				"rea",
+				"ready\t$(document).ready"
+			],
+			[
+				"Use",
+				"UserProfile\tclass"
+			],
+			[
+				"service_",
+				"service_tvoz_api"
+			],
+			[
+				"varia",
+				"variaveis_key"
+			],
+			[
+				"qu",
+				"queue"
+			],
+			[
+				"fil",
+				"filename\tstatement"
+			],
+			[
+				"au",
+				"audio_length\tstatement"
+			],
+			[
+				"audio",
+				"audio_length"
+			],
+			[
+				"convert",
+				"convert_to_g729\tfunction"
+			],
+			[
+				"upload",
+				"upload_audio_file\tfunction"
+			],
+			[
+				"con",
+				"confirmacao__nome"
+			],
+			[
+				"confirmac",
+				"confirmacao_id"
+			],
+			[
+				"confi",
+				"confirmacao_sms"
+			],
+			[
+				"insert",
+				"insertBoxInteracao"
+			],
+			[
+				"tipo",
+				"tipo_interacao"
+			],
+			[
+				"else",
+				"else_if"
+			],
+			[
+				"max",
+				"max-line-length"
+			],
+			[
+				"valor",
+				"valor_cx_entrada"
+			],
+			[
+				"caixa",
+				"caixaentradasms"
+			],
+			[
+				"dados",
+				"dados_relatorio"
+			],
+			[
+				"Valida",
+				"ValidationError"
+			],
+			[
+				"object_",
+				"object_json_repr"
+			],
+			[
+				"exclu",
+				"exclude_fields"
+			],
+			[
+				"exclude",
+				"exclude_from_report"
+			],
+			[
+				"gateway",
+				"gatewaySMS"
+			],
+			[
+				"gatewa",
+				"gatewaySMS"
+			],
+			[
+				"Gatewa",
+				"GatewaySMS"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"tr",
+				"traceback\ttraceback print exception"
+			],
+			[
+				"FormSearch",
+				"FormSearchLayout"
+			],
+			[
+				"pree",
+				"preenchido"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "sgc/templates/base.html",
+			"settings":
+			{
+				"buffer_size": 19054,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "congregations/forms.py",
+			"settings":
+			{
+				"buffer_size": 883,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "static/js/main.js",
+			"settings":
+			{
+				"buffer_size": 872,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "congregations/models.py",
+			"settings":
+			{
+				"buffer_size": 2323,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"comm",
+				"Git: Commit"
+			],
+			[
+				"add",
+				"Git: Add All"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"pus",
+				"Git: Push"
+			],
+			[
+				"term",
+				"Terminal View: Open Bash Terminal"
+			],
+			[
+				"shell",
+				"ShellVE: Open shell for project's VE"
+			],
+			[
+				"termina",
+				"Terminal View: Open Bash Terminal"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"linter",
+				"Preferences: SublimeLinter Settings"
+			],
+			[
+				"com",
+				"Git: Commit"
+			],
+			[
+				"co",
+				"Git: Commit"
+			],
+			[
+				"pull",
+				"Git: Pull"
+			],
+			[
+				"amm",
+				"Git: Amend Commit"
+			],
+			[
+				"commit ",
+				"Git: Commit history"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Remove Package"
+			]
+		],
+		"width": 428.0
+	},
+	"console":
+	{
+		"height": 365.0,
+		"history":
+		[
+			"git config --global user.email \"muriloventuroso@gmail.com\"",
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/js"
+	],
+	"file_history":
+	[
+		"/home/muriloventuroso/Dev/Python/mkt-env/lib/python3.6/site-packages/bootstrap3/renderers.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/css/style.css",
+		"/home/muriloventuroso/Dev/Python/mkt-env/lib/python3.6/site-packages/bootstrap3/templatetags/bootstrap3.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/usuarios/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/base.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/relatorios/tasks.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/dash/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/usuarios/helpers.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/relatorios/views.py",
+		"/home/muriloventuroso/Otima/Dev/install_freeswitch.sh",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/dash/sms_sintetico.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/relatorios/detalhes.html",
+		"/home/muriloventuroso/Otima/teste_envio.csv",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/mkt/settings.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/sms/helpers.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/api2/sms/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/relatorios/forms.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/usuarios/models.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/adicionar_empresa.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/editar_empresa.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/usuarios/forms.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/usuarios/migrations/0001_initial.py",
+		"/home/muriloventuroso/.config/sublime-text-3/Packages/User/Anaconda.sublime-settings",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/sms/tasks.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/tvoz/tasks.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/tvoz/forms.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/sms/forms.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/tvoz/helpers.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/dashboard.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/dash/tvoz_sintetico.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/.git/config",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/blacklist/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/api2/tvoz/views.py",
+		"/run/user/1000/gvfs/sftp:host=186.250.124.9/var/www/mkt-env/otima-mkt/sms/helpers.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/sms/models.py",
+		"/run/user/1000/gvfs/sftp:host=186.250.124.9/var/www/mkt-env/otima-mkt/mkt/settings.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/tvoz/fixtures/causas.json",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/tvoz/fixtures/status.json",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/relatorios/helpers.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/tvoz/models.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/relatorios/tables.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/sms/fixtures/status.json",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/sms/migrations/0006_auto_20180720_1001.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/sms/migrations/0007_auto_20180720_1003.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/sms/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/notify.js",
+		"/run/user/1000/gvfs/sftp:host=186.250.124.9/var/www/mkt-env/otima-mkt/relatorios/tables.py",
+		"/run/user/1000/gvfs/sftp:host=186.250.124.9/var/www/mkt-env/otima-mkt/relatorios/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/segmentacao.js",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/segmentacao.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/sms/envio_arquivo.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/functions.js",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/relatorios/acoes_tabela_sms.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/relatorios/acoes_tabela_tvoz.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/relatorios/relatorio_detalhado.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/relatorios/urls.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/blacklist/forms.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/ferramentas/blacklist/acoes_tabela_blacklist.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/gateways/acoes_tabela_gateway_sms.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/gateways/acoes_tabela_gateway_tvoz.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/api/sms.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/css/bootstrap.css",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/relatorios/detalhar_tvoz.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/mkt/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/relatorios/dados_fechamento.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/tvoz/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/mkt/helpers.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ftp/handlers.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ftp/authorizers.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/tvoz/campanhas/adicionar.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/tvoz/campanhas/editar.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/controle/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/tvoz/envio_arquivo.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ftp/management/commands/ftpserver.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/audio/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/ura/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/tarifas_servico.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/usuarios/tables.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/acoes_tabela_adicionais.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/usuarios/urls.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/senha_smpp.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/mkt/templatetags/language.py",
+		"/home/muriloventuroso/%F",
+		"/home/muriloventuroso/sftp",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/editar_usuario.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/adicionar_usuario.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/api2/sys/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/api2/sys/validators.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/audio/models.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/avaliacao/models.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/blacklist/models.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/categorias/models.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/centro_custos/models.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/cl_respostas/models.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/contatos/models.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/tarefas_agendadas/models.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/ura/models.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/rotas/models.py",
+		"/home/muriloventuroso/Dev/Python/teste.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/mkt/middleware.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/tvoz/envio_unitario.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/tvoz.js",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/adicionar_servico.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/api2/tvoz/validators.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/editar_servico.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/rotas/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/rotas/adicionar_rota.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/gateways/views.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/gateways/adicionar_gateway_tvoz.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/bootstrap-select.js",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/backend/file_upload.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/wizard_sms.js",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/wizard_tvoz.js",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/sms.js",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/api2/sms/helpers.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/lib/python3.5/site-packages/bootstrap3/renderers.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/js/bootstrap-select.pt_br.js",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/controle/acoes_tabela.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/ferramentas/ura/adicionar_ura.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/ferramentas/ura/editar_ura.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/ferramentas/ura/acoes_tabela_ura.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/ferramentas/audio/adicionar_audio.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/ferramentas/audio/acoes_tabela_audio.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/rotas/editar_rota.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/rotas/acoes_tabela_rotas.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/gateways/forms.py",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/gateways/editar_gateway_sms.html",
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/gateways/editar_gateway_tvoz.html"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 99.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "sgc/templates/base.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19054,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1303,
+								1303
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "congregations/forms.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 883,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								883,
+								883
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "static/js/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 872,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1,
+								1
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "congregations/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2323,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								362,
+								362
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 102.0
+	},
+	"output.SublimeLinter Messages":
+	{
+		"height": 114.0
+	},
+	"output.exec":
+	{
+		"height": 114.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 206.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "sgc.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Dev/Python/mkt-env/otima-mkt/mkt.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 367.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
