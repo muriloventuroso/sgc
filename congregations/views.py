@@ -5,17 +5,30 @@ from django.contrib import messages
 from django_tables2.config import RequestConfig
 from congregations.models import Congregation, Group, Publisher
 from congregations.tables import TableCongregations, TableGroups, TablePublishers
-from congregations.forms import FormCongregation, FormGroup, FormPublisher
+from congregations.forms import (
+    FormCongregation, FormGroup, FormPublisher, FormSearchCongregation, FormSearchGroup, FormSearchPublisher)
 
 
 @login_required
 def congregations(request):
-    data = Congregation.objects.all()
+    form = FormSearchCongregation(request.GET)
+    filter_data = {}
+    if form.is_valid():
+        data = form.cleaned_data
+        if 'name' in data and data['name']:
+            filter_data['name__icontains'] = data['name']
+        if 'circuit' in data and data['circuit']:
+            filter_data['circuit__icontains'] = data['circuit']
+        if 'city' in data and data['city']:
+            filter_data['city__icontains'] = data['city']
+        if 'state' in data and data['state']:
+            filter_data['state__icontains'] = data['state']
+    data = Congregation.objects.filter(**filter_data)
     table = TableCongregations(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
     return render(request, 'congregations/congregations.html', {
-        'request': request, 'table': table, 'app': 'congregations'
+        'request': request, 'table': table, 'app': 'congregations', 'form': form
     })
 
 
@@ -60,12 +73,19 @@ def delete_congregation(request, congregation_id):
 
 @login_required
 def groups(request):
-    data = Group.objects.all()
+    form = FormSearchGroup(request.GET)
+    filter_data = {}
+    if form.is_valid():
+        data = form.cleaned_data
+        if 'name' in data and data['name']:
+            filter_data['name__icontains'] = data['name']
+
+    data = Group.objects.filter(**filter_data)
     table = TableGroups(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
     return render(request, 'groups/groups.html', {
-        'request': request, 'table': table, 'app': 'congregations'
+        'request': request, 'table': table, 'app': 'congregations', 'form': form
     })
 
 
@@ -110,12 +130,20 @@ def delete_group(request, group_id):
 
 @login_required
 def publishers(request):
-    data = Publisher.objects.all()
+    form = FormSearchPublisher(request.GET)
+    filter_data = {}
+    if form.is_valid():
+        data = form.cleaned_data
+        if 'name' in data and data['name']:
+            filter_data['name__icontains'] = data['name']
+        if 'tags' in data and data['tags']:
+            filter_data['tags__in'] = data['tags']
+    data = Publisher.objects.filter(**filter_data)
     table = TablePublishers(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
     return render(request, 'publishers/publishers.html', {
-        'request': request, 'table': table, 'app': 'congregations'
+        'request': request, 'table': table, 'app': 'congregations', 'form': form
     })
 
 

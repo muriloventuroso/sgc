@@ -10,10 +10,21 @@ class FormCongregation(forms.ModelForm):
         fields = ('name', 'circuit', 'city', 'state')
 
 
+class FormSearchCongregation(forms.Form):
+    name = forms.CharField(label=_("Name"), required=False)
+    circuit = forms.CharField(label=_("Circuit"), required=False)
+    city = forms.CharField(label=_("City"), required=False)
+    state = forms.CharField(label=_("State"), required=False)
+
+
 class FormGroup(forms.ModelForm):
     class Meta:
         model = Group
         fields = ('name', 'congregation',)
+
+
+class FormSearchGroup(forms.Form):
+    name = forms.CharField(label=_("Name"), required=False)
 
 
 class FormPublisher(forms.ModelForm):
@@ -25,3 +36,8 @@ class FormPublisher(forms.ModelForm):
     class Meta:
         model = Publisher
         exclude = ('_id', 'creation_date', 'update_date')
+
+
+class FormSearchPublisher(forms.Form):
+    name = forms.CharField(label=_("Name"), required=False)
+    tags = forms.MultipleChoiceField(label=_("TAGS"), choices=TAGS, required=False)
