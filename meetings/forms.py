@@ -61,7 +61,7 @@ class FormTreasuresContent(forms.ModelForm):
     person_reading = forms.ModelChoiceField(
         label=_("Person Reading"), queryset=Publisher.objects.filter(tags__in=['student']).filter(gender='m'),
         required=False)
-    reading = forms.ChoiceField(label=_("Reading"), choices=[(0, _("No")), (1, _("Yes"))], initial=0)
+    reading = forms.ChoiceField(label=_("Reading"), choices=[(False, _("No")), (True, _("Yes"))], initial=0)
 
     class Meta:
         model = TreasuresContent

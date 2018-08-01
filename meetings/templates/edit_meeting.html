@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}SGC - {% trans 'Add Meeting' %}{% endblock %}
+{% block title %}SGC - {% trans 'Edit Meeting' %}{% endblock %}
 
 {% block breadcrumbs %}
 <div class="breadcrumbs">
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>{% trans 'Add Meeting' %}</h1>
+                <h1>{% trans 'Edit Meeting' %}</h1>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li>{% trans 'Meetings' %}</li>
-                    <li class="active">{% trans 'Add Meeting' %}</li>
+                    <li class="active">{% trans 'Edit Meeting' %}</li>
                 </ol>
             </div>
         </div>
@@ -48,6 +48,14 @@
                                 </button>
                             </div>
                             <div id="boxTreasures" class="col-lg-12">
+                                {% for f in list_form_treasurescontent %}
+                                <div class="card col-lg-6" >
+                                    <div class="card-body">
+                                        <span class="fa fa-times remove-box pull-right"></span>
+                                        {% bootstrap_form f %}
+                                    </div>
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -60,6 +68,14 @@
                                 </button>
                             </div>
                             <div id="boxApplyYourself" class="col-lg-12">
+                                {% for f in list_form_applyyourselfcontent %}
+                                <div class="card col-lg-6" >
+                                    <div class="card-body">
+                                        <span class="fa fa-times remove-box pull-right"></span>
+                                        {% bootstrap_form f %}
+                                    </div>
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -72,6 +88,14 @@
                                 </button>
                             </div>
                             <div id="boxLivingChristians" class="col-lg-12">
+                                {% for f in list_form_livingchristianscontent %}
+                                <div class="card col-lg-6" >
+                                    <div class="card-body">
+                                        <span class="fa fa-times remove-box pull-right"></span>
+                                        {% bootstrap_form f %}
+                                    </div>
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -114,6 +138,23 @@
 {% block extrajs %}
 <script>
     $(document).ready(function() {
+        if($('select[name=type_meeting]').val() == 'w'){
+            $('#boxMidweekContent').hide();
+            $('#boxWeekendContent').show();
+        }else{
+            $('#boxMidweekContent').show();
+            $('#boxWeekendContent').hide();
+        }
+        $('select[name=reading]').each(function(index, el) {
+            if($(this).val()=="False"){
+                $(this).parent().parent().parent().find('label[for=id_person_reading]').parent().hide();
+                $(this).parent().parent().parent().find('label[for=id_person_treasure]').parent().show();
+            }else{
+                $(this).parent().parent().parent().find('label[for=id_person_reading]').parent().show();
+                $(this).parent().parent().parent().find('label[for=id_person_treasure]').parent().hide();
+            }
+        });
+
         $('#boxWeekendContent select').each(function(){
             $(this).selectpicker({liveSearch: true});
         });
@@ -174,16 +215,14 @@
                 var value = $(this).val();
                 var elem = $(this);
                 var exists = false;
-                if(value && $(this).parent().attr('name').endsWith("_id")){
+                if(value && value.length > 5){
                     $('select option[value='+value+']').each(function(index, el) {
-                        if($(this).parent().attr('name').endsWith("_id")){
-                            $(this).parent().parent().find('.invalid-feedback').remove();
-                            if($(this).parent().val()==value && !elem.is($(this).parent())){
-                                exists = true;
-                                $(this).parent().parent().addClass('invalid-select');
-                                var html = '<div style="display:block" class="invalid-feedback">{% trans "Duplicate Entry" %}</div>';
-                                $(this).parent().parent().append(html);
-                            }
+                        $(this).parent().parent().find('.invalid-feedback').remove();
+                        if($(this).parent().val()==value && !elem.is($(this).parent()) && $(this).parent().val().length > 5){
+                            exists = true;
+                            $(this).parent().parent().addClass('invalid-select');
+                            var html = '<div style="display:block" class="invalid-feedback">{% trans "Duplicate Entry" %}</div>';
+                            $(this).parent().parent().append(html);
                         }
                     });
                 }
