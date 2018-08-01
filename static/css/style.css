@@ -1283,7 +1283,7 @@ header .form-inline {
     font-family: 'Open Sans';
     left: inherit !important;
     right: 0;
-    top: 55px !important;
+    top: 35px !important;
     margin: 0;
     max-width: 150px;
     padding: 5px 10px;
@@ -2240,4 +2240,17 @@ header .form-inline {
 .bootstrap-select > .btn {
   border: 1px solid #ced4da !important;
   border-radius: .25rem !important;
+}
+.remove-box {
+  font-size: 20px;
+  cursor: pointer;
+}
+.remove-box:hover{
+  color: #f00;
+}
+.invalid-select > .btn {
+  border-color: #f00 !important;
+}
+.field-designation {
+  height: 100px;
 }

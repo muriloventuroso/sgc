@@ -4,6 +4,6 @@
     </button>
     <div class="dropdown-menu">
         <a class="dropdown-item" href="{% url 'edit_congregation' record.pk %}">{% trans 'Edit' %}</a>
-        <a class="dropdown-item" href="{% url 'delete_congregation' record.pk %}" onclick="return confirm('Are you sure?');">{% trans 'Delete' %}</a>
+        <a class="dropdown-item" href="{% url 'delete_meeting' record.pk %}" onclick="return confirm('Are you sure?');">{% trans 'Delete' %}</a>
     </div>
 </div>

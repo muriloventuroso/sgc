@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% block title %}SGC - {% trans 'Add Meeting' %}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>{% trans 'Add Meeting' %}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li>{% trans 'Meetings' %}</li>
+                    <li class="active">{% trans 'Add Meeting' %}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12 card card-body">
+        <form method="post" action=".?next={{next}}" autocomplete="off">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <div class="card" id="boxWeekendContent" style="display: none">
+                <div class="card-body">
+                    <h4 class="card-title">{% trans 'Weekend Content' %}</h4>
+                    {% bootstrap_form form_weekendcontent %}
+                </div>
+            </div>
+            <div class="card" id="boxMidweekContent" style="display: none">
+                <div class="card-body">
+                    <h4 class="card-title">{% trans 'Midweek Content' %}</h4>
+                    {% bootstrap_form form_midweekcontent %}
+                    <div class="card col-lg-12">
+                        <div class="card-body">
+                            <div class="col-lg-12">
+                                <h4 class="card-title">{% trans 'Treasures Content' %}</h4>
+                                <button class="btn btn-primary pull-right" id="addTreasures" role="button" type="button">
+                                    <i class="fa fa-plus"></i> {% trans 'Add' %}
+                                </button>
+                            </div>
+                            <div id="boxTreasures" class="col-lg-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-lg-12">
+                        <div class="card-body">
+                            <div class="col-lg-12">
+                                <h4 class="card-title">{% trans 'Apply Yourself Content' %}</h4>
+                                <button class="btn btn-primary pull-right" id="addApplyYourself" role="button" type="button">
+                                    <i class="fa fa-plus"></i> {% trans 'Add' %}
+                                </button>
+                            </div>
+                            <div id="boxApplyYourself" class="col-lg-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-lg-12">
+                        <div class="card-body">
+                            <div class="col-lg-12">
+                                <h4 class="card-title">{% trans 'Living Christians Content' %}</h4>
+                                <button class="btn btn-primary pull-right" id="addLivingChristians" role="button" type="button">
+                                    <i class="fa fa-plus"></i> {% trans 'Add' %}
+                                </button>
+                            </div>
+                            <div id="boxLivingChristians" class="col-lg-12">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="boxDesignations">
+                <div class="card-body">
+                    <h4 class="card-title">{% trans 'Designations' %}</h4>
+                    {% for f in form_designations %}
+                    <div class="col-lg-3 field-designation">
+                        {% bootstrap_field f %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success pull-right">{% trans 'Send' %}</button>
+
+        </form>
+    </div>
+</div>
+<div class="card col-lg-6" id="boxTreasuresContentModel" style="display: none">
+    <div class="card-body">
+        <span class="fa fa-times remove-box pull-right"></span>
+        {% bootstrap_form form_treasurescontent %}
+    </div>
+</div>
+<div class="card col-lg-6" id="boxApplyYourselfContentModel" style="display: none">
+    <div class="card-body">
+        <span class="fa fa-times remove-box pull-right"></span>
+        {% bootstrap_form form_applyyourselfcontent %}
+    </div>
+</div>
+<div class="card col-lg-6" id="boxLivingChristiansContentModel" style="display: none">
+    <div class="card-body">
+        <span class="fa fa-times remove-box pull-right"></span>
+        {% bootstrap_form form_livingchristianscontent %}
+    </div>
+</div>
+{% endblock %}
+{% block extrajs %}
+<script>
+    $(document).ready(function() {
+        $('#boxWeekendContent select').each(function(){
+            $(this).selectpicker({liveSearch: true});
+        });
+        $('#boxMidweekContent select').each(function(){
+            $(this).selectpicker({liveSearch: true});
+        });
+        $('select[name=type_meeting]').on('change', function(){
+            if($(this).val() == 'w'){
+                $('#boxMidweekContent').hide();
+                $('#boxWeekendContent').show();
+            }else{
+                $('#boxMidweekContent').show();
+                $('#boxWeekendContent').hide();
+            }
+        });
+        $('#addTreasures').on('click', function(){
+            var box = $('#boxTreasuresContentModel').clone();
+            box.attr('id', '');
+            box.find('select').each(function(){
+                $(this).selectpicker({liveSearch: true});
+            });
+            box.find('label[for=id_person_reading]').parent().hide();
+            box.show();
+            $('#boxTreasures').append(box);
+        });
+        $('#addApplyYourself').on('click', function(){
+            var box = $('#boxApplyYourselfContentModel').clone();
+            box.attr('id', '');
+            box.find('select').each(function(){
+                $(this).selectpicker({liveSearch: true});
+            });
+            box.show();
+            $('#boxApplyYourself').append(box);
+        });
+        $('#addLivingChristians').on('click', function(){
+            var box = $('#boxLivingChristiansContentModel').clone();
+            box.attr('id', '');
+            box.find('select').each(function(){
+                $(this).selectpicker({liveSearch: true});
+            });
+            box.show();
+            $('#boxLivingChristians').append(box);
+        });
+        $('form').on('click', '.remove-box', function(){
+            $(this).parent().parent().remove();
+        });
+        $('form').on('change', 'select[name=reading]', function(){
+            if($(this).val()=="0"){
+                $(this).parent().parent().parent().find('label[for=id_person_reading]').parent().hide();
+                $(this).parent().parent().parent().find('label[for=id_person_treasure]').parent().show();
+            }else{
+                $(this).parent().parent().parent().find('label[for=id_person_reading]').parent().show();
+                $(this).parent().parent().parent().find('label[for=id_person_treasure]').parent().hide();
+            }
+        });
+        function find_duplicates(){
+            $('select').each(function(index, el) {
+                var value = $(this).val();
+                var elem = $(this);
+                var exists = false;
+                if(value){
+                    $('select option[value='+value+']').each(function(index, el) {
+                        $(this).parent().parent().find('.invalid-feedback').remove();
+                        if($(this).parent().val()==value && !elem.is($(this).parent())){
+                            exists = true;
+                            $(this).parent().parent().addClass('invalid-select');
+                            var html = '<div style="display:block" class="invalid-feedback">{% trans "Duplicate Entry" %}</div>';
+                            $(this).parent().parent().append(html);
+                        }
+                    });
+                }
+                if(exists == true){
+                    $(this).parent().addClass('invalid-select');
+                    $(this).parent().find('.invalid-feedback').remove();
+                    var html = '<div style="display:block" class="invalid-feedback">{% trans "Duplicate Entry" %}</div>';
+                    $(this).parent().append(html);
+                }else{
+                    $(this).parent().removeClass('invalid-select');
+                    $(this).parent().find('.invalid-feedback').remove();
+                }
+            });
+        }
+        $('form').on('change', 'select', function(){
+            find_duplicates();
+        });
+
+    });
+</script>
+{% endblock %}
