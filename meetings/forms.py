@@ -106,3 +106,15 @@ class FormDesignations(forms.ModelForm):
     class Meta:
         model = Designations
         fields = ('soundman', 'stage', 'attendant1', 'attendant2', 'mic_passer1', 'mic_passer2')
+
+
+class FormGeneratePDF(forms.Form):
+    type_pdf = forms.ChoiceField(
+        label=_("Type PDF"), choices=[('', ''), ('w', _("Weekend")), ('m', _("Midweek")), ('d', _('Designations'))],
+        initial='', required=True)
+    start_date = forms.DateField(
+        input_formats=['%d/%m/%Y'], required=True, label=_('Start Date'),
+        widget=DatePicker(options={"format": "dd/mm/yyyy"}, format="dd/mm/yyyy", fontawesome=True))
+    end_date = forms.DateField(
+        input_formats=['%d/%m/%Y'], required=True, label=_('End Date'),
+        widget=DatePicker(options={"format": "dd/mm/yyyy"}, format="dd/mm/yyyy", fontawesome=True))

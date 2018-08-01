@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-01 18:21+0000\n"
-"PO-Revision-Date: 2018-08-01 18:21+0000\n"
+"POT-Creation-Date: 2018-08-01 17:30-0300\n"
+"PO-Revision-Date: 2018-08-01 17:31-0306\n"
 "Last-Translator: b'  <muriloventuroso@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -57,10 +57,11 @@ msgid "Attendant"
 msgstr "Indicador"
 
 #: congregations/models.py:6 meetings/models.py:81
+#: meetings/templates/pdf/designations.html:10
 msgid "Soundman"
 msgstr "Sonoplasta"
 
-#: congregations/models.py:7
+#: congregations/models.py:7 meetings/templates/pdf/designations.html:14
 msgid "Mic Passer"
 msgstr "Mic Volante"
 
@@ -81,7 +82,7 @@ msgid "Student"
 msgstr "Estudante"
 
 #: congregations/models.py:31 congregations/models.py:50
-#: meetings/models.py:105
+#: meetings/models.py:105 meetings/templates/pdf/weekend.html:10
 msgid "Congregation"
 msgstr "Congregação"
 
@@ -271,11 +272,11 @@ msgstr "Publicado deletado com sucesso"
 msgid "Date"
 msgstr "Data"
 
-#: meetings/forms.py:22
+#: meetings/forms.py:22 meetings/forms.py:116
 msgid "Start Date"
 msgstr "Data Inicial"
 
-#: meetings/forms.py:25
+#: meetings/forms.py:25 meetings/forms.py:119
 msgid "End Date"
 msgstr "Data Final"
 
@@ -283,11 +284,11 @@ msgstr "Data Final"
 msgid "Type Meeting"
 msgstr "Tipo de Reunião"
 
-#: meetings/forms.py:28 meetings/models.py:104
+#: meetings/forms.py:28 meetings/forms.py:113 meetings/models.py:104
 msgid "Weekend"
 msgstr "Fim de Semana"
 
-#: meetings/forms.py:28 meetings/models.py:104
+#: meetings/forms.py:28 meetings/forms.py:113 meetings/models.py:104
 msgid "Midweek"
 msgstr "Meio de Semana"
 
@@ -307,11 +308,21 @@ msgstr "Não"
 msgid "Yes"
 msgstr "Sim"
 
+#: meetings/forms.py:113
+msgid "Type PDF"
+msgstr "Tipo de PDF"
+
+#: meetings/forms.py:113 meetings/templates/add_meeting.html:82
+#: meetings/templates/edit_meeting.html:106
+msgid "Designations"
+msgstr "Designações"
+
 #: meetings/models.py:8 meetings/models.py:64
+#: meetings/templates/pdf/weekend.html:18
 msgid "President"
 msgstr "Presidente"
 
-#: meetings/models.py:10
+#: meetings/models.py:10 meetings/templates/pdf/weekend.html:8
 msgid "Speaker"
 msgstr "Orador"
 
@@ -319,11 +330,12 @@ msgstr "Orador"
 msgid "Speaker Congregation"
 msgstr "Congregação do Orador"
 
-#: meetings/models.py:13
+#: meetings/models.py:13 meetings/templates/pdf/weekend.html:14
 msgid "Theme"
 msgstr "Tema"
 
 #: meetings/models.py:15 meetings/models.py:52
+#: meetings/templates/pdf/weekend.html:20
 msgid "Reader"
 msgstr "Leitor"
 
@@ -371,7 +383,7 @@ msgstr "Oração Final"
 msgid "Final Song"
 msgstr "Cântico Final"
 
-#: meetings/models.py:84
+#: meetings/models.py:84 meetings/templates/pdf/designations.html:16
 msgid "Stage"
 msgstr "Palco"
 
@@ -397,7 +409,9 @@ msgid "Add Meeting"
 msgstr "Adicionar Reunião"
 
 #: meetings/templates/add_meeting.html:17
-#: meetings/templates/edit_meeting.html:17 meetings/templates/meetings.html:2
+#: meetings/templates/edit_meeting.html:17
+#: meetings/templates/generate_pdf.html:8
+#: meetings/templates/generate_pdf.html:16 meetings/templates/meetings.html:2
 #: meetings/templates/meetings.html:8 meetings/templates/meetings.html:16
 #: sgc/templates/base.html:62
 msgid "Meetings"
@@ -437,11 +451,6 @@ msgstr "Conteúdo Faça seu Melhor"
 msgid "Living Christians Content"
 msgstr "Conteúdo Vida Cristã"
 
-#: meetings/templates/add_meeting.html:82
-#: meetings/templates/edit_meeting.html:106
-msgid "Designations"
-msgstr "Designações"
-
 #: meetings/templates/add_meeting.html:184
 #: meetings/templates/add_meeting.html:193
 #: meetings/templates/edit_meeting.html:224
@@ -455,6 +464,28 @@ msgstr "Entrada Duplicada"
 msgid "Edit Meeting"
 msgstr "Editar Reunião"
 
+#: meetings/templates/generate_pdf.html:2
+#: meetings/templates/generate_pdf.html:17 sgc/templates/base.html:65
+msgid "Generate PDF"
+msgstr "Gerar PDF"
+
+#: meetings/templates/generate_pdf.html:38
+msgid "Generate"
+msgstr "Gerar"
+
+#: meetings/templates/pdf/designations.html:8
+#| msgid "Attendant"
+msgid "Attendants"
+msgstr "Indicadores"
+
+#: meetings/templates/pdf/header_designations.html:1
+msgid "Attendants and Sound System"
+msgstr "Indicadores e Sistema Sonoro"
+
+#: meetings/templates/pdf/header_weekend.html:1
+msgid "Public Meeting and Study of Watchtower"
+msgstr "Reunião Pública e Estudo de A Sentinela"
+
 #: meetings/views.py:90
 msgid "Meeting added successfully"
 msgstr "Reunião adicionada com sucesso"
@@ -467,11 +498,11 @@ msgstr "Reunião editada com sucesso"
 msgid "Meeting deleted successfully"
 msgstr "Reunião deletada com sucesso"
 
-#: sgc/settings.py:133
+#: sgc/settings.py:141
 msgid "English"
 msgstr "Inglês"
 
-#: sgc/settings.py:134
+#: sgc/settings.py:142
 msgid "Portuguese"
 msgstr "Português"
 

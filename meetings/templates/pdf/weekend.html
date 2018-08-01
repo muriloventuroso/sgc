@@ -1,0 +1,26 @@
+<div class="content">
+{% for meeting in meetings %}
+    <div class="box-item">
+        <p><span class="date-item">{{meeting.date}}</span></p>
+        <hr>
+        <table class="table-weekend">
+            <tr>
+                <td class="title-designation">{% trans 'Speaker' %}:</td>
+                <td class="two-names">{{meeting.weekend_content.speaker}}</td>
+                <td class="title-designation pull-right">{% trans 'Congregation' %}:</td>
+                <td class="two-names">{{meeting.weekend_content.speaker_congregation}}</td>
+            </tr>
+            <tr>
+                <td class="title-designation">{% trans 'Theme' %}:</td>
+                <td class="two-names" colspan=3>{{meeting.weekend_content.theme}}</td>
+            </tr>
+            <tr>
+                <td class="title-designation">{% trans 'President' %}:</td>
+                <td class="two-names">{{meeting.weekend_content.president}}</td>
+                <td class="title-designation pull-right">{% trans 'Reader' %}:</td>
+                <td class="two-names">{{meeting.weekend_content.reader}}</td>
+            </tr>
+        </table>
+    </div>
+{% endfor %}
+</div>

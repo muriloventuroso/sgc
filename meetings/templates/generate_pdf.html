@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}SGC - {% trans 'Generate PDF' %}{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>{% trans 'Meetings' %}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li>{% trans 'Meetings' %}</li>
+                    <li class="active">{% trans 'Generate PDF' %}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="." method="post">
+                    {% csrf_token %}
+                    {% for f in form %}
+                    <div class="col-lg-3">
+                        {% bootstrap_field f %}
+                    </div>
+                    {% endfor %}
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-primary pull-right">{% trans 'Generate' %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

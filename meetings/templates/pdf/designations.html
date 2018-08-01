@@ -1,0 +1,22 @@
+<div class="content">
+{% for meeting in meetings %}
+    <div class="box-item">
+        <p><span class="date-item">{{meeting.date}}</span></p>
+        <hr>
+        <table class="table-designations">
+            <tr>
+                <td class="title-designation">{% trans 'Attendants' %}:</td>
+                <td class="two-names">{{meeting.designations.attendant1}}, {{meeting.designations.attendant2}}</td>
+                <td class="title-designation">{% trans 'Soundman' %}:</td>
+                <td class="two-names">{{meeting.designations.soundman}}</td>
+            </tr>
+            <tr>
+                <td class="title-designation">{% trans 'Mic Passer' %}:</td>
+                <td class="two-names">{{meeting.designations.mic_passer1}}, {{meeting.designations.mic_passer2}}</td>
+                <td class="title-designation">{% trans 'Stage' %}:</td>
+                <td class="two-names">{{meeting.designations.stage}}</td>
+            </tr>
+        </table>
+    </div>
+{% endfor %}
+</div>

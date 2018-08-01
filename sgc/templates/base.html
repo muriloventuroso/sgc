@@ -62,7 +62,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="{% show_expanded app 'meetings' %}"> <i class="menu-icon fa fa-calendar-o "></i>{% trans 'Meetings' %}</a>
                         <ul class="sub-menu children dropdown-menu {% show_entry app 'meetings' %}">
                             <li><i class="fa fa-calendar"></i><a href="{% url 'meetings' %}">{% trans 'Meeting Registration' %}</a></li>
-
+                            <li><i class="fa fa-file-pdf-o"></i><a href="{% url 'generate_pdf' %}">{% trans 'Generate PDF' %}</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -172,7 +172,6 @@
         {% endif %}
         {% endblock %}
         <div class="content mt-3">
-
             {% block content %}
             {% endblock %}
 

@@ -8,7 +8,7 @@ from meetings.models import Meeting, TreasuresContent, ApplyYourselfContent, Liv
 from meetings.tables import TableMeetings
 from meetings.forms import (
     FormSearchMeeting, FormMeeting, FormDesignations, FormWeekendContent, FormMidweekContent, FormTreasuresContent,
-    FormApplyYourselfContent, FormLivingChristiansContent)
+    FormApplyYourselfContent, FormLivingChristiansContent, FormGeneratePDF)
 
 
 @login_required
@@ -202,3 +202,52 @@ def delete_meeting(request, meeting_id):
     meeting.delete()
     messages.success(request, _("Meeting deleted successfully"))
     return redirect('meetings')
+
+
+@login_required
+def generate_pdf(request):
+    from weasyprint import HTML, CSS
+    from django.template.loader import render_to_string
+    from django.http import HttpResponse
+    from meetings.helpers import get_page_body
+    if request.method == 'POST':
+        form = FormGeneratePDF(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            filter_m = {}
+            if data['type_pdf'] == 'd':
+                template = 'pdf/designations.html'
+                template_header = 'pdf/header_designations.html'
+            elif data['type_pdf'] == 'w':
+                template = 'pdf/weekend.html'
+                template_header = 'pdf/header_weekend.html'
+                filter_m['type_meeting'] = 'w'
+            elif data['type_pdf'] == 'm':
+                template = 'pdf/midweek.html'
+                template_header = 'pdf/header_midweek.html'
+                filter_m['type_meeting'] = 'm'
+            meetings = Meeting.objects.filter(date__range=[data['start_date'], data['end_date']]).filter(**filter_m)
+
+            layout = render_to_string(template, {'meetings': meetings})
+            html = HTML(string=layout)
+            main_doc = html.render(stylesheets=[CSS('static/css/pdf.css')])
+
+            html = HTML(string=render_to_string(template_header))
+            header = html.render(stylesheets=[CSS('static/css/pdf.css')])
+            header_page = header.pages[0]
+            header_body = get_page_body(header_page._page_box.all_children())
+            header_body = header_body.copy_with_children(header_body.all_children())
+
+            for i, page in enumerate(main_doc.pages):
+                page_body = get_page_body(page._page_box.all_children())
+                page_body.children += header_body.all_children()
+
+            pdf_file = main_doc.write_pdf()
+            response = HttpResponse(pdf_file, content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+            return response
+    else:
+        form = FormGeneratePDF()
+    return render(request, 'generate_pdf.html', {
+        'request': request, 'form': form, 'app': 'meetings',
+    })

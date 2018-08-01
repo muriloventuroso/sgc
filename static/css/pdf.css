@@ -1,0 +1,125 @@
+body {
+    font-family: Cantarell;
+}
+@font-face {
+    font-family: 'Cantarell';
+    src: url('../fonts/Cantarell-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Cantarell';
+    src: url('../fonts/Cantarell-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Cantarell';
+    src: url('../fonts/Cantarell-BoldOblique.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Cantarell';
+    src: url('../fonts/Cantarell-Oblique.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+@page {
+    size: a4 portrait;
+    margin: 30mm 17mm 17mm 17mm;
+
+}
+html {
+    font-family: 'Cantarell';
+    font-size: 14px;
+    font-weight: normal;
+    color: #000000;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    display: inline;
+    width: auto;
+    height: auto;
+    white-space: normal;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+.header {
+    position: absolute;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    left: 50%;
+    margin-left: -400px;
+    height: 100px;
+    top: -70px;
+    width: 800px;
+}
+.box-item {
+    width: 100%;
+}
+.date-item {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 16px;
+}
+hr {
+    border: 0.5px solid #000;
+    margin-top: 0;
+    margin-bottom: 5px;
+
+}
+.title-designation {
+    font-weight: bold;
+    width: 100px;
+}
+.two-names {
+    width: 300px;
+}
+.table-designations {
+    margin-bottom: 10px;
+}
+.table-weekend {
+    margin-bottom: 10px;
+}
+tr {
+    line-height: 1;
+}
+.pull-right {
+    text-align: right;
+}
+.date-midweek{
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 380px;
+}
+.small-title {
+    font-size: 8px;
+}
+.title-treasures {
+    color: white;
+    background-color: #5a6a70;
+    padding: 3px;
+    font-weight: bold;
+}
+.title-apply {
+    color: white;
+    background-color: #c18626;
+    padding: 3px;
+    font-weight: bold;
+}
+.title-living {
+    color: white;
+    background-color: #961526;
+    padding: 3px;
+    font-weight: bold;
+}
+.table-midweek {
+    font-size: 12px;
+    margin-bottom: 10px;
+}

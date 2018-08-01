@@ -1,0 +1,69 @@
+<div class="content">
+{% for meeting in meetings %}
+    <div class="box-item">
+        <table class="table-midweek">
+            <tr>
+                <td class="date-midweek" colspan=2>{{meeting.date}} | {{meeting.midweek_content.reading_week}}</td>
+                <td class="small-title pull-right" style="width: 150px">{% trans 'President' %}:</td>
+                <td style="width: 150px">{{meeting.midweek_content.president}}</td>
+            </tr>
+            <tr>
+                <td colspan=2>{% trans 'Song' %} {{meeting.midweek_content.initial_song}}</td>
+                <td class="small-title pull-right">{% trans 'Prayer' %}:</td>
+                <td>{{meeting.midweek_content.initial_prayer}}</td>
+            </tr>
+            <tr>
+                <td class="title-treasures" colspan=2>{% trans "Treasures From God's Word" %}</td>
+                <td class="small-title">{% trans 'Room B' %}</td>
+                <td class="small-title">{% trans 'Room A' %}</td>
+            </tr>
+            {% for t in meeting.midweek_content.treasures %}
+            <tr>
+                <td {% if not t.reading %}colspan=2{% endif %}>{{t.title_treasure}} ({{t.duration_treasure}})</td>
+                {% if t.reading %}
+                <td class="small-title pull-right">{% trans 'Student' %}:</td>
+                {% endif %}
+                <td></td>
+                <td>{{t.person_treasure}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td class="title-apply" colspan=2>{% trans "Apply Yourself to the Field Ministry" %}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% for a in meeting.midweek_content.apply_yourself %}
+            <tr>
+                <td>{{a.title_apply}} ({{a.duration_apply}})</td>
+                <td class="small-title pull-right">{% trans 'Student' %}{% if a.assistant %} / {% trans 'Assistant' %}{% endif %}:</td>
+                <td></td>
+                <td>{{a.student}}{% if a.assistant %} / {{a.assistant}}{% endif %}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td class="title-living" colspan=2>{% trans "Living as Christians" %}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan=2>{% trans 'Song' %} {{meeting.midweek_content.second_song}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% for l in meeting.midweek_content.living_christians %}
+            <tr>
+                <td colspan=2>{{l.title_living}} ({{l.duration_living}})</td>
+                <td></td>
+                <td>{{l.person_living}}{% if l.reader %} / {{l.reader}}{% endif %}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan=2>{% trans 'Song' %} {{meeting.midweek_content.final_song}}</td>
+                <td class="small-title pull-right">{% trans 'Prayer' %}:</td>
+                <td>{{meeting.midweek_content.final_prayer}}</td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+{% endfor %}
+</div>
