@@ -2254,3 +2254,12 @@ header .form-inline {
 .field-designation {
   height: 100px;
 }
+.btn-xs {
+  padding: .15rem .3rem;
+  font-size: .875rem;
+  line-height: 1.2;
+}
+.table td, .table th {
+    padding: .5rem !important;
+
+}

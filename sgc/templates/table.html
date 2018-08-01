@@ -54,14 +54,14 @@
         <ul class="pagination">
             {% if table.page.number > 1 %}
             <li class="page-item">
-                <a class="page-link" title="{% trans 'Primeiro' %}" href="{% querystring table.prefixed_page_field=1 %}" aria-label="Primeiro">
+                <a class="page-link" title="{% trans 'First' %}" href="{% querystring table.prefixed_page_field=1 %}" aria-label="{% trans 'First' %}">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             {% endif %}
             {% if table.page.has_previous %}
             <li class="page-item">
-                <a class="page-link" title="{% trans 'Anterior' %}" href="{% querystring table.prefixed_page_field=table.page.previous_page_number %}" aria-label="Previous">
+                <a class="page-link" title="{% trans 'Previous' %}" href="{% querystring table.prefixed_page_field=table.page.previous_page_number %}" aria-label="{% trans 'Previous' %}">
                     <span aria-hidden="true">&lsaquo;</span>
                 </a>
             </li>
@@ -75,14 +75,14 @@
 
             {% if table.page.has_next %}
             <li class="page-item">
-                <a class="page-link" title="{% trans 'Próximo' %}" href="{% querystring table.prefixed_page_field=table.page.next_page_number %}" aria-label="Next">
+                <a class="page-link" title="{% trans 'Next' %}" href="{% querystring table.prefixed_page_field=table.page.next_page_number %}" aria-label="{% trans 'Next' %}">
                     <span aria-hidden="true">&rsaquo;</span>
                 </a>
             </li>
             {% endif %}
             {% if table.page.number < table.paginator.num_pages %}
             <li class="page-item">
-                <a class="page-link" title="{% trans 'Último' %}" href="{% querystring table.prefixed_page_field=table.paginator.num_pages %}" aria-label="Último">
+                <a class="page-link" title="{% trans 'Last' %}" href="{% querystring table.prefixed_page_field=table.paginator.num_pages %}" aria-label="{% trans 'Last' %}">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

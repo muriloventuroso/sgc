@@ -1,0 +1,514 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-01 18:21+0000\n"
+"PO-Revision-Date: 2018-08-01 18:21+0000\n"
+"Last-Translator: b'  <muriloventuroso@gmail.com>'\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.8.1\n"
+
+#: congregations/forms.py:14 congregations/forms.py:27
+#: congregations/forms.py:42 congregations/models.py:17
+#: congregations/models.py:30
+msgid "Name"
+msgstr "Nome"
+
+#: congregations/forms.py:15 congregations/models.py:18
+msgid "Circuit"
+msgstr "Circuito"
+
+#: congregations/forms.py:16 congregations/models.py:19
+msgid "City"
+msgstr "Cidade"
+
+#: congregations/forms.py:17 congregations/models.py:20
+msgid "State"
+msgstr "Estado"
+
+#: congregations/forms.py:31
+msgid "Tags"
+msgstr "Tags"
+
+#: congregations/forms.py:33 congregations/models.py:48
+msgid "Baptism Date"
+msgstr "Data de Batismo"
+
+#: congregations/forms.py:43
+msgid "TAGS"
+msgstr "TAGS"
+
+#: congregations/models.py:4
+msgid "Ministerial Servant"
+msgstr "Servo Ministerial"
+
+#: congregations/models.py:5
+msgid "Attendant"
+msgstr "Indicador"
+
+#: congregations/models.py:6 meetings/models.py:81
+msgid "Soundman"
+msgstr "Sonoplasta"
+
+#: congregations/models.py:7
+msgid "Mic Passer"
+msgstr "Mic Volante"
+
+#: congregations/models.py:8
+msgid "Reader Watchtower"
+msgstr "Leitor de A Sentinela"
+
+#: congregations/models.py:9
+msgid "Prayer"
+msgstr "Oração"
+
+#: congregations/models.py:10
+msgid "Elder"
+msgstr "Ancião"
+
+#: congregations/models.py:11 meetings/models.py:36
+msgid "Student"
+msgstr "Estudante"
+
+#: congregations/models.py:31 congregations/models.py:50
+#: meetings/models.py:105
+msgid "Congregation"
+msgstr "Congregação"
+
+#: congregations/models.py:41
+msgid "Full Name"
+msgstr "Nome Completo"
+
+#: congregations/models.py:42
+msgid "Address"
+msgstr "Endereço"
+
+#: congregations/models.py:43
+msgid "Email"
+msgstr "Email"
+
+#: congregations/models.py:44
+msgid "Phone"
+msgstr "Telefone"
+
+#: congregations/models.py:45
+msgid "Cellphone"
+msgstr "Celular"
+
+#: congregations/models.py:46
+msgid "Creation Date"
+msgstr "Data de Criação"
+
+#: congregations/models.py:47
+msgid "Update Date"
+msgstr "Data de Atualização"
+
+#: congregations/models.py:49
+msgid "Gender"
+msgstr "Gênero"
+
+#: congregations/models.py:49
+msgid "Female"
+msgstr "Feminino"
+
+#: congregations/models.py:49
+msgid "Male"
+msgstr "Masculino"
+
+#: congregations/tables.py:10 congregations/tables.py:24
+#: congregations/tables.py:38
+#: congregations/templates/congregations/actions_table_congregations.html:3
+#: congregations/templates/groups/actions_table_groups.html:3
+#: congregations/templates/publishers/actions_table_publishers.html:3
+#: meetings/tables.py:10 meetings/templates/actions_table_meetings.html:3
+msgid "Alter"
+msgstr "Alterar"
+
+#: congregations/templates/congregations/actions_table_congregations.html:6
+#: congregations/templates/groups/actions_table_groups.html:6
+#: congregations/templates/publishers/actions_table_publishers.html:6
+#: meetings/templates/actions_table_meetings.html:6
+msgid "Edit"
+msgstr "Editar"
+
+#: congregations/templates/congregations/actions_table_congregations.html:7
+#: congregations/templates/groups/actions_table_groups.html:7
+#: congregations/templates/publishers/actions_table_publishers.html:7
+#: meetings/templates/actions_table_meetings.html:7
+msgid "Delete"
+msgstr "Deletar"
+
+#: congregations/templates/congregations/add_congregation.html:2
+#: congregations/templates/congregations/add_congregation.html:9
+#: congregations/templates/congregations/add_congregation.html:18
+#: congregations/templates/congregations/congregations.html:48
+msgid "Add Congregation"
+msgstr "Adicionar Congregação"
+
+#: congregations/templates/congregations/add_congregation.html:17
+#: congregations/templates/congregations/congregations.html:2
+#: congregations/templates/congregations/congregations.html:8
+#: congregations/templates/congregations/congregations.html:16
+#: congregations/templates/congregations/edit_congregation.html:17
+#: sgc/templates/base.html:53 sgc/templates/base.html:55
+msgid "Congregations"
+msgstr "Congregações"
+
+#: congregations/templates/congregations/add_congregation.html:32
+#: congregations/templates/congregations/edit_congregation.html:32
+#: congregations/templates/groups/add_group.html:32
+#: congregations/templates/groups/edit_group.html:32
+#: congregations/templates/publishers/add_publisher.html:32
+#: congregations/templates/publishers/edit_publisher.html:34
+#: meetings/templates/add_meeting.html:90
+#: meetings/templates/edit_meeting.html:114
+msgid "Send"
+msgstr "Enviar"
+
+#: congregations/templates/congregations/congregations.html:36
+#: congregations/templates/groups/groups.html:36
+#: congregations/templates/publishers/publishers.html:36
+#: meetings/templates/meetings.html:36
+msgid "Search"
+msgstr "Pesquisar"
+
+#: congregations/templates/congregations/edit_congregation.html:2
+#: congregations/templates/congregations/edit_congregation.html:9
+#: congregations/templates/congregations/edit_congregation.html:18
+msgid "Edit Congregation"
+msgstr "Editar Congregação"
+
+#: congregations/templates/groups/add_group.html:2
+#: congregations/templates/groups/add_group.html:9
+#: congregations/templates/groups/add_group.html:18
+#: congregations/templates/groups/groups.html:48
+msgid "Add Group"
+msgstr "Adicionar Grupo"
+
+#: congregations/templates/groups/add_group.html:17
+#: congregations/templates/groups/edit_group.html:17
+#: congregations/templates/groups/groups.html:2
+#: congregations/templates/groups/groups.html:8
+#: congregations/templates/groups/groups.html:16 sgc/templates/base.html:56
+msgid "Groups"
+msgstr "Grupos"
+
+#: congregations/templates/groups/edit_group.html:2
+#: congregations/templates/groups/edit_group.html:9
+#: congregations/templates/groups/edit_group.html:18
+msgid "Edit Group"
+msgstr "Editar Grupo"
+
+#: congregations/templates/publishers/add_publisher.html:2
+#: congregations/templates/publishers/add_publisher.html:9
+#: congregations/templates/publishers/add_publisher.html:18
+#: congregations/templates/publishers/publishers.html:48
+msgid "Add Publisher"
+msgstr "Adicionar Publicador"
+
+#: congregations/templates/publishers/add_publisher.html:17
+#: congregations/templates/publishers/edit_publisher.html:19
+#: congregations/templates/publishers/publishers.html:2
+#: congregations/templates/publishers/publishers.html:8
+#: congregations/templates/publishers/publishers.html:16
+#: sgc/templates/base.html:57
+msgid "Publishers"
+msgstr "Publicadores"
+
+#: congregations/templates/publishers/edit_publisher.html:2
+#: congregations/templates/publishers/edit_publisher.html:11
+#: congregations/templates/publishers/edit_publisher.html:20
+msgid "Edit Publisher"
+msgstr "Editar Publicador"
+
+#: congregations/views.py:41
+msgid "Congregation added successfully"
+msgstr "Congregação adicionada com sucesso"
+
+#: congregations/views.py:57
+msgid "Congregation edited successfully"
+msgstr "Congregação editada com sucesso"
+
+#: congregations/views.py:70
+msgid "Congregation deleted successfully"
+msgstr "Congregação deletada com sucesso"
+
+#: congregations/views.py:98
+msgid "Group added successfully"
+msgstr "Grupo adicionado com sucesso"
+
+#: congregations/views.py:114
+msgid "Group edited successfully"
+msgstr "Grupo editado com sucesso"
+
+#: congregations/views.py:127
+msgid "Group deleted successfully"
+msgstr "Grupo deletado com sucesso"
+
+#: congregations/views.py:156
+msgid "Publisher added successfully"
+msgstr "Publicador adicionado com sucesso"
+
+#: congregations/views.py:172
+msgid "Publisher edited successfully"
+msgstr "Publicado editado com sucesso"
+
+#: congregations/views.py:185
+msgid "Publisher deleted successfully"
+msgstr "Publicado deletado com sucesso"
+
+#: meetings/forms.py:12 meetings/models.py:102
+msgid "Date"
+msgstr "Data"
+
+#: meetings/forms.py:22
+msgid "Start Date"
+msgstr "Data Inicial"
+
+#: meetings/forms.py:25
+msgid "End Date"
+msgstr "Data Final"
+
+#: meetings/forms.py:28 meetings/models.py:104
+msgid "Type Meeting"
+msgstr "Tipo de Reunião"
+
+#: meetings/forms.py:28 meetings/models.py:104
+msgid "Weekend"
+msgstr "Fim de Semana"
+
+#: meetings/forms.py:28 meetings/models.py:104
+msgid "Midweek"
+msgstr "Meio de Semana"
+
+#: meetings/forms.py:62
+msgid "Person Reading"
+msgstr "Pessoa da Leitura"
+
+#: meetings/forms.py:64 meetings/models.py:28
+msgid "Reading"
+msgstr "Leitura"
+
+#: meetings/forms.py:64
+msgid "No"
+msgstr "Não"
+
+#: meetings/forms.py:64
+msgid "Yes"
+msgstr "Sim"
+
+#: meetings/models.py:8 meetings/models.py:64
+msgid "President"
+msgstr "Presidente"
+
+#: meetings/models.py:10
+msgid "Speaker"
+msgstr "Orador"
+
+#: meetings/models.py:12
+msgid "Speaker Congregation"
+msgstr "Congregação do Orador"
+
+#: meetings/models.py:13
+msgid "Theme"
+msgstr "Tema"
+
+#: meetings/models.py:15 meetings/models.py:52
+msgid "Reader"
+msgstr "Leitor"
+
+#: meetings/models.py:23 meetings/models.py:34 meetings/models.py:47
+msgid "Title"
+msgstr "Título"
+
+#: meetings/models.py:25 meetings/models.py:49
+msgid "Person"
+msgstr "Pessoa"
+
+#: meetings/models.py:27 meetings/models.py:41 meetings/models.py:54
+msgid "Duration"
+msgstr "Duração"
+
+#: meetings/models.py:30 meetings/models.py:43
+msgid "Room"
+msgstr "Sala"
+
+#: meetings/models.py:39
+msgid "Assistant"
+msgstr "Ajudante"
+
+#: meetings/models.py:58
+msgid "Reading Week"
+msgstr "Leitura da Semana"
+
+#: meetings/models.py:59
+msgid "Initial Song"
+msgstr "Cântico Inicial"
+
+#: meetings/models.py:61
+msgid "Initial Prayer"
+msgstr "Oração Inicial"
+
+#: meetings/models.py:68
+msgid "Second Song"
+msgstr "Segundo Cântico"
+
+#: meetings/models.py:71
+msgid "Final Prayer"
+msgstr "Oração Final"
+
+#: meetings/models.py:73
+msgid "Final Song"
+msgstr "Cântico Final"
+
+#: meetings/models.py:84
+msgid "Stage"
+msgstr "Palco"
+
+#: meetings/models.py:87
+msgid "Attendant 1"
+msgstr "Indicador 1"
+
+#: meetings/models.py:90
+msgid "Attendant 2"
+msgstr "Indicador 2"
+
+#: meetings/models.py:93
+msgid "Mic Passer 1"
+msgstr "Mic Volante 1"
+
+#: meetings/models.py:96
+msgid "Mic Passer 2"
+msgstr "Mic Volante 2"
+
+#: meetings/templates/add_meeting.html:2 meetings/templates/add_meeting.html:9
+#: meetings/templates/add_meeting.html:18 meetings/templates/meetings.html:48
+msgid "Add Meeting"
+msgstr "Adicionar Reunião"
+
+#: meetings/templates/add_meeting.html:17
+#: meetings/templates/edit_meeting.html:17 meetings/templates/meetings.html:2
+#: meetings/templates/meetings.html:8 meetings/templates/meetings.html:16
+#: sgc/templates/base.html:62
+msgid "Meetings"
+msgstr "Reuniões"
+
+#: meetings/templates/add_meeting.html:34
+#: meetings/templates/edit_meeting.html:34
+msgid "Weekend Content"
+msgstr "Conteúdo Fim de Semana"
+
+#: meetings/templates/add_meeting.html:40
+#: meetings/templates/edit_meeting.html:40
+msgid "Midweek Content"
+msgstr "Conteúdo Meio de Semana"
+
+#: meetings/templates/add_meeting.html:45
+#: meetings/templates/edit_meeting.html:45
+msgid "Treasures Content"
+msgstr "Conteúdo Tesouros"
+
+#: meetings/templates/add_meeting.html:47
+#: meetings/templates/add_meeting.html:59
+#: meetings/templates/add_meeting.html:71
+#: meetings/templates/edit_meeting.html:47
+#: meetings/templates/edit_meeting.html:67
+#: meetings/templates/edit_meeting.html:87
+msgid "Add"
+msgstr "Adicionar"
+
+#: meetings/templates/add_meeting.html:57
+#: meetings/templates/edit_meeting.html:65
+msgid "Apply Yourself Content"
+msgstr "Conteúdo Faça seu Melhor"
+
+#: meetings/templates/add_meeting.html:69
+#: meetings/templates/edit_meeting.html:85
+msgid "Living Christians Content"
+msgstr "Conteúdo Vida Cristã"
+
+#: meetings/templates/add_meeting.html:82
+#: meetings/templates/edit_meeting.html:106
+msgid "Designations"
+msgstr "Designações"
+
+#: meetings/templates/add_meeting.html:184
+#: meetings/templates/add_meeting.html:193
+#: meetings/templates/edit_meeting.html:224
+#: meetings/templates/edit_meeting.html:232
+msgid "Duplicate Entry"
+msgstr "Entrada Duplicada"
+
+#: meetings/templates/edit_meeting.html:2
+#: meetings/templates/edit_meeting.html:9
+#: meetings/templates/edit_meeting.html:18
+msgid "Edit Meeting"
+msgstr "Editar Reunião"
+
+#: meetings/views.py:90
+msgid "Meeting added successfully"
+msgstr "Reunião adicionada com sucesso"
+
+#: meetings/views.py:164
+msgid "Meeting edited successfully"
+msgstr "Reunião editada com sucesso"
+
+#: meetings/views.py:203
+msgid "Meeting deleted successfully"
+msgstr "Reunião deletada com sucesso"
+
+#: sgc/settings.py:133
+msgid "English"
+msgstr "Inglês"
+
+#: sgc/settings.py:134
+msgid "Portuguese"
+msgstr "Português"
+
+#: sgc/templates/base.html:64
+msgid "Meeting Registration"
+msgstr "Cadastro de Reuniões"
+
+#: sgc/templates/base.html:90
+msgid "Logout"
+msgstr "Sair"
+
+#: sgc/templates/login.html:18
+msgid "Sign in"
+msgstr "Entrar"
+
+#: sgc/templates/table.html:57
+msgid "First"
+msgstr "Primeiro"
+
+#: sgc/templates/table.html:64
+msgid "Previous"
+msgstr "Anterior"
+
+#: sgc/templates/table.html:78
+msgid "Next"
+msgstr "Próximo"
+
+#: sgc/templates/table.html:85
+msgid "Last"
+msgstr "Último"
+
+#: sgc/templates/table.html:93
+#, python-format
+msgid "Page %(current)s of %(total)s"
+msgstr "Pagina %(current)s de %(total)s"
+
+#: sgc/templates/table.html:96
+#, python-format
+msgid "%(count)s of %(total)s"
+msgstr "%(count)s de %(total)s"

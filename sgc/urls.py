@@ -15,15 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib.auth.views import logout_then_login
+from django.conf import settings
 import sgc.views
 
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('login/', sgc.views.login, {}, 'login'),
     path('logout/', logout_then_login, {'login_url': '/login/'}, 'logout'),
     path('congregations/', include('congregations.urls')),
     path('meetings/', include('meetings.urls')),
     path('', sgc.views.home, {}, 'home')
-]
+)
+
+
+if 'rosetta' in settings.INSTALLED_APPS:
+    urlpatterns += [
+        path('rosetta/', include('rosetta.urls'))
+    ]
