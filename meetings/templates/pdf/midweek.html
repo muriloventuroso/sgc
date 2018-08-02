@@ -1,3 +1,4 @@
+{% load pdf %}
 <div class="content">
 {% for meeting in meetings %}
     <div class="box-item">
@@ -18,14 +19,24 @@
                 <td class="small-title">{% trans 'Room A' %}</td>
             </tr>
             {% for t in meeting.midweek_content.treasures %}
+            {% with next_element=meeting.midweek_content.treasures|next:forloop.counter0 %}
+            {% with previous_element=meeting.midweek_content.treasures|previous:forloop.counter0 %}
+            {% if t.room_treasure == 'A' %}
             <tr>
-                <td {% if not t.reading %}colspan=2{% endif %}>{{t.title_treasure}} ({{t.duration_treasure}})</td>
+                <td {% if not t.reading %}colspan=2{% endif %}>{{t.title_treasure}} ({{t.duration_treasure}} min)</td>
                 {% if t.reading %}
-                <td class="small-title pull-right">{% trans 'Student' %}:</td>
+                <td class="small-title pull-right" style="width: 80px">{% trans 'Student' %}:</td>
                 {% endif %}
+                {% if next_element.room_treasure == 'B' %}
+                    <td>{{next_element.person_treasure}}</td>
+                {% else %}
                 <td></td>
-                <td>{{t.person_treasure}}</td>
+                {% endif %}
+                <td>{% if t.room_treasure == 'A' %}{{t.person_treasure}}{% endif %}</td>
             </tr>
+            {% endif %}
+            {% endwith %}
+            {% endwith %}
             {% endfor %}
             <tr>
                 <td class="title-apply" colspan=2>{% trans "Apply Yourself to the Field Ministry" %}</td>
@@ -33,12 +44,22 @@
                 <td></td>
             </tr>
             {% for a in meeting.midweek_content.apply_yourself %}
+            {% with next_element=meeting.midweek_content.apply_yourself|next:forloop.counter0 %}
+            {% with previous_element=meeting.midweek_content.apply_yourself|previous:forloop.counter0 %}
+            {% if a.room_apply == 'A' %}
             <tr>
-                <td>{{a.title_apply}} ({{a.duration_apply}})</td>
-                <td class="small-title pull-right">{% trans 'Student' %}{% if a.assistant %} / {% trans 'Assistant' %}{% endif %}:</td>
+                <td>{{a.title_apply}} ({{a.duration_apply}} min)</td>
+                <td class="small-title pull-right">{% if a.student %}{% trans 'Student' %}{% if a.assistant %} / {% trans 'Assistant' %}{% endif %}:{% endif %}</td>
+                {% if next_element.room_apply == 'B' %}
+                    <td>{{next_element.student|default_if_none:""}}{% if next_element.assistant %} / {{next_element.assistant}}{% endif %}</td>
+                {% else %}
                 <td></td>
-                <td>{{a.student}}{% if a.assistant %} / {{a.assistant}}{% endif %}</td>
+                {% endif %}
+                <td>{% if a.room_apply == 'A' %}{{a.student|default_if_none:""}}{% if a.assistant %} / {{a.assistant}}{% endif %}{% endif %}</td>
             </tr>
+            {% endif %}
+            {% endwith %}
+            {% endwith %}
             {% endfor %}
             <tr>
                 <td class="title-living" colspan=2>{% trans "Living as Christians" %}</td>
@@ -52,7 +73,7 @@
             </tr>
             {% for l in meeting.midweek_content.living_christians %}
             <tr>
-                <td colspan=2>{{l.title_living}} ({{l.duration_living}})</td>
+                <td colspan=2>{{l.title_living}} ({{l.duration_living}} min)</td>
                 <td></td>
                 <td>{{l.person_living}}{% if l.reader %} / {{l.reader}}{% endif %}</td>
             </tr>

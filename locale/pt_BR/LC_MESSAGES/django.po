@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-01 17:30-0300\n"
-"PO-Revision-Date: 2018-08-01 17:31-0306\n"
+"POT-Creation-Date: 2018-08-02 08:47-0300\n"
+"PO-Revision-Date: 2018-08-02 08:48-0306\n"
 "Last-Translator: b'  <muriloventuroso@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -69,7 +69,8 @@ msgstr "Mic Volante"
 msgid "Reader Watchtower"
 msgstr "Leitor de A Sentinela"
 
-#: congregations/models.py:9
+#: congregations/models.py:9 meetings/templates/pdf/midweek.html:12
+#: meetings/templates/pdf/midweek.html:62
 msgid "Prayer"
 msgstr "Oração"
 
@@ -78,6 +79,8 @@ msgid "Elder"
 msgstr "Ancião"
 
 #: congregations/models.py:11 meetings/models.py:36
+#: meetings/templates/pdf/midweek.html:24
+#: meetings/templates/pdf/midweek.html:38
 msgid "Student"
 msgstr "Estudante"
 
@@ -318,6 +321,7 @@ msgid "Designations"
 msgstr "Designações"
 
 #: meetings/models.py:8 meetings/models.py:64
+#: meetings/templates/pdf/midweek.html:7
 #: meetings/templates/pdf/weekend.html:18
 msgid "President"
 msgstr "Presidente"
@@ -355,7 +359,7 @@ msgstr "Duração"
 msgid "Room"
 msgstr "Sala"
 
-#: meetings/models.py:39
+#: meetings/models.py:39 meetings/templates/pdf/midweek.html:38
 msgid "Assistant"
 msgstr "Ajudante"
 
@@ -474,7 +478,6 @@ msgid "Generate"
 msgstr "Gerar"
 
 #: meetings/templates/pdf/designations.html:8
-#| msgid "Attendant"
 msgid "Attendants"
 msgstr "Indicadores"
 
@@ -482,9 +485,43 @@ msgstr "Indicadores"
 msgid "Attendants and Sound System"
 msgstr "Indicadores e Sistema Sonoro"
 
+#: meetings/templates/pdf/header_midweek.html:1
+msgid "Schedule of the Midweek Meeting"
+msgstr "Programação da Reunião de Meio de Semana"
+
 #: meetings/templates/pdf/header_weekend.html:1
 msgid "Public Meeting and Study of Watchtower"
 msgstr "Reunião Pública e Estudo de A Sentinela"
+
+#: meetings/templates/pdf/midweek.html:11
+#: meetings/templates/pdf/midweek.html:49
+#: meetings/templates/pdf/midweek.html:61
+msgid "Song"
+msgstr "Cântico"
+
+#: meetings/templates/pdf/midweek.html:16
+msgid "Treasures From God's Word"
+msgstr "Tesouros da Palavra de Deus"
+
+#: meetings/templates/pdf/midweek.html:17
+#| msgid "Room"
+msgid "Room B"
+msgstr "Sala B"
+
+#: meetings/templates/pdf/midweek.html:18
+#| msgid "Room"
+msgid "Room A"
+msgstr "Salão Principal"
+
+#: meetings/templates/pdf/midweek.html:31
+#| msgid "Apply Yourself Content"
+msgid "Apply Yourself to the Field Ministry"
+msgstr "Faça seu Melhor no Ministério"
+
+#: meetings/templates/pdf/midweek.html:44
+#| msgid "Living Christians Content"
+msgid "Living as Christians"
+msgstr "Nossa Vida Cristã"
 
 #: meetings/views.py:90
 msgid "Meeting added successfully"

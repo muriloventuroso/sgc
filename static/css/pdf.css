@@ -123,3 +123,9 @@ tr {
     font-size: 12px;
     margin-bottom: 10px;
 }
+@media print
+{
+    .box-item{
+        page-break-inside: avoid;
+    }
+}
