@@ -135,7 +135,7 @@ def publishers(request):
     if form.is_valid():
         data = form.cleaned_data
         if 'name' in data and data['name']:
-            filter_data['name__icontains'] = data['name']
+            filter_data['full_name__icontains'] = data['name']
         if 'tags' in data and data['tags']:
             filter_data['tags__in'] = data['tags']
     data = Publisher.objects.filter(**filter_data)

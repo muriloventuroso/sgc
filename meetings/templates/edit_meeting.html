@@ -106,7 +106,7 @@
                     <h4 class="card-title">{% trans 'Designations' %}</h4>
                     {% for f in form_designations %}
                     <div class="col-lg-3 field-designation">
-                        {% bootstrap_field f %}
+                        {% bootstrap_field f addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
                     </div>
                     {% endfor %}
                 </div>
@@ -138,6 +138,14 @@
 {% block extrajs %}
 <script>
     $(document).ready(function() {
+        $('form').on('submit', function(){
+            if($('select[name="type_meeting"]').val() == 'w'){
+                $('#boxMidweekContent').remove();
+            }else{
+                console.log('oi');
+                $('#boxWeekendContent').remove();
+            }
+        });
         if($('select[name=type_meeting]').val() == 'w'){
             $('#boxMidweekContent').hide();
             $('#boxWeekendContent').show();
@@ -217,21 +225,16 @@
                 var exists = false;
                 if(value && value.length > 5){
                     $('select option[value='+value+']').each(function(index, el) {
-                        $(this).parent().parent().find('.invalid-feedback').remove();
                         if($(this).parent().val()==value && !elem.is($(this).parent()) && $(this).parent().val().length > 5){
                             exists = true;
                             $(this).parent().parent().addClass('invalid-select');
+                            $(this).parent().parent().find('.invalid-feedback').remove();
                             var html = '<div style="display:block" class="invalid-feedback">{% trans "Duplicate Entry" %}</div>';
                             $(this).parent().parent().append(html);
                         }
                     });
                 }
-                if(exists == true){
-                    $(this).parent().addClass('invalid-select');
-                    $(this).parent().find('.invalid-feedback').remove();
-                    var html = '<div style="display:block" class="invalid-feedback">{% trans "Duplicate Entry" %}</div>';
-                    $(this).parent().append(html);
-                }else{
+                if(exists == false){
                     $(this).parent().removeClass('invalid-select');
                     $(this).parent().find('.invalid-feedback').remove();
                 }
@@ -240,6 +243,28 @@
         $('form').on('change', 'select', function(){
             find_duplicates();
         });
+        $('.suggest').on('click', function(){
+            var date = $('#id_date').val();
+            var select = $(this).parent().parent().find('select');
+            var type = select.attr('name');
+            $.ajax({
+                url: '{% url "suggest_publisher" %}',
+                type: 'GET',
+                data: {"type": type, "date": date},
+            })
+            .done(function(data) {
+                select.empty();
+                for(var i = 0; i < data.length; i++){
+                    select.append($("<option></option>")
+                        .attr("value", data[i][0]).text(data[i][1]));
+                }
+                select.selectpicker('refresh');
+            })
+            .complete(function(){
+                find_duplicates();
+            })
+        });
+        find_duplicates();
 
     });
 </script>

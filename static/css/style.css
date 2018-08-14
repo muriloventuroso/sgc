@@ -2263,3 +2263,6 @@ header .form-inline {
     padding: .5rem !important;
 
 }
+.suggest {
+  cursor: pointer;
+}

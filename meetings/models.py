@@ -29,6 +29,9 @@ class TreasuresContent(models.Model):
     room_treasure = models.CharField(
         max_length=1, choices=[('A', 'A'), ('B', 'B')], default="A", verbose_name=_("Room"))
 
+    class Meta:
+        abstract = True
+
 
 class ApplyYourselfContent(models.Model):
     title_apply = models.CharField(max_length=200, verbose_name=_("Title"), null=True, blank=True)
@@ -42,6 +45,9 @@ class ApplyYourselfContent(models.Model):
     room_apply = models.CharField(
         max_length=1, choices=[('A', 'A'), ('B', 'B')], default="A", verbose_name=_("Room"))
 
+    class Meta:
+        abstract = True
+
 
 class LivingChristiansContent(models.Model):
     title_living = models.CharField(max_length=200, verbose_name=_("Title"), null=True, blank=True)
@@ -52,6 +58,9 @@ class LivingChristiansContent(models.Model):
         Publisher, verbose_name=_("Reader"), null=True, blank=True, on_delete=models.SET_NULL,
         related_name="living_reader")
     duration_living = models.CharField(max_length=2, verbose_name=_("Duration"), null=True, blank=True)
+
+    class Meta:
+        abstract = True
 
 
 class MidweekContent(models.Model):

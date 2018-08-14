@@ -30,7 +30,7 @@ class FormSearchGroup(forms.Form):
 class FormPublisher(forms.ModelForm):
     tags = forms.MultipleChoiceField(label=_("Tags"), choices=TAGS)
     baptism_date = forms.DateField(
-        input_formats=['%d/%m/%Y'], required=True, label=_('Baptism Date'),
+        input_formats=['%d/%m/%Y'], required=False, label=_('Baptism Date'),
         widget=DatePicker(options={"format": "dd/mm/yyyy"}, format="dd/mm/yyyy", fontawesome=True))
 
     class Meta:

@@ -6,9 +6,11 @@ TAGS = [
     ('soundman', _('Soundman')),
     ('mic_passer', _('Mic Passer')),
     ('reader_w', _("Reader Watchtower")),
+    ('reader_m', _("Reader Midweek")),
     ('prayer', _("Prayer")),
     ('elder', _("Elder")),
-    ('student', _("Student"))
+    ('student', _("Student")),
+    ('stage', _("Stage"))
 ]
 
 
@@ -37,15 +39,15 @@ class Group(models.Model):
 
 
 class Publisher(models.Model):
-    _id = models.ObjectIdField()
+    _id = models.ObjectIdField(primary_key=True)
     full_name = models.CharField(max_length=180, verbose_name=_("Full Name"))
-    address = models.CharField(max_length=200, verbose_name=_("Address"), null=True)
-    email = models.CharField(max_length=180, verbose_name=_("Email"), null=True)
-    phone = models.CharField(max_length=80, verbose_name=_("Phone"), null=True)
-    cellphone = models.CharField(max_length=80, verbose_name=_("Cellphone"), null=True)
+    address = models.CharField(max_length=200, verbose_name=_("Address"), null=True, blank=True)
+    email = models.CharField(max_length=180, verbose_name=_("Email"), null=True, blank=True)
+    phone = models.CharField(max_length=80, verbose_name=_("Phone"), null=True, blank=True)
+    cellphone = models.CharField(max_length=80, verbose_name=_("Cellphone"), null=True, blank=True)
     creation_date = models.DateTimeField(auto_now_add=True, verbose_name=_("Creation Date"))
     update_date = models.DateTimeField(auto_now=True, verbose_name=_("Update Date"))
-    baptism_date = models.DateTimeField(null=True, verbose_name=_("Baptism Date"))
+    baptism_date = models.DateTimeField(null=True, blank=True, verbose_name=_("Baptism Date"))
     gender = models.CharField(max_length=1, verbose_name=_("Gender"), choices=[('f', _("Female")), ('m', _('Male'))])
     congregation = models.ForeignKey(Congregation, verbose_name=_("Congregation"), on_delete=models.CASCADE)
     tags = models.ListField(models.CharField(max_length=80, choices=TAGS))

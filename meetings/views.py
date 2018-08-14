@@ -3,12 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
+from django.http import JsonResponse, HttpResponse
 from django_tables2.config import RequestConfig
 from meetings.models import Meeting, TreasuresContent, ApplyYourselfContent, LivingChristiansContent
 from meetings.tables import TableMeetings
 from meetings.forms import (
     FormSearchMeeting, FormMeeting, FormDesignations, FormWeekendContent, FormMidweekContent, FormTreasuresContent,
     FormApplyYourselfContent, FormLivingChristiansContent, FormGeneratePDF)
+from congregations.models import Publisher
 
 
 @login_required
@@ -48,7 +50,6 @@ def add_meeting(request):
                 if form_weekendcontent.is_valid():
                     meeting.weekend_content = form_weekendcontent.save(commit=False)
             else:
-                print(request.POST)
                 form_midweekcontent = FormMidweekContent(request.POST)
                 if form_midweekcontent.is_valid():
                     meeting.midweek_content = form_midweekcontent.save(commit=False)
@@ -120,9 +121,9 @@ def edit_meeting(request, meeting_id):
             if meeting.type_meeting == 'w':
                 form_weekendcontent = FormWeekendContent(request.POST)
                 if form_weekendcontent.is_valid():
+                    print(form_weekendcontent.cleaned_data)
                     meeting.weekend_content = form_weekendcontent.save(commit=False)
             else:
-                print(request.POST)
                 form_midweekcontent = FormMidweekContent(request.POST)
                 if form_midweekcontent.is_valid():
                     meeting.midweek_content = form_midweekcontent.save(commit=False)
@@ -177,7 +178,7 @@ def edit_meeting(request, meeting_id):
         if meeting.type_meeting == 'm':
             for f in meeting.midweek_content.treasures:
                 initial = {}
-                if f.reading:
+                if f.reading and f.person_treasure_id:
                     initial['person_reading'] = f.person_treasure
                 list_form_treasurescontent.append(FormTreasuresContent(instance=f, initial=initial))
             for f in meeting.midweek_content.apply_yourself:
@@ -226,7 +227,8 @@ def generate_pdf(request):
                 template = 'pdf/midweek.html'
                 template_header = 'pdf/header_midweek.html'
                 filter_m['type_meeting'] = 'm'
-            meetings = Meeting.objects.filter(date__range=[data['start_date'], data['end_date']]).filter(**filter_m)
+            meetings = Meeting.objects.filter(date__range=[data['start_date'], data['end_date']]).filter(**filter_m)\
+                .order_by('date')
 
             layout = render_to_string(template, {'meetings': meetings})
             html = HTML(string=layout)
@@ -251,3 +253,80 @@ def generate_pdf(request):
     return render(request, 'generate_pdf.html', {
         'request': request, 'form': form, 'app': 'meetings',
     })
+
+
+@login_required
+def suggest_publisher(request):
+    ret = []
+    filter_m = {}
+    list_publishers_meetings = []
+    list_publishers = []
+    if 'date' not in request.GET or not request.GET['date']:
+        return HttpResponse(status=401)
+    date = datetime.datetime.strptime(request.GET['date'], '%d/%m/%Y')
+    filter_m['date__lte'] = date
+
+    if 'type' not in request.GET or not request.GET['type']:
+        return HttpResponse(status=401)
+    meetings = Meeting.objects.filter(**filter_m).order_by('-date')
+    if request.GET['type'] == 'soundman':
+        list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['soundman'])]
+        for meeting in meetings:
+            if (
+                    meeting.designations.soundman_id and str(meeting.designations.soundman_id)
+                    not in list_publishers_meetings):
+                list_publishers_meetings.append(str(meeting.designations.soundman_id))
+    elif request.GET['type'] == 'attendant1' or request.GET['type'] == 'attendant2':
+        list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['attendant'])]
+        for meeting in meetings:
+            if (
+                    meeting.designations.attendant1_id and str(meeting.designations.attendant1_id)
+                    not in list_publishers_meetings):
+                list_publishers_meetings.append(str(meeting.designations.attendant1_id))
+            if (
+                    meeting.designations.attendant2_id and str(meeting.designations.attendant2_id)
+                    not in list_publishers_meetings):
+                list_publishers_meetings.append(str(meeting.designations.attendant2_id))
+    elif request.GET['type'] == 'mic_passer1' or request.GET['type'] == 'mic_passer2':
+        list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['mic_passer'])]
+        for meeting in meetings:
+            if (
+                    meeting.designations.mic_passer1_id and str(meeting.designations.mic_passer1_id)
+                    not in list_publishers_meetings):
+                list_publishers_meetings.append(str(meeting.designations.mic_passer1_id))
+            if (
+                    meeting.designations.mic_passer2_id and str(meeting.designations.mic_passer2_id)
+                    not in list_publishers_meetings):
+                list_publishers_meetings.append(str(meeting.designations.mic_passer2_id))
+    elif request.GET['type'] == 'stage':
+        list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['stage'])]
+        for meeting in meetings:
+            if meeting.designations.stage_id and str(meeting.designations.stage_id) not in list_publishers_meetings:
+                list_publishers_meetings.append(str(meeting.designations.stage_id))
+    elif request.GET['type'] == 'reader_w':
+        list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['reader_w'])]
+        for meeting in meetings:
+            if (
+                    meeting.weekend_content.reader_id and str(meeting.weekend_content.reader_id)
+                    not in list_publishers_meetings):
+                list_publishers_meetings.append(str(meeting.weekend_content.reader_id))
+    elif request.GET['type'] == 'reader_m':
+        list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['reader_m'])]
+        for meeting in meetings:
+            for living in meeting.midweek_content.living_christians:
+                if living.reader_id and str(living.reader_id) not in list_publishers_meetings:
+                    list_publishers_meetings.append(str(living.reader_id))
+    for p in list_publishers:
+        try:
+            index = list_publishers_meetings.index(p[0])
+        except ValueError:
+            index = -1
+        if index == -1:
+            list_publishers_meetings.append((p[0], p[1]))
+        else:
+            list_publishers_meetings[index] = (p[0], p[1])
+    for l in list_publishers_meetings:
+        if isinstance(l, tuple):
+            ret.append(l)
+
+    return JsonResponse(list(reversed(ret)), safe=False)
