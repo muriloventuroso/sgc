@@ -32,7 +32,11 @@
             <div class="card" id="boxWeekendContent" style="display: none">
                 <div class="card-body">
                     <h4 class="card-title">{% trans 'Weekend Content' %}</h4>
-                    {% bootstrap_form form_weekendcontent %}
+                    {% bootstrap_field form_weekendcontent.president %}
+                    {% bootstrap_field form_weekendcontent.speaker %}
+                    {% bootstrap_field form_weekendcontent.speaker_congregation %}
+                    {% bootstrap_field form_weekendcontent.theme %}
+                    {% bootstrap_field form_weekendcontent.reader addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
                 </div>
             </div>
             <div class="card" id="boxMidweekContent" style="display: none">
@@ -107,7 +111,10 @@
 <div class="card col-lg-6" id="boxLivingChristiansContentModel" style="display: none">
     <div class="card-body">
         <span class="fa fa-times remove-box pull-right"></span>
-        {% bootstrap_form form_livingchristianscontent %}
+        {% bootstrap_field form_livingchristianscontent.title_living %}
+        {% bootstrap_field form_livingchristianscontent.person_living %}
+        {% bootstrap_field form_livingchristianscontent.reader addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
+        {% bootstrap_field form_livingchristianscontent.duration_living %}
     </div>
 </div>
 {% endblock %}
@@ -115,7 +122,7 @@
 <script>
     $(document).ready(function() {
         $('form').on('submit', function(){
-            if($('select[name="type"]').val() == 'w'){
+            if($('select[name="type_meeting"]').val() == 'w'){
                 $('#boxMidweekContent').remove();
             }else{
                 $('#boxWeekendContent').remove();
@@ -202,10 +209,17 @@
             find_duplicates();
         });
 
-        $('.suggest').on('click', function(){
+        $('form').on('click', '.suggest', function(){
             var date = $('#id_date').val();
             var select = $(this).parent().parent().find('select');
             var type = select.attr('name');
+            if(type == "reader"){
+                if($('#id_type_meeting').val() == 'w'){
+                    type = 'reader_w';
+                }else{
+                    type = 'reader_m';
+                }
+            }
             $.ajax({
                 url: '{% url "suggest_publisher" %}',
                 type: 'GET',

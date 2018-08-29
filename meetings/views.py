@@ -40,6 +40,7 @@ def meetings(request):
 def add_meeting(request):
     if request.method == 'POST':
         form = FormMeeting(request.POST)
+        print(request.POST)
         if form.is_valid():
             meeting = form.save(commit=False)
             form_designations = FormDesignations(request.POST)
@@ -48,6 +49,7 @@ def add_meeting(request):
             if meeting.type_meeting == 'w':
                 form_weekendcontent = FormWeekendContent(request.POST)
                 if form_weekendcontent.is_valid():
+                    print(form_weekendcontent.cleaned_data)
                     meeting.weekend_content = form_weekendcontent.save(commit=False)
             else:
                 form_midweekcontent = FormMidweekContent(request.POST)
@@ -121,7 +123,6 @@ def edit_meeting(request, meeting_id):
             if meeting.type_meeting == 'w':
                 form_weekendcontent = FormWeekendContent(request.POST)
                 if form_weekendcontent.is_valid():
-                    print(form_weekendcontent.cleaned_data)
                     meeting.weekend_content = form_weekendcontent.save(commit=False)
             else:
                 form_midweekcontent = FormMidweekContent(request.POST)
@@ -306,6 +307,8 @@ def suggest_publisher(request):
     elif request.GET['type'] == 'reader_w':
         list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['reader_w'])]
         for meeting in meetings:
+            if meeting.type_meeting == 'm':
+                continue
             if (
                     meeting.weekend_content.reader_id and str(meeting.weekend_content.reader_id)
                     not in list_publishers_meetings):
@@ -313,6 +316,8 @@ def suggest_publisher(request):
     elif request.GET['type'] == 'reader_m':
         list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['reader_m'])]
         for meeting in meetings:
+            if meeting.type_meeting == 'w':
+                continue
             for living in meeting.midweek_content.living_christians:
                 if living.reader_id and str(living.reader_id) not in list_publishers_meetings:
                     list_publishers_meetings.append(str(living.reader_id))

@@ -116,3 +116,6 @@ class Meeting(models.Model):
     midweek_content = models.EmbeddedModelField(model_container=MidweekContent, null=True)
     designations = models.EmbeddedModelField(model_container=Designations)
     objects = models.DjongoManager()
+
+    class Meta:
+        ordering = ['date', ]
