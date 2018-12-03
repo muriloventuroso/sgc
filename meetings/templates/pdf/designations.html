@@ -13,8 +13,10 @@
             <tr>
                 <td class="title-designation">{% trans 'Mic Passer' %}:</td>
                 <td class="two-names">{{meeting.designations.mic_passer1}}, {{meeting.designations.mic_passer2}}</td>
+                {% if meeting.designations.stage %}
                 <td class="title-designation">{% trans 'Stage' %}:</td>
                 <td class="two-names">{{meeting.designations.stage}}</td>
+                {% endif %}
             </tr>
         </table>
     </div>

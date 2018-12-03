@@ -97,7 +97,6 @@ class FormDesignations(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FormDesignations, self).__init__(*args, **kwargs)
         self.fields['soundman'].queryset = Publisher.objects.filter(tags__in=['soundman'])
-        self.fields['stage'].queryset = Publisher.objects.filter(tags__in=['stage'])
         self.fields['attendant1'].queryset = Publisher.objects.filter(tags__in=['attendant'])
         self.fields['attendant2'].queryset = Publisher.objects.filter(tags__in=['attendant'])
         self.fields['mic_passer1'].queryset = Publisher.objects.filter(tags__in=['mic_passer'])
@@ -105,7 +104,7 @@ class FormDesignations(forms.ModelForm):
 
     class Meta:
         model = Designations
-        fields = ('soundman', 'stage', 'attendant1', 'attendant2', 'mic_passer1', 'mic_passer2')
+        fields = ('soundman', 'attendant1', 'attendant2', 'mic_passer1', 'mic_passer2')
 
 
 class FormGeneratePDF(forms.Form):

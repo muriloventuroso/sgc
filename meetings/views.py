@@ -230,7 +230,7 @@ def generate_pdf(request):
                 filter_m['type_meeting'] = 'm'
             meetings = Meeting.objects.filter(date__range=[data['start_date'], data['end_date']]).filter(**filter_m)\
                 .order_by('date')
-
+            print([data['start_date'], data['end_date']])
             layout = render_to_string(template, {'meetings': meetings})
             html = HTML(string=layout)
             main_doc = html.render(stylesheets=[CSS('static/css/pdf.css')])

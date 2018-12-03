@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"type",
+				"type_meeting"
+			],
+			[
 				"person",
 				"person_treasure"
 			],
@@ -312,10 +316,29 @@
 	"buffers":
 	[
 		{
-			"file": "sgc/settings.py",
+			"file": "meetings/views.py",
 			"settings":
 			{
-				"buffer_size": 4348,
+				"buffer_size": 17823,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "meetings/forms.py",
+			"settings":
+			{
+				"buffer_size": 5553,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "meetings/templates/pdf/designations.html",
+			"settings":
+			{
+				"buffer_size": 1081,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
@@ -437,18 +460,21 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static"
 	],
 	"file_history":
 	[
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/models.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/views.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/add_meeting.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/edit_meeting.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/forms.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/models.py",
+		"/home/muriloventuroso/mt-prioridade.csv",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/views.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/style.css",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/meetings.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/models.py",
@@ -458,7 +484,6 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/pdf.css",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/generate_pdf.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/base.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templatetags/pdf.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/weekend.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/header_midweek.html",
@@ -569,12 +594,11 @@
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/usuarios/tables.py",
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/acoes_tabela_adicionais.html",
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/usuarios/urls.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/senha_smpp.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/mkt/templatetags/language.py"
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/senha_smpp.html"
 	],
 	"find":
 	{
-		"height": 25.0
+		"height": 38.0
 	},
 	"find_in_files":
 	{
@@ -645,29 +669,100 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "sgc/settings.py",
-					"semi_transient": true,
+					"file": "meetings/views.py",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4348,
+						"buffer_size": 17823,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								314,
-								314
+								12389,
+								12389
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3040.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "meetings/forms.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5553,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4404,
+								4404
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1142.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "meetings/templates/pdf/designations.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1081,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1014,
+								1014
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
