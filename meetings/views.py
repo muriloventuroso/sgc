@@ -40,7 +40,6 @@ def meetings(request):
 def add_meeting(request):
     if request.method == 'POST':
         form = FormMeeting(request.POST)
-        print(request.POST)
         if form.is_valid():
             meeting = form.save(commit=False)
             form_designations = FormDesignations(request.POST)
@@ -49,7 +48,6 @@ def add_meeting(request):
             if meeting.type_meeting == 'w':
                 form_weekendcontent = FormWeekendContent(request.POST)
                 if form_weekendcontent.is_valid():
-                    print(form_weekendcontent.cleaned_data)
                     meeting.weekend_content = form_weekendcontent.save(commit=False)
             else:
                 form_midweekcontent = FormMidweekContent(request.POST)
@@ -230,7 +228,6 @@ def generate_pdf(request):
                 filter_m['type_meeting'] = 'm'
             meetings = Meeting.objects.filter(date__range=[data['start_date'], data['end_date']]).filter(**filter_m)\
                 .order_by('date')
-            print([data['start_date'], data['end_date']])
             layout = render_to_string(template, {'meetings': meetings})
             html = HTML(string=layout)
             main_doc = html.render(stylesheets=[CSS('static/css/pdf.css')])

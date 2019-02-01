@@ -25,7 +25,7 @@
             <tr>
                 <td {% if not t.reading %}colspan=2{% endif %}>{{t.title_treasure}} ({{t.duration_treasure}} min)</td>
                 {% if t.reading %}
-                <td class="small-title pull-right" style="width: 80px">{% trans 'Student' %}:</td>
+                <td class="small-title pull-right">{% trans 'Student' %}:</td>
                 {% endif %}
                 {% if next_element.room_treasure == 'B' %}
                     <td>{{next_element.person_treasure}}</td>
