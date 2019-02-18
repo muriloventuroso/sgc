@@ -14,6 +14,7 @@ django-bootstrap4==0.0.6
 django-datetime-widget==0.9.3
 django-rosetta==0.8.1
 django-tables2==1.21.2
+django-bmemcached==0.2.3
 git+https://github.com/muriloventuroso/djongo.git
 gunicorn==19.9.0
 html5lib==1.0.1
@@ -25,6 +26,7 @@ polib==1.1.0
 pycparser==2.18
 pymongo==3.7.1
 Pyphen==0.9.4
+python-binary-memcached==0.28.0
 python-memcached==1.59
 pytz==2018.5
 requests==2.19.1
