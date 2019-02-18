@@ -22,6 +22,7 @@ import sgc.views
 
 
 urlpatterns = i18n_patterns(
+    path('admin/', admin.site.urls),
     path('login/', sgc.views.login, {}, 'login'),
     path('logout/', logout_then_login, {'login_url': '/login/'}, 'logout'),
     path('congregations/', include('congregations.urls')),
@@ -29,10 +30,7 @@ urlpatterns = i18n_patterns(
     path('', sgc.views.home, {}, 'home')
 )
 
-if settings.ADMIN_ENABLED:
-    urlpatterns += i18n_patterns(
-        path('admin/', admin.site.urls),
-    )
+
 if 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += i18n_patterns(
         path('rosetta/', include('rosetta.urls'))
