@@ -14,7 +14,7 @@ django-bootstrap4==0.0.6
 django-datetime-widget==0.9.3
 django-rosetta==0.8.1
 django-tables2==1.21.2
-djongo==git+https://github.com/muriloventuroso/djongo.git
+git+https://github.com/muriloventuroso/djongo.git
 gunicorn==19.9.0
 html5lib==1.0.1
 idna==2.7
