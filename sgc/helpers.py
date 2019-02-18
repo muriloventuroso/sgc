@@ -14,9 +14,9 @@ def get_mongo_url():
 def get_cache():
     import os
     try:
-        servers = os.environ['MEMCACHIER_SERVERS']
-        username = os.environ['MEMCACHIER_USERNAME']
-        password = os.environ['MEMCACHIER_PASSWORD']
+        servers = os.environ['MEMCACHEDCLOUD_SERVERS']
+        username = os.environ['MEMCACHEDCLOUD_USERNAME']
+        password = os.environ['MEMCACHEDCLOUD_PASSWORD']
         return {
             'default': {
                 'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',

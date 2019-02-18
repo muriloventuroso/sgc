@@ -25,6 +25,7 @@ polib==1.1.0
 pycparser==2.18
 pymongo==3.7.1
 Pyphen==0.9.4
+python-binary-memcached==0.28.0
 python-memcached==1.59
 pytz==2018.5
 requests==2.19.1
@@ -32,6 +33,8 @@ six==1.11.0
 soupsieve==1.8
 sqlparse==0.2.4
 tinycss2==0.6.1
+typing==3.6.6
+uhashring==1.1
 urllib3==1.23
 WeasyPrint==0.42.3
 webencodings==0.5.1
