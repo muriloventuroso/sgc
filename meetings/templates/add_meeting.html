@@ -41,7 +41,8 @@
             </div>
             <div class="card" id="boxMidweekContent" style="display: none">
                 <div class="card-body">
-                    <h4 class="card-title">{% trans 'Midweek Content' %}</h4>
+                    <h4 class="card-title">{% trans 'Midweek Content' %} <i id="spinner-midweek" class="fa fa-spinner fa-spin pull-right" style="font-size:24px; display:none"></i></h4>
+
                     {% bootstrap_form form_midweekcontent %}
                     <div class="card col-lg-12">
                         <div class="card-body">
@@ -139,11 +140,53 @@
                 $('#boxMidweekContent').hide();
                 $('#boxWeekendContent').show();
             }else{
+                var date = $('#id_date').val();
+                if(date != ""){
+                    $('#spinner-midweek').show();
+                    $.ajax({
+                        url: '{% url "suggest_meeting" %}',
+                        type: 'GET',
+                        data: {type: 'midweek', date: date},
+                    })
+                    .done(function(data) {
+                        $('input[name="reading_week"]').val(data.reading_week);
+                        $('input[name="initial_song"]').val(data.first_song);
+                        $('input[name="second_song"]').val(data.second_song);
+                        $('input[name="final_song"]').val(data.third_song);
+                        $('#boxTreasures').empty();
+                        for (var i = 0; i < data.treasures.length; i++) {
+                            add_treasures();
+                            var box = $('#boxTreasures').children().last();
+                            box.find('input[name="title_treasure"]').val(data.treasures[i].title);
+                            box.find('input[name="duration_treasure"]').val(data.treasures[i].duration);
+                        }
+
+                        $('#boxApplyYourself').empty();
+                        for (var i = 0; i < data.apply_yourself.length; i++) {
+                            add_apply();
+                            var box = $('#boxApplyYourself').children().last();
+                            box.find('input[name="title_apply"]').val(data.apply_yourself[i].title);
+                            box.find('input[name="duration_apply"]').val(data.apply_yourself[i].duration);
+                        }
+
+                        $('#boxLivingChristians').empty();
+                        for (var i = 0; i < data.living_christians.length; i++) {
+                            add_living();
+                            var box = $('#boxLivingChristians').children().last();
+                            box.find('input[name="title_living"]').val(data.living_christians[i].title);
+                            box.find('input[name="duration_living"]').val(data.living_christians[i].duration);
+                        }
+                    })
+                    .always(function() {
+                        $('#spinner-midweek').hide();
+                    });
+                }
+
                 $('#boxMidweekContent').show();
                 $('#boxWeekendContent').hide();
             }
         });
-        $('#addTreasures').on('click', function(){
+        function add_treasures(){
             var box = $('#boxTreasuresContentModel').clone();
             box.attr('id', '');
             box.find('select').each(function(){
@@ -152,8 +195,9 @@
             box.find('label[for=id_person_reading]').parent().hide();
             box.show();
             $('#boxTreasures').append(box);
-        });
-        $('#addApplyYourself').on('click', function(){
+        }
+        $('#addTreasures').on('click', add_treasures);
+        function add_apply(){
             var box = $('#boxApplyYourselfContentModel').clone();
             box.attr('id', '');
             box.find('select').each(function(){
@@ -161,8 +205,11 @@
             });
             box.show();
             $('#boxApplyYourself').append(box);
+        };
+        $('#addApplyYourself').on('click', function(){
+            add_apply();
         });
-        $('#addLivingChristians').on('click', function(){
+        function add_living(){
             var box = $('#boxLivingChristiansContentModel').clone();
             box.attr('id', '');
             box.find('select').each(function(){
@@ -170,6 +217,9 @@
             });
             box.show();
             $('#boxLivingChristians').append(box);
+        }
+        $('#addLivingChristians').on('click', function(){
+            add_living();
         });
         $('form').on('click', '.remove-box', function(){
             $(this).parent().parent().remove();

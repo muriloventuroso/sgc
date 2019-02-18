@@ -6,6 +6,7 @@ urlpatterns = [
     path('<meeting_id>/edit/', meetings.views.edit_meeting, {}, 'edit_meeting'),
     path('add/', meetings.views.add_meeting, {}, 'add_meeting'),
     path('pdf/', meetings.views.generate_pdf, {}, 'generate_pdf'),
-    path('suggest/', meetings.views.suggest_publisher, {}, 'suggest_publisher'),
+    path('suggest/publisher/', meetings.views.suggest_publisher, {}, 'suggest_publisher'),
+    path('suggest/meeting/', meetings.views.suggest_meeting, {}, 'suggest_meeting'),
     path('', meetings.views.meetings, {}, 'meetings'),
 ]

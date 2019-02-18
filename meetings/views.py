@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -11,6 +12,7 @@ from meetings.forms import (
     FormSearchMeeting, FormMeeting, FormDesignations, FormWeekendContent, FormMidweekContent, FormTreasuresContent,
     FormApplyYourselfContent, FormLivingChristiansContent, FormGeneratePDF)
 from congregations.models import Publisher
+from sgc import settings
 
 
 @login_required
@@ -332,3 +334,60 @@ def suggest_publisher(request):
             ret.append(l)
 
     return JsonResponse(list(reversed(ret)), safe=False)
+
+
+@login_required
+def suggest_meeting(request):
+    import requests
+    from bs4 import BeautifulSoup
+    ret = {}
+
+    if 'date' not in request.GET or not request.GET['date']:
+        return HttpResponse(status=401)
+
+    if 'type' not in request.GET or not request.GET['type']:
+        return HttpResponse(status=401)
+
+    if request.GET['type'] != 'midweek':
+        return HttpResponse(status=401)
+
+    date = datetime.datetime.strptime(request.GET['date'], '%d/%m/%Y')
+    url = settings.URL_JW_MEETINGS_PT + date.strftime('%Y/%m/%d')
+    code = requests.get(url)
+    plain = code.text
+    plain = plain.replace('\xa0', ' ')
+    s = BeautifulSoup(plain, "html.parser")
+    reading_week = s.find('h2', {'id': 'p2'}).text.capitalize()
+    first_song = s.find('p', {'id': 'p3'}).find('a').text.split(' ')[1]
+    second_song = s.find('div', {'id': 'section4'}).findAll('li')[0].find('a').text.split(' ')[1]
+    third_song = s.find('div', {'id': 'section4'}).findAll('li')[-1].find('a').text.split(' ')[1]
+    treasures = []
+    for t in s.find('div', {'id': 'section2'}).findAll('p', {'class': 'su'}):
+        treasures.append({
+            'title': t.text.split(":")[0].strip().replace('“', '').replace('”', ''),
+            'duration': t.text.split(":")[1].strip().split(" ")[0].replace("(", "")
+        })
+
+    apply_yourself = []
+    for a in s.find('div', {'id': 'section3'}).findAll('p', {'class': 'su'}):
+        apply_yourself.append({
+            'title': a.text.split(":")[0].strip(),
+            'duration': a.text.split(":")[1].strip().split(" ")[0].replace("(", "")
+        })
+    living_christians = []
+    for l in s.find('div', {'id': 'section4'}).findAll('p', {'class': 'su'})[1:-2]:
+        living_christians.append({
+            'title': l.text.split(":")[0].strip(),
+            'duration': l.text.split(":")[1].strip().split(" ")[0].replace("(", "")
+        })
+
+    ret = {
+        'reading_week': reading_week,
+        'first_song': first_song,
+        'second_song': second_song,
+        'third_song': third_song,
+        'treasures': treasures,
+        'apply_yourself': apply_yourself,
+        'living_christians': living_christians
+    }
+    return JsonResponse(ret)

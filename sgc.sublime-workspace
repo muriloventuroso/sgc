@@ -315,33 +315,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "meetings/views.py",
-			"settings":
-			{
-				"buffer_size": 17823,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "meetings/forms.py",
-			"settings":
-			{
-				"buffer_size": 5553,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "meetings/templates/pdf/designations.html",
-			"settings":
-			{
-				"buffer_size": 1081,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -458,33 +431,37 @@
 	"expanded_folders":
 	[
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static"
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css"
 	],
 	"file_history":
 	[
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/midweek.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/pdf.css",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/forms.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/designations.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/add_meeting.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/edit_meeting.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/forms.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/models.py",
 		"/home/muriloventuroso/mt-prioridade.csv",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/views.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/style.css",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/meetings.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/models.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/urls.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/midweek.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/pdf.css",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/generate_pdf.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/base.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templatetags/pdf.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/weekend.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/header_midweek.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/designations.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/header_designations.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/header_weekend.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/helpers.py",
@@ -610,6 +587,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"print",
 			"addon_before",
 			"duration",
 			"table-midweek",
@@ -666,110 +644,8 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "meetings/views.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 17823,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								12389,
-								12389
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3040.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "meetings/forms.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5553,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4404,
-								4404
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1142.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "meetings/templates/pdf/designations.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1081,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1014,
-								1014
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
