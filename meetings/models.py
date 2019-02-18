@@ -1,4 +1,3 @@
-from django.contrib import admin
 from djongo import models
 from django.utils.translation import ugettext_lazy as _
 from congregations.models import Congregation, Publisher
@@ -120,12 +119,3 @@ class Meeting(models.Model):
 
     class Meta:
         ordering = ['date', ]
-
-
-admin.site.unregister(Meeting)
-admin.site.unregister(Designations)
-admin.site.unregister(MidweekContent)
-admin.site.unregister(LivingChristiansContent)
-admin.site.unregister(ApplyYourselfContent)
-admin.site.unregister(TreasuresContent)
-admin.site.unregister(WeekendContent)
