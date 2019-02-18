@@ -19,6 +19,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib.auth.views import logout_then_login
 from django.conf import settings
 import sgc.views
+from django.conf.urls.static import static
 
 
 urlpatterns = i18n_patterns(
@@ -27,7 +28,7 @@ urlpatterns = i18n_patterns(
     path('congregations/', include('congregations.urls')),
     path('meetings/', include('meetings.urls')),
     path('', sgc.views.home, {}, 'home')
-)
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.ADMIN_ENABLED:
     urlpatterns += i18n_patterns(
         path('admin/', admin.site.urls)
