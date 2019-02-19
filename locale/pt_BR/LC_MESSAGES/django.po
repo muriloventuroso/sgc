@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-02 08:47-0300\n"
-"PO-Revision-Date: 2018-08-02 08:48-0306\n"
+"POT-Creation-Date: 2019-02-19 08:40-0300\n"
+"PO-Revision-Date: 2019-02-19 08:42-0306\n"
 "Last-Translator: b'  <muriloventuroso@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,20 +19,20 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.8.1\n"
 
 #: congregations/forms.py:14 congregations/forms.py:27
-#: congregations/forms.py:42 congregations/models.py:17
-#: congregations/models.py:30
+#: congregations/forms.py:42 congregations/models.py:19
+#: congregations/models.py:32
 msgid "Name"
 msgstr "Nome"
 
-#: congregations/forms.py:15 congregations/models.py:18
+#: congregations/forms.py:15 congregations/models.py:20
 msgid "Circuit"
 msgstr "Circuito"
 
-#: congregations/forms.py:16 congregations/models.py:19
+#: congregations/forms.py:16 congregations/models.py:21
 msgid "City"
 msgstr "Cidade"
 
-#: congregations/forms.py:17 congregations/models.py:20
+#: congregations/forms.py:17 congregations/models.py:22
 msgid "State"
 msgstr "Estado"
 
@@ -40,7 +40,7 @@ msgstr "Estado"
 msgid "Tags"
 msgstr "Tags"
 
-#: congregations/forms.py:33 congregations/models.py:48
+#: congregations/forms.py:33 congregations/models.py:50
 msgid "Baptism Date"
 msgstr "Data de Batismo"
 
@@ -56,7 +56,7 @@ msgstr "Servo Ministerial"
 msgid "Attendant"
 msgstr "Indicador"
 
-#: congregations/models.py:6 meetings/models.py:81
+#: congregations/models.py:6 meetings/models.py:90
 #: meetings/templates/pdf/designations.html:10
 msgid "Soundman"
 msgstr "Sonoplasta"
@@ -69,63 +69,73 @@ msgstr "Mic Volante"
 msgid "Reader Watchtower"
 msgstr "Leitor de A Sentinela"
 
-#: congregations/models.py:9 meetings/templates/pdf/midweek.html:12
-#: meetings/templates/pdf/midweek.html:62
+#: congregations/models.py:9
+#| msgid "Midweek"
+msgid "Reader Midweek"
+msgstr "Leitor Meio de Semana"
+
+#: congregations/models.py:10 meetings/templates/pdf/midweek.html:13
+#: meetings/templates/pdf/midweek.html:83
 msgid "Prayer"
 msgstr "Oração"
 
-#: congregations/models.py:10
+#: congregations/models.py:11
 msgid "Elder"
 msgstr "Ancião"
 
-#: congregations/models.py:11 meetings/models.py:36
-#: meetings/templates/pdf/midweek.html:24
-#: meetings/templates/pdf/midweek.html:38
+#: congregations/models.py:12 meetings/models.py:39
+#: meetings/templates/pdf/midweek.html:28
+#: meetings/templates/pdf/midweek.html:52
 msgid "Student"
 msgstr "Estudante"
 
-#: congregations/models.py:31 congregations/models.py:50
-#: meetings/models.py:105 meetings/templates/pdf/weekend.html:10
+#: congregations/models.py:13 meetings/models.py:93
+#: meetings/templates/pdf/designations.html:17
+msgid "Stage"
+msgstr "Palco"
+
+#: congregations/models.py:33 congregations/models.py:52
+#: meetings/models.py:114 meetings/templates/pdf/weekend.html:10
 msgid "Congregation"
 msgstr "Congregação"
 
-#: congregations/models.py:41
+#: congregations/models.py:43
 msgid "Full Name"
 msgstr "Nome Completo"
 
-#: congregations/models.py:42
+#: congregations/models.py:44
 msgid "Address"
 msgstr "Endereço"
 
-#: congregations/models.py:43
+#: congregations/models.py:45
 msgid "Email"
 msgstr "Email"
 
-#: congregations/models.py:44
+#: congregations/models.py:46
 msgid "Phone"
 msgstr "Telefone"
 
-#: congregations/models.py:45
+#: congregations/models.py:47
 msgid "Cellphone"
 msgstr "Celular"
 
-#: congregations/models.py:46
+#: congregations/models.py:48
 msgid "Creation Date"
 msgstr "Data de Criação"
 
-#: congregations/models.py:47
+#: congregations/models.py:49
 msgid "Update Date"
 msgstr "Data de Atualização"
 
-#: congregations/models.py:49
+#: congregations/models.py:51
 msgid "Gender"
 msgstr "Gênero"
 
-#: congregations/models.py:49
+#: congregations/models.py:51
 msgid "Female"
 msgstr "Feminino"
 
-#: congregations/models.py:49
+#: congregations/models.py:51
 msgid "Male"
 msgstr "Masculino"
 
@@ -174,8 +184,8 @@ msgstr "Congregações"
 #: congregations/templates/groups/edit_group.html:32
 #: congregations/templates/publishers/add_publisher.html:32
 #: congregations/templates/publishers/edit_publisher.html:34
-#: meetings/templates/add_meeting.html:90
-#: meetings/templates/edit_meeting.html:114
+#: meetings/templates/add_meeting.html:95
+#: meetings/templates/edit_meeting.html:121
 msgid "Send"
 msgstr "Enviar"
 
@@ -271,27 +281,27 @@ msgstr "Publicado editado com sucesso"
 msgid "Publisher deleted successfully"
 msgstr "Publicado deletado com sucesso"
 
-#: meetings/forms.py:12 meetings/models.py:102
+#: meetings/forms.py:12 meetings/models.py:111
 msgid "Date"
 msgstr "Data"
 
-#: meetings/forms.py:22 meetings/forms.py:116
+#: meetings/forms.py:22 meetings/forms.py:115
 msgid "Start Date"
 msgstr "Data Inicial"
 
-#: meetings/forms.py:25 meetings/forms.py:119
+#: meetings/forms.py:25 meetings/forms.py:118
 msgid "End Date"
 msgstr "Data Final"
 
-#: meetings/forms.py:28 meetings/models.py:104
+#: meetings/forms.py:28 meetings/models.py:113
 msgid "Type Meeting"
 msgstr "Tipo de Reunião"
 
-#: meetings/forms.py:28 meetings/forms.py:113 meetings/models.py:104
+#: meetings/forms.py:28 meetings/forms.py:112 meetings/models.py:113
 msgid "Weekend"
 msgstr "Fim de Semana"
 
-#: meetings/forms.py:28 meetings/forms.py:113 meetings/models.py:104
+#: meetings/forms.py:28 meetings/forms.py:112 meetings/models.py:113
 msgid "Midweek"
 msgstr "Meio de Semana"
 
@@ -311,17 +321,17 @@ msgstr "Não"
 msgid "Yes"
 msgstr "Sim"
 
-#: meetings/forms.py:113
+#: meetings/forms.py:112
 msgid "Type PDF"
 msgstr "Tipo de PDF"
 
-#: meetings/forms.py:113 meetings/templates/add_meeting.html:82
-#: meetings/templates/edit_meeting.html:106
+#: meetings/forms.py:112 meetings/templates/add_meeting.html:87
+#: meetings/templates/edit_meeting.html:113
 msgid "Designations"
 msgstr "Designações"
 
-#: meetings/models.py:8 meetings/models.py:64
-#: meetings/templates/pdf/midweek.html:7
+#: meetings/models.py:8 meetings/models.py:73
+#: meetings/templates/pdf/midweek.html:8
 #: meetings/templates/pdf/weekend.html:18
 msgid "President"
 msgstr "Presidente"
@@ -338,72 +348,68 @@ msgstr "Congregação do Orador"
 msgid "Theme"
 msgstr "Tema"
 
-#: meetings/models.py:15 meetings/models.py:52
+#: meetings/models.py:15 meetings/models.py:58
 #: meetings/templates/pdf/weekend.html:20
 msgid "Reader"
 msgstr "Leitor"
 
-#: meetings/models.py:23 meetings/models.py:34 meetings/models.py:47
+#: meetings/models.py:23 meetings/models.py:37 meetings/models.py:53
 msgid "Title"
 msgstr "Título"
 
-#: meetings/models.py:25 meetings/models.py:49
+#: meetings/models.py:25 meetings/models.py:55
 msgid "Person"
 msgstr "Pessoa"
 
-#: meetings/models.py:27 meetings/models.py:41 meetings/models.py:54
+#: meetings/models.py:27 meetings/models.py:44 meetings/models.py:60
 msgid "Duration"
 msgstr "Duração"
 
-#: meetings/models.py:30 meetings/models.py:43
+#: meetings/models.py:30 meetings/models.py:46
 msgid "Room"
 msgstr "Sala"
 
-#: meetings/models.py:39 meetings/templates/pdf/midweek.html:38
+#: meetings/models.py:42 meetings/templates/pdf/midweek.html:52
 msgid "Assistant"
 msgstr "Ajudante"
 
-#: meetings/models.py:58
+#: meetings/models.py:67
 msgid "Reading Week"
 msgstr "Leitura da Semana"
 
-#: meetings/models.py:59
+#: meetings/models.py:68
 msgid "Initial Song"
 msgstr "Cântico Inicial"
 
-#: meetings/models.py:61
+#: meetings/models.py:70
 msgid "Initial Prayer"
 msgstr "Oração Inicial"
 
-#: meetings/models.py:68
+#: meetings/models.py:77
 msgid "Second Song"
 msgstr "Segundo Cântico"
 
-#: meetings/models.py:71
+#: meetings/models.py:80
 msgid "Final Prayer"
 msgstr "Oração Final"
 
-#: meetings/models.py:73
+#: meetings/models.py:82
 msgid "Final Song"
 msgstr "Cântico Final"
 
-#: meetings/models.py:84 meetings/templates/pdf/designations.html:16
-msgid "Stage"
-msgstr "Palco"
-
-#: meetings/models.py:87
+#: meetings/models.py:96
 msgid "Attendant 1"
 msgstr "Indicador 1"
 
-#: meetings/models.py:90
+#: meetings/models.py:99
 msgid "Attendant 2"
 msgstr "Indicador 2"
 
-#: meetings/models.py:93
+#: meetings/models.py:102
 msgid "Mic Passer 1"
 msgstr "Mic Volante 1"
 
-#: meetings/models.py:96
+#: meetings/models.py:105
 msgid "Mic Passer 2"
 msgstr "Mic Volante 2"
 
@@ -426,39 +432,37 @@ msgstr "Reuniões"
 msgid "Weekend Content"
 msgstr "Conteúdo Fim de Semana"
 
-#: meetings/templates/add_meeting.html:40
-#: meetings/templates/edit_meeting.html:40
+#: meetings/templates/add_meeting.html:44
+#: meetings/templates/edit_meeting.html:44
 msgid "Midweek Content"
 msgstr "Conteúdo Meio de Semana"
 
-#: meetings/templates/add_meeting.html:45
-#: meetings/templates/edit_meeting.html:45
+#: meetings/templates/add_meeting.html:50
+#: meetings/templates/edit_meeting.html:49
 msgid "Treasures Content"
 msgstr "Conteúdo Tesouros"
 
-#: meetings/templates/add_meeting.html:47
-#: meetings/templates/add_meeting.html:59
-#: meetings/templates/add_meeting.html:71
-#: meetings/templates/edit_meeting.html:47
-#: meetings/templates/edit_meeting.html:67
-#: meetings/templates/edit_meeting.html:87
+#: meetings/templates/add_meeting.html:52
+#: meetings/templates/add_meeting.html:64
+#: meetings/templates/add_meeting.html:76
+#: meetings/templates/edit_meeting.html:51
+#: meetings/templates/edit_meeting.html:71
+#: meetings/templates/edit_meeting.html:91
 msgid "Add"
 msgstr "Adicionar"
 
-#: meetings/templates/add_meeting.html:57
-#: meetings/templates/edit_meeting.html:65
+#: meetings/templates/add_meeting.html:62
+#: meetings/templates/edit_meeting.html:69
 msgid "Apply Yourself Content"
 msgstr "Conteúdo Faça seu Melhor"
 
-#: meetings/templates/add_meeting.html:69
-#: meetings/templates/edit_meeting.html:85
+#: meetings/templates/add_meeting.html:74
+#: meetings/templates/edit_meeting.html:89
 msgid "Living Christians Content"
 msgstr "Conteúdo Vida Cristã"
 
-#: meetings/templates/add_meeting.html:184
-#: meetings/templates/add_meeting.html:193
-#: meetings/templates/edit_meeting.html:224
-#: meetings/templates/edit_meeting.html:232
+#: meetings/templates/add_meeting.html:247
+#: meetings/templates/edit_meeting.html:241
 msgid "Duplicate Entry"
 msgstr "Entrada Duplicada"
 
@@ -493,53 +497,49 @@ msgstr "Programação da Reunião de Meio de Semana"
 msgid "Public Meeting and Study of Watchtower"
 msgstr "Reunião Pública e Estudo de A Sentinela"
 
-#: meetings/templates/pdf/midweek.html:11
-#: meetings/templates/pdf/midweek.html:49
-#: meetings/templates/pdf/midweek.html:61
+#: meetings/templates/pdf/midweek.html:12
+#: meetings/templates/pdf/midweek.html:70
+#: meetings/templates/pdf/midweek.html:82
 msgid "Song"
 msgstr "Cântico"
 
-#: meetings/templates/pdf/midweek.html:16
+#: meetings/templates/pdf/midweek.html:17
 msgid "Treasures From God's Word"
 msgstr "Tesouros da Palavra de Deus"
 
-#: meetings/templates/pdf/midweek.html:17
-#| msgid "Room"
+#: meetings/templates/pdf/midweek.html:18
 msgid "Room B"
 msgstr "Sala B"
 
-#: meetings/templates/pdf/midweek.html:18
-#| msgid "Room"
+#: meetings/templates/pdf/midweek.html:19
 msgid "Room A"
 msgstr "Salão Principal"
 
-#: meetings/templates/pdf/midweek.html:31
-#| msgid "Apply Yourself Content"
+#: meetings/templates/pdf/midweek.html:42
 msgid "Apply Yourself to the Field Ministry"
 msgstr "Faça seu Melhor no Ministério"
 
-#: meetings/templates/pdf/midweek.html:44
-#| msgid "Living Christians Content"
+#: meetings/templates/pdf/midweek.html:65
 msgid "Living as Christians"
 msgstr "Nossa Vida Cristã"
 
-#: meetings/views.py:90
+#: meetings/views.py:93
 msgid "Meeting added successfully"
 msgstr "Reunião adicionada com sucesso"
 
-#: meetings/views.py:164
+#: meetings/views.py:166
 msgid "Meeting edited successfully"
 msgstr "Reunião editada com sucesso"
 
-#: meetings/views.py:203
+#: meetings/views.py:205
 msgid "Meeting deleted successfully"
 msgstr "Reunião deletada com sucesso"
 
-#: sgc/settings.py:141
+#: sgc/settings.py:138
 msgid "English"
 msgstr "Inglês"
 
-#: sgc/settings.py:142
+#: sgc/settings.py:139
 msgid "Portuguese"
 msgstr "Português"
 

@@ -4,16 +4,52 @@
 		"selected_items":
 		[
 			[
+				"get",
+				"get_mongo_url\tfunction"
+			],
+			[
+				"livin",
+				"living_christians\tstatement"
+			],
+			[
+				"li",
+				"living_christians"
+			],
+			[
+				"app",
+				"apply_yourself\tstatement"
+			],
+			[
+				"ch",
+				"living_christians"
+			],
+			[
+				"appl",
+				"apply_yourself"
+			],
+			[
+				"su",
+				"suggest_meeting"
+			],
+			[
+				"s",
+				"suggest_publisher"
+			],
+			[
+				"hd",
+				"h2_daily_text\tstatement"
+			],
+			[
+				"mid",
+				"midweek"
+			],
+			[
 				"type",
 				"type_meeting"
 			],
 			[
 				"person",
 				"person_treasure"
-			],
-			[
-				"mid",
-				"midweek_content"
 			],
 			[
 				"weeke",
@@ -158,10 +194,6 @@
 			[
 				"adicion",
 				"adicional_valor"
-			],
-			[
-				"get",
-				"get_empresa_id\tfunction"
 			],
 			[
 				"itens_",
@@ -315,6 +347,15 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "meetings/forms.py",
+			"settings":
+			{
+				"buffer_size": 5553,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -328,16 +369,16 @@
 		"selected_items":
 		[
 			[
-				"push",
-				"Git: Push"
-			],
-			[
 				"comm",
 				"Git: Commit"
 			],
 			[
 				"add",
 				"Git: Add All"
+			],
+			[
+				"push",
+				"Git: Push"
 			],
 			[
 				"remo",
@@ -431,9 +472,8 @@
 	"expanded_folders":
 	[
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static",
@@ -441,22 +481,29 @@
 	],
 	"file_history":
 	[
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/midweek.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/pdf.css",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/requirements.txt",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/models.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/urls.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/helpers.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/Procfile",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/admin.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/admin.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/.git/config",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/add_meeting.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/urls.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/midweek.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/pdf.css",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/designations.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/add_meeting.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/edit_meeting.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/models.py",
 		"/home/muriloventuroso/mt-prioridade.csv",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/style.css",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/meetings.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/models.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/forms.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/urls.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/generate_pdf.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/base.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templatetags/pdf.py",
@@ -466,7 +513,6 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/header_weekend.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/helpers.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/locale/pt_BR/LC_MESSAGES/django.po",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/urls.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/table.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates/groups/actions_table_groups.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates/congregations/actions_table_congregations.html",
@@ -486,7 +532,6 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/js/bootstrap-select.js",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/bootstrap-select.min.css",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/js/main.js",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/.git/config",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templatetags/menu.py",
 		"/home/muriloventuroso/Dev/Python/mkt-env/lib/python3.6/site-packages/bootstrap3/renderers.py",
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/css/style.css",
@@ -563,12 +608,7 @@
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/tvoz/envio_arquivo.html",
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ftp/management/commands/ftpserver.py",
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/audio/views.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/ura/views.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/tarifas_servico.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/usuarios/tables.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/acoes_tabela_adicionais.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/usuarios/urls.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/usuarios/senha_smpp.html"
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/ura/views.py"
 	],
 	"find":
 	{
@@ -579,6 +619,7 @@
 		"height": 99.0,
 		"where_history":
 		[
+			"/home/muriloventuroso/Dev/Python/sgc-env/sgc,*.py",
 			"/home/muriloventuroso/Dev/Python/sgc-env/sgc"
 		]
 	},
@@ -587,6 +628,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"elder",
+			"white",
 			"print",
 			"addon_before",
 			"duration",
@@ -644,8 +687,50 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "meetings/forms.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5553,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1549,
+								1549
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 486.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -687,6 +772,10 @@
 	"output.SublimeLinter Messages":
 	{
 		"height": 114.0
+	},
+	"output.doc":
+	{
+		"height": 0.0
 	},
 	"output.exec":
 	{
