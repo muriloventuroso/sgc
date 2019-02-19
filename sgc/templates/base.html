@@ -66,6 +66,12 @@
                             <li><i class="fa fa-file-pdf-o"></i><a href="{% url 'generate_pdf' %}">{% trans 'Generate PDF' %}</a></li>
                         </ul>
                     </li>
+                    <li class="menu-item-has-children dropdown {% show_entry app 'users' %}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="{% show_expanded app 'users' %}"> <i class="menu-icon fa fa-cogs "></i>{% trans 'Administration' %}</a>
+                        <ul class="sub-menu children dropdown-menu {% show_entry app 'users' %}">
+                            <li><i class="fa fa-users"></i><a href="{% url 'users' %}">{% trans 'Users' %}</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}SGC - {% trans 'Edit User' %}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>{% trans 'Edit User' %}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li>{% trans 'Users' %}</li>
+                    <li>{% trans 'Edit User' %}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12 card card-body">
+        <form method="post" action=".?next={{next}}">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% bootstrap_form form_profile %}
+            <button type="submit" class="btn btn-success pull-right">{% trans 'Send' %}</button>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

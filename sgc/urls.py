@@ -27,6 +27,7 @@ urlpatterns = i18n_patterns(
     path('logout/', logout_then_login, {'login_url': '/login/'}, 'logout'),
     path('congregations/', include('congregations.urls')),
     path('meetings/', include('meetings.urls')),
+    path('users/', include('users.urls')),
     path('', sgc.views.home, {}, 'home')
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.ADMIN_ENABLED:
