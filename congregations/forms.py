@@ -39,5 +39,12 @@ class FormPublisher(forms.ModelForm):
 
 
 class FormSearchPublisher(forms.Form):
+    def __init__(self, user_profile, *args, **kwargs):
+        super(FormSearchPublisher, self).__init__(*args, **kwargs)
+        if user_profile.user.is_staff:
+            self.fields['congregation'].queryset = Congregation.objects.all()
+        else:
+            self.fields['congregation'].queryset = user_profile.congregations.all()
     name = forms.CharField(label=_("Name"), required=False)
     tags = forms.MultipleChoiceField(label=_("TAGS"), choices=TAGS, required=False)
+    congregation = forms.ModelChoiceField(label=_("Congregation"), queryset=Congregation.objects.none(), required=False)

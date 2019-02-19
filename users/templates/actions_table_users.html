@@ -4,6 +4,7 @@
     </button>
     <div class="dropdown-menu">
         <a class="dropdown-item" href="{% url 'edit_user' record.user_id %}">{% trans 'Edit' %}</a>
+        <a class="dropdown-item" href="{% url 'set_password' record.user_id %}">{% trans 'Set Password' %}</a>
         <a class="dropdown-item" href="{% url 'delete_user' record.user_id %}" onclick="return confirm('Are you sure?');">{% trans 'Delete' %}</a>
     </div>
 </div>

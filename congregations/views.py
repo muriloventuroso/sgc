@@ -7,6 +7,7 @@ from congregations.models import Congregation, Group, Publisher
 from congregations.tables import TableCongregations, TableGroups, TablePublishers
 from congregations.forms import (
     FormCongregation, FormGroup, FormPublisher, FormSearchCongregation, FormSearchGroup, FormSearchPublisher)
+from users.models import UserProfile
 
 
 @login_required
@@ -130,7 +131,8 @@ def delete_group(request, group_id):
 
 @login_required
 def publishers(request):
-    form = FormSearchPublisher(request.GET)
+    profile = UserProfile.objects.get(user=request.user)
+    form = FormSearchPublisher(profile, request.GET)
     filter_data = {}
     if form.is_valid():
         data = form.cleaned_data

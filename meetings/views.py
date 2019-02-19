@@ -10,13 +10,15 @@ from meetings.models import Meeting, TreasuresContent, ApplyYourselfContent, Liv
 from meetings.tables import TableMeetings
 from meetings.forms import (
     FormSearchMeeting, FormMeeting, FormDesignations, FormWeekendContent, FormMidweekContent, FormTreasuresContent,
-    FormApplyYourselfContent, FormLivingChristiansContent, FormGeneratePDF)
+    FormApplyYourselfContent, FormLivingChristiansContent, FormGeneratePDF, FormSelectCongregation)
 from congregations.models import Publisher
+from users.models import UserProfile
 from sgc import settings
 
 
 @login_required
 def meetings(request):
+    profile = UserProfile.objects.get(user=request.user)
     form = FormSearchMeeting(request.GET)
     filter_m = {}
     if form.is_valid():
@@ -33,26 +35,35 @@ def meetings(request):
     table = TableMeetings(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
+    form_select_congregation = FormSelectCongregation(profile)
     return render(request, 'meetings.html', {
-        'request': request, 'table': table, 'app': 'meetings', 'form': form
+        'request': request, 'table': table, 'app': 'meetings', 'form': form,
+        'form_select_congregation': form_select_congregation
     })
 
 
 @login_required
 def add_meeting(request):
+    profile = UserProfile.objects.get(user=request.user)
+    if 'congregation' in request.GET and request.GET['congregation']:
+        congregation_id = request.GET['congregation']
+    else:
+        return HttpResponse(status=404)
+    initital = {'congregation': congregation_id}
     if request.method == 'POST':
-        form = FormMeeting(request.POST)
+        form = FormMeeting(profile, request.POST, initial=initital)
         if form.is_valid():
             meeting = form.save(commit=False)
-            form_designations = FormDesignations(request.POST)
+            meeting.congregation_id = congregation_id
+            form_designations = FormDesignations(congregation_id, request.POST)
             if form_designations.is_valid():
                 meeting.designations = form_designations.save(commit=False)
             if meeting.type_meeting == 'w':
-                form_weekendcontent = FormWeekendContent(request.POST)
+                form_weekendcontent = FormWeekendContent(congregation_id, request.POST)
                 if form_weekendcontent.is_valid():
                     meeting.weekend_content = form_weekendcontent.save(commit=False)
             else:
-                form_midweekcontent = FormMidweekContent(request.POST)
+                form_midweekcontent = FormMidweekContent(congregation_id, request.POST)
                 if form_midweekcontent.is_valid():
                     meeting.midweek_content = form_midweekcontent.save(commit=False)
                     meeting.midweek_content.treasures = []
@@ -93,13 +104,13 @@ def add_meeting(request):
             messages.success(request, _("Meeting added successfully"))
             return redirect('meetings')
     else:
-        form = FormMeeting()
-        form_designations = FormDesignations()
-        form_weekendcontent = FormWeekendContent()
-        form_midweekcontent = FormMidweekContent()
-        form_treasurescontent = FormTreasuresContent()
-        form_applyyourselfcontent = FormApplyYourselfContent()
-        form_livingchristianscontent = FormLivingChristiansContent()
+        form = FormMeeting(profile, initial=initital)
+        form_designations = FormDesignations(congregation_id)
+        form_weekendcontent = FormWeekendContent(congregation_id)
+        form_midweekcontent = FormMidweekContent(congregation_id)
+        form_treasurescontent = FormTreasuresContent(congregation_id)
+        form_applyyourselfcontent = FormApplyYourselfContent(congregation_id)
+        form_livingchristianscontent = FormLivingChristiansContent(congregation_id)
     return render(request, 'add_meeting.html', {
         'request': request, 'form': form, 'app': 'meetings',
         'form_designations': form_designations, 'form_weekendcontent': form_weekendcontent,
@@ -112,12 +123,14 @@ def add_meeting(request):
 @login_required
 def edit_meeting(request, meeting_id):
     meeting = get_object_or_404(Meeting, pk=meeting_id)
+    profile = UserProfile.objects.get(user=request.user)
     meeting.date = meeting.date.strftime('%d/%m/%Y')
+    congregation_id = meeting.congregation_id
     if request.method == 'POST':
-        form = FormMeeting(request.POST, instance=meeting)
+        form = FormMeeting(profile, request.POST, instance=meeting)
         if form.is_valid():
             meeting = form.save(commit=False)
-            form_designations = FormDesignations(request.POST)
+            form_designations = FormDesignations(congregation_id, request.POST)
             if form_designations.is_valid():
                 meeting.designations = form_designations.save(commit=False)
             if meeting.type_meeting == 'w':
@@ -166,13 +179,13 @@ def edit_meeting(request, meeting_id):
             messages.success(request, _("Meeting edited successfully"))
             return redirect('meetings')
     else:
-        form = FormMeeting(instance=meeting)
-        form_designations = FormDesignations(instance=meeting.designations)
-        form_weekendcontent = FormWeekendContent(instance=meeting.weekend_content)
-        form_midweekcontent = FormMidweekContent(instance=meeting.midweek_content)
-        form_treasurescontent = FormTreasuresContent()
-        form_applyyourselfcontent = FormApplyYourselfContent()
-        form_livingchristianscontent = FormLivingChristiansContent()
+        form = FormMeeting(profile, instance=meeting)
+        form_designations = FormDesignations(congregation_id, instance=meeting.designations)
+        form_weekendcontent = FormWeekendContent(congregation_id, instance=meeting.weekend_content)
+        form_midweekcontent = FormMidweekContent(congregation_id, instance=meeting.midweek_content)
+        form_treasurescontent = FormTreasuresContent(congregation_id)
+        form_applyyourselfcontent = FormApplyYourselfContent(congregation_id)
+        form_livingchristianscontent = FormLivingChristiansContent(congregation_id)
         list_form_treasurescontent = []
         list_form_applyyourselfcontent = []
         list_form_livingchristianscontent = []
@@ -181,11 +194,11 @@ def edit_meeting(request, meeting_id):
                 initial = {}
                 if f.reading and f.person_treasure_id:
                     initial['person_reading'] = f.person_treasure
-                list_form_treasurescontent.append(FormTreasuresContent(instance=f, initial=initial))
+                list_form_treasurescontent.append(FormTreasuresContent(congregation_id, instance=f, initial=initial))
             for f in meeting.midweek_content.apply_yourself:
-                list_form_applyyourselfcontent.append(FormApplyYourselfContent(instance=f))
+                list_form_applyyourselfcontent.append(FormApplyYourselfContent(congregation_id, instance=f))
             for f in meeting.midweek_content.living_christians:
-                list_form_livingchristianscontent.append(FormLivingChristiansContent(instance=f))
+                list_form_livingchristianscontent.append(FormLivingChristiansContent(congregation_id, instance=f))
     return render(request, 'edit_meeting.html', {
         'request': request, 'form': form, 'app': 'meetings',
         'form_designations': form_designations, 'form_weekendcontent': form_weekendcontent,
@@ -268,16 +281,25 @@ def suggest_publisher(request):
 
     if 'type' not in request.GET or not request.GET['type']:
         return HttpResponse(status=401)
+
+    if 'congregation_id' not in request.GET or not request.GET['congregation_id']:
+        return HttpResponse(status=401)
+    congregation_id = request.GET['congregation_id']
+    filter_m['congregation_id'] = congregation_id
     meetings = Meeting.objects.filter(**filter_m).order_by('-date')
     if request.GET['type'] == 'soundman':
-        list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['soundman'])]
+        list_publishers = [
+            (str(p._id), p.full_name) for p in Publisher.objects.filter(
+                tags__in=['soundman'], congregation_id=congregation_id)]
         for meeting in meetings:
             if (
                     meeting.designations.soundman_id and str(meeting.designations.soundman_id)
                     not in list_publishers_meetings):
                 list_publishers_meetings.append(str(meeting.designations.soundman_id))
     elif request.GET['type'] == 'attendant1' or request.GET['type'] == 'attendant2':
-        list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['attendant'])]
+        list_publishers = [
+            (str(p._id), p.full_name) for p in Publisher.objects.filter(
+                tags__in=['attendant'], congregation_id=congregation_id)]
         for meeting in meetings:
             if (
                     meeting.designations.attendant1_id and str(meeting.designations.attendant1_id)
@@ -288,7 +310,9 @@ def suggest_publisher(request):
                     not in list_publishers_meetings):
                 list_publishers_meetings.append(str(meeting.designations.attendant2_id))
     elif request.GET['type'] == 'mic_passer1' or request.GET['type'] == 'mic_passer2':
-        list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['mic_passer'])]
+        list_publishers = [
+            (str(p._id), p.full_name) for p in Publisher.objects.filter(
+                tags__in=['mic_passer'], congregation_id=congregation_id)]
         for meeting in meetings:
             if (
                     meeting.designations.mic_passer1_id and str(meeting.designations.mic_passer1_id)
@@ -299,12 +323,16 @@ def suggest_publisher(request):
                     not in list_publishers_meetings):
                 list_publishers_meetings.append(str(meeting.designations.mic_passer2_id))
     elif request.GET['type'] == 'stage':
-        list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['stage'])]
+        list_publishers = [
+            (str(p._id), p.full_name) for p in Publisher.objects.filter(
+                tags__in=['stage'], congregation_id=congregation_id)]
         for meeting in meetings:
             if meeting.designations.stage_id and str(meeting.designations.stage_id) not in list_publishers_meetings:
                 list_publishers_meetings.append(str(meeting.designations.stage_id))
     elif request.GET['type'] == 'reader_w':
-        list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['reader_w'])]
+        list_publishers = [
+            (str(p._id), p.full_name) for p in Publisher.objects.filter(
+                tags__in=['reader_w'], congregation_id=congregation_id)]
         for meeting in meetings:
             if meeting.type_meeting == 'm':
                 continue
@@ -313,7 +341,9 @@ def suggest_publisher(request):
                     not in list_publishers_meetings):
                 list_publishers_meetings.append(str(meeting.weekend_content.reader_id))
     elif request.GET['type'] == 'reader_m':
-        list_publishers = [(str(p._id), p.full_name) for p in Publisher.objects.filter(tags__in=['reader_m'])]
+        list_publishers = [
+            (str(p._id), p.full_name) for p in Publisher.objects.filter(
+                tags__in=['reader_m'], congregation_id=congregation_id)]
         for meeting in meetings:
             if meeting.type_meeting == 'w':
                 continue

@@ -256,6 +256,7 @@
             var date = $('#id_date').val();
             var select = $(this).parent().parent().find('select');
             var type = select.attr('name');
+            var congregation_id = $("#id_congregation").val();
             if(type == "reader"){
                 if($('#id_type_meeting').val() == 'w'){
                     type = 'reader_w';
@@ -266,7 +267,7 @@
             $.ajax({
                 url: '{% url "suggest_publisher" %}',
                 type: 'GET',
-                data: {"type": type, "date": date},
+                data: {"type": type, "date": date, "congregation_id": congregation_id},
             })
             .done(function(data) {
                 select.empty();

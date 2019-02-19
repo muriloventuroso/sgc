@@ -45,11 +45,41 @@
         <div class="card">
             <div class="card-body">
                 <div class="col-lg-12">
-                    <a class="btn btn-primary pull-right" href="{% url 'add_meeting' %}" role="button">{% trans 'Add Meeting' %}</a>
+                    <a class="btn btn-primary pull-right" href="#" id="addMeeting" role="button">{% trans 'Add Meeting' %}</a>
                 </div>
                 {% render_table table 'table.html' %}
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="selectCongregation" tabindex="-1" role="dialog" aria-labelledby="selectCongregationLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{% url 'add_meeting' %}" method="get">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="selectCongregationLabel">{% trans "Select Congregation" %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% bootstrap_form form_select_congregation %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="submit" class="btn btn-primary">{% trans "Add Meeting" %}</button>
+                  </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extrajs %}
+<script>
+    $(document).ready(function() {
+        $("#addMeeting").on('click', function(){
+            $('#selectCongregation').modal();
+        });
+    });
+</script>
 {% endblock %}
