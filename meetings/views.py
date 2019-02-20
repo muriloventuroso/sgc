@@ -77,26 +77,32 @@ def add_meeting(request):
                             duration_treasure=request.POST.getlist('duration_treasure')[i]
                         )
                         if item.reading:
-                            item.person_treasure_id = request.POST.getlist('person_reading')[i]
+                            person_reading_id = request.POST.getlist('person_reading')[i]
+                            item.person_treasure_id = person_reading_id if person_reading_id else None
                         else:
-                            item.person_treasure_id = request.POST.getlist('person_treasure')[i]
+                            person_treasure_id = request.POST.getlist('person_treasure')[i]
+                            item.person_treasure_id = person_treasure_id if person_treasure_id else None
                         meeting.midweek_content.treasures.append(item)
                     for i, title_apply in enumerate(request.POST.getlist('title_apply')):
+                        student_id = request.POST.getlist('student')[i]
+                        assistant_id = request.POST.getlist('assistant')[i]
                         item = ApplyYourselfContent(
                             title_apply=title_apply,
                             room_apply=request.POST.getlist('room_apply')[i],
                             duration_apply=request.POST.getlist('duration_apply')[i],
-                            student_id=request.POST.getlist('student')[i],
-                            assistant_id=request.POST.getlist('assistant')[i],
+                            student_id=student_id if student_id else None,
+                            assistant_id=assistant_id if assistant_id else None,
                         )
 
                         meeting.midweek_content.apply_yourself.append(item)
                     for i, title_living in enumerate(request.POST.getlist('title_living')):
+                        reader_id = request.POST.getlist('reader')[i]
+                        person_living_id = request.POST.getlist('person_living')[i]
                         item = LivingChristiansContent(
                             title_living=title_living,
                             duration_living=request.POST.getlist('duration_living')[i],
-                            person_living_id=request.POST.getlist('person_living')[i],
-                            reader_id=request.POST.getlist('reader')[i],
+                            person_living_id=person_living_id if person_living_id else None,
+                            reader_id=reader_id if reader_id else None,
                         )
 
                         meeting.midweek_content.living_christians.append(item)
@@ -154,26 +160,32 @@ def edit_meeting(request, meeting_id):
                             duration_treasure=request.POST.getlist('duration_treasure')[i]
                         )
                         if item.reading:
-                            item.person_treasure_id = request.POST.getlist('person_reading')[i]
+                            person_reading_id = request.POST.getlist('person_reading')[i]
+                            item.person_treasure_id = person_reading_id if person_reading_id else None
                         else:
-                            item.person_treasure_id = request.POST.getlist('person_treasure')[i]
+                            person_treasure_id = request.POST.getlist('person_treasure')[i]
+                            item.person_treasure_id = person_treasure_id if person_treasure_id else None
                         meeting.midweek_content.treasures.append(item)
                     for i, title_apply in enumerate(request.POST.getlist('title_apply')):
+                        student_id = request.POST.getlist('student')[i]
+                        assistant_id = request.POST.getlist('assistant')[i]
                         item = ApplyYourselfContent(
                             title_apply=title_apply,
                             room_apply=request.POST.getlist('room_apply')[i],
                             duration_apply=request.POST.getlist('duration_apply')[i],
-                            student_id=request.POST.getlist('student')[i],
-                            assistant_id=request.POST.getlist('assistant')[i],
+                            student_id=student_id if student_id else None,
+                            assistant_id=assistant_id if assistant_id else None,
                         )
 
                         meeting.midweek_content.apply_yourself.append(item)
                     for i, title_living in enumerate(request.POST.getlist('title_living')):
+                        reader_id = request.POST.getlist('reader')[i]
+                        person_living_id = request.POST.getlist('person_living')[i]
                         item = LivingChristiansContent(
                             title_living=title_living,
                             duration_living=request.POST.getlist('duration_living')[i],
-                            person_living_id=request.POST.getlist('person_living')[i],
-                            reader_id=request.POST.getlist('reader')[i],
+                            person_living_id=person_living_id if person_living_id else None,
+                            reader_id=reader_id if reader_id else None,
                         )
 
                         meeting.midweek_content.living_christians.append(item)
