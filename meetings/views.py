@@ -183,19 +183,19 @@ def edit_meeting(request, meeting_id):
         form_designations = FormDesignations(congregation_id, instance=meeting.designations)
         form_weekendcontent = FormWeekendContent(congregation_id, instance=meeting.weekend_content)
         form_midweekcontent = FormMidweekContent(congregation_id, instance=meeting.midweek_content)
-        list_form_treasurescontent = []
-        list_form_applyyourselfcontent = []
-        list_form_livingchristianscontent = []
-        if meeting.type_meeting == 'm':
-            for f in meeting.midweek_content.treasures:
-                initial = {}
-                if f.reading and f.person_treasure_id:
-                    initial['person_reading'] = f.person_treasure
-                list_form_treasurescontent.append(FormTreasuresContent(congregation_id, instance=f, initial=initial))
-            for f in meeting.midweek_content.apply_yourself:
-                list_form_applyyourselfcontent.append(FormApplyYourselfContent(congregation_id, instance=f))
-            for f in meeting.midweek_content.living_christians:
-                list_form_livingchristianscontent.append(FormLivingChristiansContent(congregation_id, instance=f))
+    list_form_treasurescontent = []
+    list_form_applyyourselfcontent = []
+    list_form_livingchristianscontent = []
+    if meeting.type_meeting == 'm':
+        for f in meeting.midweek_content.treasures:
+            initial = {}
+            if f.reading and f.person_treasure_id:
+                initial['person_reading'] = f.person_treasure
+            list_form_treasurescontent.append(FormTreasuresContent(congregation_id, instance=f, initial=initial))
+        for f in meeting.midweek_content.apply_yourself:
+            list_form_applyyourselfcontent.append(FormApplyYourselfContent(congregation_id, instance=f))
+        for f in meeting.midweek_content.living_christians:
+            list_form_livingchristianscontent.append(FormLivingChristiansContent(congregation_id, instance=f))
     form_treasurescontent = FormTreasuresContent(congregation_id)
     form_applyyourselfcontent = FormApplyYourselfContent(congregation_id)
     form_livingchristianscontent = FormLivingChristiansContent(congregation_id)
