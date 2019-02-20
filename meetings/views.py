@@ -126,8 +126,9 @@ def edit_meeting(request, meeting_id):
     profile = UserProfile.objects.get(user=request.user)
     meeting.date = meeting.date.strftime('%d/%m/%Y')
     congregation_id = meeting.congregation_id
+    initital = {'congregation': congregation_id}
     if request.method == 'POST':
-        form = FormMeeting(profile, request.POST, instance=meeting)
+        form = FormMeeting(profile, request.POST, instance=meeting, initial=initital)
         form_designations = FormDesignations(congregation_id, request.POST)
         form_weekendcontent = FormWeekendContent(request.POST)
         form_midweekcontent = FormMidweekContent(request.POST)
