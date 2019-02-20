@@ -128,9 +128,9 @@ def edit_meeting(request, meeting_id):
     congregation_id = meeting.congregation_id
     if request.method == 'POST':
         form = FormMeeting(profile, request.POST, instance=meeting)
+        form_designations = FormDesignations(congregation_id, request.POST, instance=meeting.designations)
         if form.is_valid():
             meeting = form.save(commit=False)
-            form_designations = FormDesignations(congregation_id, request.POST)
             if form_designations.is_valid():
                 meeting.designations = form_designations.save(commit=False)
             if meeting.type_meeting == 'w':
