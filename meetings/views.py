@@ -108,9 +108,9 @@ def add_meeting(request):
         form_designations = FormDesignations(congregation_id)
         form_weekendcontent = FormWeekendContent(congregation_id)
         form_midweekcontent = FormMidweekContent(congregation_id)
-        form_treasurescontent = FormTreasuresContent(congregation_id)
-        form_applyyourselfcontent = FormApplyYourselfContent(congregation_id)
-        form_livingchristianscontent = FormLivingChristiansContent(congregation_id)
+    form_treasurescontent = FormTreasuresContent(congregation_id)
+    form_applyyourselfcontent = FormApplyYourselfContent(congregation_id)
+    form_livingchristianscontent = FormLivingChristiansContent(congregation_id)
     return render(request, 'add_meeting.html', {
         'request': request, 'form': form, 'app': 'meetings',
         'form_designations': form_designations, 'form_weekendcontent': form_weekendcontent,
@@ -183,9 +183,6 @@ def edit_meeting(request, meeting_id):
         form_designations = FormDesignations(congregation_id, instance=meeting.designations)
         form_weekendcontent = FormWeekendContent(congregation_id, instance=meeting.weekend_content)
         form_midweekcontent = FormMidweekContent(congregation_id, instance=meeting.midweek_content)
-        form_treasurescontent = FormTreasuresContent(congregation_id)
-        form_applyyourselfcontent = FormApplyYourselfContent(congregation_id)
-        form_livingchristianscontent = FormLivingChristiansContent(congregation_id)
         list_form_treasurescontent = []
         list_form_applyyourselfcontent = []
         list_form_livingchristianscontent = []
@@ -199,6 +196,9 @@ def edit_meeting(request, meeting_id):
                 list_form_applyyourselfcontent.append(FormApplyYourselfContent(congregation_id, instance=f))
             for f in meeting.midweek_content.living_christians:
                 list_form_livingchristianscontent.append(FormLivingChristiansContent(congregation_id, instance=f))
+    form_treasurescontent = FormTreasuresContent(congregation_id)
+    form_applyyourselfcontent = FormApplyYourselfContent(congregation_id)
+    form_livingchristianscontent = FormLivingChristiansContent(congregation_id)
     return render(request, 'edit_meeting.html', {
         'request': request, 'form': form, 'app': 'meetings',
         'form_designations': form_designations, 'form_weekendcontent': form_weekendcontent,
