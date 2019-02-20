@@ -4,8 +4,40 @@
 		"selected_items":
 		[
 			[
+				"per",
+				"person_reading"
+			],
+			[
+				"congre",
+				"congregation_id"
+			],
+			[
+				"conge",
+				"congregation_id\tstatement"
+			],
+			[
+				"cong",
+				"congregation_id"
+			],
+			[
+				"script",
+				"script\tTag"
+			],
+			[
+				"Model",
+				"ModelChoiceField\tclass"
+			],
+			[
+				"user",
+				"user_profile\tparam"
+			],
+			[
+				"User",
+				"UserProfile\tclass"
+			],
+			[
 				"get",
-				"get_mongo_url\tfunction"
+				"get_object_or_404\tfunction"
 			],
 			[
 				"livin",
@@ -347,15 +379,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "meetings/forms.py",
-			"settings":
-			{
-				"buffer_size": 5553,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -369,16 +392,16 @@
 		"selected_items":
 		[
 			[
+				"push",
+				"Git: Push"
+			],
+			[
 				"comm",
 				"Git: Commit"
 			],
 			[
 				"add",
 				"Git: Add All"
-			],
-			[
-				"push",
-				"Git: Push"
 			],
 			[
 				"remo",
@@ -474,45 +497,61 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css"
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/migrations",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/templates"
 	],
 	"file_history":
 	[
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/requirements.txt",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/models.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/forms.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/views.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/urls.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/templates/add_user.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/templates/set_password.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/templates/change_password.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/base.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/edit_meeting.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/add_meeting.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/meetings.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/templates/actions_table_users.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/views.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/forms.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/tables.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/forms.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/models.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/__init__.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/templates/edit_user.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/templates/users.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/urls.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templatetags/language.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/.gitignore",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/locale/pt_BR/LC_MESSAGES/django.po",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/requirements.txt",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/models.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/helpers.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/Procfile",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/admin.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/admin.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/.git/config",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/add_meeting.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/urls.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/midweek.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/pdf.css",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/designations.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/edit_meeting.html",
 		"/home/muriloventuroso/mt-prioridade.csv",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/style.css",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/meetings.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/models.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/generate_pdf.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/base.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templatetags/pdf.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/weekend.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/header_midweek.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/header_designations.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/header_weekend.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/helpers.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/locale/pt_BR/LC_MESSAGES/django.po",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/table.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates/groups/actions_table_groups.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates/congregations/actions_table_congregations.html",
@@ -523,7 +562,6 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates/groups/groups.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates/publishers/publishers.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates/congregations/congregations.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/.gitignore",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/__init__.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/tables.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/js/bootstrap.min.js",
@@ -595,20 +633,7 @@
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/gateways/acoes_tabela_gateway_tvoz.html",
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/api/sms.py",
 		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/static/css/bootstrap.css",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/relatorios/detalhar_tvoz.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/mkt/views.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/relatorios/dados_fechamento.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/tvoz/views.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/mkt/helpers.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ftp/handlers.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ftp/authorizers.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/tvoz/campanhas/adicionar.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/tvoz/campanhas/editar.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/controle/views.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/tvoz/envio_arquivo.html",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ftp/management/commands/ftpserver.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/audio/views.py",
-		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/ferramentas/ura/views.py"
+		"/home/muriloventuroso/Dev/Python/mkt-env/otima-mkt/templates/relatorios/detalhar_tvoz.html"
 	],
 	"find":
 	{
@@ -619,15 +644,28 @@
 		"height": 99.0,
 		"where_history":
 		[
+			"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
 			"/home/muriloventuroso/Dev/Python/sgc-env/sgc,*.py",
 			"/home/muriloventuroso/Dev/Python/sgc-env/sgc"
 		]
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"PasswordChangeForm",
+			"suggest_publisher",
+			"FormDesignations",
+			"congregation",
+			"Congregation",
+			"congregation",
+			"Congregation",
+			"congregation",
+			"Congregation",
+			"congregation",
+			"import User",
+			"User",
 			"elder",
 			"white",
 			"print",
@@ -672,6 +710,13 @@
 		"regex": false,
 		"replace_history":
 		[
+			"user",
+			"User",
+			"user",
+			"User",
+			"user",
+			"User",
+			"user",
 			"null=True, blank=True",
 			"Meeting",
 			"meeting",
@@ -687,50 +732,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "meetings/forms.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5553,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1549,
-								1549
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 486.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -797,7 +800,7 @@
 	"project": "sgc.sublime-project",
 	"replace":
 	{
-		"height": 46.0
+		"height": 68.0
 	},
 	"save_all_on_build": true,
 	"select_file":
