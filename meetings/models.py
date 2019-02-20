@@ -112,9 +112,9 @@ class Meeting(models.Model):
     type_meeting = models.CharField(
         max_length=1, verbose_name=_("Type Meeting"), choices=[('w', _("Weekend")), ('m', _("Midweek"))])
     congregation = models.ForeignKey(Congregation, verbose_name=_("Congregation"), on_delete=models.CASCADE)
-    weekend_content = models.EmbeddedModelField(model_container=WeekendContent, null=True)
-    midweek_content = models.EmbeddedModelField(model_container=MidweekContent, null=True)
-    designations = models.EmbeddedModelField(model_container=Designations)
+    weekend_content = models.EmbeddedModelField(model_container=WeekendContent, null=True, blank=True)
+    midweek_content = models.EmbeddedModelField(model_container=MidweekContent, null=True, blank=True)
+    designations = models.EmbeddedModelField(model_container=Designations, blank=True)
     objects = models.DjongoManager()
 
     class Meta:
