@@ -134,6 +134,7 @@ def edit_meeting(request, meeting_id):
         form_midweekcontent = FormMidweekContent(request.POST)
         if form.is_valid():
             meeting = form.save(commit=False)
+            meeting.congregation_id = congregation_id
             if form_designations.is_valid():
                 meeting.designations = form_designations.save(commit=False)
             if meeting.type_meeting == 'w':

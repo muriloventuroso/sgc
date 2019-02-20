@@ -25,6 +25,7 @@ class FormMeeting(forms.ModelForm):
         else:
             self.fields['congregation'].queryset = user_profile.congregations.all()
         self.fields['congregation'].widget.attrs['disabled'] = True
+        self.fields['congregation'].required = False
     date = forms.DateField(
         input_formats=['%d/%m/%Y'], required=True, label=_('Date'),
         widget=DatePicker(options={"format": "dd/mm/yyyy"}, format="dd/mm/yyyy", fontawesome=True))
