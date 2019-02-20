@@ -139,7 +139,7 @@ def edit_meeting(request, meeting_id):
     if request.method == 'POST':
         form = FormMeeting(profile, request.POST, instance=meeting, initial=initital)
         form_designations = FormDesignations(congregation_id, request.POST)
-        form_weekendcontent = FormWeekendContent(request.POST)
+        form_weekendcontent = FormWeekendContent(congregation_id, request.POST)
         form_midweekcontent = FormMidweekContent(congregation_id, request.POST)
         if form.is_valid():
             meeting = form.save(commit=False)
