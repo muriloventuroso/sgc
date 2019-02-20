@@ -124,7 +124,8 @@ def add_meeting(request):
         'form_designations': form_designations, 'form_weekendcontent': form_weekendcontent,
         'form_midweekcontent': form_midweekcontent, 'form_treasurescontent': form_treasurescontent,
         'form_applyyourselfcontent': form_applyyourselfcontent,
-        'form_livingchristianscontent': form_livingchristianscontent
+        'form_livingchristianscontent': form_livingchristianscontent,
+        'congregation_id': congregation_id
     })
 
 
