@@ -106,9 +106,11 @@ def add_meeting(request):
                         )
 
                         meeting.midweek_content.living_christians.append(item)
+
             meeting.save()
             messages.success(request, _("Meeting added successfully"))
             return redirect('meetings')
+
     else:
         form = FormMeeting(profile, initial=initital)
         form_designations = FormDesignations(congregation_id)
@@ -137,7 +139,7 @@ def edit_meeting(request, meeting_id):
         form = FormMeeting(profile, request.POST, instance=meeting, initial=initital)
         form_designations = FormDesignations(congregation_id, request.POST)
         form_weekendcontent = FormWeekendContent(request.POST)
-        form_midweekcontent = FormMidweekContent(request.POST)
+        form_midweekcontent = FormMidweekContent(congregation_id, request.POST)
         if form.is_valid():
             meeting = form.save(commit=False)
             meeting.congregation_id = congregation_id
@@ -189,6 +191,7 @@ def edit_meeting(request, meeting_id):
                         )
 
                         meeting.midweek_content.living_christians.append(item)
+
             meeting.save()
             messages.success(request, _("Meeting edited successfully"))
             return redirect('meetings')
