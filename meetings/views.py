@@ -53,17 +53,17 @@ def add_meeting(request):
     if request.method == 'POST':
         form = FormMeeting(profile, request.POST, initial=initital)
         form_designations = FormDesignations(congregation_id, request.POST)
+        form_midweekcontent = FormMidweekContent(congregation_id, request.POST)
+        form_weekendcontent = FormWeekendContent(congregation_id, request.POST)
         if form.is_valid():
             meeting = form.save(commit=False)
             meeting.congregation_id = congregation_id
             if form_designations.is_valid():
                 meeting.designations = form_designations.save(commit=False)
             if meeting.type_meeting == 'w':
-                form_weekendcontent = FormWeekendContent(congregation_id, request.POST)
                 if form_weekendcontent.is_valid():
                     meeting.weekend_content = form_weekendcontent.save(commit=False)
             else:
-                form_midweekcontent = FormMidweekContent(congregation_id, request.POST)
                 if form_midweekcontent.is_valid():
                     meeting.midweek_content = form_midweekcontent.save(commit=False)
                     meeting.midweek_content.treasures = []
@@ -128,17 +128,17 @@ def edit_meeting(request, meeting_id):
     congregation_id = meeting.congregation_id
     if request.method == 'POST':
         form = FormMeeting(profile, request.POST, instance=meeting)
-        form_designations = FormDesignations(congregation_id, request.POST, instance=meeting.designations)
+        form_designations = FormDesignations(congregation_id, request.POST)
+        form_weekendcontent = FormWeekendContent(request.POST)
+        form_midweekcontent = FormMidweekContent(request.POST)
         if form.is_valid():
             meeting = form.save(commit=False)
             if form_designations.is_valid():
                 meeting.designations = form_designations.save(commit=False)
             if meeting.type_meeting == 'w':
-                form_weekendcontent = FormWeekendContent(request.POST)
                 if form_weekendcontent.is_valid():
                     meeting.weekend_content = form_weekendcontent.save(commit=False)
             else:
-                form_midweekcontent = FormMidweekContent(request.POST)
                 if form_midweekcontent.is_valid():
                     meeting.midweek_content = form_midweekcontent.save(commit=False)
                     meeting.midweek_content.treasures = []
