@@ -411,23 +411,32 @@ def suggest_meeting(request):
     third_song = s.find('div', {'id': 'section4'}).findAll('li')[-1].find('a').text.split(' ')[1]
     treasures = []
     for t in s.find('div', {'id': 'section2'}).findAll('p', {'class': 'su'}):
-        treasures.append({
-            'title': t.text.split(":")[0].strip().replace('“', '').replace('”', ''),
-            'duration': t.text.split(":")[1].strip().split(" ")[0].replace("(", "")
-        })
+        try:
+            treasures.append({
+                'title': t.text.split(":")[0].strip().replace('“', '').replace('”', ''),
+                'duration': t.text.split(":")[1].strip().split(" ")[0].replace("(", "")
+            })
+        except Exception:
+            pass
 
     apply_yourself = []
     for a in s.find('div', {'id': 'section3'}).findAll('p', {'class': 'su'}):
-        apply_yourself.append({
-            'title': a.text.split(":")[0].strip(),
-            'duration': a.text.split(":")[1].strip().split(" ")[0].replace("(", "")
-        })
+        try:
+            apply_yourself.append({
+                'title': a.text.split(":")[0].strip(),
+                'duration': a.text.split(":")[1].strip().split(" ")[0].replace("(", "")
+            })
+        except Exception:
+            pass
     living_christians = []
     for l in s.find('div', {'id': 'section4'}).findAll('p', {'class': 'su'})[1:-2]:
-        living_christians.append({
-            'title': l.text.split(":")[0].strip(),
-            'duration': l.text.split(":")[1].strip().split(" ")[0].replace("(", "")
-        })
+        try:
+            living_christians.append({
+                'title': l.text.split(":")[0].strip(),
+                'duration': l.text.split(":")[1].strip().split(" ")[0].replace("(", "")
+            })
+        except Exception:
+            pass
 
     ret = {
         'reading_week': reading_week,
