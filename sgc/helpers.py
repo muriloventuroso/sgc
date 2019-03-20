@@ -1,5 +1,6 @@
 import os
 import re
+from django.shortcuts import redirect
 
 
 def get_mongo_url():
@@ -58,3 +59,12 @@ def get_cache():
                 'KEY_PREFIX': 'djcache',
             }
         }
+
+def redirect_with_next(request, reverse):
+    params = request.GET.copy()
+    if 'next' in params and params['next'] == '/':
+        response = redirect('home')
+    else:
+        response = redirect(reverse)
+    response['Location'] += '?' + params.urlencode()
+    return response

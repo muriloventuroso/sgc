@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from bootstrap_datepicker.widgets import DatePicker
+from datetimewidget.widgets import DateWidget
 from congregations.models import Congregation, Group, Publisher, TAGS
 
 
@@ -30,8 +30,10 @@ class FormSearchGroup(forms.Form):
 class FormPublisher(forms.ModelForm):
     tags = forms.MultipleChoiceField(label=_("Tags"), choices=TAGS)
     baptism_date = forms.DateField(
-        input_formats=['%d/%m/%Y'], required=False, label=_('Baptism Date'),
-        widget=DatePicker(options={"format": "dd/mm/yyyy"}, format="dd/mm/yyyy", fontawesome=True))
+        label=_("Baptism Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "start_date", 'data-format': "YYYY-MM-DD"},
+            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
 
     class Meta:
         model = Publisher

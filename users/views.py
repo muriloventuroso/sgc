@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from users.models import UserProfile
 from users.tables import TableUsers
 from users.forms import FormUser, FormSearchUser, FormUserProfile, FormEditUser
+from sgc.helpers import redirect_with_next
 
 
 @login_required
@@ -29,7 +30,8 @@ def users(request):
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
     return render(request, 'users.html', {
-        'request': request, 'table': table, 'page_group': 'admin', 'page_title': _("Users"), 'form': form
+        'request': request, 'table': table, 'page_group': 'admin', 'page_title': _("Users"), 'form': form,
+        'next': request.GET.copy().urlencode()
     })
 
 
@@ -45,7 +47,7 @@ def add_user(request):
             up.user = user
             up.save()
             messages.success(request, _("User added successfully"))
-            return redirect('users')
+            return redirect_with_next(request, 'users')
     else:
         form = FormUser()
         form_profile = FormUserProfile()
@@ -67,7 +69,7 @@ def edit_user(request, user_id):
             form.save()
             form_profile.save()
             messages.success(request, _("User edited successfully"))
-            return redirect('users')
+            return redirect_with_next(request, 'users')
     else:
         form = FormEditUser(instance=user)
         form_profile = FormUserProfile(instance=user_profile)
@@ -115,7 +117,7 @@ def set_password(request, user_id):
         if form.is_valid():
             form.save()
             messages.success(request, _('Password was successfully updated.'))
-            return redirect('users')
+            return redirect_with_next(request, 'users')
         else:
             messages.warning(request, _('Please correct the error below.'))
     else:

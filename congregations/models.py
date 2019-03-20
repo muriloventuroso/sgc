@@ -53,7 +53,7 @@ class Publisher(models.Model):
         Congregation, verbose_name=_("Congregation"), on_delete=models.SET_NULL, null=True, blank=True)
     group = models.ForeignKey(Group, verbose_name=_("Group"), on_delete=models.SET_NULL, null=True, blank=True)
     tags = models.ListField(models.CharField(max_length=80, choices=TAGS))
-    is_active = models.BooleanField(verbose_name=_("Is Active?"), default=True)
+    is_active = models.BooleanField(verbose_name=_("Is Active"), default=True)
 
     objects = models.DjongoManager()
 

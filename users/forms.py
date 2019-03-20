@@ -43,4 +43,4 @@ class FormSearchUser(forms.Form):
 class FormUserProfile(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('congregations', )
+        fields = ('congregation', )

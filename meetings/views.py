@@ -14,6 +14,7 @@ from meetings.forms import (
 from congregations.models import Publisher
 from users.models import UserProfile
 from sgc import settings
+from sgc.helpers import redirect_with_next
 
 
 @login_required
@@ -39,17 +40,15 @@ def meetings(request):
     return render(request, 'meetings.html', {
         'request': request, 'table': table, 'page_group': 'meetings',
         'page_title': _("Meetings"), 'form': form,
-        'form_select_congregation': form_select_congregation
+        'form_select_congregation': form_select_congregation,
+        'next': request.GET.copy().urlencode()
     })
 
 
 @login_required
 def add_meeting(request):
     profile = UserProfile.objects.get(user=request.user)
-    if 'congregation' in request.GET and request.GET['congregation']:
-        congregation_id = request.GET['congregation']
-    else:
-        return HttpResponse(status=404)
+    congregation_id = profile.congregation_id
     initital = {'congregation': congregation_id}
     if request.method == 'POST':
         form = FormMeeting(profile, request.LANGUAGE_CODE, request.POST, initial=initital)
@@ -110,7 +109,7 @@ def add_meeting(request):
 
             meeting.save()
             messages.success(request, _("Meeting added successfully"))
-            return redirect('meetings')
+            return redirect_with_next(request, 'meetings')
 
     else:
         form = FormMeeting(profile, request.LANGUAGE_CODE, initial=initital)
@@ -196,7 +195,7 @@ def edit_meeting(request, meeting_id):
 
             meeting.save()
             messages.success(request, _("Meeting edited successfully"))
-            return redirect('meetings')
+            return redirect_with_next(request, 'meetings')
     else:
         form = FormMeeting(profile, request.LANGUAGE_CODE, instance=meeting)
         form_designations = FormDesignations(congregation_id, instance=meeting.designations)
@@ -244,7 +243,6 @@ def generate_pdf(request):
     from django.template.loader import render_to_string
     from django.http import HttpResponse
     from meetings.helpers import get_page_body
-    print(request.POST)
     if request.method == 'POST':
         form = FormGeneratePDF(request.LANGUAGE_CODE, request.POST)
         if form.is_valid():
