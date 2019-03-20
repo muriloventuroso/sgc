@@ -46,7 +46,7 @@ class FormSearchPublisher(forms.Form):
         if user_profile.user.is_staff:
             self.fields['congregation'].queryset = Congregation.objects.all()
         else:
-            self.fields['congregation'].queryset = user_profile.congregations.all()
+            del self.fields['congregation']
     name = forms.CharField(label=_("Name"), required=False)
     tags = forms.MultipleChoiceField(label=_("TAGS"), choices=TAGS, required=False)
     group = forms.CharField(label=_("Group"), required=False)

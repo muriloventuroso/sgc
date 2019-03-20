@@ -153,6 +153,9 @@ def publishers(request):
             filter_data['group__name__icontains'] = data['group']
     if not request.user.is_staff:
         filter_data['congregation_id'] = profile.congregation_id
+    else:
+        if 'congregation' in data and data['congregation']:
+            filter_data['congregation'] = data['congregation']
     data = Publisher.objects.filter(**filter_data)
     table = TablePublishers(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
