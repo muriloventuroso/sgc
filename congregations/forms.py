@@ -49,4 +49,5 @@ class FormSearchPublisher(forms.Form):
             self.fields['congregation'].queryset = user_profile.congregations.all()
     name = forms.CharField(label=_("Name"), required=False)
     tags = forms.MultipleChoiceField(label=_("TAGS"), choices=TAGS, required=False)
+    group = forms.CharField(label=_("Group"), required=False)
     congregation = forms.ModelChoiceField(label=_("Congregation"), queryset=Congregation.objects.none(), required=False)

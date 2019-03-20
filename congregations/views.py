@@ -13,6 +13,7 @@ from sgc.helpers import redirect_with_next
 
 @login_required
 def congregations(request):
+    profile = UserProfile.objects.get(user=request.user)
     form = FormSearchCongregation(request.GET)
     filter_data = {}
     if form.is_valid():
@@ -25,6 +26,8 @@ def congregations(request):
             filter_data['city__icontains'] = data['city']
         if 'state' in data and data['state']:
             filter_data['state__icontains'] = data['state']
+    if not request.user.is_staff:
+        filter_data['congregation_id'] = profile.congregation_id
     data = Congregation.objects.filter(**filter_data)
     table = TableCongregations(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
@@ -77,13 +80,15 @@ def delete_congregation(request, congregation_id):
 
 @login_required
 def groups(request):
+    profile = UserProfile.objects.get(user=request.user)
     form = FormSearchGroup(request.GET)
     filter_data = {}
     if form.is_valid():
         data = form.cleaned_data
         if 'name' in data and data['name']:
             filter_data['name__icontains'] = data['name']
-
+    if not request.user.is_staff:
+        filter_data['congregation_id'] = profile.congregation_id
     data = Group.objects.filter(**filter_data)
     table = TableGroups(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
@@ -144,6 +149,8 @@ def publishers(request):
             filter_data['full_name__icontains'] = data['name']
         if 'tags' in data and data['tags']:
             filter_data['tags__in'] = data['tags']
+        if 'group' in data and data['group']:
+            filter_data['group__name__icontains'] = data['group']
     if not request.user.is_staff:
         filter_data['congregation_id'] = profile.congregation_id
     data = Publisher.objects.filter(**filter_data)

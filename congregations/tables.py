@@ -42,4 +42,4 @@ class TablePublishers(tables.Table):
     class Meta(object):
         attrs = {"class": "table"}
         model = Publisher
-        fields = ('full_name', 'email')
+        fields = ('full_name', 'email', 'group')

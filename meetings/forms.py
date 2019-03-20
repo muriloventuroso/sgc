@@ -7,16 +7,6 @@ from meetings.models import (
 from congregations.models import Publisher, Congregation
 
 
-class FormSelectCongregation(forms.Form):
-    def __init__(self, user_profile, *args, **kwargs):
-        super(FormSelectCongregation, self).__init__(*args, **kwargs)
-        if user_profile.user.is_staff:
-            self.fields['congregation'].queryset = Congregation.objects.all()
-        else:
-            self.fields['congregation'].queryset = user_profile.congregations.all()
-    congregation = forms.ModelChoiceField(label=_("Congregation"), queryset=Congregation.objects.none())
-
-
 class FormMeeting(forms.ModelForm):
     def __init__(self, user_profile, language, *args, **kwargs):
         super(FormMeeting, self).__init__(*args, **kwargs)

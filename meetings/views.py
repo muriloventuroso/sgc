@@ -10,7 +10,7 @@ from meetings.models import Meeting, TreasuresContent, ApplyYourselfContent, Liv
 from meetings.tables import TableMeetings
 from meetings.forms import (
     FormSearchMeeting, FormMeeting, FormDesignations, FormWeekendContent, FormMidweekContent, FormTreasuresContent,
-    FormApplyYourselfContent, FormLivingChristiansContent, FormGeneratePDF, FormSelectCongregation)
+    FormApplyYourselfContent, FormLivingChristiansContent, FormGeneratePDF)
 from congregations.models import Publisher
 from users.models import UserProfile
 from sgc import settings
@@ -32,15 +32,15 @@ def meetings(request):
             filter_m['date__lte'] = data['end_date']
         if 'type_meeting' in data and data['type_meeting']:
             filter_m['type_meeting'] = data['type_meeting']
+    if not request.user.is_staff:
+        filter_m['congregation_id'] = profile.congregation_id
     data = Meeting.objects.filter(**filter_m)
     table = TableMeetings(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
-    form_select_congregation = FormSelectCongregation(profile)
     return render(request, 'meetings.html', {
         'request': request, 'table': table, 'page_group': 'meetings',
         'page_title': _("Meetings"), 'form': form,
-        'form_select_congregation': form_select_congregation,
         'next': request.GET.copy().urlencode()
     })
 
