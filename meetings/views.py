@@ -19,7 +19,7 @@ from sgc import settings
 @login_required
 def meetings(request):
     profile = UserProfile.objects.get(user=request.user)
-    form = FormSearchMeeting(request.GET)
+    form = FormSearchMeeting(request.LANGUAGE_CODE, request.GET)
     filter_m = {}
     if form.is_valid():
         data = form.cleaned_data
@@ -37,7 +37,8 @@ def meetings(request):
     RequestConfig(request).configure(table)
     form_select_congregation = FormSelectCongregation(profile)
     return render(request, 'meetings.html', {
-        'request': request, 'table': table, 'app': 'meetings', 'form': form,
+        'request': request, 'table': table, 'page_group': 'meetings',
+        'page_title': _("Meetings"), 'form': form,
         'form_select_congregation': form_select_congregation
     })
 
@@ -51,7 +52,7 @@ def add_meeting(request):
         return HttpResponse(status=404)
     initital = {'congregation': congregation_id}
     if request.method == 'POST':
-        form = FormMeeting(profile, request.POST, initial=initital)
+        form = FormMeeting(profile, request.LANGUAGE_CODE, request.POST, initial=initital)
         form_designations = FormDesignations(congregation_id, request.POST)
         form_midweekcontent = FormMidweekContent(congregation_id, request.POST)
         form_weekendcontent = FormWeekendContent(congregation_id, request.POST)
@@ -112,7 +113,7 @@ def add_meeting(request):
             return redirect('meetings')
 
     else:
-        form = FormMeeting(profile, initial=initital)
+        form = FormMeeting(profile, request.LANGUAGE_CODE, initial=initital)
         form_designations = FormDesignations(congregation_id)
         form_weekendcontent = FormWeekendContent(congregation_id)
         form_midweekcontent = FormMidweekContent(congregation_id)
@@ -120,7 +121,7 @@ def add_meeting(request):
     form_applyyourselfcontent = FormApplyYourselfContent(congregation_id)
     form_livingchristianscontent = FormLivingChristiansContent(congregation_id)
     return render(request, 'add_meeting.html', {
-        'request': request, 'form': form, 'app': 'meetings',
+        'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Add Meeting"),
         'form_designations': form_designations, 'form_weekendcontent': form_weekendcontent,
         'form_midweekcontent': form_midweekcontent, 'form_treasurescontent': form_treasurescontent,
         'form_applyyourselfcontent': form_applyyourselfcontent,
@@ -137,7 +138,7 @@ def edit_meeting(request, meeting_id):
     congregation_id = meeting.congregation_id
     initital = {'congregation': congregation_id}
     if request.method == 'POST':
-        form = FormMeeting(profile, request.POST, instance=meeting, initial=initital)
+        form = FormMeeting(profile, request.LANGUAGE_CODE, request.POST, instance=meeting, initial=initital)
         form_designations = FormDesignations(congregation_id, request.POST)
         form_weekendcontent = FormWeekendContent(congregation_id, request.POST)
         form_midweekcontent = FormMidweekContent(congregation_id, request.POST)
@@ -197,7 +198,7 @@ def edit_meeting(request, meeting_id):
             messages.success(request, _("Meeting edited successfully"))
             return redirect('meetings')
     else:
-        form = FormMeeting(profile, instance=meeting)
+        form = FormMeeting(profile, request.LANGUAGE_CODE, instance=meeting)
         form_designations = FormDesignations(congregation_id, instance=meeting.designations)
         form_weekendcontent = FormWeekendContent(congregation_id, instance=meeting.weekend_content)
         form_midweekcontent = FormMidweekContent(congregation_id, instance=meeting.midweek_content)
@@ -218,7 +219,7 @@ def edit_meeting(request, meeting_id):
     form_applyyourselfcontent = FormApplyYourselfContent(congregation_id)
     form_livingchristianscontent = FormLivingChristiansContent(congregation_id)
     return render(request, 'edit_meeting.html', {
-        'request': request, 'form': form, 'app': 'meetings',
+        'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Edit Meeting"),
         'form_designations': form_designations, 'form_weekendcontent': form_weekendcontent,
         'form_midweekcontent': form_midweekcontent, 'form_treasurescontent': form_treasurescontent,
         'form_applyyourselfcontent': form_applyyourselfcontent,
@@ -243,8 +244,9 @@ def generate_pdf(request):
     from django.template.loader import render_to_string
     from django.http import HttpResponse
     from meetings.helpers import get_page_body
+    print(request.POST)
     if request.method == 'POST':
-        form = FormGeneratePDF(request.POST)
+        form = FormGeneratePDF(request.LANGUAGE_CODE, request.POST)
         if form.is_valid():
             data = form.cleaned_data
             filter_m = {}
@@ -280,9 +282,9 @@ def generate_pdf(request):
             response['Content-Disposition'] = 'attachment; filename="report.pdf"'
             return response
     else:
-        form = FormGeneratePDF()
+        form = FormGeneratePDF(request.LANGUAGE_CODE)
     return render(request, 'generate_pdf.html', {
-        'request': request, 'form': form, 'app': 'meetings',
+        'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Generate PDF"),
     })
 
 

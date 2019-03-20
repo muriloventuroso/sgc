@@ -1,9 +1,9 @@
-<div class="dropdown">
-    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
-        {% trans 'Alter' %}
+<div class="btn-group btn-group-sm" role="group">
+    <button id="btnGroupVerticalDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle btn-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {% trans 'Actions' %}
     </button>
-    <div class="dropdown-menu">
-        <a class="dropdown-item" href="{% url 'edit_congregation' record.pk %}">{% trans 'Edit' %}</a>
-        <a class="dropdown-item" href="{% url 'delete_congregation' record.pk %}" onclick="return confirm('Are you sure?');">{% trans 'Delete' %}</a>
+    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1">
+        <a class="dropdown-item action-item" href="{% url 'edit_congregation' record.pk %}?{{next}}">{% trans 'Edit' %}</a>
+        <a class="dropdown-item action-item" href="{% url 'delete_congregation' record.pk %}?{{next}}" onclick="return confirm('{% trans "Are you sure?" %}');">{% trans 'Delete' %}</a>
     </div>
 </div>

@@ -49,8 +49,11 @@ class Publisher(models.Model):
     update_date = models.DateTimeField(auto_now=True, verbose_name=_("Update Date"))
     baptism_date = models.DateTimeField(null=True, blank=True, verbose_name=_("Baptism Date"))
     gender = models.CharField(max_length=1, verbose_name=_("Gender"), choices=[('f', _("Female")), ('m', _('Male'))])
-    congregation = models.ForeignKey(Congregation, verbose_name=_("Congregation"), on_delete=models.CASCADE)
+    congregation = models.ForeignKey(
+        Congregation, verbose_name=_("Congregation"), on_delete=models.SET_NULL, null=True, blank=True)
+    group = models.ForeignKey(Group, verbose_name=_("Group"), on_delete=models.SET_NULL, null=True, blank=True)
     tags = models.ListField(models.CharField(max_length=80, choices=TAGS))
+    is_active = models.BooleanField(verbose_name=_("Is Active?"), default=True)
 
     objects = models.DjongoManager()
 

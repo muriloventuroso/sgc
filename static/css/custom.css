@@ -1,0 +1,51 @@
+.content-page {
+  height: 100% !important;
+  overflow: auto !important;
+}
+html, body{
+    height:100% !important;
+    width:100% !important;
+}
+.bootstrap-select .dropdown-toggle, .bootstrap-select .selectpicker.dropdown-toggle {
+  border: 1px solid #ced4da !important;
+}
+.bootstrap-select.is-valid .dropdown-toggle, .was-validated .bootstrap-select .selectpicker:valid+.dropdown-toggle {
+  border: 1px solid #28a745 !important;
+}
+.bootstrap-select button {
+  line-height: 24px;
+}
+#boxTreasures .card{
+    border: 1px solid rgba(0,0,0,.125) !important;
+}
+#boxApplyYourself .card{
+    border: 1px solid rgba(0,0,0,.125) !important;
+}
+#boxLivingChristians .card{
+    border: 1px solid rgba(0,0,0,.125) !important;
+}
+.remove-box {
+  font-size: 20px;
+  cursor: pointer;
+}
+.remove-box:hover{
+  color: #f00;
+}
+.invalid-select > .btn {
+  border-color: #f00 !important;
+}
+.field-designation {
+  height: 100px;
+}
+.btn-xs {
+  padding: .15rem .3rem;
+  font-size: .875rem;
+  line-height: 1.2;
+}
+.table td, .table th {
+    padding: .5rem !important;
+
+}
+.suggest {
+  cursor: pointer;
+}

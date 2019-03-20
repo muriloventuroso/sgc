@@ -1,34 +1,50 @@
 {% extends 'base.html' %}
-{% block title %}SGC - Login {% endblock %}
-{% block body %}
-<body class="bg-dark">
 
-    <div class="sufee-login d-flex align-content-center flex-wrap">
-        <div class="container">
-            <div class="login-content">
-                <div class="login-logo">
-                    <a href="index.html">
-                        <img class="align-content" src="images/logo.png" alt="">
-                    </a>
-                </div>
-                <div class="login-form">
-                    <form method="post" action=".?next={{next}}">
-                        {% csrf_token %}
-                        {% bootstrap_form form %}
-                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">{% trans 'Sign in' %}</button>
+{% load static %}
 
-                    </form>
+{% block title %} - Login{% endblock %}
+{% block head %}
+<link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %}
+{% endblock %}
+{% block wrapper %}
+
+<div class="wrapper-page">
+
+    <div class="card overflow-hidden account-card mx-3">
+        <div class="bg-primary p-4 text-white text-center position-relative">
+            <h4 class="font-20 m-b-5">{% trans "Welcome Back!" %}</h4>
+            <p class="text-white-50 mb-4">{% trans "Sign in to continue." %}</p>
+        </div>
+        <div class="account-card-content">
+
+            <form class="form-horizontal m-t-30" method="post" action=".?next={{next}}">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+
+                <div class="form-group row m-t-20">
+                    <div class="col-sm-12 text-right">
+                        <button class="btn btn-primary w-md waves-effect waves-light" type="submit">{% trans "Log In" %}</button>
+                    </div>
                 </div>
-            </div>
+
+            </form>
+
         </div>
     </div>
 
-    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
-    <script src="{% static 'js/plugins.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-    <script src="{% static 'js/popper.min.js' %}"></script>
+    <div class="m-t-40 text-center">
+        {% include "rights.html" %}
+    </div>
+
+</div>
 
 
-</body>
 {% endblock %}
-</html>
+{% block footer %}
+{% endblock %}
+{% block breadcrumb %}
+{% endblock %}
+{% block boxbreadcrumb %}
+{% endblock %}

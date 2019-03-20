@@ -1,55 +1,31 @@
 {% extends 'base.html' %}
-{% block title %}SGC - {% trans 'Groups' %}{% endblock %}
-{% block breadcrumbs %}
-<div class="breadcrumbs">
-    <div class="col-sm-4">
-        <div class="page-header float-left">
-            <div class="page-title">
-                <h1>{% trans 'Groups' %}</h1>
-            </div>
+{% block title %} - {{page_title}}{% endblock %}
+{% block breadcrumb %}
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <h4 class="page-title">{{page_title}}</h4>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+                <li class="breadcrumb-item active">{{page_title}}</li>
+            </ol>
+
         </div>
-    </div>
-    <div class="col-sm-8">
-        <div class="page-header float-right">
-            <div class="page-title">
-                <ol class="breadcrumb text-right">
-                    <li class="active">{% trans 'Groups' %}</li>
-                </ol>
+        <div class="col-sm-6">
+            <div class="float-right d-none d-md-block">
+                <div class="dropdown">
+                    <a href="{% url 'add_group' %}" ><button class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-plus mr-2"></i> {% trans 'Add Group' %}</button></a>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
 {% endblock %}
 
-{% block content %}
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <form action="." method="get">
-                    {% for f in form %}
-                    <div class="col-lg-3">
-                        {% bootstrap_field f %}
-                    </div>
-                    {% endfor %}
-                    <div class="col-lg-12">
-                        <button type="submit" class="btn btn-primary pull-right">{% trans 'Search' %}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="col-lg-12">
-                    <a class="btn btn-primary pull-right" href="{% url 'add_group' %}" role="button">{% trans 'Add Group' %}</a>
-                </div>
-                {% render_table table 'table.html' %}
-            </div>
-        </div>
-    </div>
+{% block body %}
+{% include 'search_box.html' with form=form %}
+<div class="row col-12 card card-body">
+    {% render_table table "table.html" %}
 </div>
 {% endblock %}

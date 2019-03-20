@@ -29,7 +29,8 @@ def congregations(request):
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
     return render(request, 'congregations/congregations.html', {
-        'request': request, 'table': table, 'app': 'congregations', 'form': form
+        'request': request, 'table': table, 'form': form,
+        'page_group': 'congregations', 'page_title': _("Congregations")
     })
 
 
@@ -43,8 +44,8 @@ def add_congregation(request):
             return redirect('congregations')
     else:
         form = FormCongregation()
-    return render(request, 'congregations/add_congregation.html', {
-        'request': request, 'form': form, 'app': 'congregations'
+    return render(request, 'congregations/add_edit_congregation.html', {
+        'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Add Congregation")
     })
 
 
@@ -59,8 +60,8 @@ def edit_congregation(request, congregation_id):
             return redirect('congregations')
     else:
         form = FormCongregation(instance=congregation)
-    return render(request, 'congregations/edit_congregation.html', {
-        'request': request, 'form': form, 'app': 'congregations'
+    return render(request, 'congregations/add_edit_congregation.html', {
+        'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Edit Congregation")
     })
 
 
@@ -86,7 +87,8 @@ def groups(request):
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
     return render(request, 'groups/groups.html', {
-        'request': request, 'table': table, 'app': 'congregations', 'form': form
+        'request': request, 'table': table, 'page_group': 'congregations', 'page_title': _("Groups"),
+        'form': form
     })
 
 
@@ -100,8 +102,8 @@ def add_group(request):
             return redirect('groups')
     else:
         form = FormGroup()
-    return render(request, 'groups/add_group.html', {
-        'request': request, 'form': form, 'app': 'congregations'
+    return render(request, 'groups/add_edit_group.html', {
+        'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Add Group")
     })
 
 
@@ -116,8 +118,8 @@ def edit_group(request, group_id):
             return redirect('groups')
     else:
         form = FormGroup(instance=group)
-    return render(request, 'groups/edit_group.html', {
-        'request': request, 'form': form, 'app': 'congregations'
+    return render(request, 'groups/add_edit_group.html', {
+        'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Edit Group")
     })
 
 
@@ -145,7 +147,7 @@ def publishers(request):
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
     return render(request, 'publishers/publishers.html', {
-        'request': request, 'table': table, 'app': 'congregations', 'form': form
+        'request': request, 'table': table, 'page_group': 'congregations', 'page_title': _("Publishers"), 'form': form
     })
 
 
@@ -159,8 +161,8 @@ def add_publisher(request):
             return redirect('publishers')
     else:
         form = FormPublisher()
-    return render(request, 'publishers/add_publisher.html', {
-        'request': request, 'form': form, 'app': 'congregations'
+    return render(request, 'publishers/add_edit_publisher.html', {
+        'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Add Publisher")
     })
 
 
@@ -175,8 +177,8 @@ def edit_publisher(request, publisher_id):
             return redirect('publishers')
     else:
         form = FormPublisher(instance=publisher, initial={'tags': publisher.tags})
-    return render(request, 'publishers/edit_publisher.html', {
-        'request': request, 'form': form, 'app': 'congregations'
+    return render(request, 'publishers/add_edit_publisher.html', {
+        'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Edit Publisher")
     })
 
 

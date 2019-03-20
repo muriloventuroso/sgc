@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from bootstrap_datepicker.widgets import DatePicker
+from datetimewidget.widgets import DateWidget
 from meetings.models import (
     Meeting, Designations, WeekendContent, MidweekContent, TreasuresContent, ApplyYourselfContent,
     LivingChristiansContent)
@@ -18,7 +18,7 @@ class FormSelectCongregation(forms.Form):
 
 
 class FormMeeting(forms.ModelForm):
-    def __init__(self, user_profile, *args, **kwargs):
+    def __init__(self, user_profile, language, *args, **kwargs):
         super(FormMeeting, self).__init__(*args, **kwargs)
         if user_profile.user.is_staff:
             self.fields['congregation'].queryset = Congregation.objects.all()
@@ -26,9 +26,15 @@ class FormMeeting(forms.ModelForm):
             self.fields['congregation'].queryset = user_profile.congregations.all()
         self.fields['congregation'].widget.attrs['disabled'] = True
         self.fields['congregation'].required = False
+        if language == 'en':
+            self.fields['date'].widget.options['format'] = "YYYY-MM-DD"
+        elif language == 'pt-br':
+            self.fields['date'].widget.options['format'] = "DD/MM/YYYY"
     date = forms.DateField(
-        input_formats=['%d/%m/%Y'], required=True, label=_('Date'),
-        widget=DatePicker(options={"format": "dd/mm/yyyy"}, format="dd/mm/yyyy", fontawesome=True))
+        label=_("Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "date", 'data-format': "YYYY-MM-DD"},
+            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
 
     class Meta:
         model = Meeting
@@ -36,12 +42,24 @@ class FormMeeting(forms.ModelForm):
 
 
 class FormSearchMeeting(forms.Form):
+    def __init__(self, language, *args, **kwargs):
+        super(FormSearchMeeting, self).__init__(*args, **kwargs)
+        if language == 'en':
+            self.fields['start_date'].widget.options['format'] = "YYYY-MM-DD"
+            self.fields['end_date'].widget.options['format'] = "YYYY-MM-DD"
+        elif language == 'pt-br':
+            self.fields['start_date'].widget.options['format'] = "DD/MM/YYYY"
+            self.fields['end_date'].widget.options['format'] = "DD/MM/YYYY"
     start_date = forms.DateField(
-        input_formats=['%d/%m/%Y'], required=False, label=_('Start Date'),
-        widget=DatePicker(options={"format": "dd/mm/yyyy"}, format="dd/mm/yyyy", fontawesome=True))
+        label=_("Start Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "start_date", 'data-format': "YYYY-MM-DD"},
+            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
     end_date = forms.DateField(
-        input_formats=['%d/%m/%Y'], required=False, label=_('End Date'),
-        widget=DatePicker(options={"format": "dd/mm/yyyy"}, format="dd/mm/yyyy", fontawesome=True))
+        label=_("End Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "end_date", 'data-format': "YYYY-MM-DD"},
+            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
     type_meeting = forms.ChoiceField(
         label=_("Type Meeting"), choices=[('', ''), ('w', _("Weekend")), ('m', _("Midweek"))],
         initial='', required=False)
@@ -143,12 +161,24 @@ class FormDesignations(forms.ModelForm):
 
 
 class FormGeneratePDF(forms.Form):
+    def __init__(self, language, *args, **kwargs):
+        super(FormGeneratePDF, self).__init__(*args, **kwargs)
+        if language == 'en':
+            self.fields['start_date'].widget.options['format'] = "YYYY-MM-DD"
+            self.fields['end_date'].widget.options['format'] = "YYYY-MM-DD"
+        elif language == 'pt-br':
+            self.fields['start_date'].widget.options['format'] = "DD/MM/YYYY"
+            self.fields['end_date'].widget.options['format'] = "DD/MM/YYYY"
     type_pdf = forms.ChoiceField(
         label=_("Type PDF"), choices=[('', ''), ('w', _("Weekend")), ('m', _("Midweek")), ('d', _('Designations'))],
         initial='', required=True)
     start_date = forms.DateField(
-        input_formats=['%d/%m/%Y'], required=True, label=_('Start Date'),
-        widget=DatePicker(options={"format": "dd/mm/yyyy"}, format="dd/mm/yyyy", fontawesome=True))
+        label=_("Start Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "start_date", 'data-format': "YYYY-MM-DD"},
+            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
     end_date = forms.DateField(
-        input_formats=['%d/%m/%Y'], required=True, label=_('End Date'),
-        widget=DatePicker(options={"format": "dd/mm/yyyy"}, format="dd/mm/yyyy", fontawesome=True))
+        label=_("End Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "end_date", 'data-format': "YYYY-MM-DD"},
+            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))

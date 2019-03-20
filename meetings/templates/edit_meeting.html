@@ -1,29 +1,25 @@
 {% extends 'base.html' %}
-{% block title %}SGC - {% trans 'Edit Meeting' %}{% endblock %}
+{% block title %} - {{page_title}}{% endblock %}
 
-{% block breadcrumbs %}
-<div class="breadcrumbs">
-    <div class="col-sm-4">
-        <div class="page-header float-left">
-            <div class="page-title">
-                <h1>{% trans 'Edit Meeting' %}</h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-8">
-        <div class="page-header float-right">
-            <div class="page-title">
-                <ol class="breadcrumb text-right">
-                    <li>{% trans 'Meetings' %}</li>
-                    <li class="active">{% trans 'Edit Meeting' %}</li>
-                </ol>
-            </div>
+{% block breadcrumb %}
+
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <h4 class="page-title">{{page_title}}</h4>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'meetings' %}">{% trans 'Meetings' %}</a></li>
+                <li class="breadcrumb-item active">{{page_title}}</li>
+            </ol>
+
         </div>
     </div>
 </div>
 {% endblock %}
 
-{% block content %}
+
+{% block body %}
 <div class="row">
     <div class="col-lg-12 card card-body">
         <form method="post" action=".?next={{next}}" autocomplete="off">
@@ -45,13 +41,15 @@
                     {% bootstrap_form form_midweekcontent %}
                     <div class="card col-lg-12">
                         <div class="card-body">
-                            <div class="col-lg-12">
-                                <h4 class="card-title">{% trans 'Treasures Content' %}</h4>
-                                <button class="btn btn-primary pull-right" id="addTreasures" role="button" type="button">
-                                    <i class="fa fa-plus"></i> {% trans 'Add' %}
-                                </button>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h4 class="card-title pull-left">{% trans 'Treasures Content' %}</h4>
+                                    <button class="btn btn-primary pull-right" id="addTreasures" role="button" type="button">
+                                        <i class="fa fa-plus"></i> {% trans 'Add' %}
+                                    </button>
+                                </div>
                             </div>
-                            <div id="boxTreasures" class="col-lg-12">
+                            <div id="boxTreasures" class="row">
                                 {% for f in list_form_treasurescontent %}
                                 <div class="card col-lg-6" >
                                     <div class="card-body">
@@ -65,13 +63,15 @@
                     </div>
                     <div class="card col-lg-12">
                         <div class="card-body">
-                            <div class="col-lg-12">
-                                <h4 class="card-title">{% trans 'Apply Yourself Content' %}</h4>
-                                <button class="btn btn-primary pull-right" id="addApplyYourself" role="button" type="button">
-                                    <i class="fa fa-plus"></i> {% trans 'Add' %}
-                                </button>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h4 class="card-title pull-left">{% trans 'Apply Yourself Content' %}</h4>
+                                    <button class="btn btn-primary pull-right" id="addApplyYourself" role="button" type="button">
+                                        <i class="fa fa-plus"></i> {% trans 'Add' %}
+                                    </button>
+                                </div>
                             </div>
-                            <div id="boxApplyYourself" class="col-lg-12">
+                            <div id="boxApplyYourself" class="row">
                                 {% for f in list_form_applyyourselfcontent %}
                                 <div class="card col-lg-6" >
                                     <div class="card-body">
@@ -85,13 +85,15 @@
                     </div>
                     <div class="card col-lg-12">
                         <div class="card-body">
-                            <div class="col-lg-12">
-                                <h4 class="card-title">{% trans 'Living Christians Content' %}</h4>
-                                <button class="btn btn-primary pull-right" id="addLivingChristians" role="button" type="button">
-                                    <i class="fa fa-plus"></i> {% trans 'Add' %}
-                                </button>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h4 class="card-title pull-left">{% trans 'Living Christians Content' %}</h4>
+                                    <button class="btn btn-primary pull-right" id="addLivingChristians" role="button" type="button">
+                                        <i class="fa fa-plus"></i> {% trans 'Add' %}
+                                    </button>
+                                </div>
                             </div>
-                            <div id="boxLivingChristians" class="col-lg-12">
+                            <div id="boxLivingChristians" class="row">
                                 {% for f in list_form_livingchristianscontent %}
                                 <div class="card col-lg-6" >
                                     <div class="card-body">
@@ -111,11 +113,13 @@
             <div class="card" id="boxDesignations">
                 <div class="card-body">
                     <h4 class="card-title">{% trans 'Designations' %}</h4>
+                    <div class="row">
                     {% for f in form_designations %}
                     <div class="col-lg-3 field-designation">
                         {% bootstrap_field f addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
                     </div>
                     {% endfor %}
+                </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-success pull-right">{% trans 'Send' %}</button>
@@ -253,8 +257,8 @@
             find_duplicates();
         });
         $('form').on('click', '.suggest', function(){
-            var date = $('#id_date').val();
-            var select = $(this).parent().parent().find('select');
+            var date = $('#date').val();
+            var select = $(this).parent().parent().parent().find('select');
             var type = select.attr('name');
             var congregation_id = $("#id_congregation").val();
             if(type == "reader"){
@@ -268,18 +272,18 @@
                 url: '{% url "suggest_publisher" %}',
                 type: 'GET',
                 data: {"type": type, "date": date, "congregation_id": congregation_id},
-            })
-            .done(function(data) {
-                select.empty();
-                for(var i = 0; i < data.length; i++){
-                    select.append($("<option></option>")
-                        .attr("value", data[i][0]).text(data[i][1]));
+                success: function(data) {
+                    select.empty();
+                    for(var i = 0; i < data.length; i++){
+                        select.append($("<option></option>")
+                            .attr("value", data[i][0]).text(data[i][1]));
+                    }
+                    select.selectpicker('refresh');
+                },
+                complete: function(){
+                    find_duplicates();
                 }
-                select.selectpicker('refresh');
-            })
-            .complete(function(){
-                find_duplicates();
-            })
+            });
         });
         find_duplicates();
 

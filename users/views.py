@@ -29,7 +29,7 @@ def users(request):
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
     return render(request, 'users.html', {
-        'request': request, 'table': table, 'app': 'users', 'form': form
+        'request': request, 'table': table, 'page_group': 'admin', 'page_title': _("Users"), 'form': form
     })
 
 
@@ -49,8 +49,9 @@ def add_user(request):
     else:
         form = FormUser()
         form_profile = FormUserProfile()
-    return render(request, 'add_user.html', {
-        'request': request, 'form': form, 'form_profile': form_profile, 'app': 'users'
+    return render(request, 'add_edit_user.html', {
+        'request': request, 'form': form, 'form_profile': form_profile,
+        'page_group': 'admin', 'page_title': _("Add User")
     })
 
 
@@ -70,8 +71,9 @@ def edit_user(request, user_id):
     else:
         form = FormEditUser(instance=user)
         form_profile = FormUserProfile(instance=user_profile)
-    return render(request, 'edit_user.html', {
-        'request': request, 'form': form, 'form_profile': form_profile, 'app': 'users'
+    return render(request, 'add_edit_user.html', {
+        'request': request, 'form': form, 'form_profile': form_profile,
+        'page_group': 'admin', 'page_title': _("Edit User")
     })
 
 
