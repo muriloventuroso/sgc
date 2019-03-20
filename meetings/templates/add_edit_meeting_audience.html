@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %} - {{page_title}}{% endblock %}
+
+{% block breadcrumb %}
+
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <h4 class="page-title">{{page_title}}</h4>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'meeting_audiences' %}">{% trans 'Meeting Audiences' %}</a></li>
+                <li class="breadcrumb-item active">{{page_title}}</li>
+            </ol>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block body %}
+<div class="row col-12 card card-body">
+
+    <form id="form" action"." method="post" class="form-horizontal"autocomplete=off>
+
+        {% csrf_token %}
+        {% bootstrap_field form.date %}
+        {% bootstrap_field form.filled_by %}
+        {% bootstrap_field form.count %}
+        <fieldset class="form-group">
+            <legend>{% trans "Absences" %}</legend>
+            {% for publisher in all_publishers %}
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input name="absences" class="form-check-input" type="checkbox" value="{{publisher.pk}}" {% if publisher.pk in checked_publishers %}checked="checked"{% endif %}>
+                        {{publisher.full_name}}
+                </label>
+            </div>
+            {% endfor %}
+        </fieldset>
+        {% bootstrap_field form.other %}
+
+        <button id="submit" class="btn btn-primary pull-right" type="submit">{% trans 'Send' %}</button>
+    </form>
+</div>
+
+{% endblock %}

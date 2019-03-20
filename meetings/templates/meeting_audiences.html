@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %} - {{page_title}}{% endblock %}
+{% block breadcrumb %}
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <h4 class="page-title">{{page_title}}</h4>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+                <li class="breadcrumb-item active">{{page_title}}</li>
+            </ol>
+
+        </div>
+        <div class="col-sm-6">
+            <div class="float-right d-none d-md-block">
+                <div class="dropdown">
+                    <a href="{% url 'add_meeting_audience' %}" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-plus mr-2"></i> {% trans 'Add Meeting Audience' %}</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+{% include 'search_box.html' with form=form %}
+
+<div class="row col-12 card card-body">
+    {% render_table table "table.html" %}
+</div>
+
+{% endblock %}
+{% block extrajs %}
+<script>
+    $(document).ready(function() {
+        {% if request.LANGUAGE_CODE == 'en' %}
+        var format_date = "YYYY-MM-DD";
+        {% else %}
+        var format_date = "DD/MM/YYYY";
+        {% endif %}
+
+        var start = new Date();
+        start.setHours(0, 0, 0, 0);
+        var end = new Date();
+        end.setHours(23, 59, 59, 999);
+        var start_date = $('input[name="start_date"]');
+        if(start_date.val()==''){
+            start_date.val(moment(start).startOf('month').format(format_date));
+        }
+        var end_date = $('input[name="end_date"]');
+        if(end_date.val()==''){
+            end_date.val(moment(end).format(format_date));
+        }
+    });
+</script>
+{% endblock %}

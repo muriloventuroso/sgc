@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from datetimewidget.widgets import DateWidget
 from meetings.models import (
     Meeting, Designations, WeekendContent, MidweekContent, TreasuresContent, ApplyYourselfContent,
-    LivingChristiansContent)
+    LivingChristiansContent, MeetingAudience)
 from congregations.models import Publisher, Congregation
 
 
@@ -172,3 +172,53 @@ class FormGeneratePDF(forms.Form):
         widget=DateWidget(
             attrs={'id': "end_date", 'data-format': "YYYY-MM-DD"},
             usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+
+
+class FormSearchMeetingAudience(forms.Form):
+    def __init__(self, language, *args, **kwargs):
+        super(FormSearchMeetingAudience, self).__init__(*args, **kwargs)
+        if language == 'en':
+            self.fields['start_date'].widget.options['format'] = "YYYY-MM-DD"
+            self.fields['end_date'].widget.options['format'] = "YYYY-MM-DD"
+        elif language == 'pt-br':
+            self.fields['start_date'].widget.options['format'] = "DD/MM/YYYY"
+            self.fields['end_date'].widget.options['format'] = "DD/MM/YYYY"
+    start_date = forms.DateField(
+        label=_("Start Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "start_date", 'data-format': "YYYY-MM-DD"},
+            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+    end_date = forms.DateField(
+        label=_("End Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "end_date", 'data-format': "YYYY-MM-DD"},
+            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+
+
+class FormMeetingAudience(forms.ModelForm):
+    def __init__(self, language, *args, **kwargs):
+        super(FormMeetingAudience, self).__init__(*args, **kwargs)
+
+        if language == 'en':
+            self.fields['date'].widget.options['format'] = "YYYY-MM-DD"
+            if self.instance:
+                kwargs.update(initial={
+                    # 'field': 'value'
+                    'date': self.instance.date.strftime("%Y-%m-%d")
+                })
+        elif language == 'pt-br':
+            self.fields['date'].widget.options['format'] = "DD/MM/YYYY"
+            if self.instance:
+                kwargs.update(initial={
+                    # 'field': 'value'
+                    'date': self.instance.date.strftime("%d/%m/%Y")
+                })
+    date = forms.DateField(
+        label=_("Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "date", 'data-format': "YYYY-MM-DD"},
+            usel10n=True, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+
+    class Meta:
+        model = MeetingAudience
+        fields = ('date', 'filled_by', 'count', 'other', )

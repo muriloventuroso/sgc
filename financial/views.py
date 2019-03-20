@@ -14,7 +14,7 @@ from users.models import UserProfile
 @login_required
 def transactions(request):
     profile = UserProfile.objects.get(user=request.user)
-    form = FormSearchTransaction(request.GET)
+    form = FormSearchTransaction(request.LANGUAGE_CODE, request.GET)
     filter_data = {}
     if form.is_valid():
         data = form.cleaned_data
@@ -41,7 +41,7 @@ def transactions(request):
 def add_transaction(request):
     profile = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
-        form = FormTransaction(request.POST)
+        form = FormTransaction(request.LANGUAGE_CODE, request.POST)
         if form.is_valid():
             transaction = form.save(commit=False)
             transaction.congregation_id = profile.congregation_id
@@ -60,7 +60,7 @@ def add_transaction(request):
 def edit_transaction(request, transaction_id):
     transaction = get_object_or_404(Transaction, pk=transaction_id)
     if request.method == 'POST':
-        form = FormTransaction(request.POST, instance=transaction)
+        form = FormTransaction(request.LANGUAGE_CODE, request.POST, instance=transaction)
         if form.is_valid():
             form.save()
             messages.success(request, _("Transaction edited successfully"))

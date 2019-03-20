@@ -119,3 +119,12 @@ class Meeting(models.Model):
 
     class Meta:
         ordering = ['date', ]
+
+
+class MeetingAudience(models.Model):
+    date = models.DateField(verbose_name=_("Date"))
+    filled_by = models.CharField(max_length=160, verbose_name=_("Filled by"))
+    absences = models.ArrayReferenceField(to=Publisher, verbose_name=_("Absences"), blank=True)
+    other = models.TextField(verbose_name=_("Other"), blank=True)
+    count = models.IntegerField(verbose_name=_("Count"), default=0)
+    congregation = models.ForeignKey(Congregation, verbose_name=_("Congregation"), on_delete=models.CASCADE)

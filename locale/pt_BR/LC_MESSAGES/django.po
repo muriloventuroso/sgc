@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-20 15:07-0300\n"
-"PO-Revision-Date: 2019-03-20 15:07-0306\n"
+"POT-Creation-Date: 2019-03-20 16:52-0300\n"
+"PO-Revision-Date: 2019-03-20 16:53-0306\n"
 "Last-Translator: b'  <muriloventuroso@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -59,7 +59,8 @@ msgid "Group"
 msgstr "Grupo"
 
 #: congregations/forms.py:53 congregations/models.py:33
-#: congregations/models.py:53 financial/models.py:6 meetings/models.py:114
+#: congregations/models.py:53 financial/models.py:6 financial/models.py:30
+#: meetings/models.py:114 meetings/models.py:130
 #: meetings/templates/pdf/weekend.html:10 users/forms.py:40 users/models.py:11
 msgid "Congregation"
 msgstr "Congregação"
@@ -155,7 +156,7 @@ msgstr "Ativo"
 
 #: congregations/tables.py:10 congregations/tables.py:24
 #: congregations/tables.py:38 financial/tables.py:8 meetings/tables.py:10
-#: users/tables.py:10
+#: meetings/tables.py:22 users/tables.py:10
 msgid "Alter"
 msgstr "Alterar"
 
@@ -163,6 +164,7 @@ msgstr "Alterar"
 #: congregations/templates/groups/actions_table_groups.html:3
 #: congregations/templates/publishers/actions_table_publishers.html:3
 #: financial/templates/actions_table_transactions.html:3
+#: meetings/templates/actions_table_meeting_audiences.html:3
 #: meetings/templates/actions_table_meetings.html:3
 #: users/templates/actions_table_users.html:3
 msgid "Actions"
@@ -172,6 +174,7 @@ msgstr "Ações"
 #: congregations/templates/groups/actions_table_groups.html:6
 #: congregations/templates/publishers/actions_table_publishers.html:6
 #: financial/templates/actions_table_transactions.html:6
+#: meetings/templates/actions_table_meeting_audiences.html:6
 #: meetings/templates/actions_table_meetings.html:6
 #: users/templates/actions_table_users.html:6
 msgid "Edit"
@@ -181,6 +184,7 @@ msgstr "Editar"
 #: congregations/templates/groups/actions_table_groups.html:7
 #: congregations/templates/publishers/actions_table_publishers.html:7
 #: financial/templates/actions_table_transactions.html:7
+#: meetings/templates/actions_table_meeting_audiences.html:7
 #: meetings/templates/actions_table_meetings.html:7
 #: users/templates/actions_table_users.html:8
 msgid "Are you sure?"
@@ -190,6 +194,7 @@ msgstr "Tem certeza?"
 #: congregations/templates/groups/actions_table_groups.html:7
 #: congregations/templates/publishers/actions_table_publishers.html:7
 #: financial/templates/actions_table_transactions.html:7
+#: meetings/templates/actions_table_meeting_audiences.html:7
 #: meetings/templates/actions_table_meetings.html:7
 #: users/templates/actions_table_users.html:8
 msgid "Delete"
@@ -201,12 +206,15 @@ msgstr "Deletar"
 #: congregations/templates/groups/groups.html:9
 #: congregations/templates/publishers/add_edit_publisher.html:11
 #: congregations/templates/publishers/publishers.html:9
-#: financial/templates/add_edit_transactions.html:11
+#: financial/templates/add_edit_transaction.html:11
 #: financial/templates/transactions.html:9
+#: meetings/templates/add_edit_meeting_audience.html:11
 #: meetings/templates/add_meeting.html:11
 #: meetings/templates/edit_meeting.html:11
-#: meetings/templates/generate_pdf.html:9 meetings/templates/meetings.html:9
-#: users/templates/add_edit_user.html:11 users/templates/users.html:9
+#: meetings/templates/generate_pdf.html:9
+#: meetings/templates/meeting_audiences.html:9
+#: meetings/templates/meetings.html:9 users/templates/add_edit_user.html:11
+#: users/templates/users.html:9
 msgid "Home"
 msgstr "Home"
 
@@ -219,11 +227,13 @@ msgstr "Congregações"
 #: congregations/templates/congregations/add_edit_congregation.html:30
 #: congregations/templates/groups/add_edit_group.html:30
 #: congregations/templates/publishers/add_edit_publisher.html:30
-#: financial/templates/add_edit_transactions.html:30
+#: financial/templates/add_edit_transaction.html:30
+#: meetings/templates/add_edit_meeting_audience.html:44
 #: meetings/templates/add_meeting.html:98
 #: meetings/templates/edit_meeting.html:125
 #: users/templates/add_edit_user.html:30
-#: users/templates/change_password.html:15 users/templates/set_password.html:15
+#: users/templates/change_password.html:15
+#: users/templates/set_password.html:15
 msgid "Send"
 msgstr "Enviar"
 
@@ -242,12 +252,12 @@ msgid "Add Group"
 msgstr "Adicionar Grupo"
 
 #: congregations/templates/publishers/add_edit_publisher.html:12
-#: congregations/views.py:161 sgc/templates/base.html:127
+#: congregations/views.py:164 sgc/templates/base.html:127
 msgid "Publishers"
 msgstr "Publicadores"
 
 #: congregations/templates/publishers/publishers.html:17
-#: congregations/views.py:177
+#: congregations/views.py:180
 msgid "Add Publisher"
 msgstr "Adicionar Publicador"
 
@@ -283,32 +293,38 @@ msgstr "Editar Grupo"
 msgid "Group deleted successfully"
 msgstr "Grupo deletado com sucesso"
 
-#: congregations/views.py:172
+#: congregations/views.py:175
 msgid "Publisher added successfully"
 msgstr "Publicador adicionado com sucesso"
 
-#: congregations/views.py:188
+#: congregations/views.py:191
 msgid "Publisher edited successfully"
 msgstr "Publicado editado com sucesso"
 
-#: congregations/views.py:193
+#: congregations/views.py:196
 msgid "Edit Publisher"
 msgstr "Editar Publicador"
 
-#: congregations/views.py:201
+#: congregations/views.py:204
 msgid "Publisher deleted successfully"
 msgstr "Publicado deletado com sucesso"
 
-#: financial/forms.py:9 financial/models.py:24 meetings/forms.py:24
-#: meetings/models.py:111
+#: djongo/models/fields.py:635
+msgid "ObjectId"
+msgstr ""
+
+#: financial/forms.py:15 financial/models.py:24 meetings/forms.py:24
+#: meetings/forms.py:217 meetings/models.py:111 meetings/models.py:125
 msgid "Date"
 msgstr "Data"
 
-#: financial/forms.py:21 meetings/forms.py:44 meetings/forms.py:166
+#: financial/forms.py:35 meetings/forms.py:44 meetings/forms.py:166
+#: meetings/forms.py:187
 msgid "Start Date"
 msgstr "Data Inicial"
 
-#: financial/forms.py:26 meetings/forms.py:49 meetings/forms.py:171
+#: financial/forms.py:40 meetings/forms.py:49 meetings/forms.py:171
+#: meetings/forms.py:192
 msgid "End Date"
 msgstr "Data Final"
 
@@ -332,9 +348,9 @@ msgstr "Receitas"
 msgid "Checking Account"
 msgstr "Conta Bancária"
 
-#: financial/models.py:14
+#: financial/models.py:14 meetings/models.py:128
 msgid "Other"
-msgstr "Outra"
+msgstr "Outro"
 
 #: financial/models.py:17
 msgid "In"
@@ -364,28 +380,33 @@ msgstr "Direção da Transação"
 msgid "Note"
 msgstr "Observação"
 
-#: financial/templates/add_edit_transactions.html:12 financial/views.py:35
-#: sgc/templates/base.html:142
+#: financial/models.py:31
+#| msgid "Users"
+msgid "User"
+msgstr "Usuário"
+
+#: financial/templates/add_edit_transaction.html:12 financial/views.py:35
+#: sgc/templates/base.html:143
 msgid "Transactions"
 msgstr "Transações"
 
-#: financial/templates/transactions.html:17 financial/views.py:51
+#: financial/templates/transactions.html:17 financial/views.py:55
 msgid "Add Transaction"
 msgstr "Adicionar Transação"
 
-#: financial/views.py:46
+#: financial/views.py:50
 msgid "Transaction added successfully"
 msgstr "Transação adicionada com sucesso"
 
-#: financial/views.py:62
+#: financial/views.py:66
 msgid "Transaction edited successfully"
 msgstr "Transação editada com sucesso"
 
-#: financial/views.py:67
+#: financial/views.py:71
 msgid "Edit Transaction"
 msgstr "Editar Transação"
 
-#: financial/views.py:75
+#: financial/views.py:79
 msgid "Transaction deleted successfully"
 msgstr "Transação deletada com sucesso"
 
@@ -427,7 +448,8 @@ msgid "Designations"
 msgstr "Designações"
 
 #: meetings/models.py:8 meetings/models.py:73
-#: meetings/templates/pdf/midweek.html:8 meetings/templates/pdf/weekend.html:18
+#: meetings/templates/pdf/midweek.html:8
+#: meetings/templates/pdf/weekend.html:18
 msgid "President"
 msgstr "Presidente"
 
@@ -508,8 +530,25 @@ msgstr "Mic Volante 1"
 msgid "Mic Passer 2"
 msgstr "Mic Volante 2"
 
+#: meetings/models.py:126
+msgid "Filled by"
+msgstr "Preenchido por"
+
+#: meetings/models.py:127 meetings/templates/add_edit_meeting_audience.html:32
+msgid "Absences"
+msgstr "Ausências"
+
+#: meetings/models.py:129
+msgid "Count"
+msgstr "Contagem"
+
+#: meetings/templates/add_edit_meeting_audience.html:12 meetings/views.py:475
+#| msgid "Meetings"
+msgid "Meeting Audiences"
+msgstr "Assistência das Reuniões"
+
 #: meetings/templates/add_meeting.html:12
-#: meetings/templates/edit_meeting.html:12 meetings/views.py:43
+#: meetings/templates/edit_meeting.html:12 meetings/views.py:44
 #: sgc/templates/base.html:133
 msgid "Meetings"
 msgstr "Reuniões"
@@ -562,7 +601,12 @@ msgstr "Pesquisar"
 msgid "Generate"
 msgstr "Gerar"
 
-#: meetings/templates/meetings.html:17 meetings/views.py:123
+#: meetings/templates/meeting_audiences.html:17 meetings/views.py:503
+#| msgid "Add Meeting"
+msgid "Add Meeting Audience"
+msgstr "Adicionar Assistência da Reunião"
+
+#: meetings/templates/meetings.html:17 meetings/views.py:124
 msgid "Add Meeting"
 msgstr "Adicionar Reunião"
 
@@ -608,25 +652,45 @@ msgstr "Faça seu Melhor no Ministério"
 msgid "Living as Christians"
 msgstr "Nossa Vida Cristã"
 
-#: meetings/views.py:111
+#: meetings/views.py:112
 msgid "Meeting added successfully"
 msgstr "Reunião adicionada com sucesso"
 
-#: meetings/views.py:197
+#: meetings/views.py:198
 msgid "Meeting edited successfully"
 msgstr "Reunião editada com sucesso"
 
-#: meetings/views.py:221
+#: meetings/views.py:222
 msgid "Edit Meeting"
 msgstr "Editar Reunião"
 
-#: meetings/views.py:236
+#: meetings/views.py:237
 msgid "Meeting deleted successfully"
 msgstr "Reunião deletada com sucesso"
 
-#: meetings/views.py:285 sgc/templates/base.html:136
+#: meetings/views.py:286 sgc/templates/base.html:137
 msgid "Generate PDF"
 msgstr "Gerar PDF"
+
+#: meetings/views.py:497
+#| msgid "Meeting added successfully"
+msgid "Meeting Audience added successfully"
+msgstr "Assistência da Reunião adicionada com sucesso"
+
+#: meetings/views.py:519
+#| msgid "Meeting edited successfully"
+msgid "Meeting Audience edited successfully"
+msgstr "Assistência da Reunião editada com sucesso"
+
+#: meetings/views.py:526
+#| msgid "Edit Meeting"
+msgid "Edit Meeting Audience"
+msgstr "Editar Assistência da Reunião"
+
+#: meetings/views.py:535
+#| msgid "Meeting deleted successfully"
+msgid "Meeting Audience deleted successfully"
+msgstr "Assistência da Reunião deletada com sucesso"
 
 #: sgc/settings.py:140
 msgid "English"
@@ -647,24 +711,29 @@ msgid "Logout"
 msgstr "Sair"
 
 #: sgc/templates/base.html:135
+#| msgid "Meeting edited successfully"
+msgid "Meeting Audience"
+msgstr "Assistência da Reunião"
+
+#: sgc/templates/base.html:136
 msgid "Meeting Registration"
 msgstr "Cadastro de Reuniões"
 
-#: sgc/templates/base.html:140
+#: sgc/templates/base.html:141
 msgid "Financial"
 msgstr "Financeiro"
 
-#: sgc/templates/base.html:147
+#: sgc/templates/base.html:148
 msgid "Administration"
 msgstr "Administração"
 
-#: sgc/templates/base.html:149 users/templates/add_edit_user.html:12
-#: users/templates/change_password.html:33 users/templates/set_password.html:33
-#: users/views.py:33
+#: sgc/templates/base.html:150 users/templates/add_edit_user.html:12
+#: users/templates/change_password.html:33
+#: users/templates/set_password.html:33 users/views.py:33
 msgid "Users"
 msgstr "Usuários"
 
-#: sgc/templates/base.html:176
+#: sgc/templates/base.html:177
 msgid "Close"
 msgstr "Fechar"
 

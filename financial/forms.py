@@ -5,6 +5,12 @@ from financial.models import Transaction
 
 
 class FormTransaction(forms.ModelForm):
+    def __init__(self, language, *args, **kwargs):
+        super(FormTransaction, self).__init__(*args, **kwargs)
+        if language == 'en':
+            self.fields['date'].widget.options['format'] = "YYYY-MM-DD"
+        elif language == 'pt-br':
+            self.fields['date'].widget.options['format'] = "DD/MM/YYYY"
     date = forms.DateField(
         label=_("Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
         widget=DateWidget(
@@ -17,6 +23,14 @@ class FormTransaction(forms.ModelForm):
 
 
 class FormSearchTransaction(forms.Form):
+    def __init__(self, language, *args, **kwargs):
+        super(FormSearchTransaction, self).__init__(*args, **kwargs)
+        if language == 'en':
+            self.fields['start_date'].widget.options['format'] = "YYYY-MM-DD"
+            self.fields['end_date'].widget.options['format'] = "YYYY-MM-DD"
+        elif language == 'pt-br':
+            self.fields['start_date'].widget.options['format'] = "DD/MM/YYYY"
+            self.fields['end_date'].widget.options['format'] = "DD/MM/YYYY"
     start_date = forms.DateField(
         label=_("Start Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
         widget=DateWidget(

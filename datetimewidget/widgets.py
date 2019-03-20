@@ -198,28 +198,7 @@ class PickerWidgetMixin(object):
         # We want to have a Javascript style date format specifier in the options dictionary and we
         # want a Python style date format specifier as a member variable for parsing the date string
         # from the form data
-        if usel10n is True:
-            # If we're doing localisation, get the local Python date format and convert it to
-            # Javascript data format for the options dictionary
-            self.is_localized = True
 
-            # Get format from django format system
-            self.format = get_format(self.format_name)[0]
-
-            # Convert Python format specifier to Javascript format specifier
-
-            # Set the local language
-            self.options['locale'] = get_supported_language(get_language())
-
-        else:
-
-            # If we're not doing localisation, get the Javascript date format provided by the user,
-            # with a default, and convert it to a Python data format for later string parsing
-            format = self.options['format']
-            self.format = toPython_re.sub(
-                lambda x: dateConversiontoPython[x.group()],
-                format
-                )
 
         super(PickerWidgetMixin, self).__init__(attrs, format=self.format)
 

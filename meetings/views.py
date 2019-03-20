@@ -6,11 +6,12 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django_tables2.config import RequestConfig
-from meetings.models import Meeting, TreasuresContent, ApplyYourselfContent, LivingChristiansContent
-from meetings.tables import TableMeetings
+from meetings.models import Meeting, TreasuresContent, ApplyYourselfContent, LivingChristiansContent, MeetingAudience
+from meetings.tables import TableMeetings, TableMeetingAudience
 from meetings.forms import (
     FormSearchMeeting, FormMeeting, FormDesignations, FormWeekendContent, FormMidweekContent, FormTreasuresContent,
-    FormApplyYourselfContent, FormLivingChristiansContent, FormGeneratePDF)
+    FormApplyYourselfContent, FormLivingChristiansContent, FormGeneratePDF, FormMeetingAudience,
+    FormSearchMeetingAudience)
 from congregations.models import Publisher
 from users.models import UserProfile
 from sgc import settings
@@ -448,3 +449,88 @@ def suggest_meeting(request):
         'living_christians': living_christians
     }
     return JsonResponse(ret)
+
+
+@login_required
+def meeting_audiences(request):
+    profile = UserProfile.objects.get(user=request.user)
+    form = FormSearchMeetingAudience(request.LANGUAGE_CODE, request.GET)
+    filter_data = {}
+    if form.is_valid():
+        data = form.cleaned_data
+        if 'start_date' in data and data['start_date']:
+            filter_data['date__gte'] = data['start_date']
+        else:
+            filter_data['date__gte'] = datetime.datetime.now()
+        if 'end_date' in data and data['end_date']:
+            filter_data['date__lte'] = data['end_date']
+    if not request.user.is_staff:
+        filter_data['congregation_id'] = profile.congregation_id
+    data = MeetingAudience.objects.filter(**filter_data)
+    table = TableMeetingAudience(data)
+    table.paginate(page=request.GET.get('page', 1), per_page=25)
+    RequestConfig(request).configure(table)
+    return render(request, 'meeting_audiences.html', {
+        'request': request, 'table': table, 'form': form,
+        'page_group': 'financial', 'page_title': _("Meeting Audiences"),
+        'next': request.GET.copy().urlencode()
+    })
+
+
+def add_meeting_audience(request):
+    if request.user:
+        profile = UserProfile.objects.get(user=request.user)
+        congregation_id = profile.congregation_id
+    else:
+        if 'congregation_id' in request.GET and request.GET['congregation_id']:
+            congregation_id = request.GET['congregation_id']
+        else:
+            return HttpResponse(status=401)
+    if request.method == 'POST':
+        form = FormMeetingAudience(request.LANGUAGE_CODE, request.POST)
+        if form.is_valid():
+            meeting_audience = form.save(commit=False)
+            for i, absence in enumerate(request.POST.getlist('absences')):
+                meeting_audience.absences.add(Publisher.objects.get(pk=absence))
+            meeting_audience.congregation_id = congregation_id
+            meeting_audience.save()
+            messages.success(request, _("Meeting Audience added successfully"))
+            return redirect_with_next(request, 'meeting_audiences')
+    else:
+        form = FormMeetingAudience(request.LANGUAGE_CODE)
+    all_publishers = Publisher.objects.filter(congregation_id=congregation_id)
+    return render(request, 'add_edit_meeting_audience.html', {
+        'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Add Meeting Audience"),
+        'all_publishers': all_publishers, 'checked_publishers': []
+    })
+
+
+@login_required
+def edit_meeting_audience(request, meeting_audience_id):
+    meeting_audience = get_object_or_404(MeetingAudience, pk=meeting_audience_id)
+    if request.method == 'POST':
+        form = FormMeetingAudience(request.LANGUAGE_CODE, request.POST, instance=meeting_audience)
+        if form.is_valid():
+            meeting_audience = form.save(commit=False)
+            meeting_audience.absences.clear()
+            for i, absence in enumerate(request.POST.getlist('absences')):
+                meeting_audience.absences.add(Publisher.objects.get(pk=absence))
+            meeting_audience.save()
+            messages.success(request, _("Meeting Audience edited successfully"))
+            return redirect_with_next(request, 'meeting_audiences')
+    else:
+        form = FormMeetingAudience(request.LANGUAGE_CODE, instance=meeting_audience)
+    checked_publishers = [x.pk for x in meeting_audience.absences.get_queryset()]
+    all_publishers = Publisher.objects.filter(congregation_id=meeting_audience.congregation_id)
+    return render(request, 'add_edit_meeting_audience.html', {
+        'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Edit Meeting Audience"),
+        'checked_publishers': checked_publishers, 'all_publishers': all_publishers
+    })
+
+
+@login_required
+def delete_meeting_audience(request, meeting_audience_id):
+    meeting_audience = get_object_or_404(MeetingAudience, pk=meeting_audience_id)
+    meeting_audience.delete()
+    messages.success(request, _("Meeting Audience deleted successfully"))
+    return redirect_with_next(request, 'meeting_audiences')

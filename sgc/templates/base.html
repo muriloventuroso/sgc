@@ -132,6 +132,7 @@
                         <li class="{% if page_group == 'meetings' %}active{% endif %}">
                             <a href="javascript:void(0);" class="waves-effect {% if page_group == 'meetings' %}active{% endif %}"><i class="ti-calendar"></i> <span> {% trans 'Meetings' %} <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span> </a>
                             <ul class="submenu">
+                                <li><a href="{% url 'meeting_audiences' %}">{% trans 'Meeting Audience' %}</a></li>
                                 <li><a href="{% url 'meetings' %}">{% trans 'Meeting Registration' %}</a></li>
                                 <li><a href="{% url 'generate_pdf' %}">{% trans 'Generate PDF' %}</a></li>
                             </ul>
