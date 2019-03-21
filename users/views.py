@@ -102,7 +102,7 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'change_password.html', {
-        'form': form
+        'form': form, 'page_group': 'admin', 'page_title': _("Change Password")
     })
 
 
@@ -123,5 +123,5 @@ def set_password(request, user_id):
     else:
         form = SetPasswordForm(request.user)
     return render(request, 'set_password.html', {
-        'form': form
+        'form': form, 'page_group': 'admin', 'page_title': _("Set Password")
     })
