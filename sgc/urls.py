@@ -29,6 +29,7 @@ urlpatterns = i18n_patterns(
     path('meetings/', include('meetings.urls')),
     path('users/', include('users.urls')),
     path('financial/', include('financial.urls')),
+    path('preaching/', include('preaching.urls')),
     path('', sgc.views.home, {}, 'home')
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.ADMIN_ENABLED:

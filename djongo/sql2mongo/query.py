@@ -264,7 +264,6 @@ class SelectQuery(Query):
 
             if self.order:
                 kwargs.update(self.order.to_mongo())
-            
             if self.offset:
                 kwargs.update(self.offset.to_mongo())
 
@@ -287,6 +286,8 @@ class SelectQuery(Query):
                         ret.append(doc[selected.column])
                     except KeyError:
                         if self.connection_properties.enforce_schema:
+                            print(doc)
+                            print(selected.column)
                             raise MigrationError(selected.column)
                         ret.append(None)
                 else:

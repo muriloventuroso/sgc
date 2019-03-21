@@ -50,7 +50,7 @@ def add_transaction(request):
             messages.success(request, _("Transaction added successfully"))
             return redirect_with_next(request, 'transactions')
     else:
-        form = FormTransaction()
+        form = FormTransaction(request.LANGUAGE_CODE)
     return render(request, 'add_edit_transaction.html', {
         'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Add Transaction")
     })
@@ -66,7 +66,7 @@ def edit_transaction(request, transaction_id):
             messages.success(request, _("Transaction edited successfully"))
             return redirect_with_next(request, 'transactions')
     else:
-        form = FormTransaction(instance=transaction)
+        form = FormTransaction(request.LANGUAGE_CODE, instance=transaction)
     return render(request, 'add_edit_transaction.html', {
         'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Edit Transaction")
     })

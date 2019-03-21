@@ -144,6 +144,13 @@
 
                             </ul>
                         </li>
+                        <li class="{% if page_group == 'preaching' %}active{% endif %}">
+                            <a href="javascript:void(0);" class="waves-effect {% if page_group == 'preaching' %}active{% endif %}"><i class="ti-briefcase"></i><span> {% trans 'Preaching' %} <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span> </a>
+                            <ul class="submenu">
+                                <li><a href="{% url 'pioneers' %}">{% trans 'Pioneers' %}</a></li>
+
+                            </ul>
+                        </li>
                         <li class="{% if page_group == 'admin' %}active{% endif %}">
                             <a href="javascript:void(0);" class="waves-effect {% if page_group == 'admin' %}active{% endif %}"><i class="ti-settings"></i><span> {% trans 'Administration' %} <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span> </a>
                             <ul class="submenu">
