@@ -26,6 +26,10 @@ class Congregation(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = _("Congregation")
+        verbose_name_plural = _("Congregations")
+
 
 class Group(models.Model):
     _id = models.ObjectIdField()
@@ -36,6 +40,10 @@ class Group(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _("Group")
+        verbose_name_plural = _("Groups")
 
 
 class Publisher(models.Model):
@@ -62,3 +70,5 @@ class Publisher(models.Model):
 
     class Meta:
         ordering = ('full_name', )
+        verbose_name = _("Publisher")
+        verbose_name_plural = _("Publishers")

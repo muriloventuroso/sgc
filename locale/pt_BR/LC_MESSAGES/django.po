@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 08:43-0300\n"
-"PO-Revision-Date: 2019-03-22 08:44-0306\n"
+"POT-Creation-Date: 2019-03-22 08:49-0300\n"
+"PO-Revision-Date: 2019-03-22 08:48-0306\n"
 "Last-Translator: b'  <muriloventuroso@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -26,7 +26,7 @@ msgstr "fechar"
 
 #: congregations/forms.py:14 congregations/forms.py:27
 #: congregations/forms.py:50 congregations/models.py:19
-#: congregations/models.py:32
+#: congregations/models.py:36
 msgid "Name"
 msgstr "Nome"
 
@@ -46,7 +46,7 @@ msgstr "Estado"
 msgid "Tags"
 msgstr "Tags"
 
-#: congregations/forms.py:33 congregations/models.py:50
+#: congregations/forms.py:33 congregations/models.py:58
 msgid "Baptism Date"
 msgstr "Data de Batismo"
 
@@ -54,15 +54,16 @@ msgstr "Data de Batismo"
 msgid "TAGS"
 msgstr "TAGS"
 
-#: congregations/forms.py:52 congregations/models.py:54
+#: congregations/forms.py:52 congregations/models.py:45
+#: congregations/models.py:62
 msgid "Group"
 msgstr "Grupo"
 
-#: congregations/forms.py:53 congregations/models.py:33
-#: congregations/models.py:53 financial/models.py:6 financial/models.py:30
-#: meetings/models.py:114 meetings/models.py:130
+#: congregations/forms.py:53 congregations/models.py:30
+#: congregations/models.py:37 congregations/models.py:61 financial/models.py:6
+#: financial/models.py:30 meetings/models.py:114 meetings/models.py:132
 #: meetings/templates/pdf/weekend.html:10 preaching/models.py:18
-#: preaching/models.py:38 users/forms.py:40 users/models.py:11
+#: preaching/models.py:42 users/forms.py:40 users/models.py:11
 msgid "Congregation"
 msgstr "Congregação"
 
@@ -111,49 +112,73 @@ msgstr "Estudante"
 msgid "Stage"
 msgstr "Palco"
 
-#: congregations/models.py:43
+#: congregations/models.py:31
+#: congregations/templates/congregations/add_edit_congregation.html:12
+#: congregations/views.py:37 sgc/templates/base.html:123
+#: sgc/templates/base.html:125
+msgid "Congregations"
+msgstr "Congregações"
+
+#: congregations/models.py:46
+#: congregations/templates/groups/add_edit_group.html:12
+#: congregations/views.py:97 sgc/templates/base.html:126
+msgid "Groups"
+msgstr "Grupos"
+
+#: congregations/models.py:51
 msgid "Full Name"
 msgstr "Nome Completo"
 
-#: congregations/models.py:44
+#: congregations/models.py:52
 msgid "Address"
 msgstr "Endereço"
 
-#: congregations/models.py:45
+#: congregations/models.py:53
 msgid "Email"
 msgstr "Email"
 
-#: congregations/models.py:46
+#: congregations/models.py:54
 msgid "Phone"
 msgstr "Telefone"
 
-#: congregations/models.py:47
+#: congregations/models.py:55
 msgid "Cellphone"
 msgstr "Celular"
 
-#: congregations/models.py:48
+#: congregations/models.py:56
 msgid "Creation Date"
 msgstr "Data de Criação"
 
-#: congregations/models.py:49
+#: congregations/models.py:57
 msgid "Update Date"
 msgstr "Data de Atualização"
 
-#: congregations/models.py:51
+#: congregations/models.py:59
 msgid "Gender"
 msgstr "Gênero"
 
-#: congregations/models.py:51
+#: congregations/models.py:59
 msgid "Female"
 msgstr "Feminino"
 
-#: congregations/models.py:51
+#: congregations/models.py:59
 msgid "Male"
 msgstr "Masculino"
 
-#: congregations/models.py:56 preaching/models.py:40
+#: congregations/models.py:64 preaching/models.py:44
 msgid "Is Active"
 msgstr "Ativo"
+
+#: congregations/models.py:73 preaching/forms.py:101 preaching/models.py:17
+#: preaching/models.py:41
+msgid "Publisher"
+msgstr "Publicador"
+
+#: congregations/models.py:74
+#: congregations/templates/publishers/add_edit_publisher.html:12
+#: congregations/views.py:164 sgc/templates/base.html:127
+msgid "Publishers"
+msgstr "Publicadores"
 
 #: congregations/tables.py:10 congregations/tables.py:24
 #: congregations/tables.py:38 financial/tables.py:8 meetings/tables.py:10
@@ -228,16 +253,10 @@ msgstr "Deletar"
 #: preaching/templates/add_edit_pioneer.html:11
 #: preaching/templates/field_service_reports.html:9
 #: preaching/templates/pioneers.html:9 users/templates/add_edit_user.html:11
-#: users/templates/change_password.html:10
-#: users/templates/set_password.html:12 users/templates/users.html:9
+#: users/templates/change_password.html:10 users/templates/set_password.html:12
+#: users/templates/users.html:9
 msgid "Home"
 msgstr "Home"
-
-#: congregations/templates/congregations/add_edit_congregation.html:12
-#: congregations/views.py:37 sgc/templates/base.html:123
-#: sgc/templates/base.html:125
-msgid "Congregations"
-msgstr "Congregações"
 
 #: congregations/templates/congregations/add_edit_congregation.html:30
 #: congregations/templates/groups/add_edit_group.html:30
@@ -249,8 +268,7 @@ msgstr "Congregações"
 #: preaching/templates/add_edit_field_service_report.html:30
 #: preaching/templates/add_edit_pioneer.html:30
 #: users/templates/add_edit_user.html:30
-#: users/templates/change_password.html:29
-#: users/templates/set_password.html:31
+#: users/templates/change_password.html:29 users/templates/set_password.html:31
 msgid "Send"
 msgstr "Enviar"
 
@@ -259,19 +277,9 @@ msgstr "Enviar"
 msgid "Add Congregation"
 msgstr "Adicionar Congregação"
 
-#: congregations/templates/groups/add_edit_group.html:12
-#: congregations/views.py:97 sgc/templates/base.html:126
-msgid "Groups"
-msgstr "Grupos"
-
 #: congregations/templates/groups/groups.html:17 congregations/views.py:113
 msgid "Add Group"
 msgstr "Adicionar Grupo"
-
-#: congregations/templates/publishers/add_edit_publisher.html:12
-#: congregations/views.py:164 sgc/templates/base.html:127
-msgid "Publishers"
-msgstr "Publicadores"
 
 #: congregations/templates/publishers/publishers.html:17
 #: congregations/views.py:180
@@ -331,20 +339,20 @@ msgid "ObjectId"
 msgstr ""
 
 #: financial/forms.py:15 financial/models.py:24 meetings/forms.py:24
-#: meetings/forms.py:217 meetings/models.py:111 meetings/models.py:125
+#: meetings/forms.py:217 meetings/models.py:111 meetings/models.py:127
 #: preaching/forms.py:70 preaching/models.py:16
 msgid "Date"
 msgstr "Data"
 
 #: financial/forms.py:35 meetings/forms.py:44 meetings/forms.py:166
 #: meetings/forms.py:187 preaching/forms.py:19 preaching/forms.py:44
-#: preaching/forms.py:92 preaching/models.py:35
+#: preaching/forms.py:92 preaching/models.py:39
 msgid "Start Date"
 msgstr "Data Inicial"
 
 #: financial/forms.py:40 meetings/forms.py:49 meetings/forms.py:171
 #: meetings/forms.py:192 preaching/forms.py:24 preaching/forms.py:49
-#: preaching/forms.py:97 preaching/models.py:36
+#: preaching/forms.py:97 preaching/models.py:40
 msgid "End Date"
 msgstr "Data Final"
 
@@ -368,7 +376,7 @@ msgstr "Receitas"
 msgid "Checking Account"
 msgstr "Conta Bancária"
 
-#: financial/models.py:14 meetings/models.py:128
+#: financial/models.py:14 meetings/models.py:130
 msgid "Other"
 msgstr "Outro"
 
@@ -400,12 +408,16 @@ msgstr "Direção da Transação"
 msgid "Note"
 msgstr "Observação"
 
-#: financial/models.py:31
+#: financial/models.py:31 users/models.py:19
 msgid "User"
 msgstr "Usuário"
 
-#: financial/templates/add_edit_transaction.html:12 financial/views.py:35
-#: sgc/templates/base.html:143
+#: financial/models.py:39
+msgid "Transaction"
+msgstr "Transação"
+
+#: financial/models.py:40 financial/templates/add_edit_transaction.html:12
+#: financial/views.py:35 sgc/templates/base.html:143
 msgid "Transactions"
 msgstr "Transações"
 
@@ -467,8 +479,7 @@ msgid "Designations"
 msgstr "Designações"
 
 #: meetings/models.py:8 meetings/models.py:73
-#: meetings/templates/pdf/midweek.html:8
-#: meetings/templates/pdf/weekend.html:18
+#: meetings/templates/pdf/midweek.html:8 meetings/templates/pdf/weekend.html:18
 msgid "President"
 msgstr "Presidente"
 
@@ -549,27 +560,39 @@ msgstr "Mic Volante 1"
 msgid "Mic Passer 2"
 msgstr "Mic Volante 2"
 
-#: meetings/models.py:126
-msgid "Filled by"
-msgstr "Preenchido por"
+#: meetings/models.py:122
+msgid "Meeting"
+msgstr "Reunião"
 
-#: meetings/models.py:127 meetings/templates/add_edit_meeting_audience.html:32
-msgid "Absences"
-msgstr "Ausências"
-
-#: meetings/models.py:129
-msgid "Count"
-msgstr "Contagem"
-
-#: meetings/templates/add_edit_meeting_audience.html:12 meetings/views.py:475
-msgid "Meeting Audiences"
-msgstr "Assistência das Reuniões"
-
-#: meetings/templates/add_meeting.html:12
+#: meetings/models.py:123 meetings/templates/add_meeting.html:12
 #: meetings/templates/edit_meeting.html:12 meetings/views.py:44
 #: sgc/templates/base.html:133
 msgid "Meetings"
 msgstr "Reuniões"
+
+#: meetings/models.py:128
+msgid "Filled by"
+msgstr "Preenchido por"
+
+#: meetings/models.py:129 meetings/templates/add_edit_meeting_audience.html:32
+msgid "Absences"
+msgstr "Ausências"
+
+#: meetings/models.py:131
+msgid "Count"
+msgstr "Contagem"
+
+#: meetings/models.py:136 sgc/templates/base.html:135
+msgid "Meeting Audience"
+msgstr "Assistência da Reunião"
+
+#: meetings/models.py:137
+msgid "Meetings Audience"
+msgstr "Assistência da Reuniões"
+
+#: meetings/templates/add_edit_meeting_audience.html:12 meetings/views.py:475
+msgid "Meeting Audiences"
+msgstr "Assistência das Reuniões"
 
 #: meetings/templates/add_meeting.html:29
 #: meetings/templates/edit_meeting.html:30
@@ -705,10 +728,6 @@ msgstr "Editar Assistência da Reunião"
 msgid "Meeting Audience deleted successfully"
 msgstr "Assistência da Reunião deletada com sucesso"
 
-#: preaching/forms.py:101 preaching/models.py:17 preaching/models.py:37
-msgid "Publisher"
-msgstr "Publicador"
-
 #: preaching/models.py:5 preaching/models.py:9
 msgid "Auxiliary Pioneer"
 msgstr "Pioneiro Auxiliar"
@@ -737,21 +756,30 @@ msgstr "Revisitas"
 msgid "Studies"
 msgstr "Estudos"
 
-#: preaching/models.py:39
-msgid "Type"
-msgstr "Tipo"
+#: preaching/models.py:33
+msgid "Field Service Report"
+msgstr "Relatório de Serviço de Campo"
 
+#: preaching/models.py:34
 #: preaching/templates/add_edit_field_service_report.html:12
-#: preaching/views.py:101 sgc/templates/base.html:150
+#: preaching/views.py:103 sgc/templates/base.html:150
 msgid "Field Service Reports"
 msgstr "Relatórios de Serviço de Campo"
 
-#: preaching/templates/add_edit_pioneer.html:12 preaching/views.py:35
-#: sgc/templates/base.html:151
+#: preaching/models.py:43
+msgid "Type"
+msgstr "Tipo"
+
+#: preaching/models.py:52
+msgid "Pioneer"
+msgstr "Pioneiro"
+
+#: preaching/models.py:53 preaching/templates/add_edit_pioneer.html:12
+#: preaching/views.py:35 sgc/templates/base.html:151
 msgid "Pioneers"
 msgstr "Pioneiros"
 
-#: preaching/templates/field_service_reports.html:17 preaching/views.py:120
+#: preaching/templates/field_service_reports.html:17 preaching/views.py:122
 msgid "Add Field Service Report"
 msgstr "Adicionar Relatório de Serviço de Campo"
 
@@ -775,22 +803,19 @@ msgstr "Editar Pioneiro"
 msgid "Pioneer deleted successfully"
 msgstr "Pioneiro deletado com sucesso"
 
-#: preaching/views.py:115
-#| msgid "Pioneer added successfully"
+#: preaching/views.py:117
 msgid "Field Service Report added successfully"
 msgstr "Relatório de Serviço de Campo adicionado com sucesso"
 
-#: preaching/views.py:132
-#| msgid "Pioneer edited successfully"
+#: preaching/views.py:134
 msgid "Field Service Report edited successfully"
 msgstr "Relatório de Serviço de Campo editado com sucesso"
 
-#: preaching/views.py:138
+#: preaching/views.py:140
 msgid "Edit Field Service Report"
 msgstr "Editar Relatório de Serviço de Campo"
 
-#: preaching/views.py:146
-#| msgid "Pioneer deleted successfully"
+#: preaching/views.py:148
 msgid "FieldServiceReport deleted successfully"
 msgstr "Relatório de Serviço de Campo deletado com sucesso"
 
@@ -810,10 +835,6 @@ msgstr "Alterar Senha"
 msgid "Logout"
 msgstr "Sair"
 
-#: sgc/templates/base.html:135
-msgid "Meeting Audience"
-msgstr "Assistência da Reunião"
-
 #: sgc/templates/base.html:136
 msgid "Meeting Registration"
 msgstr "Cadastro de Reuniões"
@@ -830,9 +851,10 @@ msgstr "Pregação"
 msgid "Administration"
 msgstr "Administração"
 
-#: sgc/templates/base.html:158 users/templates/add_edit_user.html:12
-#: users/templates/change_password.html:11
-#: users/templates/set_password.html:13 users/views.py:33
+#: sgc/templates/base.html:158 users/models.py:20
+#: users/templates/add_edit_user.html:12
+#: users/templates/change_password.html:11 users/templates/set_password.html:13
+#: users/views.py:33
 msgid "Users"
 msgstr "Usuários"
 

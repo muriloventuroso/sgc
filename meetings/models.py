@@ -119,6 +119,8 @@ class Meeting(models.Model):
 
     class Meta:
         ordering = ['date', ]
+        verbose_name = _("Meeting")
+        verbose_name_plural = _("Meetings")
 
 
 class MeetingAudience(models.Model):
@@ -128,3 +130,8 @@ class MeetingAudience(models.Model):
     other = models.TextField(verbose_name=_("Other"), blank=True)
     count = models.IntegerField(verbose_name=_("Count"), default=0)
     congregation = models.ForeignKey(Congregation, verbose_name=_("Congregation"), on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['date', ]
+        verbose_name = _("Meeting Audience")
+        verbose_name_plural = _("Meetings Audience")

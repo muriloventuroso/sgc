@@ -34,3 +34,7 @@ class Transaction(models.Model):
 
     def __str__(self):
         return '({}) - {}'.format(self.date, self.description)
+
+    class Meta:
+        verbose_name = _("Transaction")
+        verbose_name_plural = _("Transactions")
