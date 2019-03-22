@@ -57,12 +57,12 @@ class FormFieldServiceReport(forms.ModelForm):
         super(FormFieldServiceReport, self).__init__(*args, **kwargs)
         if language == 'en':
             self.fields['date'].widget.options['format'] = "YYYY-MM"
-            if self.instance:
+            if hasattr(self.instance, 'pk') and self.instance.pk:
                 self.initial['date'] = self.instance.date.strftime('%Y-%m')
 
         elif language == 'pt-br':
             self.fields['date'].widget.options['format'] = "MM/YYYY"
-            if self.instance:
+            if hasattr(self.instance, 'pk') and self.instance.pk:
                 self.initial['date'] = self.instance.date.strftime('%m/%Y')
 
         self.fields['publisher'].queryset = Publisher.objects.filter(congregation_id=congregation_id)
