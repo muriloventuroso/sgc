@@ -26,7 +26,7 @@ class Transaction(models.Model):
     tc = models.CharField(max_length=1, verbose_name=_("Transaction Code"), choices=TRANSACTION_CODE)
     tt = models.CharField(max_length=1, verbose_name=_("Transaction Type"), choices=TRANSACTION_TYPE)
     td = models.CharField(max_length=1, verbose_name=_("Transaction Direction"), choices=TRANSACTION_DIRECTION)
-    note = models.TextField(verbose_name=_("Note"))
+    note = models.TextField(verbose_name=_("Note"), blank=True)
     congregation = models.ForeignKey(Congregation, on_delete=models.CASCADE, verbose_name=_("Congregation"))
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name=_("User"))
 

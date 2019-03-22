@@ -147,6 +147,7 @@
                         <li class="{% if page_group == 'preaching' %}active{% endif %}">
                             <a href="javascript:void(0);" class="waves-effect {% if page_group == 'preaching' %}active{% endif %}"><i class="ti-briefcase"></i><span> {% trans 'Preaching' %} <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span> </a>
                             <ul class="submenu">
+                                <li><a href="{% url 'field_service_reports' %}">{% trans 'Field Service Reports' %}</a></li>
                                 <li><a href="{% url 'pioneers' %}">{% trans 'Pioneers' %}</a></li>
 
                             </ul>

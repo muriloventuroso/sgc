@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-21 18:33-0300\n"
-"PO-Revision-Date: 2019-03-21 18:34-0306\n"
+"POT-Creation-Date: 2019-03-22 08:43-0300\n"
+"PO-Revision-Date: 2019-03-22 08:44-0306\n"
 "Last-Translator: b'  <muriloventuroso@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -42,7 +42,7 @@ msgstr "Cidade"
 msgid "State"
 msgstr "Estado"
 
-#: congregations/forms.py:31
+#: congregations/forms.py:31 preaching/forms.py:74
 msgid "Tags"
 msgstr "Tags"
 
@@ -157,7 +157,8 @@ msgstr "Ativo"
 
 #: congregations/tables.py:10 congregations/tables.py:24
 #: congregations/tables.py:38 financial/tables.py:8 meetings/tables.py:10
-#: meetings/tables.py:22 preaching/tables.py:8 users/tables.py:10
+#: meetings/tables.py:22 preaching/tables.py:8 preaching/tables.py:19
+#: users/tables.py:10
 msgid "Alter"
 msgstr "Alterar"
 
@@ -167,6 +168,7 @@ msgstr "Alterar"
 #: financial/templates/actions_table_transactions.html:3
 #: meetings/templates/actions_table_meeting_audiences.html:3
 #: meetings/templates/actions_table_meetings.html:3
+#: preaching/templates/actions_table_field_service_reports.html:3
 #: preaching/templates/actions_table_pioneers.html:3
 #: users/templates/actions_table_users.html:3
 msgid "Actions"
@@ -178,6 +180,7 @@ msgstr "Ações"
 #: financial/templates/actions_table_transactions.html:6
 #: meetings/templates/actions_table_meeting_audiences.html:6
 #: meetings/templates/actions_table_meetings.html:6
+#: preaching/templates/actions_table_field_service_reports.html:6
 #: preaching/templates/actions_table_pioneers.html:6
 #: users/templates/actions_table_users.html:6
 msgid "Edit"
@@ -189,6 +192,7 @@ msgstr "Editar"
 #: financial/templates/actions_table_transactions.html:7
 #: meetings/templates/actions_table_meeting_audiences.html:7
 #: meetings/templates/actions_table_meetings.html:7
+#: preaching/templates/actions_table_field_service_reports.html:7
 #: preaching/templates/actions_table_pioneers.html:7
 #: users/templates/actions_table_users.html:8
 msgid "Are you sure?"
@@ -200,6 +204,7 @@ msgstr "Tem certeza?"
 #: financial/templates/actions_table_transactions.html:7
 #: meetings/templates/actions_table_meeting_audiences.html:7
 #: meetings/templates/actions_table_meetings.html:7
+#: preaching/templates/actions_table_field_service_reports.html:7
 #: preaching/templates/actions_table_pioneers.html:7
 #: users/templates/actions_table_users.html:8
 msgid "Delete"
@@ -219,7 +224,9 @@ msgstr "Deletar"
 #: meetings/templates/generate_pdf.html:9
 #: meetings/templates/meeting_audiences.html:9
 #: meetings/templates/meetings.html:9
+#: preaching/templates/add_edit_field_service_report.html:11
 #: preaching/templates/add_edit_pioneer.html:11
+#: preaching/templates/field_service_reports.html:9
 #: preaching/templates/pioneers.html:9 users/templates/add_edit_user.html:11
 #: users/templates/change_password.html:10
 #: users/templates/set_password.html:12 users/templates/users.html:9
@@ -239,6 +246,7 @@ msgstr "Congregações"
 #: meetings/templates/add_edit_meeting_audience.html:44
 #: meetings/templates/add_meeting.html:98
 #: meetings/templates/edit_meeting.html:125
+#: preaching/templates/add_edit_field_service_report.html:30
 #: preaching/templates/add_edit_pioneer.html:30
 #: users/templates/add_edit_user.html:30
 #: users/templates/change_password.html:29
@@ -324,17 +332,19 @@ msgstr ""
 
 #: financial/forms.py:15 financial/models.py:24 meetings/forms.py:24
 #: meetings/forms.py:217 meetings/models.py:111 meetings/models.py:125
-#: preaching/forms.py:17 preaching/forms.py:22 preaching/models.py:16
+#: preaching/forms.py:70 preaching/models.py:16
 msgid "Date"
 msgstr "Data"
 
 #: financial/forms.py:35 meetings/forms.py:44 meetings/forms.py:166
-#: meetings/forms.py:187 preaching/forms.py:42 preaching/models.py:35
+#: meetings/forms.py:187 preaching/forms.py:19 preaching/forms.py:44
+#: preaching/forms.py:92 preaching/models.py:35
 msgid "Start Date"
 msgstr "Data Inicial"
 
 #: financial/forms.py:40 meetings/forms.py:49 meetings/forms.py:171
-#: meetings/forms.py:192 preaching/forms.py:47 preaching/models.py:36
+#: meetings/forms.py:192 preaching/forms.py:24 preaching/forms.py:49
+#: preaching/forms.py:97 preaching/models.py:36
 msgid "End Date"
 msgstr "Data Final"
 
@@ -695,6 +705,10 @@ msgstr "Editar Assistência da Reunião"
 msgid "Meeting Audience deleted successfully"
 msgstr "Assistência da Reunião deletada com sucesso"
 
+#: preaching/forms.py:101 preaching/models.py:17 preaching/models.py:37
+msgid "Publisher"
+msgstr "Publicador"
+
 #: preaching/models.py:5 preaching/models.py:9
 msgid "Auxiliary Pioneer"
 msgstr "Pioneiro Auxiliar"
@@ -702,11 +716,6 @@ msgstr "Pioneiro Auxiliar"
 #: preaching/models.py:6 preaching/models.py:10
 msgid "Regular Pioneer"
 msgstr "Pioneiro Regular"
-
-#: preaching/models.py:17 preaching/models.py:37
-#| msgid "Publishers"
-msgid "Publisher"
-msgstr "Publicador"
 
 #: preaching/models.py:20
 msgid "Hours"
@@ -725,44 +734,65 @@ msgid "Return Visits"
 msgstr "Revisitas"
 
 #: preaching/models.py:24
-#| msgid "Student"
 msgid "Studies"
 msgstr "Estudos"
 
 #: preaching/models.py:39
-#| msgid "Type PDF"
 msgid "Type"
 msgstr "Tipo"
 
+#: preaching/templates/add_edit_field_service_report.html:12
+#: preaching/views.py:101 sgc/templates/base.html:150
+msgid "Field Service Reports"
+msgstr "Relatórios de Serviço de Campo"
+
 #: preaching/templates/add_edit_pioneer.html:12 preaching/views.py:35
-#: sgc/templates/base.html:150
+#: sgc/templates/base.html:151
 msgid "Pioneers"
 msgstr "Pioneiros"
 
+#: preaching/templates/field_service_reports.html:17 preaching/views.py:120
+msgid "Add Field Service Report"
+msgstr "Adicionar Relatório de Serviço de Campo"
+
 #: preaching/templates/pioneers.html:17 preaching/views.py:54
-#| msgid "Add Publisher"
 msgid "Add Pioneer"
 msgstr "Adicionar Pioneiro"
 
 #: preaching/views.py:49
-#| msgid "User added successfully"
 msgid "Pioneer added successfully"
 msgstr "Pioneiro adicionado com sucesso"
 
 #: preaching/views.py:65
-#| msgid "User edited successfully"
 msgid "Pioneer edited successfully"
 msgstr "Pioneiro editado com sucesso"
 
 #: preaching/views.py:70
-#| msgid "Edit Publisher"
 msgid "Edit Pioneer"
 msgstr "Editar Pioneiro"
 
 #: preaching/views.py:78
-#| msgid "User deleted successfully"
 msgid "Pioneer deleted successfully"
 msgstr "Pioneiro deletado com sucesso"
+
+#: preaching/views.py:115
+#| msgid "Pioneer added successfully"
+msgid "Field Service Report added successfully"
+msgstr "Relatório de Serviço de Campo adicionado com sucesso"
+
+#: preaching/views.py:132
+#| msgid "Pioneer edited successfully"
+msgid "Field Service Report edited successfully"
+msgstr "Relatório de Serviço de Campo editado com sucesso"
+
+#: preaching/views.py:138
+msgid "Edit Field Service Report"
+msgstr "Editar Relatório de Serviço de Campo"
+
+#: preaching/views.py:146
+#| msgid "Pioneer deleted successfully"
+msgid "FieldServiceReport deleted successfully"
+msgstr "Relatório de Serviço de Campo deletado com sucesso"
 
 #: sgc/settings.py:141
 msgid "English"
@@ -796,17 +826,17 @@ msgstr "Financeiro"
 msgid "Preaching"
 msgstr "Pregação"
 
-#: sgc/templates/base.html:155
+#: sgc/templates/base.html:156
 msgid "Administration"
 msgstr "Administração"
 
-#: sgc/templates/base.html:157 users/templates/add_edit_user.html:12
+#: sgc/templates/base.html:158 users/templates/add_edit_user.html:12
 #: users/templates/change_password.html:11
 #: users/templates/set_password.html:13 users/views.py:33
 msgid "Users"
 msgstr "Usuários"
 
-#: sgc/templates/base.html:184
+#: sgc/templates/base.html:185
 msgid "Close"
 msgstr "Fechar"
 

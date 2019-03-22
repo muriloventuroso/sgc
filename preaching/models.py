@@ -22,12 +22,16 @@ class FieldServiceReport(models.Model):
     video = models.IntegerField(verbose_name=_("Video Showings"), default=0)
     return_visits = models.IntegerField(verbose_name=_("Return Visits"), default=0)
     studies = models.IntegerField(verbose_name=_("Studies"), default=0)
-    note = models.TextField(verbose_name=_("Note"))
+    note = models.TextField(verbose_name=_("Note"), blank=True)
 
     objects = models.DjongoManager()
 
     def __str__(self):
         return '({}) - {}'.format(self.date, self.publisher)
+
+    class Meta:
+        verbose_name = _("Field Service Report")
+        verbose_name_plural = _("Field Service Reports")
 
 
 class Pioneer(models.Model):
@@ -43,3 +47,7 @@ class Pioneer(models.Model):
 
     def __str__(self):
         return '({}) - {}'.format(self.get_tp_display(), self.publisher)
+
+    class Meta:
+        verbose_name = _("Pioneer")
+        verbose_name_plural = _("Pioneers")
