@@ -41,3 +41,21 @@ class FormSearchTransaction(forms.Form):
         widget=DateWidget(
             attrs={'id': "end_date", 'data-format': "YYYY-MM-DD"},
             usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+
+
+class FormGeneratePDF(forms.Form):
+    def __init__(self, language, *args, **kwargs):
+        super(FormGeneratePDF, self).__init__(*args, **kwargs)
+        if language == 'en':
+            self.fields['month'].widget.options['format'] = "YYYY-MM"
+        elif language == 'pt-br':
+            self.fields['month'].widget.options['format'] = "MM/YYYY"
+    type_pdf = forms.ChoiceField(
+        label=_("Type PDF"), choices=[('', ''), ('s26', _("Transaction Sheet"))],
+        initial='', required=True)
+    month = forms.DateField(
+        label=_("Start Date"), required=False, input_formats=['%Y-%m', '%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "start_date", 'data-format': "YYYY-MM"},
+            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM'}))
+    balance = forms.DecimalField(label=_("Balance"), required=False)

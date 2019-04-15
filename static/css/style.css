@@ -169,8 +169,7 @@ b, strong {
 .breadcrumb > li + li:before {
   padding: 0 5px;
   color: #9ca8b3;
-  content: "\f105" !important;
-  font-family: FontAwesome;
+  content: "/" !important;
 }
 
 .blockquote {

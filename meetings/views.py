@@ -244,11 +244,12 @@ def generate_pdf(request):
     from django.template.loader import render_to_string
     from django.http import HttpResponse
     from meetings.helpers import get_page_body
+    profile = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
         form = FormGeneratePDF(request.LANGUAGE_CODE, request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            filter_m = {}
+            filter_m = {'congregation_id': profile.congregation_id}
             if data['type_pdf'] == 'd':
                 template = 'pdf/designations.html'
                 template_header = 'pdf/header_designations.html'

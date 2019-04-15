@@ -4,9 +4,10 @@ import financial.views
 urlpatterns = [
 
     path(
-        'financial/transactions/<transaction_id>/delete/', financial.views.delete_transaction,
+        'transactions/<transaction_id>/delete/', financial.views.delete_transaction,
         {}, 'delete_transaction'),
-    path('financial/transactions/<transaction_id>/edit/', financial.views.edit_transaction, {}, 'edit_transaction'),
-    path('financial/transactions/add/', financial.views.add_transaction, {}, 'add_transaction'),
-    path('financial/transactions/', financial.views.transactions, {}, 'transactions'),
+    path('transactions/<transaction_id>/edit/', financial.views.edit_transaction, {}, 'edit_transaction'),
+    path('transactions/add/', financial.views.add_transaction, {}, 'add_transaction'),
+    path('transactions/', financial.views.transactions, {}, 'transactions'),
+    path('pdf/', financial.views.generate_pdf, {}, 'generate_pdf'),
 ]

@@ -1,12 +1,14 @@
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django_tables2.config import RequestConfig
 from financial.models import Transaction
 from financial.tables import TableTransactions
-from financial.forms import FormTransaction, FormSearchTransaction
+from financial.forms import FormTransaction, FormSearchTransaction, FormGeneratePDF
+from financial.helpers import TransactionSheetPdf
 from sgc.helpers import redirect_with_next
 from users.models import UserProfile
 
@@ -79,3 +81,27 @@ def delete_transaction(request, transaction_id):
     messages.success(request, _("Transaction deleted successfully"))
     return redirect_with_next(request, 'transactions')
 
+
+@login_required
+def generate_pdf(request):
+    profile = UserProfile.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = FormGeneratePDF(request.LANGUAGE_CODE, request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            if data['type_pdf'] == 's26':
+                s26 = TransactionSheetPdf(data['month'], data['balance'], profile.congregation_id)
+                s26.generate()
+                pdf_file = s26.save()
+
+                response = HttpResponse(pdf_file, content_type='application/pdf')
+                response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+                return response
+        else:
+            print(form.errors)
+
+    else:
+        form = FormGeneratePDF(request.LANGUAGE_CODE)
+    return render(request, 'generate_pdf.html', {
+        'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Generate PDF"),
+    })
