@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 08:49-0300\n"
-"PO-Revision-Date: 2019-03-22 08:48-0306\n"
+"POT-Creation-Date: 2019-04-15 10:45-0300\n"
+"PO-Revision-Date: 2019-04-15 10:45-0306\n"
 "Last-Translator: b'  <muriloventuroso@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -242,6 +242,7 @@ msgstr "Deletar"
 #: congregations/templates/publishers/add_edit_publisher.html:11
 #: congregations/templates/publishers/publishers.html:9
 #: financial/templates/add_edit_transaction.html:11
+#: financial/templates/generate_pdf.html:9
 #: financial/templates/transactions.html:9
 #: meetings/templates/add_edit_meeting_audience.html:11
 #: meetings/templates/add_meeting.html:11
@@ -253,8 +254,8 @@ msgstr "Deletar"
 #: preaching/templates/add_edit_pioneer.html:11
 #: preaching/templates/field_service_reports.html:9
 #: preaching/templates/pioneers.html:9 users/templates/add_edit_user.html:11
-#: users/templates/change_password.html:10 users/templates/set_password.html:12
-#: users/templates/users.html:9
+#: users/templates/change_password.html:10
+#: users/templates/set_password.html:12 users/templates/users.html:9
 msgid "Home"
 msgstr "Home"
 
@@ -268,7 +269,8 @@ msgstr "Home"
 #: preaching/templates/add_edit_field_service_report.html:30
 #: preaching/templates/add_edit_pioneer.html:30
 #: users/templates/add_edit_user.html:30
-#: users/templates/change_password.html:29 users/templates/set_password.html:31
+#: users/templates/change_password.html:29
+#: users/templates/set_password.html:31
 msgid "Send"
 msgstr "Enviar"
 
@@ -338,15 +340,15 @@ msgstr "Publicado deletado com sucesso"
 msgid "ObjectId"
 msgstr ""
 
-#: financial/forms.py:15 financial/models.py:24 meetings/forms.py:24
+#: financial/forms.py:15 financial/models.py:23 meetings/forms.py:24
 #: meetings/forms.py:217 meetings/models.py:111 meetings/models.py:127
 #: preaching/forms.py:70 preaching/models.py:16
 msgid "Date"
 msgstr "Data"
 
-#: financial/forms.py:35 meetings/forms.py:44 meetings/forms.py:166
-#: meetings/forms.py:187 preaching/forms.py:19 preaching/forms.py:44
-#: preaching/forms.py:92 preaching/models.py:39
+#: financial/forms.py:35 financial/forms.py:57 meetings/forms.py:44
+#: meetings/forms.py:166 meetings/forms.py:187 preaching/forms.py:19
+#: preaching/forms.py:44 preaching/forms.py:92 preaching/models.py:39
 msgid "Start Date"
 msgstr "Data Inicial"
 
@@ -356,53 +358,66 @@ msgstr "Data Inicial"
 msgid "End Date"
 msgstr "Data Final"
 
+#: financial/forms.py:54 meetings/forms.py:163
+msgid "Type PDF"
+msgstr "Tipo de PDF"
+
+#: financial/forms.py:54 financial/views.py:98
+#| msgid "Transaction Code"
+msgid "Transaction Sheet"
+msgstr "Folha de Contas"
+
+#: financial/forms.py:61
+msgid "Balance"
+msgstr "Saldo"
+
 #: financial/models.py:7
 msgid "World Wide Work"
 msgstr "Obra Mundial"
 
 #: financial/models.py:8
-msgid "Bank Account Deposit"
-msgstr "Depósito na Conta Bancária"
+msgid "Expense"
+msgstr "Despesa"
 
-#: financial/models.py:9
-msgid "World Kingdom Hall Construction"
-msgstr "Construção Mundial de Salões do Reino"
-
-#: financial/models.py:12
+#: financial/models.py:11
 msgid "Receips"
 msgstr "Receitas"
 
-#: financial/models.py:13
+#: financial/models.py:12
 msgid "Checking Account"
 msgstr "Conta Bancária"
 
-#: financial/models.py:14 meetings/models.py:130
+#: financial/models.py:13 meetings/models.py:130
 msgid "Other"
 msgstr "Outro"
 
-#: financial/models.py:17
+#: financial/models.py:16
 msgid "In"
 msgstr "Entrada"
 
-#: financial/models.py:18
+#: financial/models.py:17
 msgid "Out"
 msgstr "Saída"
 
-#: financial/models.py:25
+#: financial/models.py:24
 msgid "Description"
 msgstr "Descrição"
 
-#: financial/models.py:26
+#: financial/models.py:25
 msgid "Transaction Code"
 msgstr "Código da Transação"
 
-#: financial/models.py:27
+#: financial/models.py:26
 msgid "Transaction Type"
 msgstr "Tipo da Transação"
 
-#: financial/models.py:28
+#: financial/models.py:27
 msgid "Transaction Direction"
 msgstr "Direção da Transação"
+
+#: financial/models.py:28
+msgid "Value"
+msgstr "Valor"
 
 #: financial/models.py:29 preaching/models.py:25
 msgid "Note"
@@ -417,29 +432,45 @@ msgid "Transaction"
 msgstr "Transação"
 
 #: financial/models.py:40 financial/templates/add_edit_transaction.html:12
-#: financial/views.py:35 sgc/templates/base.html:143
+#: financial/views.py:37 sgc/templates/base.html:143
 msgid "Transactions"
 msgstr "Transações"
 
-#: financial/templates/transactions.html:17 financial/views.py:55
+#: financial/templates/generate_pdf.html:21
+#: meetings/templates/generate_pdf.html:21 sgc/templates/search_box.html:2
+#: sgc/templates/search_box.html:12
+msgid "Search"
+msgstr "Pesquisar"
+
+#: financial/templates/generate_pdf.html:32
+#: meetings/templates/generate_pdf.html:32
+msgid "Generate"
+msgstr "Gerar"
+
+#: financial/templates/transactions.html:17 financial/views.py:57
 msgid "Add Transaction"
 msgstr "Adicionar Transação"
 
-#: financial/views.py:50
+#: financial/views.py:52
 msgid "Transaction added successfully"
 msgstr "Transação adicionada com sucesso"
 
-#: financial/views.py:66
+#: financial/views.py:68
 msgid "Transaction edited successfully"
 msgstr "Transação editada com sucesso"
 
-#: financial/views.py:71
+#: financial/views.py:73
 msgid "Edit Transaction"
 msgstr "Editar Transação"
 
-#: financial/views.py:79
+#: financial/views.py:81
 msgid "Transaction deleted successfully"
 msgstr "Transação deletada com sucesso"
+
+#: financial/views.py:106 meetings/views.py:287 sgc/templates/base.html:137
+#: sgc/templates/base.html:144
+msgid "Generate PDF"
+msgstr "Gerar PDF"
 
 #: meetings/forms.py:54 meetings/models.py:113
 msgid "Type Meeting"
@@ -469,17 +500,14 @@ msgstr "Não"
 msgid "Yes"
 msgstr "Sim"
 
-#: meetings/forms.py:163
-msgid "Type PDF"
-msgstr "Tipo de PDF"
-
 #: meetings/forms.py:163 meetings/templates/add_meeting.html:88
 #: meetings/templates/edit_meeting.html:115
 msgid "Designations"
 msgstr "Designações"
 
 #: meetings/models.py:8 meetings/models.py:73
-#: meetings/templates/pdf/midweek.html:8 meetings/templates/pdf/weekend.html:18
+#: meetings/templates/pdf/midweek.html:8
+#: meetings/templates/pdf/weekend.html:18
 msgid "President"
 msgstr "Presidente"
 
@@ -590,7 +618,7 @@ msgstr "Assistência da Reunião"
 msgid "Meetings Audience"
 msgstr "Assistência da Reuniões"
 
-#: meetings/templates/add_edit_meeting_audience.html:12 meetings/views.py:475
+#: meetings/templates/add_edit_meeting_audience.html:12 meetings/views.py:476
 msgid "Meeting Audiences"
 msgstr "Assistência das Reuniões"
 
@@ -633,16 +661,7 @@ msgstr "Conteúdo Vida Cristã"
 msgid "Duplicate Entry"
 msgstr "Entrada Duplicada"
 
-#: meetings/templates/generate_pdf.html:21 sgc/templates/search_box.html:2
-#: sgc/templates/search_box.html:12
-msgid "Search"
-msgstr "Pesquisar"
-
-#: meetings/templates/generate_pdf.html:32
-msgid "Generate"
-msgstr "Gerar"
-
-#: meetings/templates/meeting_audiences.html:17 meetings/views.py:503
+#: meetings/templates/meeting_audiences.html:17 meetings/views.py:504
 msgid "Add Meeting Audience"
 msgstr "Adicionar Assistência da Reunião"
 
@@ -708,23 +727,19 @@ msgstr "Editar Reunião"
 msgid "Meeting deleted successfully"
 msgstr "Reunião deletada com sucesso"
 
-#: meetings/views.py:286 sgc/templates/base.html:137
-msgid "Generate PDF"
-msgstr "Gerar PDF"
-
-#: meetings/views.py:497
+#: meetings/views.py:498
 msgid "Meeting Audience added successfully"
 msgstr "Assistência da Reunião adicionada com sucesso"
 
-#: meetings/views.py:519
+#: meetings/views.py:520
 msgid "Meeting Audience edited successfully"
 msgstr "Assistência da Reunião editada com sucesso"
 
-#: meetings/views.py:526
+#: meetings/views.py:527
 msgid "Edit Meeting Audience"
 msgstr "Editar Assistência da Reunião"
 
-#: meetings/views.py:535
+#: meetings/views.py:536
 msgid "Meeting Audience deleted successfully"
 msgstr "Assistência da Reunião deletada com sucesso"
 
@@ -853,8 +868,8 @@ msgstr "Administração"
 
 #: sgc/templates/base.html:158 users/models.py:20
 #: users/templates/add_edit_user.html:12
-#: users/templates/change_password.html:11 users/templates/set_password.html:13
-#: users/views.py:33
+#: users/templates/change_password.html:11
+#: users/templates/set_password.html:13 users/views.py:33
 msgid "Users"
 msgstr "Usuários"
 
@@ -947,6 +962,12 @@ msgstr "Por favor corrija o erro abaixo."
 #: users/views.py:119
 msgid "Password was successfully updated."
 msgstr "Senha atualizada com sucesso."
+
+#~ msgid "Bank Account Deposit"
+#~ msgstr "Depósito na Conta Bancária"
+
+#~ msgid "World Kingdom Hall Construction"
+#~ msgstr "Construção Mundial de Salões do Reino"
 
 #~ msgid "Select Congregation"
 #~ msgstr "Selecione a Congregação"

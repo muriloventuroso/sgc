@@ -141,7 +141,7 @@
                             <a href="javascript:void(0);" class="waves-effect {% if page_group == 'financial' %}active{% endif %}"><i class="ti-money"></i><span> {% trans 'Financial' %} <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span> </a>
                             <ul class="submenu">
                                 <li><a href="{% url 'transactions' %}">{% trans 'Transactions' %}</a></li>
-
+                                <li><a href="{% url 'generate_pdf_financial' %}">{% trans 'Generate PDF' %}</a></li>
                             </ul>
                         </li>
                         <li class="{% if page_group == 'preaching' %}active{% endif %}">

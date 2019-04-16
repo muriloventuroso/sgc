@@ -9,5 +9,5 @@ urlpatterns = [
     path('transactions/<transaction_id>/edit/', financial.views.edit_transaction, {}, 'edit_transaction'),
     path('transactions/add/', financial.views.add_transaction, {}, 'add_transaction'),
     path('transactions/', financial.views.transactions, {}, 'transactions'),
-    path('pdf/', financial.views.generate_pdf, {}, 'generate_pdf'),
+    path('pdf/', financial.views.generate_pdf, {}, 'generate_pdf_financial'),
 ]

@@ -95,7 +95,7 @@ def generate_pdf(request):
                 pdf_file = s26.save()
 
                 response = HttpResponse(pdf_file, content_type='application/pdf')
-                response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+                response['Content-Disposition'] = 'attachment; filename="' + str(_("Transaction Sheet")) + '.pdf"'
                 return response
         else:
             print(form.errors)
@@ -103,5 +103,5 @@ def generate_pdf(request):
     else:
         form = FormGeneratePDF(request.LANGUAGE_CODE)
     return render(request, 'generate_pdf.html', {
-        'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Generate PDF"),
+        'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Generate PDF"),
     })
