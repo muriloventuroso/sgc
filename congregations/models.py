@@ -12,6 +12,12 @@ TAGS = [
     ('student', _("Student")),
     ('stage', _("Stage"))
 ]
+ROLES = [
+    ('account_servant', _("Account Servant")),
+    ('secretary', _("Secretary")),
+    ('coordinator', _("Coordinator")),
+    ('ss', _("Superintendent of Service"))
+]
 
 
 class Congregation(models.Model):
@@ -72,3 +78,12 @@ class Publisher(models.Model):
         ordering = ('full_name', )
         verbose_name = _("Publisher")
         verbose_name_plural = _("Publishers")
+
+
+class CongregationRole(models.Model):
+    _id = models.ObjectIdField(primary_key=True)
+    congregation = models.ForeignKey(Congregation, verbose_name=_("Congregation"), on_delete=models.CASCADE)
+    role = models.CharField(max_length=80, choices=ROLES, verbose_name=_("Role"))
+    publisher = models.ForeignKey(Publisher, verbose_name=_("Publisher"), on_delete=models.CASCADE)
+
+    objects = models.DjongoManager()

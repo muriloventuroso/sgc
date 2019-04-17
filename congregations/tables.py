@@ -1,15 +1,12 @@
 import django_tables2 as tables
 from django.utils.translation import ugettext_lazy as _
-from congregations.models import Congregation, Group, Publisher
+from congregations.models import Congregation, Group, Publisher, CongregationRole
 
 
 class TableCongregations(tables.Table):
 
-    def __init__(self, *args, **kwargs):
-        super(TableCongregations, self).__init__(*args, **kwargs)
-        self.base_columns['alter'].verbose_name = _('Alter')
-
-    alter = tables.TemplateColumn(template_name='congregations/actions_table_congregations.html')
+    alter = tables.TemplateColumn(
+        template_name='congregations/actions_table_congregations.html', verbose_name=_("Alter"))
 
     class Meta(object):
         attrs = {"class": "table"}
@@ -19,11 +16,7 @@ class TableCongregations(tables.Table):
 
 class TableGroups(tables.Table):
 
-    def __init__(self, *args, **kwargs):
-        super(TableGroups, self).__init__(*args, **kwargs)
-        self.base_columns['alter'].verbose_name = _('Alter')
-
-    alter = tables.TemplateColumn(template_name='groups/actions_table_groups.html')
+    alter = tables.TemplateColumn(template_name='groups/actions_table_groups.html', verbose_name=_("Alter"))
 
     class Meta(object):
         attrs = {"class": "table"}
@@ -33,13 +26,20 @@ class TableGroups(tables.Table):
 
 class TablePublishers(tables.Table):
 
-    def __init__(self, *args, **kwargs):
-        super(TablePublishers, self).__init__(*args, **kwargs)
-        self.base_columns['alter'].verbose_name = _('Alter')
-
-    alter = tables.TemplateColumn(template_name='publishers/actions_table_publishers.html')
+    alter = tables.TemplateColumn(template_name='publishers/actions_table_publishers.html', verbose_name=_("Alter"))
 
     class Meta(object):
         attrs = {"class": "table"}
         model = Publisher
         fields = ('full_name', 'email', 'group')
+
+
+class TableCongregationRoles(tables.Table):
+
+    alter = tables.TemplateColumn(
+        template_name='congregations/actions_table_congregation_roles.html', verbose_name=_("Alter"))
+
+    class Meta(object):
+        attrs = {"class": "table"}
+        model = CongregationRole
+        fields = ('role', 'publisher')

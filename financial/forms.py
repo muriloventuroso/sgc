@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from datetimewidget.widgets import DateWidget
-from financial.models import Transaction
+from financial.models import Transaction, TransactionCategory
 
 
 class FormTransaction(forms.ModelForm):
@@ -51,7 +51,7 @@ class FormGeneratePDF(forms.Form):
         elif language == 'pt-br':
             self.fields['month'].widget.options['format'] = "MM/YYYY"
     type_pdf = forms.ChoiceField(
-        label=_("Type PDF"), choices=[('', ''), ('s26', _("Transaction Sheet"))],
+        label=_("Type PDF"), choices=[('', ''), ('s26', _("Transaction Sheet")), ('s30', _("Monthly Report"))],
         initial='', required=True)
     month = forms.DateField(
         label=_("Start Date"), required=False, input_formats=['%Y-%m', '%m/%Y'],
@@ -59,3 +59,14 @@ class FormGeneratePDF(forms.Form):
             attrs={'id': "start_date", 'data-format': "YYYY-MM"},
             usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM'}))
     balance = forms.DecimalField(label=_("Balance"), required=False)
+
+
+class FormTransactionCategory(forms.ModelForm):
+
+    class Meta:
+        model = TransactionCategory
+        exclude = ('_id', 'congregation', 'user')
+
+
+class FormSearchTransactionCategory(forms.Form):
+    name = forms.CharField(label=_("Start Date"), required=False)

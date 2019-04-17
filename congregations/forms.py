@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from datetimewidget.widgets import DateWidget
-from congregations.models import Congregation, Group, Publisher, TAGS
+from congregations.models import Congregation, Group, Publisher, TAGS, CongregationRole, ROLES
 
 
 class FormCongregation(forms.ModelForm):
@@ -51,3 +51,14 @@ class FormSearchPublisher(forms.Form):
     tags = forms.MultipleChoiceField(label=_("TAGS"), choices=TAGS, required=False)
     group = forms.CharField(label=_("Group"), required=False)
     congregation = forms.ModelChoiceField(label=_("Congregation"), queryset=Congregation.objects.none(), required=False)
+
+
+class FormCongregationRole(forms.ModelForm):
+    class Meta:
+        model = CongregationRole
+        fields = ('role', 'publisher')
+
+
+class FormSearchCongregationRole(forms.Form):
+    publisher = forms.CharField(label=_("Publisher"), required=False)
+    role = forms.MultipleChoiceField(label=_("Role"), choices=ROLES, required=False)

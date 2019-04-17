@@ -123,6 +123,7 @@
                             <a href="javascript:void(0);" class="waves-effect {% if page_group == 'congregations' %}active{% endif %}"><i class="ti-user"></i><span> {% trans 'Congregations' %} <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
                                 <li><a href="{% url 'congregations' %}">{% trans 'Congregations' %}</a></li>
+                                <li><a href="{% url 'congregation_roles' %}">{% trans 'Congregation Roles' %}</a></li>
                                 <li><a href="{% url 'groups' %}">{% trans 'Groups' %}</a></li>
                                 <li><a href="{% url 'publishers' %}">{% trans 'Publishers' %}</a></li>
 
@@ -140,6 +141,7 @@
                         <li class="{% if page_group == 'financial' %}active{% endif %}">
                             <a href="javascript:void(0);" class="waves-effect {% if page_group == 'financial' %}active{% endif %}"><i class="ti-money"></i><span> {% trans 'Financial' %} <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span> </a>
                             <ul class="submenu">
+                                <li><a href="{% url 'transactioncategories' %}">{% trans 'Categories' %}</a></li>
                                 <li><a href="{% url 'transactions' %}">{% trans 'Transactions' %}</a></li>
                                 <li><a href="{% url 'generate_pdf_financial' %}">{% trans 'Generate PDF' %}</a></li>
                             </ul>

@@ -3,6 +3,15 @@ import congregations.views
 
 urlpatterns = [
 
+    path(
+        'roles/<congregation_role_id>/delete/', congregations.views.delete_congregation_role,
+        {}, 'delete_congregation_role'),
+    path(
+        'roles/<congregation_role_id>/edit/', congregations.views.edit_congregation_role,
+        {}, 'edit_congregation_role'),
+    path('roles/add/', congregations.views.add_congregation_role, {}, 'add_congregation_role'),
+    path('roles/', congregations.views.congregation_roles, {}, 'congregation_roles'),
+
     path('groups/<group_id>/delete/', congregations.views.delete_group, {}, 'delete_group'),
     path('groups/<group_id>/edit/', congregations.views.edit_group, {}, 'edit_group'),
     path('groups/add/', congregations.views.add_group, {}, 'add_group'),

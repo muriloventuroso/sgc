@@ -3,10 +3,11 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django_tables2.config import RequestConfig
-from congregations.models import Congregation, Group, Publisher
-from congregations.tables import TableCongregations, TableGroups, TablePublishers
+from congregations.models import Congregation, Group, Publisher, CongregationRole
+from congregations.tables import TableCongregations, TableGroups, TablePublishers, TableCongregationRoles
 from congregations.forms import (
-    FormCongregation, FormGroup, FormPublisher, FormSearchCongregation, FormSearchGroup, FormSearchPublisher)
+    FormCongregation, FormGroup, FormPublisher, FormSearchCongregation, FormSearchGroup, FormSearchPublisher,
+    FormSearchCongregationRole, FormCongregationRole)
 from users.models import UserProfile
 from sgc.helpers import redirect_with_next
 
@@ -203,3 +204,72 @@ def delete_publisher(request, publisher_id):
     publisher.delete()
     messages.success(request, _("Publisher deleted successfully"))
     return redirect_with_next(request, 'publishers')
+
+
+@login_required
+def congregation_roles(request):
+    profile = UserProfile.objects.get(user=request.user)
+    form = FormSearchCongregationRole(request.GET)
+    filter_data = {}
+    if form.is_valid():
+        data = form.cleaned_data
+        if 'publsher' in data and data['publsher']:
+            filter_data['publsher__full_name__icontains'] = data['publsher']
+        if 'role' in data and data['role']:
+            filter_data['role'] = data['role']
+    if not request.user.is_staff:
+        filter_data['congregation_id'] = profile.congregation_id
+    data = CongregationRole.objects.filter(**filter_data)
+    table = TableCongregationRoles(data)
+    table.paginate(page=request.GET.get('page', 1), per_page=25)
+    RequestConfig(request).configure(table)
+    return render(request, 'congregations/congregation_roles.html', {
+        'request': request, 'table': table, 'form': form,
+        'page_group': 'congregations', 'page_title': _("Congregation Roles"),
+        'next': request.GET.copy().urlencode()
+    })
+
+
+@login_required
+def add_congregation_role(request):
+    profile = UserProfile.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = FormCongregationRole(request.POST)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.congregation_id = profile.congregation_id
+            item.save()
+            messages.success(request, _("Congregation Role added successfully"))
+            return redirect_with_next(request, 'congregation_roles')
+    else:
+        form = FormCongregationRole()
+    return render(request, 'congregations/add_edit_congregation_role.html', {
+        'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Add Congregation Role")
+    })
+
+
+@login_required
+def edit_congregation_role(request, congregation_role_id):
+    congregation_role = get_object_or_404(Congregation, pk=congregation_role_id)
+    if request.method == 'POST':
+        form = FormCongregationRole(request.POST, instance=congregation_role)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Congregation edited successfully"))
+            return redirect_with_next(request, 'congregations')
+    else:
+        form = FormCongregationRole(instance=congregation_role)
+    return render(request, 'congregations/add_edit_congregation_role.html', {
+        'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Edit Congregation Role")
+    })
+
+
+@login_required
+def delete_congregation_role(request, congregation_role_id):
+    profile = UserProfile.objects.get(user=request.user)
+    congregation_role = get_object_or_404(CongregationRole, pk=congregation_role_id)
+    if congregation_role.congregation_id != profile.congregation_id:
+        return redirect_with_next(request, 'congregation_roles')
+    congregation_role.delete()
+    messages.success(request, _("Congregation Role deleted successfully"))
+    return redirect_with_next(request, 'congregation_roles')

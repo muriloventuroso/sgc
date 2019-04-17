@@ -18,6 +18,22 @@ TRANSACTION_DIRECTION = [
 ]
 
 
+class TransactionCategory(models.Model):
+    _id = models.ObjectIdField()
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
+    congregation = models.ForeignKey(Congregation, on_delete=models.CASCADE, verbose_name=_("Congregation"))
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name=_("User"))
+
+    objects = models.DjongoManager()
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _("Transaction Category")
+        verbose_name_plural = _("Transaction Categories")
+
+
 class Transaction(models.Model):
     _id = models.ObjectIdField()
     date = models.DateField(verbose_name=_("Date"))
@@ -29,6 +45,8 @@ class Transaction(models.Model):
     note = models.TextField(verbose_name=_("Note"), blank=True)
     congregation = models.ForeignKey(Congregation, on_delete=models.CASCADE, verbose_name=_("Congregation"))
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name=_("User"))
+    category = models.ForeignKey(
+        TransactionCategory, on_delete=models.PROTECT, verbose_name=_("Category"), null=True, blank=True)
 
     objects = models.DjongoManager()
 
@@ -38,3 +56,6 @@ class Transaction(models.Model):
     class Meta:
         verbose_name = _("Transaction")
         verbose_name_plural = _("Transactions")
+
+
+

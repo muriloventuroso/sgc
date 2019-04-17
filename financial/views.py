@@ -5,10 +5,11 @@ from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django_tables2.config import RequestConfig
-from financial.models import Transaction
-from financial.tables import TableTransactions
-from financial.forms import FormTransaction, FormSearchTransaction, FormGeneratePDF
-from financial.helpers import TransactionSheetPdf
+from financial.models import Transaction, TransactionCategory
+from financial.tables import TableTransactions, TableTransactionCategories
+from financial.forms import (
+    FormTransaction, FormSearchTransaction, FormGeneratePDF, FormSearchTransactionCategory, FormTransactionCategory)
+from financial.helpers import TransactionSheetPdf, MonthlyReportPdf
 from sgc.helpers import redirect_with_next
 from users.models import UserProfile
 
@@ -97,6 +98,14 @@ def generate_pdf(request):
                 response = HttpResponse(pdf_file, content_type='application/pdf')
                 response['Content-Disposition'] = 'attachment; filename="' + str(_("Transaction Sheet")) + '.pdf"'
                 return response
+            elif data['type_pdf'] == 's30':
+                s30 = MonthlyReportPdf(data['month'], data['balance'], profile.congregation_id)
+                s30.generate()
+                pdf_file = s30.save()
+
+                response = HttpResponse(pdf_file, content_type='application/pdf')
+                response['Content-Disposition'] = 'attachment; filename="' + str(_("Monthly Report")) + '.pdf"'
+                return response
         else:
             print(form.errors)
 
@@ -105,3 +114,68 @@ def generate_pdf(request):
     return render(request, 'generate_pdf.html', {
         'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Generate PDF"),
     })
+
+
+@login_required
+def transactioncategories(request):
+    profile = UserProfile.objects.get(user=request.user)
+    form = FormSearchTransactionCategory(request.GET)
+    filter_data = {}
+    if form.is_valid():
+        data = form.cleaned_data
+        if 'name' in data and data['name']:
+            filter_data['name__icontains'] = data['name']
+    if not request.user.is_staff:
+        filter_data['congregation_id'] = profile.congregation_id
+    data = TransactionCategory.objects.filter(**filter_data)
+    table = TableTransactionCategories(data)
+    table.paginate(page=request.GET.get('page', 1), per_page=25)
+    RequestConfig(request).configure(table)
+    return render(request, 'transactioncategories.html', {
+        'request': request, 'table': table, 'form': form,
+        'page_group': 'financial', 'page_title': _("Transaction Categories"),
+        'next': request.GET.copy().urlencode()
+    })
+
+
+@login_required
+def add_transactioncategory(request):
+    profile = UserProfile.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = FormTransactionCategory(request.POST)
+        if form.is_valid():
+            transactioncategory = form.save(commit=False)
+            transactioncategory.congregation_id = profile.congregation_id
+            transactioncategory.user = request.user
+            transactioncategory.save()
+            messages.success(request, _("Transaction Category added successfully"))
+            return redirect_with_next(request, 'transactioncategories')
+    else:
+        form = FormTransactionCategory()
+    return render(request, 'add_edit_transactioncategory.html', {
+        'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Add Transaction Category")
+    })
+
+
+@login_required
+def edit_transactioncategory(request, category_id):
+    transactioncategory = get_object_or_404(TransactionCategory, pk=category_id)
+    if request.method == 'POST':
+        form = FormTransactionCategory(request.POST, instance=transactioncategory)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Transaction Category edited successfully"))
+            return redirect_with_next(request, 'transactioncategories')
+    else:
+        form = FormTransactionCategory(instance=transactioncategory)
+    return render(request, 'add_edit_transactioncategory.html', {
+        'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Edit Transaction Category")
+    })
+
+
+@login_required
+def delete_transactioncategory(request, category_id):
+    transactioncategory = get_object_or_404(TransactionCategory, pk=category_id)
+    transactioncategory.delete()
+    messages.success(request, _("Transaction Category deleted successfully"))
+    return redirect_with_next(request, 'transactioncategories')
