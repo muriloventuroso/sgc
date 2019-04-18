@@ -455,7 +455,7 @@
 			"file": "financial/helpers.py",
 			"settings":
 			{
-				"buffer_size": 12365,
+				"buffer_size": 12796,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -473,16 +473,16 @@
 		"selected_items":
 		[
 			[
+				"push",
+				"Git: Push"
+			],
+			[
 				"comm",
 				"Git: Commit"
 			],
 			[
 				"add",
 				"Git: Add All"
-			],
-			[
-				"push",
-				"Git: Push"
 			],
 			[
 				"remo",
@@ -911,15 +911,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12365,
+						"buffer_size": 12796,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11987,
-								11987
+								9090,
+								9090
 							]
 						],
 						"settings":
@@ -940,7 +940,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3718.0,
+						"translation.y": 2950.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

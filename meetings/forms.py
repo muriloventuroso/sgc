@@ -208,7 +208,7 @@ class FormMeetingAudience(forms.ModelForm):
                 })
         elif language == 'pt-br':
             self.fields['date'].widget.options['format'] = "DD/MM/YYYY"
-            if self.instance:
+            if self.instance and self.instance.date:
                 kwargs.update(initial={
                     # 'field': 'value'
                     'date': self.instance.date.strftime("%d/%m/%Y")
