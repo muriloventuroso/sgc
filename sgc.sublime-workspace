@@ -451,15 +451,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "financial/helpers.py",
-			"settings":
-			{
-				"buffer_size": 12796,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -576,29 +567,19 @@
 	"expanded_folders":
 	[
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/migrations",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates/congregations",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/pdf",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users"
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates"
 	],
 	"file_history":
 	[
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/forms.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/helpers.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/models.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/urls.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/views.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/helpers.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/base.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates/congregations/congregation_roles.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates/congregations/add_edit_congregation_role.html",
@@ -634,12 +615,10 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/preaching/templates/pioneers.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/preaching/templates/add_edit_pioneer.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/preaching/templates/actions_table_pioneers.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/urls.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/tables.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/meeting_audiences.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/add_edit_meeting_audience.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/templates/set_password.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/templates/change_password.html",
@@ -902,50 +881,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "financial/helpers.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12796,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9090,
-								9090
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2950.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],

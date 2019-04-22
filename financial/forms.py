@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from datetimewidget.widgets import DateWidget
-from financial.models import Transaction, TransactionCategory
+from financial.models import Transaction, TransactionCategory, TRANSACTION_CODE, TRANSACTION_DIRECTION, TRANSACTION_TYPE
 
 
 class FormTransaction(forms.ModelForm):
@@ -41,6 +41,10 @@ class FormSearchTransaction(forms.Form):
         widget=DateWidget(
             attrs={'id': "end_date", 'data-format': "YYYY-MM-DD"},
             usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+    tc = forms.ChoiceField(label=_("Transaction Code"), choices=[('', ''), ] + TRANSACTION_CODE, required=False)
+    tt = forms.ChoiceField(label=_("Transaction Type"), choices=[('', ''), ] + TRANSACTION_TYPE, required=False)
+    td = forms.ChoiceField(
+        label=_("Transaction Direction"), choices=[('', ''), ] + TRANSACTION_DIRECTION, required=False)
 
 
 class FormGeneratePDF(forms.Form):
@@ -69,4 +73,4 @@ class FormTransactionCategory(forms.ModelForm):
 
 
 class FormSearchTransactionCategory(forms.Form):
-    name = forms.CharField(label=_("Start Date"), required=False)
+    name = forms.CharField(label=_("Name"), required=False)

@@ -39,8 +39,8 @@ def users(request):
 @staff_member_required
 def add_user(request):
     if request.method == 'POST':
-        form = FormUser(request.POST)
-        form_profile = FormUserProfile(request.POST)
+        form = FormUser(request.user.is_staff, request.POST)
+        form_profile = FormUserProfile(request.user.is_staff, request.POST)
         if form.is_valid() and form_profile.is_valid():
             user = form.save()
             up = form_profile.save(commit=False)
@@ -49,8 +49,8 @@ def add_user(request):
             messages.success(request, _("User added successfully"))
             return redirect_with_next(request, 'users')
     else:
-        form = FormUser()
-        form_profile = FormUserProfile()
+        form = FormUser(request.user.is_staff)
+        form_profile = FormUserProfile(request.user.is_staff)
     return render(request, 'add_edit_user.html', {
         'request': request, 'form': form, 'form_profile': form_profile,
         'page_group': 'admin', 'page_title': _("Add User")
@@ -63,16 +63,16 @@ def edit_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     user_profile = get_object_or_404(UserProfile, user_id=user_id)
     if request.method == 'POST':
-        form = FormEditUser(request.POST, instance=user)
-        form_profile = FormUserProfile(request.POST, instance=user_profile)
+        form = FormEditUser(request.user.is_staff, request.POST, instance=user)
+        form_profile = FormUserProfile(request.user.is_staff, request.POST, instance=user_profile)
         if form.is_valid() and form_profile.is_valid():
             form.save()
             form_profile.save()
             messages.success(request, _("User edited successfully"))
             return redirect_with_next(request, 'users')
     else:
-        form = FormEditUser(instance=user)
-        form_profile = FormUserProfile(instance=user_profile)
+        form = FormEditUser(request.user.is_staff, instance=user)
+        form_profile = FormUserProfile(request.user.is_staff, instance=user_profile)
     return render(request, 'add_edit_user.html', {
         'request': request, 'form': form, 'form_profile': form_profile,
         'page_group': 'admin', 'page_title': _("Edit User")

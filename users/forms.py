@@ -9,6 +9,11 @@ from congregations.models import Congregation
 class FormUser(forms.ModelForm):
     """Form to create/edit user"""
 
+    def __init__(self, is_staff, *args, **kwargs):
+        super(FormUser, self).__init__(*args, **kwargs)
+        if not is_staff:
+            del self.fields['is_staff']
+
     password = forms.CharField(
         label=_("Password"),
         strip=False,
@@ -23,6 +28,10 @@ class FormUser(forms.ModelForm):
 
 class FormEditUser(forms.ModelForm):
     """Form to create/edit user"""
+    def __init__(self, is_staff, *args, **kwargs):
+        super(FormEditUser, self).__init__(*args, **kwargs)
+        if not is_staff:
+            del self.fields['is_staff']
 
     class Meta:
         model = User
@@ -41,6 +50,11 @@ class FormSearchUser(forms.Form):
 
 
 class FormUserProfile(forms.ModelForm):
+    def __init__(self, is_staff, *args, **kwargs):
+        super(FormUserProfile, self).__init__(*args, **kwargs)
+        if not is_staff:
+            del self.fields['congregation']
+
     class Meta:
         model = UserProfile
         fields = ('congregation', )
