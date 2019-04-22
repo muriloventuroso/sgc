@@ -5,11 +5,7 @@ from meetings.models import Meeting, MeetingAudience
 
 class TableMeetings(tables.Table):
 
-    def __init__(self, *args, **kwargs):
-        super(TableMeetings, self).__init__(*args, **kwargs)
-        self.base_columns['alter'].verbose_name = _('Alter')
-
-    alter = tables.TemplateColumn(template_name='actions_table_meetings.html')
+    alter = tables.TemplateColumn(template_name='actions_table_meetings.html', verbose_name=_("Alter"))
 
     class Meta(object):
         attrs = {"class": "table"}

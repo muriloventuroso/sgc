@@ -3740,6 +3740,7 @@ Invoice
   margin: 5.5% auto;
   max-width: 492px;
   position: relative;
+  height: 100%;
 }
 
 .wrapper-page .logo-admin {

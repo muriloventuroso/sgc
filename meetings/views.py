@@ -479,7 +479,7 @@ def meeting_audiences(request):
 
 
 def add_meeting_audience(request):
-    if request.user:
+    if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
         congregation_id = profile.congregation_id
     else:
@@ -500,10 +500,16 @@ def add_meeting_audience(request):
     else:
         form = FormMeetingAudience(request.LANGUAGE_CODE)
     all_publishers = Publisher.objects.filter(congregation_id=congregation_id)
-    return render(request, 'add_edit_meeting_audience.html', {
-        'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Add Meeting Audience"),
-        'all_publishers': all_publishers, 'checked_publishers': []
-    })
+    if request.user.is_authenticated:
+        return render(request, 'add_edit_meeting_audience.html', {
+            'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Add Meeting Audience"),
+            'all_publishers': all_publishers, 'checked_publishers': []
+        })
+    else:
+        return render(request, 'add_meeting_audience_logout.html', {
+            'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Add Meeting Audience"),
+            'all_publishers': all_publishers, 'checked_publishers': []
+        })
 
 
 @login_required
