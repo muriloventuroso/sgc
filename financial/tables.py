@@ -10,7 +10,7 @@ class TableTransactions(tables.Table):
     class Meta(object):
         attrs = {"class": "table"}
         model = Transaction
-        fields = ('date', 'description', 'tc', 'td', 'tt', 'value')
+        fields = ('date', 'description', 'tc', 'td', 'tt', 'category', 'value')
 
 
 class TableTransactionCategories(tables.Table):

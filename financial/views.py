@@ -24,7 +24,7 @@ def transactions(request):
         if 'start_date' in data and data['start_date']:
             filter_data['date__gte'] = data['start_date']
         else:
-            filter_data['date__gte'] = datetime.datetime.now()
+            filter_data['date__gte'] = datetime.datetime.now().replace(day=1)
         if 'end_date' in data and data['end_date']:
             filter_data['date__lte'] = data['end_date']
     if not request.user.is_staff:
