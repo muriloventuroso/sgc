@@ -48,6 +48,7 @@ class Transaction(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name=_("User"))
     category = models.ForeignKey(
         TransactionCategory, on_delete=models.PROTECT, verbose_name=_("Category"), null=True, blank=True)
+    hide_from_sheet = models.BooleanField(verbose_name=_("Hide from Transaction Sheet"), default=False)
 
     objects = models.DjongoManager()
 

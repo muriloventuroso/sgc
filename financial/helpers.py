@@ -28,7 +28,7 @@ class TransactionSheetPdf(object):
         self.last_day = calendar.monthrange(self.start_date.year, self.start_date.month)[1]
         self.end_date = datetime.combine(self.start_date.replace(day=self.last_day), time.max)
         self.transactions = Transaction.objects.filter(
-            date__range=[self.start_date, self.end_date], congregation_id=congregation_id)
+            date__range=[self.start_date, self.end_date], congregation_id=congregation_id, hide_from_sheet=False)
         self.stream = io.BytesIO()
         self.pdf = canvas.Canvas(self.stream)
         self.pdf.setTitle('Transaction Sheet')
@@ -235,15 +235,15 @@ class MonthlyReportPdf(object):
         for key, value in receipt_cats.items():
             self.pdf.drawString(60, y, value['name'])
             self.pdf.drawString(300, y, "{0:.2f}".format(value['value']).replace('.', ','))
-            y -= 15
+            y -= 18
 
         self.pdf.drawString(390, 480, "{0:.2f}".format(self.sum_receipts).replace('.', ','))
 
-        y = 430
+        y = 429.2
         for key, value in expense_cats.items():
             self.pdf.drawString(60, y, value['name'])
             self.pdf.drawString(300, y, "{0:.2f}".format(value['value']).replace('.', ','))
-            y -= 15
+            y -= 18
 
         self.pdf.drawString(390, 285, "{0:.2f}".format(self.sum_expenses).replace('.', ','))
 
@@ -264,10 +264,10 @@ class MonthlyReportPdf(object):
 
         self.pdf.drawString(300, 578, "{0:.2f}".format(self.sum_expenses).replace('.', ','))
         self.pdf.drawString(300, 540, "{0:.2f}".format(self.sum_world_wide).replace('.', ','))
-        self.pdf.drawString(390, 503, "{0:.2f}".format(self.sum_expenses).replace('.', ','))
+        self.pdf.drawString(390, 503, "{0:.2f}".format(self.sum_expenses + self.sum_world_wide).replace('.', ','))
 
         self.pdf.drawString(487, 450, "{0:.2f}".format(
-            float(self.balance) + self.sum_receipts - self.sum_expenses).replace('.', ','))
+            float(self.balance) + self.sum_receipts - self.sum_expenses - self.sum_world_wide).replace('.', ','))
         self.pdf.drawString(400, 410, self.account_servant_name)
 
     def generante_announcement(self):
@@ -275,7 +275,7 @@ class MonthlyReportPdf(object):
         self.pdf.drawString(395, 251, "{0:.2f}".format(self.sum_receipts).replace('.', ','))
         self.pdf.drawString(230, 221, "{0:.2f}".format(self.sum_expenses).replace('.', ','))
         self.pdf.drawString(490, 221, "{0:.2f}".format(
-            float(self.balance) + self.sum_receipts - self.sum_expenses).replace('.', ','))
+            float(self.balance) + self.sum_receipts - self.sum_expenses - self.sum_world_wide).replace('.', ','))
         self.pdf.drawString(180, 160, "{0:.2f}".format(self.sum_world_wide).replace('.', ','))
 
     def generate(self):
