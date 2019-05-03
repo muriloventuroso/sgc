@@ -218,14 +218,14 @@ class MonthlyReportPdf(object):
 
         for transaction in self.transactions:
             if transaction.tc in ('C', 'O'):
-                if str(transaction.category_id) not in receipt_cats:
+                if transaction.category_id and str(transaction.category_id) not in receipt_cats:
                     receipt_cats[str(transaction.category_id)] = {'name': transaction.category.name, 'value': 0}
                 receipt_cats[str(transaction.category_id)]['value'] += float(transaction.value)
                 self.sum_receipts += float(transaction.value)
                 if transaction.tc == "O":
                     self.sum_world_wide += float(transaction.value)
             elif transaction.tc == 'D':
-                if str(transaction.category_id) not in expense_cats:
+                if transaction.category_id and str(transaction.category_id) not in expense_cats:
                     expense_cats[str(transaction.category_id)] = {'name': transaction.category.name, 'value': 0}
                 expense_cats[str(transaction.category_id)]['value'] += float(transaction.value)
                 self.sum_expenses += float(transaction.value)
