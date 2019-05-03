@@ -78,7 +78,7 @@ class TransactionSheetPdf(object):
         count, sum_a, sum_b, sum_c, sum_d = 0, 0, 0, 0, 0
         page = 1
 
-        y = 729
+        y = 729.0
 
         for transaction in self.transactions:
             self.pdf.drawString(25, y, transaction.date.strftime("%d"))
@@ -110,7 +110,7 @@ class TransactionSheetPdf(object):
                     self.pdf.drawString(x, y, value)
                     sum_d += float(transaction.value)
                     self.sum_c_o += float(transaction.value)
-            y -= 12
+            y -= 12.8
             count += 1
             if count == 47:
                 page = 2
