@@ -91,7 +91,7 @@ class TransactionSheetPdf(object):
                 sum_a += float(transaction.value)
                 self.sum_r_i += float(transaction.value)
             if transaction.tt == 'C':
-                if transaction.td == "I":
+                if transaction.td == "OI":
                     x = 371 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
                     self.pdf.drawString(x, y, value)
                     x = 424 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
@@ -99,6 +99,11 @@ class TransactionSheetPdf(object):
                     sum_b += float(transaction.value)
                     sum_c += float(transaction.value)
                     self.sum_r_o += float(transaction.value)
+                    self.sum_c_i += float(transaction.value)
+                elif transaction.td == "I":
+                    x = 424 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+                    self.pdf.drawString(x, y, value)
+                    sum_c += float(transaction.value)
                     self.sum_c_i += float(transaction.value)
                 else:
                     x = 474 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
