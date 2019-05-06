@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-03 09:49-0300\n"
-"PO-Revision-Date: 2019-05-03 09:50-0306\n"
+"POT-Creation-Date: 2019-05-06 13:09-0300\n"
+"PO-Revision-Date: 2019-05-06 13:10-0306\n"
 "Last-Translator: b'  <muriloventuroso@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -26,7 +26,7 @@ msgstr "fechar"
 
 #: congregations/forms.py:14 congregations/forms.py:27
 #: congregations/forms.py:50 congregations/models.py:25
-#: congregations/models.py:42 financial/forms.py:76 financial/models.py:24
+#: congregations/models.py:42 financial/forms.py:77 financial/models.py:24
 msgid "Name"
 msgstr "Nome"
 
@@ -405,7 +405,7 @@ msgstr ""
 msgid "Date"
 msgstr "Data"
 
-#: financial/forms.py:35 financial/forms.py:61 meetings/forms.py:44
+#: financial/forms.py:35 financial/forms.py:62 meetings/forms.py:44
 #: meetings/forms.py:166 meetings/forms.py:187 preaching/forms.py:19
 #: preaching/forms.py:44 preaching/forms.py:92 preaching/models.py:39
 msgid "Start Date"
@@ -417,31 +417,35 @@ msgstr "Data Inicial"
 msgid "End Date"
 msgstr "Data Final"
 
-#: financial/forms.py:44 financial/models.py:42
+#: financial/forms.py:44 financial/models.py:41
+msgid "Description"
+msgstr "Descrição"
+
+#: financial/forms.py:45 financial/models.py:42
 msgid "Transaction Code"
 msgstr "Código da Transação"
 
-#: financial/forms.py:45 financial/models.py:43
+#: financial/forms.py:46 financial/models.py:43
 msgid "Transaction Type"
 msgstr "Tipo da Transação"
 
-#: financial/forms.py:47 financial/models.py:44
+#: financial/forms.py:48 financial/models.py:44
 msgid "Transaction Direction"
 msgstr "Direção da Transação"
 
-#: financial/forms.py:58 meetings/forms.py:163
+#: financial/forms.py:59 meetings/forms.py:163
 msgid "Type PDF"
 msgstr "Tipo de PDF"
 
-#: financial/forms.py:58 financial/views.py:99
+#: financial/forms.py:59 financial/views.py:99
 msgid "Transaction Sheet"
 msgstr "Folha de Contas"
 
-#: financial/forms.py:58 financial/views.py:107
+#: financial/forms.py:59 financial/views.py:107
 msgid "Monthly Report"
 msgstr "Relatório Mensal"
 
-#: financial/forms.py:65
+#: financial/forms.py:66
 msgid "Balance"
 msgstr "Saldo"
 
@@ -491,10 +495,6 @@ msgstr "Categoria de Transação"
 msgid "Transaction Categories"
 msgstr "Categorias de Transação"
 
-#: financial/models.py:41
-msgid "Description"
-msgstr "Descrição"
-
 #: financial/models.py:45
 msgid "Value"
 msgstr "Valor"
@@ -507,11 +507,16 @@ msgstr "Observação"
 msgid "Category"
 msgstr "Categoria"
 
-#: financial/models.py:58
+#: financial/models.py:51
+#| msgid "Transaction Sheet"
+msgid "Hide from Transaction Sheet"
+msgstr "Esconder da Folha de Contas"
+
+#: financial/models.py:59
 msgid "Transaction"
 msgstr "Transação"
 
-#: financial/models.py:59 financial/templates/add_edit_transaction.html:12
+#: financial/models.py:60 financial/templates/add_edit_transaction.html:12
 #: financial/views.py:38 sgc/templates/base.html:145
 msgid "Transactions"
 msgstr "Transações"

@@ -41,7 +41,7 @@ class Transaction(models.Model):
     description = models.TextField(verbose_name=_("Description"))
     tc = models.CharField(max_length=1, verbose_name=_("Transaction Code"), choices=TRANSACTION_CODE, blank=True)
     tt = models.CharField(max_length=1, verbose_name=_("Transaction Type"), choices=TRANSACTION_TYPE)
-    td = models.CharField(max_length=1, verbose_name=_("Transaction Direction"), choices=TRANSACTION_DIRECTION)
+    td = models.CharField(max_length=2, verbose_name=_("Transaction Direction"), choices=TRANSACTION_DIRECTION)
     value = models.DecimalField(verbose_name=_("Value"), default=0, decimal_places=2, max_digits=10)
     note = models.TextField(verbose_name=_("Note"), blank=True)
     congregation = models.ForeignKey(Congregation, on_delete=models.CASCADE, verbose_name=_("Congregation"))

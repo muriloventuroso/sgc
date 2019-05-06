@@ -41,6 +41,7 @@ class FormSearchTransaction(forms.Form):
         widget=DateWidget(
             attrs={'id': "end_date", 'data-format': "YYYY-MM-DD"},
             usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+    description = forms.CharField(label=_("Description"), required=False)
     tc = forms.ChoiceField(label=_("Transaction Code"), choices=[('', ''), ] + TRANSACTION_CODE, required=False)
     tt = forms.ChoiceField(label=_("Transaction Type"), choices=[('', ''), ] + TRANSACTION_TYPE, required=False)
     td = forms.ChoiceField(
