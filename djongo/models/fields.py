@@ -30,6 +30,8 @@ from django.utils.functional import cached_property
 from django.utils.html import format_html_join, format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+from bson.decimal128 import Decimal128
+from djongo.models import DecimalField
 
 
 def make_mdl(model, model_dict):
@@ -1057,3 +1059,14 @@ class ArrayReferenceField(ForeignKey):
         if value is None:
             return []
         return list(value)
+
+
+class MongoDecimalField(DecimalField):
+    def to_python(self, value):
+        if isinstance(value, Decimal128):
+            value = self.format_number(value.to_decimal())
+        return super().to_python(value)
+
+    def get_prep_value(self, value):
+        value = super().get_prep_value(value)
+        return "{0:.2f}".format(value)

@@ -4,7 +4,7 @@ from django.db.models import *
 from .fields import (
     ArrayModelField, ListField, DjongoManager,
     EmbeddedModelField, ArrayReferenceField, ObjectIdField,
-    GenericObjectIdField, DictField
+    GenericObjectIdField, DictField, MongoDecimalField
 )
 
 __all__ = models_all + [

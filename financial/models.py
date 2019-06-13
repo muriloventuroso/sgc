@@ -60,3 +60,28 @@ class Transaction(models.Model):
         verbose_name = _("Transaction")
         verbose_name_plural = _("Transactions")
         ordering = ['date', ]
+
+
+class TransactionContent(models.Model):
+    tc = models.CharField(max_length=1, verbose_name=_("Transaction Code"), choices=TRANSACTION_CODE, blank=True)
+    count = models.IntegerField(verbose_name=_("Count"))
+    value = models.MongoDecimalField(verbose_name=_("Value"), default=0, decimal_places=2, max_digits=10)
+
+    class Meta:
+        abstract = True
+
+
+class MonthlySummary(models.Model):
+    _id = models.ObjectIdField()
+    date = models.DateField(verbose_name=_("Date"))
+    carried_balance = models.DecimalField(verbose_name=_("Carried Balance"), default=0, decimal_places=2, max_digits=10)
+    final_balance = models.DecimalField(verbose_name=_("Final Balance"), default=0, decimal_places=2, max_digits=10)
+    transactions = models.ArrayModelField(model_container=TransactionContent)
+    congregation = models.ForeignKey(Congregation, on_delete=models.CASCADE, verbose_name=_("Congregation"))
+
+    objects = models.DjongoManager()
+
+    class Meta:
+        verbose_name = _("Monthly Summary")
+        verbose_name_plural = _("Monthly Summaries")
+        ordering = ['-date', ]

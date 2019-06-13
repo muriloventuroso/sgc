@@ -4,7 +4,8 @@ import calendar
 import io
 from django.utils.translation import ugettext_lazy as _
 from datetime import datetime, time
-from financial.models import Transaction
+from dateutil.relativedelta import relativedelta
+from financial.models import Transaction, MonthlySummary, TransactionContent
 from congregations.models import Congregation, CongregationRole
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 ANNOT_KEY = '/Annots'
@@ -159,7 +160,20 @@ class TransactionSheetPdf(object):
 
 class MonthlyReportPdf(object):
     def __init__(self, month, balance, congregation_id):
+        self.month = month
         self.balance = balance
+        self.congregation_id = congregation_id
+        self.start_date = datetime.combine(month, time.min)
+        self.last_day = calendar.monthrange(self.start_date.year, self.start_date.month)[1]
+        self.end_date = datetime.combine(self.start_date.replace(day=self.last_day), time.max)
+        if not self.balance:
+            summary = MonthlySummary.objects.filter(
+                congregation_id=congregation_id,
+                date__range=[
+                    self.start_date - relativedelta(months=1),
+                    self.end_date - relativedelta(months=1)]).first()
+            if summary:
+                self.balance = summary.final_balance
         self.congregation = Congregation.objects.get(pk=congregation_id)
         account_servant = CongregationRole.objects.filter(
             congregation_id=congregation_id, role="account_servant").first()
@@ -167,9 +181,7 @@ class MonthlyReportPdf(object):
             self.account_servant_name = account_servant.publisher.full_name
         else:
             self.account_servant_name = ""
-        self.start_date = datetime.combine(month, time.min)
-        self.last_day = calendar.monthrange(self.start_date.year, self.start_date.month)[1]
-        self.end_date = datetime.combine(self.start_date.replace(day=self.last_day), time.max)
+
         self.transactions = Transaction.objects.filter(
             date__range=[self.start_date, self.end_date], congregation_id=congregation_id).select_related('category')
         self.stream = io.BytesIO()
@@ -287,8 +299,30 @@ class MonthlyReportPdf(object):
         self.pdf.drawString(395, 251, "{0:.2f}".format(self.sum_receipts).replace('.', ','))
         self.pdf.drawString(230, 221, "{0:.2f}".format(self.sum_expenses).replace('.', ','))
         self.pdf.drawString(490, 221, "{0:.2f}".format(
-            float(self.balance) + self.sum_receipts - self.sum_expenses - self.sum_world_wide).replace('.', ','))
+            float(self.balance) + self.sum_receipts - self.sum_expenses).replace('.', ','))
         self.pdf.drawString(180, 160, "{0:.2f}".format(self.sum_world_wide).replace('.', ','))
+
+    def generate_summary(self):
+        transactions = []
+        transactions_tc = {}
+        for transaction in self.transactions:
+            tc = transaction.tc
+            if tc:
+                if tc not in transactions_tc:
+                    transactions_tc[tc] = TransactionContent(tc=tc, count=0, value=0)
+                transactions_tc[tc].count += 1
+                transactions_tc[tc].value += float(transaction.value)
+        for key, value in transactions_tc.items():
+            transactions.append(value)
+        summary = MonthlySummary.objects.filter(
+            congregation_id=self.congregation_id, date__range=[self.start_date, self.end_date]).first()
+        if not summary:
+            summary = MonthlySummary(congregation_id=self.congregation_id)
+        summary.date = datetime.now().replace(month=self.start_date.month)
+        summary.carried_balance = float(self.balance)
+        summary.final_balance = float(float(self.balance) + self.sum_receipts - self.sum_expenses)
+        summary.transactions = transactions
+        summary.save()
 
     def generate(self):
         self.generate_header()
@@ -296,6 +330,7 @@ class MonthlyReportPdf(object):
         self.set_page2()
         self.generate_confrontation()
         self.generante_announcement()
+        self.generate_summary()
 
     def save(self):
         self.pdf.save()

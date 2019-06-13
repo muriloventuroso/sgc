@@ -1,14 +1,17 @@
 import datetime
+import calendar
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django_tables2.config import RequestConfig
-from financial.models import Transaction, TransactionCategory
-from financial.tables import TableTransactions, TableTransactionCategories
+from django_tables2 import Column
+from financial.models import Transaction, TransactionCategory, MonthlySummary
+from financial.tables import TableTransactions, TableTransactionCategories, TableMonthlySummary
 from financial.forms import (
-    FormTransaction, FormSearchTransaction, FormGeneratePDF, FormSearchTransactionCategory, FormTransactionCategory)
+    FormTransaction, FormSearchTransaction, FormGeneratePDF, FormSearchTransactionCategory, FormTransactionCategory,
+    FormMonthlySummary)
 from financial.helpers import TransactionSheetPdf, MonthlyReportPdf
 from sgc.helpers import redirect_with_next
 from users.models import UserProfile
@@ -57,6 +60,7 @@ def add_transaction(request):
             transaction = form.save(commit=False)
             transaction.congregation_id = profile.congregation_id
             transaction.user = request.user
+            transaction.date = transaction.date + datetime.timedelta(hours=6)
             transaction.save()
             messages.success(request, _("Transaction added successfully"))
             return redirect_with_next(request, 'transactions')
@@ -187,3 +191,47 @@ def delete_transactioncategory(request, category_id):
     transactioncategory.delete()
     messages.success(request, _("Transaction Category deleted successfully"))
     return redirect_with_next(request, 'transactioncategories')
+
+
+@login_required
+def monthly_summary(request):
+    profile = UserProfile.objects.get(user=request.user)
+    form = FormMonthlySummary(request.LANGUAGE_CODE, request.GET)
+    filter_data = {}
+    if form.is_valid():
+        data = form.cleaned_data
+        if 'month' in data and data['month']:
+            start_date = datetime.datetime.combine(data['month'], datetime.time.min)
+            last_day = calendar.monthrange(start_date.year, start_date.month)[1]
+            end_date = datetime.combine(start_date.replace(day=last_day), datetime.time.max)
+            filter_data["date__range"] = [start_date, end_date]
+
+    if not request.user.is_staff:
+        filter_data['congregation_id'] = profile.congregation_id
+    data_db = MonthlySummary.objects.filter(**filter_data)
+    data = []
+    extra_columns = []
+    tcs = {}
+    for d in data_db:
+        item = {
+            'date': d.date.strftime("%m/%Y"),
+            'carried_balance': d.carried_balance,
+            'final_balance': d.final_balance
+        }
+        print(item)
+        for t in d.transactions:
+            if t.tc not in tcs:
+                tcs[t.tc] = {'name': t.get_tc_display()}
+            item[t.tc] = t.value
+        data.append(item)
+
+    for key, value in tcs.items():
+        extra_columns.append((key, Column(verbose_name=value['name'])))
+    table = TableMonthlySummary(data, extra_columns=extra_columns)
+    table.paginate(page=request.GET.get('page', 1), per_page=25)
+    RequestConfig(request).configure(table)
+    return render(request, 'monthly_summary.html', {
+        'request': request, 'table': table, 'form': form,
+        'page_group': 'financial', 'page_title': _("Monthly Summary"),
+        'next': request.GET.copy().urlencode()
+    })
