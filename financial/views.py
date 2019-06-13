@@ -27,6 +27,14 @@ def transactions(request):
             filter_data['date__gte'] = datetime.datetime.now().replace(day=1)
         if 'end_date' in data and data['end_date']:
             filter_data['date__lte'] = data['end_date']
+        if 'description' in data and data['description']:
+            filter_data['description__icontains'] = data['descriptions']
+        if 'tc' in data and data['tc']:
+            filter_data['tc'] = data['tc']
+        if 'tt' in data and data['tt']:
+            filter_data['tt'] = data['tt']
+        if 'td' in data and data['td']:
+            filter_data['td'] = data['td']
     if not request.user.is_staff:
         filter_data['congregation_id'] = profile.congregation_id
     data = Transaction.objects.filter(**filter_data)

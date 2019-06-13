@@ -2,6 +2,7 @@ from reportlab.pdfgen import canvas
 import locale
 import calendar
 import io
+from django.utils.translation import ugettext_lazy as _
 from datetime import datetime, time
 from financial.models import Transaction
 from congregations.models import Congregation, CongregationRole
@@ -179,6 +180,7 @@ class MonthlyReportPdf(object):
         self.sum_receipts = 0
         self.sum_expenses = 0
         self.sum_world_wide = 0
+        self.sum_construction_subsidiary = 0
 
     def set_page1(self):
         self.pdf.drawImage('financial/templates/pdf/S30-1.png', 0, 0, width=600, height=850)
@@ -217,14 +219,17 @@ class MonthlyReportPdf(object):
         expense_cats = {}
 
         for transaction in self.transactions:
-            if transaction.tc in ('C', 'O'):
+            if transaction.tc in ('C', 'O', 'F'):
                 if transaction.category_id:
                     if str(transaction.category_id) not in receipt_cats:
                         receipt_cats[str(transaction.category_id)] = {'name': transaction.category.name, 'value': 0}
                     receipt_cats[str(transaction.category_id)]['value'] += float(transaction.value)
-                self.sum_receipts += float(transaction.value)
                 if transaction.tc == "O":
                     self.sum_world_wide += float(transaction.value)
+                elif transaction.tc == "F":
+                    self.sum_construction_subsidiary += float(transaction.value)
+                elif transaction.tc == "C":
+                    self.sum_receipts += float(transaction.value)
             elif transaction.tc == 'D':
                 if transaction.category_id:
                     if str(transaction.category_id) not in expense_cats:
@@ -260,14 +265,20 @@ class MonthlyReportPdf(object):
 
         self.pdf.drawString(300, 717, "{0:.2f}".format(self.sum_receipts).replace('.', ','))
         self.pdf.drawString(300, 681, "{0:.2f}".format(self.sum_world_wide).replace('.', ','))
-        self.pdf.drawString(390, 628, "{0:.2f}".format(self.sum_receipts).replace('.', ','))
+        if self.sum_construction_subsidiary > 0:
+            self.pdf.drawString(300, 664, _("To Construction of the Subsidiary"))
+            self.pdf.drawString(300, 664, "{0:.2f}".format(self.sum_construction_subsidiary).replace('.', ','))
+        self.pdf.drawString(390, 628, "{0:.2f}".format(
+            self.sum_receipts + self.sum_world_wide + self.sum_construction_subsidiary).replace('.', ','))
 
         self.pdf.drawString(300, 578, "{0:.2f}".format(self.sum_expenses).replace('.', ','))
-        self.pdf.drawString(300, 540, "{0:.2f}".format(self.sum_world_wide).replace('.', ','))
-        self.pdf.drawString(390, 503, "{0:.2f}".format(self.sum_expenses + self.sum_world_wide).replace('.', ','))
+        self.pdf.drawString(300, 540, "{0:.2f}".format(
+            self.sum_world_wide + self.sum_construction_subsidiary).replace('.', ','))
+        self.pdf.drawString(390, 503, "{0:.2f}".format(
+            self.sum_expenses + self.sum_world_wide + self.sum_construction_subsidiary).replace('.', ','))
 
         self.pdf.drawString(487, 450, "{0:.2f}".format(
-            float(self.balance) + self.sum_receipts - self.sum_expenses - self.sum_world_wide).replace('.', ','))
+            float(self.balance) + self.sum_receipts - self.sum_expenses).replace('.', ','))
         self.pdf.drawString(400, 410, self.account_servant_name)
 
     def generante_announcement(self):

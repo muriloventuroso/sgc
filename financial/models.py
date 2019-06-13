@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 TRANSACTION_CODE = [
     ('C', _("Congregation")),
     ('O', _("World Wide Work")),
-    ('D', _("Expense"))
+    ('D', _("Expense")),
+    ('F', _("Construction of the Subsidiary"))
 ]
 TRANSACTION_TYPE = [
     ('R', _("Receips")),
