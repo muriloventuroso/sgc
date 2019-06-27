@@ -203,7 +203,7 @@ def monthly_summary(request):
         if 'month' in data and data['month']:
             start_date = datetime.datetime.combine(data['month'], datetime.time.min)
             last_day = calendar.monthrange(start_date.year, start_date.month)[1]
-            end_date = datetime.combine(start_date.replace(day=last_day), datetime.time.max)
+            end_date = datetime.datetime.combine(start_date.replace(day=last_day), datetime.time.max)
             filter_data["date__range"] = [start_date, end_date]
 
     if not request.user.is_staff:
