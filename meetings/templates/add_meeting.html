@@ -179,7 +179,7 @@
                                 box.find('input[name="duration_living"]').val(data.living_christians[i].duration);
                             }
                         },
-                        always: function() {
+                        complete: function() {
                             $('#spinner-midweek').hide();
                         }
                     });
