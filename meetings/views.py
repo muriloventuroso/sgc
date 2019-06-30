@@ -251,6 +251,7 @@ def generate_pdf(request):
         if form.is_valid():
             data = form.cleaned_data
             filter_m = {'congregation_id': profile.congregation_id}
+            rooms = 1
             if data['type_pdf'] == 'd':
                 template = 'pdf/designations.html'
                 template_header = 'pdf/header_designations.html'
@@ -264,7 +265,17 @@ def generate_pdf(request):
                 filter_m['type_meeting'] = 'm'
             meetings = Meeting.objects.filter(date__range=[data['start_date'], data['end_date']]).filter(**filter_m)\
                 .order_by('date')
-            layout = render_to_string(template, {'meetings': meetings})
+            for meeting in meetings:
+                if meeting.midweek_content:
+                    for treasure in meeting.midweek_content.treasures:
+                        if treasure.room_treasure == "B":
+                            rooms = 2
+                            break
+                    for apply_y in meeting.midweek_content.apply_yourself:
+                        if apply_y.room_apply == "B":
+                            rooms = 2
+                            break
+            layout = render_to_string(template, {'meetings': meetings, 'rooms': rooms})
             html = HTML(string=layout)
             main_doc = html.render(stylesheets=[CSS('static/css/pdf.css')])
 

@@ -5,17 +5,17 @@
         <table class="table-midweek">
             <tr>
                 <td class="date-midweek" colspan=2>{{meeting.date}} | {{meeting.midweek_content.reading_week}}</td>
-                <td class="small-title pull-right" style="width: 150px">{% trans 'President' %}:</td>
+                <td class="small-title pull-right" style="width: {% if rooms == 2 %}150{%else%}60{% endif %}px">{% trans 'President' %}:</td>
                 <td style="width: 150px">{{meeting.midweek_content.president}}</td>
             </tr>
             <tr>
                 <td colspan=2>{% trans 'Song' %} {{meeting.midweek_content.initial_song}}</td>
                 <td class="small-title pull-right">{% trans 'Prayer' %}:</td>
-                <td>{{meeting.midweek_content.initial_prayer}}</td>
+                <td>{{meeting.midweek_content.initial_prayer|default_if_none:""}}</td>
             </tr>
             <tr>
                 <td class="title-treasures" colspan=2>{% trans "Treasures From God's Word" %}</td>
-                <td class="small-title">{% trans 'Room B' %}</td>
+                <td class="small-title">{% if rooms == 2 %}{% trans 'Room B' %}{% endif %}</td>
                 <td class="small-title">{% trans 'Room A' %}</td>
             </tr>
             {% for t in meeting.midweek_content.treasures %}
@@ -32,7 +32,7 @@
                 {% else %}
                 <td></td>
                 {% endif %}
-                <td>{% if t.room_treasure == 'A' %}{{t.person_treasure}}{% endif %}</td>
+                <td>{% if t.room_treasure == 'A' %}{{t.person_treasure|default_if_none:""}}{% endif %}</td>
             </tr>
             {% endif %}
             {% endwith %}
@@ -75,13 +75,13 @@
             <tr>
                 <td colspan=2>{{l.title_living}} ({{l.duration_living}} min)</td>
                 <td></td>
-                <td>{{l.person_living}}{% if l.reader %} / {{l.reader}}{% endif %}</td>
+                <td>{{l.person_living|default_if_none:""}}{% if l.reader %} / {{l.reader|default_if_none:""}}{% endif %}</td>
             </tr>
             {% endfor %}
             <tr>
                 <td colspan=2>{% trans 'Song' %} {{meeting.midweek_content.final_song}}</td>
                 <td class="small-title pull-right">{% trans 'Prayer' %}:</td>
-                <td>{{meeting.midweek_content.final_prayer}}</td>
+                <td>{{meeting.midweek_content.final_prayer|default_if_none:""}}</td>
             </tr>
         </table>
         <hr/>

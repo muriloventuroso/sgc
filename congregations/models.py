@@ -1,5 +1,6 @@
 from djongo import models
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import MaxValueValidator, MinValueValidator
 TAGS = [
     ('ministerial_servant', _("Ministerial Servant")),
     ('attendant', _("Attendant")),
@@ -26,6 +27,10 @@ class Congregation(models.Model):
     circuit = models.CharField(max_length=20, verbose_name=_("Circuit"))
     city = models.CharField(max_length=80, verbose_name=_("City"))
     state = models.CharField(max_length=2, verbose_name=_("State"))
+    n_rooms = models.IntegerField(default=1, verbose_name=_("Number of Rooms"), validators=[
+        MaxValueValidator(2),
+        MinValueValidator(1)
+    ])
 
     objects = models.DjongoManager()
 

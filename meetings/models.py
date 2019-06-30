@@ -27,7 +27,7 @@ class TreasuresContent(models.Model):
     duration_treasure = models.CharField(max_length=2, verbose_name=_("Duration"), null=True, blank=True)
     reading = models.BooleanField(default=False, verbose_name=_("Reading"))
     room_treasure = models.CharField(
-        max_length=1, choices=[('A', 'A'), ('B', 'B')], default="A", verbose_name=_("Room"))
+        max_length=1, choices=[('A', 'A'), ('B', 'B'), ('C', 'C')], default="A", verbose_name=_("Room"))
 
     class Meta:
         abstract = True
@@ -43,7 +43,7 @@ class ApplyYourselfContent(models.Model):
         related_name="apply_assistant")
     duration_apply = models.CharField(max_length=2, verbose_name=_("Duration"), null=True, blank=True)
     room_apply = models.CharField(
-        max_length=1, choices=[('A', 'A'), ('B', 'B')], default="A", verbose_name=_("Room"))
+        max_length=1, choices=[('A', 'A'), ('B', 'B'), ('C', 'C')], default="A", verbose_name=_("Room"))
 
     class Meta:
         abstract = True

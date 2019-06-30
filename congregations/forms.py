@@ -7,7 +7,7 @@ from congregations.models import Congregation, Group, Publisher, TAGS, Congregat
 class FormCongregation(forms.ModelForm):
     class Meta:
         model = Congregation
-        fields = ('name', 'circuit', 'city', 'state')
+        fields = ('name', 'circuit', 'city', 'state', 'n_rooms')
 
 
 class FormSearchCongregation(forms.Form):

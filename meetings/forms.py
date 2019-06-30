@@ -1,3 +1,4 @@
+import string
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from datetimewidget.widgets import DateWidget
@@ -87,10 +88,16 @@ class FormMidweekContent(forms.ModelForm):
 class FormTreasuresContent(forms.ModelForm):
     def __init__(self, congregation_id, *args, **kwargs):
         super(FormTreasuresContent, self).__init__(*args, **kwargs)
+        congregation = Congregation.objects.get(pk=congregation_id)
         self.fields['person_treasure'].queryset = Publisher.objects.filter(
             tags__in=['elder', 'ministerial_servant'], congregation_id=congregation_id)
         self.fields['person_reading'].queryset = Publisher.objects.filter(
             tags__in=['student'], gender='m', congregation_id=congregation_id)
+        self.fields['room_treasure'].choices = [
+            (x.upper(), x.upper()) for x in list(string.ascii_lowercase)[:congregation.n_rooms]]
+        if self.instance and self.instance.room_treasure:
+            if list(string.ascii_lowercase).index(self.instance.room_treasure.lower()) + 1 > congregation.n_rooms:
+                self.fields["room_treasure"].choices.append((self.instance.room_treasure, self.instance.room_treasure))
 
     person_reading = forms.ModelChoiceField(
         label=_("Person Reading"), queryset=Publisher.objects.none(),
@@ -106,10 +113,16 @@ class FormTreasuresContent(forms.ModelForm):
 class FormApplyYourselfContent(forms.ModelForm):
     def __init__(self, congregation_id, *args, **kwargs):
         super(FormApplyYourselfContent, self).__init__(*args, **kwargs)
+        congregation = Congregation.objects.get(pk=congregation_id)
         self.fields['student'].queryset = Publisher.objects.filter(
             tags__in=['student'], congregation_id=congregation_id)
         self.fields['assistant'].queryset = Publisher.objects.filter(
             tags__in=['student'], congregation_id=congregation_id)
+        self.fields['room_apply'].choices = [
+            (x.upper(), x.upper()) for x in list(string.ascii_lowercase)[:congregation.n_rooms]]
+        if self.instance and self.instance.room_apply:
+            if list(string.ascii_lowercase).index(self.instance.room_apply.lower()) + 1 > congregation.n_rooms:
+                self.fields["room_apply"].choices.append((self.instance.room_apply, self.instance.room_apply))
 
     class Meta:
         model = ApplyYourselfContent
