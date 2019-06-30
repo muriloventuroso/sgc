@@ -218,7 +218,6 @@ def monthly_summary(request):
             'carried_balance': d.carried_balance,
             'final_balance': d.final_balance
         }
-        print(item)
         for t in d.transactions:
             if t.tc not in tcs:
                 tcs[t.tc] = {'name': t.get_tc_display()}

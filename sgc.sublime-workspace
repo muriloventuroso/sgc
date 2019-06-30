@@ -488,10 +488,19 @@
 	"buffers":
 	[
 		{
-			"file": "financial/helpers.py",
+			"file": "financial/views.py",
 			"settings":
 			{
-				"buffer_size": 15624,
+				"buffer_size": 10141,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sgc/settings.py",
+			"settings":
+			{
+				"buffer_size": 4414,
 				"line_ending": "Unix"
 			}
 		}
@@ -616,7 +625,6 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css"
 	],
@@ -771,6 +779,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"combine",
 			"TreasuresContent",
 			"I",
 			"container-fluid",
@@ -934,24 +943,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "financial/helpers.py",
-					"semi_transient": true,
+					"file": "financial/views.py",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15624,
+						"buffer_size": 10141,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2057,
-								2074
+								9288,
+								9288
 							]
 						],
 						"settings":
@@ -961,7 +970,37 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 520.0,
+						"translation.y": 2608.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "sgc/settings.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4414,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1350.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

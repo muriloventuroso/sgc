@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+import re
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
@@ -413,35 +414,38 @@ def suggest_meeting(request):
     third_song = s.find('div', {'id': 'section4'}).findAll('li')[-1].find('a').text.split(' ')[1]
     treasures = []
     for t in s.find('div', {'id': 'section2'}).findAll('p', {'class': 'su'}):
+        duration = re.search(r'\(([0-9].*\))', t.text).group(1).split(")")[0]
         try:
             treasures.append({
-                'title': t.text.split(":")[0].strip().replace('“', '').replace('”', ''),
-                'duration': t.text.split(":")[1].strip().split(" ")[0].replace("(", "")
+                'title': t.text[:t.text.index(duration)].strip().rstrip(",.:('").strip().rstrip(",.:('"),
+                'duration': duration
             })
         except Exception:
             pass
 
     apply_yourself = []
     for a in s.find('div', {'id': 'section3'}).findAll('p', {'class': 'su'}):
+        duration = re.search(r'\(([0-9].*\))', a.text).group(1).split(")")[0]
         try:
             apply_yourself.append({
-                'title': a.text.split(":")[0].strip(),
-                'duration': a.text.split(":")[1].strip().split(" ")[0].replace("(", "")
+                'title': a.text[:a.text.index(duration)].strip().rstrip(",.:('").strip().rstrip(",.:('"),
+                'duration': duration
             })
         except Exception:
             pass
     living_christians = []
     for l in s.find('div', {'id': 'section4'}).findAll('p', {'class': 'su'})[1:-2]:
+        duration = re.search(r'\(([0-9].*\))', l.text).group(1).split(")")[0]
         try:
             living_christians.append({
-                'title': l.text.split(":")[0].strip(),
-                'duration': l.text.split(":")[1].strip().split(" ")[0].replace("(", "")
+                'title': l.text[:l.text.index(duration)].strip().rstrip(",.(:'").strip().rstrip(",.:('"),
+                'duration': duration
             })
         except Exception:
             pass
 
     ret = {
-        'reading_week': reading_week,
+        'reading_week': reading_week.title(),
         'first_song': first_song,
         'second_song': second_song,
         'third_song': third_song,
