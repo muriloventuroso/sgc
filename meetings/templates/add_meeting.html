@@ -258,6 +258,19 @@
                 }
             });
         }
+
+        function check_duplicate(_id, elem){
+            var exists_id = false;
+            $('select').each(function(index, el) {
+                var value = $(this).val();
+                if(value == _id && !elem.is($(this))){
+                    exists_id = true;
+                    return exists_id;
+                }
+
+            });
+            return exists_id;
+        }
         $('form').on('change', 'select', function(){
             find_duplicates();
         });
@@ -283,6 +296,13 @@
                     for(var i = 0; i < data.length; i++){
                         select.append($("<option></option>")
                             .attr("value", data[i][0]).text(data[i][1]));
+                    }
+
+                    for(var i = 0; i < data.length; i++){
+                        if(!check_duplicate(data[i][0], select)){
+                            select.val(data[i][0]);
+                            break;
+                        }
                     }
                     select.selectpicker('refresh');
                 },
