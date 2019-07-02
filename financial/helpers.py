@@ -29,6 +29,14 @@ class TransactionSheetPdf(object):
         self.start_date = datetime.combine(month, time.min)
         self.last_day = calendar.monthrange(self.start_date.year, self.start_date.month)[1]
         self.end_date = datetime.combine(self.start_date.replace(day=self.last_day), time.max)
+        if not self.balance:
+            summary = MonthlySummary.objects.filter(
+                congregation_id=congregation_id,
+                date__range=[
+                    self.start_date - relativedelta(months=1),
+                    self.end_date - relativedelta(months=1)]).first()
+            if summary:
+                self.balance = summary.final_balance
         self.transactions = Transaction.objects.filter(
             date__range=[self.start_date, self.end_date], congregation_id=congregation_id, hide_from_sheet=False)
         self.stream = io.BytesIO()
@@ -88,10 +96,16 @@ class TransactionSheetPdf(object):
             self.pdf.drawString(253, y, transaction.tc)
             value = transaction.value.replace('.', ',')
             if transaction.tt == 'R':
-                x = 317 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
-                self.pdf.drawString(x, y, value)
-                sum_a += float(transaction.value)
-                self.sum_r_i += float(transaction.value)
+                if transaction.td == "I":
+                    x = 317 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+                    self.pdf.drawString(x, y, value)
+                    sum_a += float(transaction.value)
+                    self.sum_r_i += float(transaction.value)
+                else:
+                    x = 370 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+                    self.pdf.drawString(x, y, value)
+                    sum_b += float(transaction.value)
+                    self.sum_r_o += float(transaction.value)
             if transaction.tt == 'C':
                 if transaction.td == "OI":
                     x = 371 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
@@ -279,7 +293,7 @@ class MonthlyReportPdf(object):
         self.pdf.drawString(300, 717, "{0:.2f}".format(self.sum_receipts).replace('.', ','))
         self.pdf.drawString(300, 681, "{0:.2f}".format(self.sum_world_wide).replace('.', ','))
         if self.sum_construction_subsidiary > 0:
-            self.pdf.drawString(300, 664, _("To Construction of the Subsidiary"))
+            self.pdf.drawString(70, 664, str(_("To Construction of the Subsidiary")))
             self.pdf.drawString(300, 664, "{0:.2f}".format(self.sum_construction_subsidiary).replace('.', ','))
         self.pdf.drawString(390, 628, "{0:.2f}".format(
             self.sum_receipts + self.sum_world_wide + self.sum_construction_subsidiary).replace('.', ','))

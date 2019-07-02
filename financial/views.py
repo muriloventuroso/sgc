@@ -31,7 +31,7 @@ def transactions(request):
         if 'end_date' in data and data['end_date']:
             filter_data['date__lte'] = data['end_date']
         if 'description' in data and data['description']:
-            filter_data['description__icontains'] = data['descriptions']
+            filter_data['description__icontains'] = data['description']
         if 'tc' in data and data['tc']:
             filter_data['tc'] = data['tc']
         if 'tt' in data and data['tt']:
