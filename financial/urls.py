@@ -19,4 +19,5 @@ urlpatterns = [
     path('transactions/', financial.views.transactions, {}, 'transactions'),
     path('pdf/', financial.views.generate_pdf, {}, 'generate_pdf_financial'),
     path('summary/', financial.views.monthly_summary, {}, 'monthly_summary'),
+    path('confrontation/', financial.views.confrontation, {}, 'confrontation'),
 ]

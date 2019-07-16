@@ -40,7 +40,7 @@ class ColumnSelectConverter(Converter):
 
         self.sql_tokens: typing.List[
             typing.Union[SQLToken, SQLFunc]
-        ]= []
+        ] = []
         super().__init__(query_ref, begin_id)
 
     def parse(self):
@@ -109,7 +109,6 @@ class AggColumnSelectConverter(ColumnSelectConverter):
                     project[selected.column] = True
                 else:
                     project[selected.table + '.' + selected.column] = True
-
         return {'$project': project}
 
     def _group_by_null(self):
@@ -120,7 +119,6 @@ class AggColumnSelectConverter(ColumnSelectConverter):
             if not isinstance(func, SQLFunc):
                 raise SQLDecodeError
             group[func.alias] = func.to_mongo(self.query)
-
         return {'$group': group}
 
 class FromConverter(Converter):

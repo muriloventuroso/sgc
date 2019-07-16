@@ -30,3 +30,20 @@ class TableMonthlySummary(tables.Table):
         attrs = {"class": "table"}
         model = MonthlySummary
         fields = ('date', 'carried_balance', 'final_balance')
+
+
+class TableConfrontation(tables.Table):
+    month = tables.Column(verbose_name=_("Month"))
+    sum_receipts_in = tables.TemplateColumn('{{record.sum_receipts_in|floatformat:2}}', verbose_name=_("Receipts In"))
+    sum_receipts_out = tables.TemplateColumn(
+        '{{record.sum_receipts_out|floatformat:2}}', verbose_name=_("Receipts Out"))
+    receipts_final_balance = tables.TemplateColumn(
+        '{{record.receipts_final_balance|floatformat:2}}', verbose_name=_("Receipts Final Balance"))
+    account_carried_balance = tables.TemplateColumn(
+        '{{record.account_carried_balance|floatformat:2}}', verbose_name=_("Checking Account Carried Balance"))
+    sum_account_in = tables.TemplateColumn(
+        '{{record.sum_account_in|floatformat:2}}', verbose_name=_("Checking Account In"))
+    sum_account_out = tables.TemplateColumn(
+        '{{record.sum_account_out|floatformat:2}}', verbose_name=_("Checking Account Out"))
+    account_final_balance = tables.TemplateColumn(
+        '{{record.account_final_balance|floatformat:2}}', verbose_name=_("Checking Account Final Balance"))

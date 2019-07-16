@@ -86,8 +86,7 @@ class FormMonthlySummary(forms.Form):
             self.fields['month'].widget.options['format'] = "MM/YYYY"
 
     month = forms.DateField(
-        label=_("Start Date"), required=False, input_formats=['%Y-%m', '%m/%Y'],
+        label=_("Month"), required=False, input_formats=['%Y-%m', '%m/%Y'],
         widget=DateWidget(
-            attrs={'id': "start_date", 'data-format': "YYYY-MM"},
+            attrs={'id': "month", 'data-format': "YYYY-MM"},
             usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM'}))
-

@@ -128,7 +128,6 @@ class SelectQuery(Query):
 
             elif tok.match(tokens.Keyword, 'ORDER'):
                 c = self.order = OrderConverter(self, tok_id)
-            
             elif tok.match(tokens.Keyword, 'OFFSET'):
                 c = self.offset = OffsetConverter(self, tok_id)
 
@@ -269,7 +268,6 @@ class SelectQuery(Query):
 
             cur = self.db_ref[self.left_table].find(**kwargs)
             logger.debug(f'Find query: {kwargs}')
-
         return cur
 
     def _align_results(self, doc):
@@ -286,8 +284,6 @@ class SelectQuery(Query):
                         ret.append(doc[selected.column])
                     except KeyError:
                         if self.connection_properties.enforce_schema:
-                            print(doc)
-                            print(selected.column)
                             raise MigrationError(selected.column)
                         ret.append(None)
                 else:

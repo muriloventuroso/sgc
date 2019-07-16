@@ -10,5 +10,5 @@ from .fields import (
 __all__ = models_all + [
     'DjongoManager', 'ListField', 'ArrayModelField',
     'EmbeddedModelField', 'ArrayReferenceField', 'ObjectIdField',
-    'GenericObjectIdField', 'DictField'
+    'GenericObjectIdField', 'DictField', 'MongoDecimalField'
 ]

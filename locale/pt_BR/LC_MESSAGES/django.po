@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-16 13:55-0300\n"
-"PO-Revision-Date: 2019-07-16 13:56-0306\n"
+"POT-Creation-Date: 2019-07-16 18:15-0300\n"
+"PO-Revision-Date: 2019-07-16 18:17-0306\n"
 "Last-Translator: b'  <muriloventuroso@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -286,6 +286,7 @@ msgstr "Deletar"
 #: congregations/templates/publishers/publishers.html:9
 #: financial/templates/add_edit_transaction.html:11
 #: financial/templates/add_edit_transactioncategory.html:11
+#: financial/templates/confrontation.html:9
 #: financial/templates/generate_pdf.html:9
 #: financial/templates/monthly_summary.html:9
 #: financial/templates/transactioncategories.html:9
@@ -421,10 +422,10 @@ msgstr ""
 msgid "Date"
 msgstr "Data"
 
-#: financial/forms.py:35 financial/forms.py:62 financial/forms.py:89
-#: meetings/forms.py:45 meetings/forms.py:181 meetings/forms.py:202
-#: meetings/forms.py:252 preaching/forms.py:19 preaching/forms.py:44
-#: preaching/forms.py:92 preaching/models.py:39
+#: financial/forms.py:35 financial/forms.py:62 meetings/forms.py:45
+#: meetings/forms.py:181 meetings/forms.py:202 meetings/forms.py:252
+#: preaching/forms.py:19 preaching/forms.py:44 preaching/forms.py:92
+#: preaching/models.py:39
 msgid "Start Date"
 msgstr "Data Inicial"
 
@@ -454,17 +455,21 @@ msgstr "Direção da Transação"
 msgid "Type PDF"
 msgstr "Tipo de PDF"
 
-#: financial/forms.py:59 financial/views.py:111
+#: financial/forms.py:59 financial/views.py:112
 msgid "Transaction Sheet"
 msgstr "Folha de Contas"
 
-#: financial/forms.py:59 financial/views.py:119
+#: financial/forms.py:59 financial/views.py:120
 msgid "Monthly Report"
 msgstr "Relatório Mensal"
 
 #: financial/forms.py:66
 msgid "Balance"
 msgstr "Saldo"
+
+#: financial/forms.py:89 financial/tables.py:27 financial/tables.py:36
+msgid "Month"
+msgstr "Mês"
 
 #: financial/helpers.py:296
 msgid "To Construction of the Subsidiary"
@@ -516,7 +521,7 @@ msgstr "Categoria de Transação"
 
 #: financial/models.py:36
 #: financial/templates/add_edit_transactioncategory.html:12
-#: financial/views.py:148
+#: financial/views.py:149
 msgid "Transaction Categories"
 msgstr "Categorias de Transação"
 
@@ -541,7 +546,7 @@ msgid "Transaction"
 msgstr "Transação"
 
 #: financial/models.py:61 financial/templates/add_edit_transaction.html:12
-#: financial/views.py:49 sgc/templates/base.html:152
+#: financial/views.py:50 sgc/templates/base.html:152
 msgid "Transactions"
 msgstr "Transações"
 
@@ -557,7 +562,7 @@ msgstr "Saldo Transportado"
 msgid "Final Balance"
 msgstr "Saldo Final"
 
-#: financial/models.py:85 financial/views.py:234 sgc/templates/base.html:154
+#: financial/models.py:85 financial/views.py:235 sgc/templates/base.html:154
 msgid "Monthly Summary"
 msgstr "Resumo Mensal"
 
@@ -565,9 +570,40 @@ msgstr "Resumo Mensal"
 msgid "Monthly Summaries"
 msgstr "Resumos Mensais"
 
-#: financial/tables.py:27
-msgid "Month"
-msgstr "Mês"
+#: financial/tables.py:37
+#| msgid "Receips"
+msgid "Receipts In"
+msgstr "Entrada de Receitas"
+
+#: financial/tables.py:39
+#| msgid "Receips"
+msgid "Receipts Out"
+msgstr "Saída de Receitas"
+
+#: financial/tables.py:41
+#| msgid "Final Balance"
+msgid "Receipts Final Balance"
+msgstr "Saldo Final de Receitas"
+
+#: financial/tables.py:43
+#| msgid "Checking Account"
+msgid "Checking Account Carried Balance"
+msgstr "Saldo Transportado da Conta Bancária"
+
+#: financial/tables.py:45
+#| msgid "Checking Account"
+msgid "Checking Account In"
+msgstr "Entradas na Conta Bancária"
+
+#: financial/tables.py:47
+#| msgid "Checking Account"
+msgid "Checking Account Out"
+msgstr "Saídas da Conta Bancária"
+
+#: financial/tables.py:49
+#| msgid "Checking Account"
+msgid "Checking Account Final Balance"
+msgstr "Saldo Final na Conta Bancária"
 
 #: financial/templates/generate_pdf.html:21
 #: meetings/templates/generate_pdf.html:21 sgc/templates/search_box.html:2
@@ -580,50 +616,55 @@ msgstr "Pesquisar"
 msgid "Generate"
 msgstr "Gerar"
 
-#: financial/templates/transactioncategories.html:17 financial/views.py:168
+#: financial/templates/transactioncategories.html:17 financial/views.py:169
 msgid "Add Transaction Category"
 msgstr "Adicionar Categoria de Transação"
 
-#: financial/templates/transactions.html:17 financial/views.py:70
+#: financial/templates/transactions.html:17 financial/views.py:71
 msgid "Add Transaction"
 msgstr "Adicionar Transação"
 
-#: financial/views.py:65
+#: financial/views.py:66
 msgid "Transaction added successfully"
 msgstr "Transação adicionada com sucesso"
 
-#: financial/views.py:81
+#: financial/views.py:82
 msgid "Transaction edited successfully"
 msgstr "Transação editada com sucesso"
 
-#: financial/views.py:86
+#: financial/views.py:87
 msgid "Edit Transaction"
 msgstr "Editar Transação"
 
-#: financial/views.py:94
+#: financial/views.py:95
 msgid "Transaction deleted successfully"
 msgstr "Transação deletada com sucesso"
 
-#: financial/views.py:127 meetings/views.py:325 sgc/templates/base.html:138
+#: financial/views.py:128 meetings/views.py:325 sgc/templates/base.html:138
 #: sgc/templates/base.html:153
 msgid "Generate PDF"
 msgstr "Gerar PDF"
 
-#: financial/views.py:163
+#: financial/views.py:164
 msgid "Transaction Category added successfully"
 msgstr "Categoria de Transação adicionada com sucesso"
 
-#: financial/views.py:179
+#: financial/views.py:180
 msgid "Transaction Category edited successfully"
 msgstr "Categoria de Transação editada com sucesso"
 
-#: financial/views.py:184
+#: financial/views.py:185
 msgid "Edit Transaction Category"
 msgstr "Editar Categoria de Transação"
 
-#: financial/views.py:192
+#: financial/views.py:193
 msgid "Transaction Category deleted successfully"
 msgstr "Categoria de Transação deletada com sucesso"
+
+#: financial/views.py:311
+#| msgid "Congregation"
+msgid "Confrontation"
+msgstr "Confronto"
 
 #: meetings/forms.py:55 meetings/models.py:113
 msgid "Type Meeting"
@@ -801,7 +842,6 @@ msgid "Speech"
 msgstr "Discurso"
 
 #: meetings/models.py:174
-#| msgid "Date"
 msgid "Dates"
 msgstr "Datas"
 
@@ -1106,28 +1146,28 @@ msgstr "Logue-se para continuar."
 msgid "Log In"
 msgstr "Entrar"
 
-#: sgc/templates/table-sm.html:57 sgc/templates/table.html:57
+#: sgc/templates/table.html:57 sgc/templates/table_sm.html:57
 msgid "First"
 msgstr "Primeiro"
 
-#: sgc/templates/table-sm.html:64 sgc/templates/table.html:64
+#: sgc/templates/table.html:64 sgc/templates/table_sm.html:64
 msgid "Previous"
 msgstr "Anterior"
 
-#: sgc/templates/table-sm.html:78 sgc/templates/table.html:78
+#: sgc/templates/table.html:78 sgc/templates/table_sm.html:78
 msgid "Next"
 msgstr "Próximo"
 
-#: sgc/templates/table-sm.html:85 sgc/templates/table.html:85
+#: sgc/templates/table.html:85 sgc/templates/table_sm.html:85
 msgid "Last"
 msgstr "Último"
 
-#: sgc/templates/table-sm.html:93 sgc/templates/table.html:93
+#: sgc/templates/table.html:93 sgc/templates/table_sm.html:93
 #, python-format
 msgid "Page %(current)s of %(total)s"
 msgstr "Pagina %(current)s de %(total)s"
 
-#: sgc/templates/table-sm.html:96 sgc/templates/table.html:96
+#: sgc/templates/table.html:96 sgc/templates/table_sm.html:96
 #, python-format
 msgid "%(count)s of %(total)s"
 msgstr "%(count)s de %(total)s"

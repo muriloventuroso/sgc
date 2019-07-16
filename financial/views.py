@@ -1,5 +1,6 @@
 import datetime
 import calendar
+from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
@@ -8,7 +9,7 @@ from django.contrib import messages
 from django_tables2.config import RequestConfig
 from django_tables2 import Column
 from financial.models import Transaction, TransactionCategory, MonthlySummary
-from financial.tables import TableTransactions, TableTransactionCategories, TableMonthlySummary
+from financial.tables import TableTransactions, TableTransactionCategories, TableMonthlySummary, TableConfrontation
 from financial.forms import (
     FormTransaction, FormSearchTransaction, FormGeneratePDF, FormSearchTransactionCategory, FormTransactionCategory,
     FormMonthlySummary)
@@ -232,5 +233,81 @@ def monthly_summary(request):
     return render(request, 'monthly_summary.html', {
         'request': request, 'table': table, 'form': form,
         'page_group': 'financial', 'page_title': _("Monthly Summary"),
+        'next': request.GET.copy().urlencode()
+    })
+
+
+@login_required
+def confrontation(request):
+    profile = UserProfile.objects.get(user=request.user)
+    form = FormMonthlySummary(request.LANGUAGE_CODE, request.GET)
+    data_db = []
+    if request.GET:
+        if form.is_valid():
+            data = form.cleaned_data
+            if 'month' in data and data['month']:
+                start_date = datetime.datetime.combine(data['month'], datetime.time.min)
+                last_day = calendar.monthrange(start_date.year, start_date.month)[1]
+                end_date = datetime.datetime.combine(start_date.replace(day=last_day), datetime.time.max)
+
+                data_db = list(Transaction.objects.mongo_aggregate([
+                    {"$match": {
+                        "date": {"$gte": start_date, '$lte': end_date},
+                        "congregation_id": profile.congregation_id,
+                        "hide_from_sheet": False}},
+                    {
+                        "$group": {
+                            "_id": None,
+                            "sum_receipts_in": {
+                                "$sum": {
+                                    "$cond": [{"$and": [{"$eq": ["$td", "I"]}, {"$eq": ["$tt", "R"]}]}, "$value", 0]
+                                }
+                            },
+                            "sum_receipts_out": {
+                                "$sum": {
+                                    "$cond": [
+                                        {"$or": [
+                                            {"$and": [
+                                                {"$eq": ["$td", "O"]}, {"$eq": ["$tt", "R"]}]},
+                                            {"$and": [
+                                                {"$eq": ["$td", "OI"]}, {"$eq": ["$tt", "C"]}]}]},
+                                        "$value", 0]
+                                }
+                            },
+                            "sum_account_in": {
+                                "$sum": {
+                                    "$cond": [{"$and": [{"$or": [
+                                        {"$eq": ["$td", "I"]},
+                                        {"$eq": ["$td", "OI"]}]}, {"$eq": ["$tt", "C"]}]}, "$value", 0]
+                                }
+                            },
+                            "sum_account_out": {
+                                "$sum": {
+                                    "$cond": [{"$and": [{"$eq": ["$td", "O"]}, {"$eq": ["$tt", "C"]}]}, "$value", 0]
+                                }
+                            },
+                        }
+                    }
+                ]))
+                if data_db:
+                    data_db[0]['month'] = data['month'].strftime("%m/%Y")
+                    data_db[0]['receipts_final_balance'] = (
+                        data_db[0]['sum_receipts_in'] - data_db[0]['sum_receipts_out'])
+                    summary = MonthlySummary.objects.filter(
+                        congregation_id=profile.congregation_id,
+                        date__range=[
+                            start_date - relativedelta(months=1),
+                            end_date - relativedelta(months=1)]).first()
+                    if summary:
+                        balance = float(summary.final_balance)
+                        data_db[0]['account_carried_balance'] = balance
+                        data_db[0]['account_final_balance'] = (
+                            balance + data_db[0]['sum_account_in'] - data_db[0]['sum_account_out'])
+    table = TableConfrontation(data_db)
+    table.paginate(page=request.GET.get('page', 1), per_page=25)
+    RequestConfig(request).configure(table)
+    return render(request, 'confrontation.html', {
+        'request': request, 'table': table, 'form': form,
+        'page_group': 'financial', 'page_title': _("Confrontation"),
         'next': request.GET.copy().urlencode()
     })
