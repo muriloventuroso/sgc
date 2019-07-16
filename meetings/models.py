@@ -124,14 +124,52 @@ class Meeting(models.Model):
 
 
 class MeetingAudience(models.Model):
+    _id = models.ObjectIdField()
     date = models.DateField(verbose_name=_("Date"))
     filled_by = models.CharField(max_length=160, verbose_name=_("Filled by"))
     absences = models.ArrayReferenceField(to=Publisher, verbose_name=_("Absences"), blank=True)
     other = models.TextField(verbose_name=_("Other"), blank=True)
     count = models.IntegerField(verbose_name=_("Count"), default=0)
     congregation = models.ForeignKey(Congregation, verbose_name=_("Congregation"), on_delete=models.CASCADE)
+    objects = models.DjongoManager()
 
     class Meta:
         ordering = ['date', ]
         verbose_name = _("Meeting Audience")
         verbose_name_plural = _("Meetings Audience")
+
+
+class SpeakerOut(models.Model):
+    _id = models.ObjectIdField()
+    date = models.DateField(verbose_name=_("Date"))
+    theme = models.CharField(max_length=200, verbose_name=_("Theme"), null=True, blank=True)
+    speaker = models.ForeignKey(
+        Publisher, verbose_name=_("Speaker"), null=True, blank=True, on_delete=models.SET_NULL)
+    congregation_dest = models.CharField(
+        max_length=200, verbose_name=_("Congregation Destination"), null=True, blank=True)
+    congregation = models.ForeignKey(Congregation, verbose_name=_("Congregation"), on_delete=models.CASCADE)
+    objects = models.DjongoManager()
+
+    class Meta:
+        ordering = ['date', ]
+        verbose_name = _("Speaker Out")
+        verbose_name_plural = _("Speakers Out")
+
+
+class Speech(models.Model):
+    _id = models.ObjectIdField()
+    theme = models.CharField(max_length=200, verbose_name=_("Theme"))
+    number = models.IntegerField(verbose_name=_("Number"))
+    last_update = models.CharField(verbose_name=_("Last Update"), max_length=20)
+    objects = models.DjongoManager()
+
+    def __str__(self):
+        return '{} - {} {}'.format(self.number, self.theme, self.last_update)
+
+
+class CountSpeech(models.Model):
+    _id = models.ObjectIdField()
+    speech = models.ForeignKey(Speech, verbose_name=_("Speech"), on_delete=models.CASCADE)
+    congregation = models.ForeignKey(Congregation, verbose_name=_("Congregation"), on_delete=models.CASCADE)
+    dates = models.ListField(default=[], verbose_name=_("Dates"))
+    objects = models.DjongoManager()

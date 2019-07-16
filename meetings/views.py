@@ -7,12 +7,14 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django_tables2.config import RequestConfig
-from meetings.models import Meeting, TreasuresContent, ApplyYourselfContent, LivingChristiansContent, MeetingAudience
-from meetings.tables import TableMeetings, TableMeetingAudience
+from django_tables2 import Column
+from meetings.models import (
+    Meeting, TreasuresContent, ApplyYourselfContent, LivingChristiansContent, MeetingAudience, SpeakerOut, CountSpeech)
+from meetings.tables import TableMeetings, TableMeetingAudience, TableSpeakerOut, TableCountSpeech
 from meetings.forms import (
     FormSearchMeeting, FormMeeting, FormDesignations, FormWeekendContent, FormMidweekContent, FormTreasuresContent,
     FormApplyYourselfContent, FormLivingChristiansContent, FormGeneratePDF, FormMeetingAudience,
-    FormSearchMeetingAudience)
+    FormSearchMeetingAudience, FormSpeakerOut, FormSearchSpeakerOut)
 from congregations.models import Publisher
 from users.models import UserProfile
 from sgc import settings
@@ -65,6 +67,12 @@ def add_meeting(request):
             if meeting.type_meeting == 'w':
                 if form_weekendcontent.is_valid():
                     meeting.weekend_content = form_weekendcontent.save(commit=False)
+                    count_speech = CountSpeech.objects.filter(speech__theme=meeting.weekend_content.theme)\
+                        .filter(congregation_id=congregation_id).first()
+                    if count_speech:
+                        if meeting.date.strftime("%d/%m/%y") not in count_speech.dates:
+                            count_speech.dates.append(meeting.date.strftime("%d/%m/%y"))
+                            count_speech.save()
             else:
                 if form_midweekcontent.is_valid():
                     meeting.midweek_content = form_midweekcontent.save(commit=False)
@@ -150,7 +158,21 @@ def edit_meeting(request, meeting_id):
                 meeting.designations = form_designations.save(commit=False)
             if meeting.type_meeting == 'w':
                 if form_weekendcontent.is_valid():
+                    old_theme = meeting.weekend_content.theme
                     meeting.weekend_content = form_weekendcontent.save(commit=False)
+                    if old_theme != meeting.weekend_content.theme:
+                        count_speech = CountSpeech.objects.filter(speech__theme=old_theme)\
+                            .filter(congregation_id=congregation_id).first()
+                        if count_speech:
+                            if meeting.date.strftime("%d/%m/%y") in count_speech.dates:
+                                count_speech.dates.remove(meeting.date.strftime("%d/%m/%y"))
+                                count_speech.save()
+                    count_speech = CountSpeech.objects.filter(speech__theme=meeting.weekend_content.theme)\
+                        .filter(congregation_id=congregation_id).first()
+                    if count_speech:
+                        if meeting.date.strftime("%d/%m/%y") not in count_speech.dates:
+                            count_speech.dates.append(meeting.date.strftime("%d/%m/%y"))
+                            count_speech.save()
             else:
                 if form_midweekcontent.is_valid():
                     meeting.midweek_content = form_midweekcontent.save(commit=False)
@@ -275,7 +297,11 @@ def generate_pdf(request):
                         if apply_y.room_apply == "B":
                             rooms = 2
                             break
-            layout = render_to_string(template, {'meetings': meetings, 'rooms': rooms})
+            context = {'meetings': meetings, 'rooms': rooms}
+            if data['type_pdf'] == 'w':
+                context['speakers_out'] = SpeakerOut.objects.filter(date__range=[data['start_date'], data['end_date']])\
+                    .filter(congregation_id=profile.congregation_id)
+            layout = render_to_string(template, context)
             html = HTML(string=layout)
             main_doc = html.render(stylesheets=[CSS('static/css/pdf.css')])
 
@@ -488,7 +514,7 @@ def meeting_audiences(request):
     RequestConfig(request).configure(table)
     return render(request, 'meeting_audiences.html', {
         'request': request, 'table': table, 'form': form,
-        'page_group': 'financial', 'page_title': _("Meeting Audiences"),
+        'page_group': 'meetings', 'page_title': _("Meeting Audiences"),
         'next': request.GET.copy().urlencode()
     })
 
@@ -556,3 +582,111 @@ def delete_meeting_audience(request, meeting_audience_id):
     meeting_audience.delete()
     messages.success(request, _("Meeting Audience deleted successfully"))
     return redirect_with_next(request, 'meeting_audiences')
+
+
+@login_required
+def speakers_out(request):
+    profile = UserProfile.objects.get(user=request.user)
+    form = FormSearchSpeakerOut(request.LANGUAGE_CODE, request.GET)
+    filter_data = {}
+    if form.is_valid():
+        data = form.cleaned_data
+        if 'start_date' in data and data['start_date']:
+            filter_data['date__gte'] = data['start_date']
+        else:
+            filter_data['date__gte'] = datetime.datetime.now()
+        if 'end_date' in data and data['end_date']:
+            filter_data['date__lte'] = data['end_date']
+    if not request.user.is_staff:
+        filter_data['congregation_id'] = profile.congregation_id
+    data = SpeakerOut.objects.filter(**filter_data)
+    table = TableSpeakerOut(data)
+    table.paginate(page=request.GET.get('page', 1), per_page=25)
+    RequestConfig(request).configure(table)
+    return render(request, 'speakers_out.html', {
+        'request': request, 'table': table, 'form': form,
+        'page_group': 'meetings', 'page_title': _("Speakers Out"),
+        'next': request.GET.copy().urlencode()
+    })
+
+
+@login_required
+def add_speaker_out(request):
+    profile = UserProfile.objects.get(user=request.user)
+    congregation_id = profile.congregation_id
+
+    if request.method == 'POST':
+        form = FormSpeakerOut(profile.congregation_id, request.LANGUAGE_CODE, request.POST)
+        if form.is_valid():
+            speaker_out = form.save(commit=False)
+            speaker_out.congregation_id = congregation_id
+            speaker_out.save()
+            messages.success(request, _("Speaker Out added successfully"))
+            return redirect_with_next(request, 'speakers_out')
+    else:
+        form = FormSpeakerOut(profile.congregation_id, request.LANGUAGE_CODE)
+
+    return render(request, 'add_edit_speaker_out.html', {
+        'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Add Speaker Out"),
+    })
+
+
+@login_required
+def edit_speaker_out(request, speaker_out_id):
+    profile = UserProfile.objects.get(user=request.user)
+    speaker_out = get_object_or_404(SpeakerOut, pk=speaker_out_id)
+    if request.method == 'POST':
+        form = FormSpeakerOut(profile.congregation_id, request.LANGUAGE_CODE, request.POST, instance=speaker_out)
+        if form.is_valid():
+            speaker_out = form.save()
+            messages.success(request, _("Speaker Out edited successfully"))
+            return redirect_with_next(request, 'speakers_out')
+    else:
+        form = FormSpeakerOut(profile.congregation_id, request.LANGUAGE_CODE, instance=speaker_out)
+    return render(request, 'add_edit_speaker_out.html', {
+        'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Edit Speaker Out"),
+    })
+
+
+@login_required
+def delete_speaker_out(request, speaker_out_id):
+    speaker_out = get_object_or_404(SpeakerOut, pk=speaker_out_id)
+    speaker_out.delete()
+    messages.success(request, _("Speaker Out deleted successfully"))
+    return redirect_with_next(request, 'speakers_out')
+
+
+@login_required
+def speeches(request):
+    profile = UserProfile.objects.get(user=request.user)
+    data_db = CountSpeech.objects.filter(congregation_id=profile.congregation_id).select_related('speech')\
+        .order_by('speech__number')
+    data = []
+    date_keys = []
+    extra_columns = []
+    for d in data_db:
+        item = {
+            'speech': d.speech
+        }
+        for d in d.dates:
+            date = datetime.datetime.strptime(d, '%d/%m/%y')
+            year = str(date.year)
+            if year not in date_keys:
+                date_keys.append(year)
+            if year not in item:
+                item[year] = ""
+            item[year] += date.strftime('%d/%m') + ', '
+        data.append(item)
+    for d in data:
+        for key, value in d.items():
+            if key != 'speech':
+                if value.endswith(', '):
+                    d[key] = value[:-2]
+    for key in sorted(date_keys):
+        extra_columns.append((key, Column(verbose_name=key)))
+    table = TableCountSpeech(data, extra_columns=extra_columns)
+    return render(request, 'speeches.html', {
+        'request': request, 'table': table,
+        'page_group': 'meetings', 'page_title': _("Speeches"),
+        'next': request.GET.copy().urlencode()
+    })

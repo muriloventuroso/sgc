@@ -314,7 +314,8 @@ class MonthlyReportPdf(object):
         self.pdf.drawString(230, 221, "{0:.2f}".format(self.sum_expenses).replace('.', ','))
         self.pdf.drawString(490, 221, "{0:.2f}".format(
             float(self.balance) + self.sum_receipts - self.sum_expenses).replace('.', ','))
-        self.pdf.drawString(180, 160, "{0:.2f}".format(self.sum_world_wide).replace('.', ','))
+        self.pdf.drawString(180, 160, "{0:.2f}".format(
+            self.sum_world_wide + self.sum_construction_subsidiary).replace('.', ','))
 
     def generate_summary(self):
         transactions = []

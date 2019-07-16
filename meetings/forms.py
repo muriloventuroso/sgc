@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from datetimewidget.widgets import DateWidget
 from meetings.models import (
     Meeting, Designations, WeekendContent, MidweekContent, TreasuresContent, ApplyYourselfContent,
-    LivingChristiansContent, MeetingAudience)
+    LivingChristiansContent, MeetingAudience, SpeakerOut, Speech)
 from congregations.models import Publisher, Congregation
 
 
@@ -63,6 +63,8 @@ class FormWeekendContent(forms.ModelForm):
             tags__in=['ministerial_servant', 'elder'], congregation_id=congregation_id)
         self.fields['reader'].queryset = Publisher.objects.filter(
             tags__in=['reader_w'], congregation_id=congregation_id)
+        self.fields['theme'].choices = [(x.theme, str(x)) for x in Speech.objects.all().order_by('number')]
+    theme = forms.ChoiceField(label=_("Theme"))
 
     class Meta:
         model = WeekendContent
@@ -235,3 +237,54 @@ class FormMeetingAudience(forms.ModelForm):
     class Meta:
         model = MeetingAudience
         fields = ('date', 'filled_by', 'count', 'other', )
+
+
+class FormSearchSpeakerOut(forms.Form):
+    def __init__(self, language, *args, **kwargs):
+        super(FormSearchSpeakerOut, self).__init__(*args, **kwargs)
+        if language == 'en':
+            self.fields['start_date'].widget.options['format'] = "YYYY-MM-DD"
+            self.fields['end_date'].widget.options['format'] = "YYYY-MM-DD"
+        elif language == 'pt-br':
+            self.fields['start_date'].widget.options['format'] = "DD/MM/YYYY"
+            self.fields['end_date'].widget.options['format'] = "DD/MM/YYYY"
+    start_date = forms.DateField(
+        label=_("Start Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "start_date", 'data-format': "YYYY-MM-DD"},
+            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+    end_date = forms.DateField(
+        label=_("End Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "end_date", 'data-format': "YYYY-MM-DD"},
+            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+
+
+class FormSpeakerOut(forms.ModelForm):
+    def __init__(self, congregation_id, language, *args, **kwargs):
+        super(FormSpeakerOut, self).__init__(*args, **kwargs)
+        self.fields['speaker'].queryset = Publisher.objects.filter(
+            tags__in=['ministerial_servant', 'elder'], congregation_id=congregation_id)
+        if language == 'en':
+            self.fields['date'].widget.options['format'] = "YYYY-MM-DD"
+            if self.instance:
+                kwargs.update(initial={
+                    # 'field': 'value'
+                    'date': self.instance.date.strftime("%Y-%m-%d")
+                })
+        elif language == 'pt-br':
+            self.fields['date'].widget.options['format'] = "DD/MM/YYYY"
+            if self.instance and self.instance.date:
+                kwargs.update(initial={
+                    # 'field': 'value'
+                    'date': self.instance.date.strftime("%d/%m/%Y")
+                })
+    date = forms.DateField(
+        label=_("Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
+        widget=DateWidget(
+            attrs={'id': "date", 'data-format': "YYYY-MM-DD"},
+            usel10n=True, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+
+    class Meta:
+        model = SpeakerOut
+        fields = ('date', 'speaker', 'theme', 'congregation_dest', )

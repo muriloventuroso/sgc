@@ -136,6 +136,13 @@
                                 <li><a href="{% url 'meeting_audiences' %}">{% trans 'Meeting Audience' %}</a></li>
                                 <li><a href="{% url 'meetings' %}">{% trans 'Meeting Registration' %}</a></li>
                                 <li><a href="{% url 'generate_pdf' %}">{% trans 'Generate PDF' %}</a></li>
+                                <li>
+                                    <a href="javascript:void(0);" class="waves-effect"><span>{% trans 'Speeches' %} <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                                    <ul class="submenu">
+                                        <li><a href="{% url 'speakers_out' %}">{% trans 'Speakers Out' %}</a></li>
+                                        <li><a href="{% url 'speeches' %}">{% trans 'Speeches' %}</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                         <li class="{% if page_group == 'financial' %}active{% endif %}">
@@ -219,6 +226,8 @@
 
     <!-- App js -->
     <script src="{% static 'js/app.js'%}"></script>
+    <script src="{% static 'js/bootstrap-table.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-pt-BR.min.js' %}"></script>
     <script>
     $(document).ready(function() {
         {% if request.LANGUAGE_CODE == 'pt-br' %}
@@ -237,6 +246,8 @@
                 $(this).selectpicker({liveSearch: true});
             }
         });
+        $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pt-BR']);
+
     });
     </script>
     {% block extrajs %}

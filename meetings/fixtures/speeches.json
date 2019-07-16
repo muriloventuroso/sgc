@@ -1,0 +1,1553 @@
+[{
+  "pk": 1,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Você conhece bem a Deus?",
+    "last_update": "(9/15)",
+    "number": 1
+  }
+}, {
+  "pk": 2,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Você vai sobreviver aos últimos dias?",
+    "last_update": "(9/15)",
+    "number": 2
+  }
+}, {
+  "pk": 3,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Você está avançando com a organização unida de Jeová?",
+    "last_update": "(9/15)",
+    "number": 3
+  }
+}, {
+  "pk": 4,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Que provas temos de que Deus existe?",
+    "last_update": "(9/15)",
+    "number": 4
+  }
+}, {
+  "pk": 5,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Você pode ter uma família feliz!",
+    "last_update": "(9/15)",
+    "number": 5
+  }
+}, {
+  "pk": 6,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O Dilúvio dos dias de Noé e você",
+    "last_update": "(9/15)",
+    "number": 6
+  }
+}, {
+  "pk": 7,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Imite a misericórdia de Jeová",
+    "last_update": "(12/15)",
+    "number": 7
+  }
+}, {
+  "pk": 8,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Viva para fazer a vontade de Deus",
+    "last_update": "(9/15)",
+    "number": 8
+  }
+}, {
+  "pk": 9,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Escute e faça o que a Bíblia diz",
+    "last_update": "(12/16)",
+    "number": 9
+  }
+}, {
+  "pk": 10,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Seja honesto em tudo",
+    "last_update": "(12/16)",
+    "number": 10
+  }
+}, {
+  "pk": 11,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Imite a Jesus e não faça parte do mundo",
+    "last_update": "(12/16)",
+    "number": 11
+  }
+}, {
+  "pk": 12,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Deus quer que você respeite quem tem autoridade",
+    "last_update": "(12/16)",
+    "number": 12
+  }
+}, {
+  "pk": 13,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Qual o ponto de vista de Deus sobre o sexo e o casamento?",
+    "last_update": "(12/16)",
+    "number": 13
+  }
+}, {
+  "pk": 14,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Um povo puro e limpo honra a Jeová",
+    "last_update": "(12/16)",
+    "number": 14
+  }
+}, {
+  "pk": 15,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "‘Faça o bem a todos’",
+    "last_update": "(12/16)",
+    "number": 15
+  }
+}, {
+  "pk": 16,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Seja cada vez mais amigo de Jeová",
+    "last_update": "(12/16)",
+    "number": 16
+  }
+}, {
+  "pk": 17,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Glorifique a Deus com tudo o que você tem",
+    "last_update": "(4/18)",
+    "number": 17
+  }
+}, {
+  "pk": 18,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Faça de Jeová a sua fortaleza",
+    "last_update": "(4/18)",
+    "number": 18
+  }
+}, {
+  "pk": 19,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como você pode saber o seu futuro?",
+    "last_update": "(4/18)",
+    "number": 19
+  }
+}, {
+  "pk": 20,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Chegou o tempo de Deus governar o mundo?",
+    "last_update": "(7/18)",
+    "number": 20
+  }
+}, {
+  "pk": 21,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Dê valor ao seu lugar no Reino de Deus",
+    "last_update": "(4/18)",
+    "number": 21
+  }
+}, {
+  "pk": 22,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Você está usando bem o que Jeová lhe dá?",
+    "last_update": "(4/18)",
+    "number": 22
+  }
+}, {
+  "pk": 23,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "A vida tem objetivo",
+    "last_update": "(6/18)",
+    "number": 23
+  }
+}, {
+  "pk": 24,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O que o governo de Deus pode fazer por nós",
+    "last_update": "(2/02)",
+    "number": 24
+  }
+}, {
+  "pk": 25,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Resista ao espírito do mundo",
+    "last_update": "(9/07)",
+    "number": 25
+  }
+}, {
+  "pk": 26,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Será que Deus considera você importante?",
+    "last_update": "(7/92)",
+    "number": 26
+  }
+}, {
+  "pk": 27,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como dar bom início ao casamento",
+    "last_update": "(9/98)",
+    "number": 27
+  }
+}, {
+  "pk": 28,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Mostre respeito e amor no seu casamento",
+    "last_update": "(9/98)",
+    "number": 28
+  }
+}, {
+  "pk": 29,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Responsabilidades e recompensas dos pais",
+    "last_update": "(9/98)",
+    "number": 29
+  }
+}, {
+  "pk": 30,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Comunicação — dentro da família e com Deus",
+    "last_update": "(9/98)",
+    "number": 30
+  }
+}, {
+  "pk": 31,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Você tem consciência da sua necessidade espiritual?",
+    "last_update": "(8/18)",
+    "number": 31
+  }
+}, {
+  "pk": 32,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como lidar com as ansiedades da vida",
+    "last_update": "(7/92)",
+    "number": 32
+  }
+}, {
+  "pk": 33,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O que há por trás do espírito de rebeldia?",
+    "last_update": "(6/92)",
+    "number": 33
+  }
+}, {
+  "pk": 34,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Foi ‘marcado’ para sobreviver?",
+    "last_update": "(6/92)",
+    "number": 34
+  }
+}, {
+  "pk": 35,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Poderá viver para sempre? Viverá mesmo?",
+    "last_update": "(6/92)",
+    "number": 35
+  }
+}, {
+  "pk": 36,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "É esta vida tudo o que há?",
+    "last_update": "(6/92)",
+    "number": 36
+  }
+}, {
+  "pk": 37,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Obedecer a Deus é mesmo a melhor coisa a fazer?",
+    "last_update": "(3/17)",
+    "number": 37
+  }
+}, {
+  "pk": 38,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Atue sabiamente ao passo que se aproxima o fim",
+    "last_update": "(6/92)",
+    "number": 38
+  }
+}, {
+  "pk": 39,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Confie na vitória divina!",
+    "last_update": "(1/96)",
+    "number": 39
+  }
+}, {
+  "pk": 40,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O que o futuro próximo nos reserva!",
+    "last_update": "(1/96)",
+    "number": 40
+  }
+}, {
+  "pk": 41,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "‘Fique parado e veja a salvação da parte de Jeová’",
+    "last_update": "(7/92)",
+    "number": 41
+  }
+}, {
+  "pk": 42,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O efeito do Reino de Deus sobre você",
+    "last_update": "(1/96)",
+    "number": 42
+  }
+}, {
+  "pk": 43,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Faz o que Deus requer de você?",
+    "last_update": "(9/07)",
+    "number": 43
+  }
+}, {
+  "pk": 44,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Persista em buscar o Reino de Deus",
+    "last_update": "(9/07)",
+    "number": 44
+  }
+}, {
+  "pk": 45,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Siga o caminho da vida",
+    "last_update": "(7/92)",
+    "number": 45
+  }
+}, {
+  "pk": 46,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Tenha firme confiança até o fim",
+    "last_update": "(7/92)",
+    "number": 46
+  }
+}, {
+  "pk": 47,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "‘Tenha fé nas boas novas’",
+    "last_update": "(9/95)",
+    "number": 47
+  }
+}, {
+  "pk": 48,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como passar pela prova da lealdade cristã",
+    "last_update": "(1/00)",
+    "number": 48
+  }
+}, {
+  "pk": 49,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Uma Terra purificada — viverá para vê-la?",
+    "last_update": "(9/07)",
+    "number": 49
+  }
+}, {
+  "pk": 50,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como tomará as decisões com que se confronta? (12/93)",
+    "last_update": 50,
+    "number": 50
+  }
+}, {
+  "pk": 51,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Está a verdade transformando sua vida?",
+    "last_update": "(6/95)",
+    "number": 51
+  }
+}, {
+  "pk": 52,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Quem é o seu Deus?",
+    "last_update": "(12/93)",
+    "number": 52
+  }
+}, {
+  "pk": 53,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Concorda seu modo de pensar com o de Deus?",
+    "last_update": "(12/93)",
+    "number": 53
+  }
+}, {
+  "pk": 54,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Edifique sua fé no Criador do homem",
+    "last_update": "(12/93)",
+    "number": 54
+  }
+}, {
+  "pk": 55,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Que nome está fazendo perante Deus?",
+    "last_update": "(12/93)",
+    "number": 55
+  }
+}, {
+  "pk": 56,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Entremos no novo mundo sob a liderança de Cristo",
+    "last_update": "(1/96)",
+    "number": 56
+  }
+}, {
+  "pk": 57,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como suportar perseguição",
+    "last_update": "(12/93)",
+    "number": 57
+  }
+}, {
+  "pk": 58,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Quem são os verdadeiros seguidores de Cristo?",
+    "last_update": "(11/17)",
+    "number": 58
+  }
+}, {
+  "pk": 59,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Ceifará o que semear",
+    "last_update": "(12/93)",
+    "number": 59
+  }
+}, {
+  "pk": 60,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Quão significativa é a sua vida?",
+    "last_update": "(2/97)",
+    "number": 60
+  }
+}, {
+  "pk": 61,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Nas promessas de quem você confia?",
+    "last_update": "(12/93)",
+    "number": 61
+  }
+}, {
+  "pk": 62,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "A única cura para a humanidade doentia",
+    "last_update": "(12/93)",
+    "number": 62
+  }
+}, {
+  "pk": 63,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Tem você espírito evangelizador?",
+    "last_update": "(12/93)",
+    "number": 63
+  }
+}, {
+  "pk": 64,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Amantes de prazeres ou amantes de Deus?",
+    "last_update": "(12/93)",
+    "number": 64
+  }
+}, {
+  "pk": 65,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como podemos ser pacíficos num mundo cheio de ódio",
+    "last_update": "(7/16)",
+    "number": 65
+  }
+}, {
+  "pk": 66,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Trabalhe como escravo para o Senhor da colheita",
+    "last_update": "(9/07)",
+    "number": 66
+  }
+}, {
+  "pk": 67,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Tome tempo para meditar em coisas espirituais",
+    "last_update": "(9/07)",
+    "number": 67
+  }
+}, {
+  "pk": 68,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Guarda ressentimento ou é perdoador?",
+    "last_update": "(12/93)",
+    "number": 68
+  }
+}, {
+  "pk": 69,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Renove o espírito de abnegação",
+    "last_update": "(12/93)",
+    "number": 69
+  }
+}, {
+  "pk": 70,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Faça de Jeová a sua confiança",
+    "last_update": "(12/93)",
+    "number": 70
+  }
+}, {
+  "pk": 71,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como manter-se espiritualmente desperto",
+    "last_update": "(9/07)",
+    "number": 71
+  }
+}, {
+  "pk": 72,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O amor identifica a verdadeira congregação cristã",
+    "last_update": "(12/93)",
+    "number": 72
+  }
+}, {
+  "pk": 73,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como adquirir um coração sábio",
+    "last_update": "(9/94)",
+    "number": 73
+  }
+}, {
+  "pk": 74,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Os olhos de Jeová nos observam",
+    "last_update": "(9/94)",
+    "number": 74
+  }
+}, {
+  "pk": 75,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Reconhece a soberania de Jeová em sua vida?",
+    "last_update": "(9/07)",
+    "number": 75
+  }
+}, {
+  "pk": 76,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Princípios bíblicos — podem nos ajudar a lidar com os problemas atuais? (8/10)",
+    "last_update": 76,
+    "number": 76
+  }
+}, {
+  "pk": 77,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Siga o proceder da hospitalidade",
+    "last_update": "(9/94)",
+    "number": 77
+  }
+}, {
+  "pk": 78,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Sirva a Jeová com coração alegre",
+    "last_update": "(1/96)",
+    "number": 78
+  }
+}, {
+  "pk": 79,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Amizade com Deus ou com o mundo: qual escolherá?",
+    "last_update": "(1/96)",
+    "number": 79
+  }
+}, {
+  "pk": 80,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Baseia a sua esperança na ciência ou na Bíblia?",
+    "last_update": "(9/94)",
+    "number": 80
+  }
+}, {
+  "pk": 81,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Quem está habilitado para ser ministro de Deus?",
+    "last_update": "(1/95)",
+    "number": 81
+  }
+}, {
+  "pk": 82,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Jeová e Cristo fazem parte de uma Trindade?",
+    "last_update": "(5/95)",
+    "number": 82
+  }
+}, {
+  "pk": 83,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Tempo de julgamento da religião",
+    "last_update": "(11/95)",
+    "number": 83
+  }
+}, {
+  "pk": 84,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Escapará do destino deste mundo?",
+    "last_update": "(11/03)",
+    "number": 84
+  }
+}, {
+  "pk": 85,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Boas notícias num mundo violento",
+    "last_update": "(9/01)",
+    "number": 85
+  }
+}, {
+  "pk": 86,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Orações que são ouvidas por Deus",
+    "last_update": "(1/95)",
+    "number": 86
+  }
+}, {
+  "pk": 87,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Qual é a sua relação com Deus?",
+    "last_update": "(1/95)",
+    "number": 87
+  }
+}, {
+  "pk": 88,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Por que viver segundo as normas da Bíblia?",
+    "last_update": "(1/95)",
+    "number": 88
+  }
+}, {
+  "pk": 89,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Venham os que têm sede da verdade!",
+    "last_update": "(1/95)",
+    "number": 89
+  }
+}, {
+  "pk": 90,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Procure alcançar a verdadeira vida",
+    "last_update": "(3/03)",
+    "number": 90
+  }
+}, {
+  "pk": 91,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "A presença do Messias e seu domínio",
+    "last_update": "(11/95)",
+    "number": 91
+  }
+}, {
+  "pk": 92,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O papel da religião nos assuntos do mundo",
+    "last_update": "(11/95)",
+    "number": 92
+  }
+}, {
+  "pk": 93,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Catástrofes naturais — como as encara?",
+    "last_update": "(11/92)",
+    "number": 93
+  }
+}, {
+  "pk": 94,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "A religião verdadeira atende às necessidades da sociedade humana",
+    "last_update": "(12/93)",
+    "number": 94
+  }
+}, {
+  "pk": 95,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O conceito da Bíblia sobre práticas espíritas",
+    "last_update": "(7/94)",
+    "number": 95
+  }
+}, {
+  "pk": 96,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O fim da religião falsa está próximo",
+    "last_update": "(1/96)",
+    "number": 96
+  }
+}, {
+  "pk": 97,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Permaneçamos inculpes em meio a uma geração pervertida",
+    "last_update": "(1/96)",
+    "number": 97
+  }
+}, {
+  "pk": 98,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "“A cena deste mundo está mudando”",
+    "last_update": "(9/16)",
+    "number": 98
+  }
+}, {
+  "pk": 99,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Por que você pode confiar na Bíblia",
+    "last_update": "(9/97)",
+    "number": 99
+  }
+}, {
+  "pk": 100,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Amizade verdadeira com Deus e com o próximo",
+    "last_update": "(11/98)",
+    "number": 100
+  }
+}, {
+  "pk": 101,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Jeová — o Grandioso Criador",
+    "last_update": "(9/95)",
+    "number": 101
+  }
+}, {
+  "pk": 102,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Preste atenção à Palavra profética",
+    "last_update": "(9/95)",
+    "number": 102
+  }
+}, {
+  "pk": 103,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Pode-se encontrar alegria em servir a Deus",
+    "last_update": "(2/99)",
+    "number": 103
+  }
+}, {
+  "pk": 104,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Pais — estão construindo com materiais à prova de fogo?",
+    "last_update": "(1/05)",
+    "number": 104
+  }
+}, {
+  "pk": 105,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Somos consolados em todas as nossas tribulações",
+    "last_update": "(5/95)",
+    "number": 105
+  }
+}, {
+  "pk": 106,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Arruinar a Terra provocará retribuição divina",
+    "last_update": "(5/95)",
+    "number": 106
+  }
+}, {
+  "pk": 107,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Tenha uma boa consciência neste mundo pecaminoso",
+    "last_update": "(5/95)",
+    "number": 107
+  }
+}, {
+  "pk": 108,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Vença o medo do futuro",
+    "last_update": "(5/95)",
+    "number": 108
+  }
+}, {
+  "pk": 109,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O Reino de Deus está próximo",
+    "last_update": "(1/96)",
+    "number": 109
+  }
+}, {
+  "pk": 110,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Deus vem primeiro na vida familiar bem-sucedida",
+    "last_update": "(1/95)",
+    "number": 110
+  }
+}, {
+  "pk": 111,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O que é realizado pela cura das nações?",
+    "last_update": "(1/95)",
+    "number": 111
+  }
+}, {
+  "pk": 112,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como expressar amor num mundo que viola a lei",
+    "last_update": "(1/95)",
+    "number": 112
+  }
+}, {
+  "pk": 113,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como podem os jovens enfrentar a crise atual?",
+    "last_update": "(1/96)",
+    "number": 113
+  }
+}, {
+  "pk": 114,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Apreço pelas maravilhas da criação de Deus",
+    "last_update": "(1/95)",
+    "number": 114
+  }
+}, {
+  "pk": 115,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como proteger-nos contra os laços de Satanás",
+    "last_update": "(4/95)",
+    "number": 115
+  }
+}, {
+  "pk": 116,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Escolha sabiamente com quem irá associar-se!",
+    "last_update": "(9/07)",
+    "number": 116
+  }
+}, {
+  "pk": 117,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como vencer o mal com o bem",
+    "last_update": "(11/06)",
+    "number": 117
+  }
+}, {
+  "pk": 118,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Olhemos os jovens do ponto de vista de Jeová",
+    "last_update": "(8/98)",
+    "number": 118
+  }
+}, {
+  "pk": 119,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Por que é benéfico que os cristãos vivam separados do mundo",
+    "last_update": "(5/97)",
+    "number": 119
+  }
+}, {
+  "pk": 120,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Por que se submeter à regência de Deus agora",
+    "last_update": "(6/97)",
+    "number": 120
+  }
+}, {
+  "pk": 121,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Uma fraternidade mundial que será salva da calamidade",
+    "last_update": "(6/97)",
+    "number": 121
+  }
+}, {
+  "pk": 122,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Paz global — de onde virá",
+    "last_update": "(7/97)",
+    "number": 122
+  }
+}, {
+  "pk": 123,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Por que os cristãos têm de ser diferentes",
+    "last_update": "(6/97)",
+    "number": 123
+  }
+}, {
+  "pk": 124,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Razões para crer que a Bíblia é de autoria divina (5/97)",
+    "last_update": 124,
+    "number": 124
+  }
+}, {
+  "pk": 125,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Por que a humanidade precisa de resgate",
+    "last_update": "(10/99)",
+    "number": 125
+  }
+}, {
+  "pk": 126,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Quem se salvará?",
+    "last_update": "(11/00)",
+    "number": 126
+  }
+}, {
+  "pk": 127,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O que acontece quando morremos?",
+    "last_update": "(8/00)",
+    "number": 127
+  }
+}, {
+  "pk": 128,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "É o inferno um lugar de tormento ardente?",
+    "last_update": "(11/00)",
+    "number": 128
+  }
+}, {
+  "pk": 129,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "É a Trindade um ensino bíblico?",
+    "last_update": "(10/00)",
+    "number": 129
+  }
+}, {
+  "pk": 130,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "A Terra permanecerá para sempre",
+    "last_update": "(8/00)",
+    "number": 130
+  }
+}, {
+  "pk": 131,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Será que o Diabo realmente existe?",
+    "last_update": "(3/02)",
+    "number": 131
+  }
+}, {
+  "pk": 132,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Ressurreição — a vitória sobre a morte!",
+    "last_update": "(8/00)",
+    "number": 132
+  }
+}, {
+  "pk": 133,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Tem importância o que cremos sobre a nossa origem?",
+    "last_update": "(8/00)",
+    "number": 133
+  }
+}, {
+  "pk": 134,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Devem os cristãos guardar o sábado?",
+    "last_update": "(8/00)",
+    "number": 134
+  }
+}, {
+  "pk": 135,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "A santidade da vida e do sangue",
+    "last_update": "(9/00)",
+    "number": 135
+  }
+}, {
+  "pk": 136,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Será que Deus aprova o uso de imagens na adoração?",
+    "last_update": "(1/01)",
+    "number": 136
+  }
+}, {
+  "pk": 137,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Ocorreram realmente os milagres da Bíblia?",
+    "last_update": "(11/00)",
+    "number": 137
+  }
+}, {
+  "pk": 138,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Viva com bom juízo num mundo depravado",
+    "last_update": "(11/00)",
+    "number": 138
+  }
+}, {
+  "pk": 139,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Sabedoria divina num mundo científico",
+    "last_update": "(11/00)",
+    "number": 139
+  }
+}, {
+  "pk": 140,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Quem é realmente Jesus Cristo?",
+    "last_update": "(08/17)",
+    "number": 140
+  }
+}, {
+  "pk": 141,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Quando terão fim os gemidos da criação humana?",
+    "last_update": "(11/00)",
+    "number": 141
+  }
+}, {
+  "pk": 142,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Por que refugiar-se em Jeová",
+    "last_update": "(11/00)",
+    "number": 142
+  }
+}, {
+  "pk": 143,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Confie no Deus de todo consolo",
+    "last_update": "(11/00)",
+    "number": 143
+  }
+}, {
+  "pk": 144,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Uma congregação leal sob a liderança de Cristo",
+    "last_update": "(11/00)",
+    "number": 144
+  }
+}, {
+  "pk": 145,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Quem é semelhante a Jeová, nosso Deus?",
+    "last_update": "(11/00)",
+    "number": 145
+  }
+}, {
+  "pk": 146,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Use a educação para louvar a Jeová",
+    "last_update": "(11/00)",
+    "number": 146
+  }
+}, {
+  "pk": 147,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Confie no poder salvador de Jeová",
+    "last_update": "(11/00)",
+    "number": 147
+  }
+}, {
+  "pk": 148,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Você tem o mesmo conceito de Deus sobre a vida?",
+    "last_update": "(11/00)",
+    "number": 148
+  }
+}, {
+  "pk": 149,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O que significa “andar com Deus”?",
+    "last_update": "(11/00)",
+    "number": 149
+  }
+}, {
+  "pk": 150,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Este mundo está condenado à destruição?",
+    "last_update": "(3/18)",
+    "number": 150
+  }
+}, {
+  "pk": 151,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Jeová é “uma altura protetora” para seu povo",
+    "last_update": "(11/00)",
+    "number": 151
+  }
+}, {
+  "pk": 152,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Armagedom — por que e quando?",
+    "last_update": "(10/01)",
+    "number": 152
+  }
+}, {
+  "pk": 153,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Tenha bem em mente o “atemorizante dia”!",
+    "last_update": "(6/11)",
+    "number": 153
+  }
+}, {
+  "pk": 154,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O governo humano é pesado na balança",
+    "last_update": "(3/02)",
+    "number": 154
+  }
+}, {
+  "pk": 155,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Chegou a hora do julgamento de Babilônia?",
+    "last_update": "(12/02)",
+    "number": 155
+  }
+}, {
+  "pk": 156,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O Dia do Juízo — tempo de temor ou de esperança?",
+    "last_update": "(6/03)",
+    "number": 156
+  }
+}, {
+  "pk": 157,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como os verdadeiros cristãos adornam o ensino divino (5/03)",
+    "last_update": 157,
+    "number": 157
+  }
+}, {
+  "pk": 158,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Seja corajoso e confie em Jeová",
+    "last_update": "(11/03)",
+    "number": 158
+  }
+}, {
+  "pk": 159,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como encontrar segurança num mundo perigoso",
+    "last_update": "(10/03)",
+    "number": 159
+  }
+}, {
+  "pk": 160,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Mantenha a identidade cristã!",
+    "last_update": "(11/11)",
+    "number": 160
+  }
+}, {
+  "pk": 161,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Por que Jesus sofreu e morreu?",
+    "last_update": "(12/04)",
+    "number": 161
+  }
+}, {
+  "pk": 162,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Seja liberto deste mundo em escuridão",
+    "last_update": "(11/14)",
+    "number": 162
+  }
+}, {
+  "pk": 163,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Por que temer o Deus verdadeiro?",
+    "last_update": "(6/05)",
+    "number": 163
+  }
+}, {
+  "pk": 164,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Será que Deus ainda está no controle?",
+    "last_update": "(11/05)",
+    "number": 164
+  }
+}, {
+  "pk": 165,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Os valores de quem você preza?",
+    "last_update": "(11/05)",
+    "number": 165
+  }
+}, {
+  "pk": 166,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como enfrentar o futuro com fé e coragem",
+    "last_update": "(5/06)",
+    "number": 166
+  }
+}, {
+  "pk": 167,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Ajamos sabiamente num mundo insensato",
+    "last_update": "(12/06)",
+    "number": 167
+  }
+}, {
+  "pk": 168,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Você pode sentir-se seguro neste mundo atribulado!",
+    "last_update": "(11/06)",
+    "number": 168
+  }
+}, {
+  "pk": 169,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Por que ser orientado pela Bíblia?",
+    "last_update": "(11/07)",
+    "number": 169
+  }
+}, {
+  "pk": 170,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Quem está qualificado para governar a humanidade?",
+    "last_update": "(12/07)",
+    "number": 170
+  }
+}, {
+  "pk": 171,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Poderá viver em paz agora — e para sempre!",
+    "last_update": "(1/08)",
+    "number": 171
+  }
+}, {
+  "pk": 172,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Que reputação você tem perante Deus?",
+    "last_update": "(5/08)",
+    "number": 172
+  }
+}, {
+  "pk": 173,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Existe uma religião verdadeira do ponto de vista de Deus?",
+    "last_update": "(9/8)",
+    "number": 173
+  }
+}, {
+  "pk": 174,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Quem se qualificará para entrar no novo mundo de Deus?",
+    "last_update": "(11/08)",
+    "number": 174
+  }
+}, {
+  "pk": 175,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O que prova que a Bíblia é autêntica?",
+    "last_update": "(8/09)",
+    "number": 175
+  }
+}, {
+  "pk": 176,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Quando haverá verdadeira paz e segurança?",
+    "last_update": "(9/09)",
+    "number": 176
+  }
+}, {
+  "pk": 177,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Onde encontrar ajuda em tempos de aflição?",
+    "last_update": "(1/10)",
+    "number": 177
+  }
+}, {
+  "pk": 178,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Ande no caminho da integridade",
+    "last_update": "(6/10)",
+    "number": 178
+  }
+}, {
+  "pk": 179,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Rejeite as fantasias do mundo, empenhe-se pelas realidades do Reino",
+    "last_update": "(11/10)",
+    "number": 179
+  }
+}, {
+  "pk": 180,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "A ressurreição — por que essa esperança deve ser real para você",
+    "last_update": "(5/11)",
+    "number": 180
+  }
+}, {
+  "pk": 181,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Já é mais tarde do que você imagina?",
+    "last_update": "(6/11)",
+    "number": 181
+  }
+}, {
+  "pk": 182,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "O que o Reino de Deus está fazendo por nós agora?",
+    "last_update": "(9/11)",
+    "number": 182
+  }
+}, {
+  "pk": 183,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Desvie seus olhos do que é fútil",
+    "last_update": "(8/12)",
+    "number": 183
+  }
+}, {
+  "pk": 184,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "A morte é o fim de tudo?",
+    "last_update": "(7/12)",
+    "number": 184
+  }
+}, {
+  "pk": 185,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Será que a verdade influencia sua vida?",
+    "last_update": "(11/12)",
+    "number": 185
+  }
+}, {
+  "pk": 186,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Sirva em união com o povo feliz de Deus",
+    "last_update": "(3/13)",
+    "number": 186
+  }
+}, {
+  "pk": 187,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Por que um Deus amoroso permite a maldade?",
+    "last_update": "(7/13)",
+    "number": 187
+  }
+}, {
+  "pk": 188,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Você confia em Jeová?",
+    "last_update": "(1/14)",
+    "number": 188
+  }
+}, {
+  "pk": 189,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Ande com Deus e receba bênçãos para sempre",
+    "last_update": "(4/14)",
+    "number": 189
+  }
+}, {
+  "pk": 190,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como se cumprirá a promessa de perfeita felicidade familiar",
+    "last_update": "(7/14)",
+    "number": 190
+  }
+}, {
+  "pk": 191,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como o amor e a fé vencem o mundo",
+    "last_update": "(4/15)",
+    "number": 191
+  }
+}, {
+  "pk": 192,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Você está no caminho para a vida eterna?",
+    "last_update": "(10/15)",
+    "number": 192
+  }
+}, {
+  "pk": 193,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Os problemas de hoje logo serão coisa do passado",
+    "last_update": "(11/15)",
+    "number": 193
+  }
+}, {
+  "pk": 194,
+  "model": "meetings.speech",
+  "fields": {
+    "theme": "Como a sabedoria de Deus nos ajuda",
+    "last_update": "(5/16)",
+    "number": 194
+  }
+}]

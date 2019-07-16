@@ -9,23 +9,37 @@
                 <li class="breadcrumb-item"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
                 <li class="breadcrumb-item active">{{page_title}}</li>
             </ol>
-
-        </div>
-        <div class="col-sm-6">
-            <div class="float-right d-none d-md-block">
-                <div class="dropdown">
-                    <a href="{% url 'add_publisher' %}" ><button class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-plus mr-2"></i> {% trans 'Add Publisher' %}</button></a>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
 {% endblock %}
 
 {% block body %}
-{% include 'search_box.html' with form=form %}
+
 <div class="row col-12 card card-body">
-    {% render_table table "table_sm.html" %}
+    {% render_table table "table.html" %}
 </div>
+
+{% endblock %}
+{% block extrajs %}
+
+<script>
+    $(document).ready(function() {
+
+        $('td').each(function(index, el) {
+            if($(el).text() != "—" && !$(el).hasClass("speech")){
+                $(el).addClass("table-success");
+            }
+        });
+        var $table = $('.table');
+
+        $table.bootstrapTable({
+            search: true,
+            locale: '{{request.LANGUAGE_CODE}}',
+            height: 600,
+            classes: "table table-bordered table-hover table-striped"
+        });
+
+    });
+</script>
 {% endblock %}

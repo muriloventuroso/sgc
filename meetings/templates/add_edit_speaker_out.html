@@ -1,31 +1,34 @@
 {% extends 'base.html' %}
 {% block title %} - {{page_title}}{% endblock %}
+
 {% block breadcrumb %}
+
 <div class="page-title-box">
     <div class="row align-items-center">
         <div class="col-sm-6">
             <h4 class="page-title">{{page_title}}</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'speakers_out' %}">{% trans 'Speakers Out' %}</a></li>
                 <li class="breadcrumb-item active">{{page_title}}</li>
             </ol>
-
-        </div>
-        <div class="col-sm-6">
-            <div class="float-right d-none d-md-block">
-                <div class="dropdown">
-                    <a href="{% url 'add_publisher' %}" ><button class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-plus mr-2"></i> {% trans 'Add Publisher' %}</button></a>
-                </div>
-            </div>
 
         </div>
     </div>
 </div>
 {% endblock %}
 
+
 {% block body %}
-{% include 'search_box.html' with form=form %}
 <div class="row col-12 card card-body">
-    {% render_table table "table_sm.html" %}
+
+    <form id="form" action"." method="post" class="form-horizontal"autocomplete=off>
+
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+        <button id="submit" class="btn btn-primary pull-right" type="submit">{% trans 'Send' %}</button>
+    </form>
 </div>
+
 {% endblock %}

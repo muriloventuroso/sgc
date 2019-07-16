@@ -12,4 +12,4 @@ class TableUsers(tables.Table):
     class Meta(object):
         attrs = {"class": "table"}
         model = UserProfile
-        fields = ('username', 'is_staff')
+        fields = ('username', 'is_staff', 'congregation')
