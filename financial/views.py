@@ -249,7 +249,7 @@ def confrontation(request):
                 start_date = datetime.datetime.combine(data['month'], datetime.time.min)
                 last_day = calendar.monthrange(start_date.year, start_date.month)[1]
                 end_date = datetime.datetime.combine(start_date.replace(day=last_day), datetime.time.max)
-
+                print({"$gte": start_date, '$lte': end_date})
                 data_db = list(Transaction.objects.mongo_aggregate([
                     {"$match": {
                         "date": {"$gte": start_date, '$lte': end_date},
@@ -289,6 +289,7 @@ def confrontation(request):
                         }
                     }
                 ]))
+                print(data_db)
                 if data_db:
                     data_db[0]['month'] = data['month'].strftime("%m/%Y")
                     data_db[0]['receipts_final_balance'] = (
