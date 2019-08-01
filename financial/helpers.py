@@ -94,7 +94,8 @@ class TransactionSheetPdf(object):
             self.pdf.drawString(25, y, transaction.date.strftime("%d"))
             self.pdf.drawString(45, y, transaction.description)
             self.pdf.drawString(253, y, transaction.tc)
-            value = transaction.value.replace('.', ',')
+            value = "%.2f" % transaction.value
+            value = value.replace('.', ',')
             if transaction.tt == 'R':
                 if transaction.td == "I":
                     x = 317 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
