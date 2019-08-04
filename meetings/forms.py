@@ -63,8 +63,8 @@ class FormWeekendContent(forms.ModelForm):
             tags__in=['ministerial_servant', 'elder'], congregation_id=congregation_id)
         self.fields['reader'].queryset = Publisher.objects.filter(
             tags__in=['reader_w'], congregation_id=congregation_id)
-        self.fields['theme'].choices = [(x.theme, str(x)) for x in Speech.objects.all().order_by('number')]
-    theme = forms.ChoiceField(label=_("Theme"))
+        self.fields['theme'].choices = [('', '')] + [(x.theme, str(x)) for x in Speech.objects.all().order_by('number')]
+    theme = forms.ChoiceField(label=_("Theme"), required=False)
 
     class Meta:
         model = WeekendContent
