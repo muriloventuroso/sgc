@@ -24,7 +24,7 @@ class TreasuresContent(models.Model):
     person_treasure = models.ForeignKey(
         Publisher, verbose_name=_("Person"), null=True, blank=True, on_delete=models.SET_NULL,
         related_name="treasures_person")
-    duration_treasure = models.CharField(max_length=2, verbose_name=_("Duration"), null=True, blank=True)
+    duration_treasure = models.CharField(max_length=20, verbose_name=_("Duration"), null=True, blank=True)
     reading = models.BooleanField(default=False, verbose_name=_("Reading"))
     room_treasure = models.CharField(
         max_length=1, choices=[('A', 'A'), ('B', 'B'), ('C', 'C')], default="A", verbose_name=_("Room"))
@@ -41,7 +41,7 @@ class ApplyYourselfContent(models.Model):
     assistant = models.ForeignKey(
         Publisher, verbose_name=_("Assistant"), null=True, blank=True, on_delete=models.SET_NULL,
         related_name="apply_assistant")
-    duration_apply = models.CharField(max_length=2, verbose_name=_("Duration"), null=True, blank=True)
+    duration_apply = models.CharField(max_length=20, verbose_name=_("Duration"), null=True, blank=True)
     room_apply = models.CharField(
         max_length=1, choices=[('A', 'A'), ('B', 'B'), ('C', 'C')], default="A", verbose_name=_("Room"))
 
@@ -57,7 +57,7 @@ class LivingChristiansContent(models.Model):
     reader = models.ForeignKey(
         Publisher, verbose_name=_("Reader"), null=True, blank=True, on_delete=models.SET_NULL,
         related_name="living_reader")
-    duration_living = models.CharField(max_length=2, verbose_name=_("Duration"), null=True, blank=True)
+    duration_living = models.CharField(max_length=20, verbose_name=_("Duration"), null=True, blank=True)
 
     class Meta:
         abstract = True

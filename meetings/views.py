@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 import re
+import string
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
@@ -439,6 +440,9 @@ def suggest_meeting(request):
     if request.GET['type'] != 'midweek':
         return HttpResponse(status=401)
 
+    user_profile = UserProfile.objects.select_related('congregation').get(user=request.user)
+    congregation = user_profile.congregation
+
     date = datetime.datetime.strptime(request.GET['date'], '%d/%m/%Y')
     url = settings.URL_JW_MEETINGS_PT + date.strftime('%Y/%m/%d')
     code = requests.get(url)
@@ -453,10 +457,20 @@ def suggest_meeting(request):
     for t in s.find('div', {'id': 'section2'}).findAll('p', {'class': 'su'}):
         duration = re.search(r'\(([0-9].*\))', t.text).group(1).split(")")[0]
         try:
-            treasures.append({
-                'title': t.text[:t.text.index(duration)].strip().rstrip(",.:('").strip().rstrip(",.:('"),
-                'duration': duration
-            })
+            title = t.text[:t.text.index(duration)].strip().rstrip(",.:('").strip().rstrip(",.:('")
+            if 'Leitura' in title:
+                n_rooms = congregation.n_rooms
+                reading = True
+            else:
+                reading = False
+                n_rooms = 1
+            for i in range(n_rooms):
+                treasures.append({
+                    'title': t.text[:t.text.index(duration)].strip().rstrip(",.:('").strip().rstrip(",.:('"),
+                    'duration': duration,
+                    'room': list(string.ascii_lowercase)[i].upper(),
+                    'reading': reading
+                })
         except Exception:
             pass
 
@@ -464,10 +478,12 @@ def suggest_meeting(request):
     for a in s.find('div', {'id': 'section3'}).findAll('p', {'class': 'su'}):
         duration = re.search(r'\(([0-9].*\))', a.text).group(1).split(")")[0]
         try:
-            apply_yourself.append({
-                'title': a.text[:a.text.index(duration)].strip().rstrip(",.:('").strip().rstrip(",.:('"),
-                'duration': duration
-            })
+            for i in range(congregation.n_rooms):
+                apply_yourself.append({
+                    'title': a.text[:a.text.index(duration)].strip().rstrip(",.:('").strip().rstrip(",.:('"),
+                    'duration': duration,
+                    'room': list(string.ascii_lowercase)[i].upper()
+                })
         except Exception:
             pass
     living_christians = []

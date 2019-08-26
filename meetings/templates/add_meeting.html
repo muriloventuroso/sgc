@@ -151,6 +151,7 @@
                         type: 'GET',
                         data: {type: 'midweek', date: date},
                         success: function(data) {
+                            console.log(data);
                             $('input[name="reading_week"]').val(data.reading_week);
                             $('input[name="initial_song"]').val(data.first_song);
                             $('input[name="second_song"]').val(data.second_song);
@@ -161,6 +162,14 @@
                                 var box = $('#boxTreasures').children().last();
                                 box.find('input[name="title_treasure"]').val(data.treasures[i].title);
                                 box.find('input[name="duration_treasure"]').val(data.treasures[i].duration);
+                                box.find('select[name="room_treasure"]').val(data.treasures[i].room);
+                                box.find('select[name="room_treasure"]').selectpicker('refresh');
+                                if(data.treasures[i].reading){
+                                    box.find('select[name="reading"]').val("True");
+                                    box.find('select[name="reading"]').selectpicker('refresh');
+                                    box.find('label[for=id_person_reading]').parent().show();
+                                    box.find('label[for=id_person_treasure]').parent().hide();
+                                }
                             }
 
                             $('#boxApplyYourself').empty();
@@ -169,6 +178,9 @@
                                 var box = $('#boxApplyYourself').children().last();
                                 box.find('input[name="title_apply"]').val(data.apply_yourself[i].title);
                                 box.find('input[name="duration_apply"]').val(data.apply_yourself[i].duration);
+                                box.find('input[name="duration_apply"]').val(data.apply_yourself[i].duration);
+                                box.find('select[name="room_apply"]').val(data.apply_yourself[i].room);
+                                box.find('select[name="room_apply"]').selectpicker('refresh');
                             }
 
                             $('#boxLivingChristians').empty();

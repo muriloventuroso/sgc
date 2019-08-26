@@ -526,6 +526,33 @@
 				"buffer_size": 16410,
 				"line_ending": "Unix"
 			}
+		},
+		{
+			"file": "meetings/forms.py",
+			"settings":
+			{
+				"buffer_size": 14566,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "meetings/templates/pdf/weekend.html",
+			"settings":
+			{
+				"buffer_size": 2505,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "meetings/views.py",
+			"settings":
+			{
+				"buffer_size": 34689,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
 		}
 	],
 	"build_system": "",
@@ -648,6 +675,9 @@
 	[
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users"
@@ -995,7 +1025,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1023,6 +1053,96 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 1161.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "meetings/forms.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14566,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3413,
+								3413
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 465.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "meetings/templates/pdf/weekend.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2505,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1093,
+								1093
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "meetings/views.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 34689,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								25157,
+								25157
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 8216.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1094,7 +1214,7 @@
 	"project": "sgc.sublime-project",
 	"replace":
 	{
-		"height": 70.0
+		"height": 50.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1114,7 +1234,7 @@
 		[
 			[
 				"",
-				"~/Dev/Python/pbxsite-env/pbxsite/pbxsite.sublime-project"
+				"~/Dev/Python/pbx-env/otimapbx/otimapbx.sublime-project"
 			]
 		],
 		"width": 380.0

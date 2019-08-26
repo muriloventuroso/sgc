@@ -23,7 +23,7 @@
             {% with previous_element=meeting.midweek_content.treasures|previous:forloop.counter0 %}
             {% if t.room_treasure == 'A' %}
             <tr>
-                <td {% if not t.reading %}colspan=2{% endif %}>{{t.title_treasure}} ({{t.duration_treasure}} min)</td>
+                <td {% if not t.reading %}colspan=2{% endif %}>{{t.title_treasure}} ({{t.duration_treasure}})</td>
                 {% if t.reading %}
                 <td class="small-title pull-right">{% trans 'Student' %}:</td>
                 {% endif %}
@@ -48,7 +48,7 @@
             {% with previous_element=meeting.midweek_content.apply_yourself|previous:forloop.counter0 %}
             {% if a.room_apply == 'A' %}
             <tr>
-                <td>{{a.title_apply}} ({{a.duration_apply}} min)</td>
+                <td>{{a.title_apply}} ({{a.duration_apply}})</td>
                 <td class="small-title pull-right">{% if a.student %}{% trans 'Student' %}{% if a.assistant %} / {% trans 'Assistant' %}{% endif %}:{% endif %}</td>
                 {% if next_element.room_apply == 'B' %}
                     <td>{{next_element.student|default_if_none:""}}{% if next_element.assistant %} / {{next_element.assistant}}{% endif %}</td>
@@ -73,7 +73,7 @@
             </tr>
             {% for l in meeting.midweek_content.living_christians %}
             <tr>
-                <td colspan=2>{{l.title_living}} ({{l.duration_living}} min)</td>
+                <td colspan=2>{{l.title_living}} ({{l.duration_living}})</td>
                 <td></td>
                 <td>{{l.person_living|default_if_none:""}}{% if l.reader %} / {{l.reader|default_if_none:""}}{% endif %}</td>
             </tr>
