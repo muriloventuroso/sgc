@@ -85,6 +85,7 @@ class TransactionSheetPdf(object):
         self.pdf.drawString(x, y, value)
 
     def generate_header(self):
+        self.pdf.setFont("Roboto", 11)
         self.pdf.drawString(25, 795, self.congregation.name + " / " + self.congregation.circuit)
         self.pdf.drawString(220, 795, self.congregation.city)
         self.pdf.drawString(380, 795, self.congregation.state)
@@ -98,8 +99,9 @@ class TransactionSheetPdf(object):
         y = 729.0
 
         for transaction in self.transactions:
-            self.pdf.setFont("Roboto", 7)
+            self.pdf.setFont("Roboto", 9)
             self.pdf.drawString(25, y, transaction.date.strftime("%d"))
+            self.pdf.setFont("Roboto", 7)
             self.pdf.drawString(45, y, transaction.description)
             self.pdf.setFont("Roboto", 9)
             self.pdf.drawString(253, y, transaction.tc)
