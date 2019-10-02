@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"cate",
+				"category_id"
+			],
+			[
+				"FOrm",
+				"FormTransaction\tclass"
+			],
+			[
+				"sub",
+				"sub_transactions\tstatement"
+			],
+			[
+				"subs",
+				"sub_transactions"
+			],
+			[
+				"date",
+				"datetime\tmodule"
+			],
+			[
+				"transa",
+				"transaction\tstatement"
+			],
+			[
+				"add",
+				"addItemSub"
+			],
+			[
+				"user",
+				"user_profile"
+			],
+			[
+				"congregation",
+				"congregation_id"
+			],
+			[
 				"sum_acco",
 				"sum_account_in"
 			],
@@ -68,10 +104,6 @@
 				"congregation_id"
 			],
 			[
-				"transa",
-				"transactions\tstatement"
-			],
-			[
 				"transaction",
 				"transactions_tc\tstatement"
 			],
@@ -108,16 +140,8 @@
 				"FormCongregationRole\tclass"
 			],
 			[
-				"cate",
-				"category_id"
-			],
-			[
 				"max",
 				"max_length"
-			],
-			[
-				"FOrm",
-				"FormTransactionCategory\tclass"
 			],
 			[
 				"FO",
@@ -182,10 +206,6 @@
 			[
 				"Model",
 				"ModelChoiceField\tclass"
-			],
-			[
-				"user",
-				"user_profile\tparam"
 			],
 			[
 				"User",
@@ -494,62 +514,70 @@
 			[
 				"gateway",
 				"gatewaySMS"
-			],
-			[
-				"gatewa",
-				"gatewaySMS"
-			],
-			[
-				"Gatewa",
-				"GatewaySMS"
-			],
-			[
-				"fun",
-				"function"
-			],
-			[
-				"tr",
-				"traceback\ttraceback print exception"
-			],
-			[
-				"FormSearch",
-				"FormSearchLayout"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "financial/helpers.py",
+			"file": "financial/templates/add_transactions.html",
 			"settings":
 			{
-				"buffer_size": 16410,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "meetings/forms.py",
-			"settings":
-			{
-				"buffer_size": 14566,
+				"buffer_size": 4003,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "meetings/templates/pdf/weekend.html",
+			"file": "financial/forms.py",
 			"settings":
 			{
-				"buffer_size": 2505,
+				"buffer_size": 4423,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "meetings/views.py",
+			"file": "financial/views.py",
 			"settings":
 			{
-				"buffer_size": 34689,
+				"buffer_size": 18476,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "financial/templates/actions_table_transactions.html",
+			"settings":
+			{
+				"buffer_size": 702,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "financial/migrations/0015_auto_20191001_1654.py",
+			"settings":
+			{
+				"buffer_size": 555,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "financial/models.py",
+			"settings":
+			{
+				"buffer_size": 4484,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "financial/templates/edit_transaction.html",
+			"settings":
+			{
+				"buffer_size": 6430,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -675,21 +703,28 @@
 	[
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/migrations",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/pdf",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users"
 	],
 	"file_history":
 	[
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/custom.css",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/helpers.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/forms.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/models.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/midweek.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/weekend.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/add_meeting.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/models.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/base.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/tables.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/confrontation.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/models.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/urls.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/migrations/0012_auto_20190716_1842.py",
@@ -718,24 +753,16 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/preaching/templates/field_service_reports.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/preaching/templates/pioneers.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/templates/users.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/models.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/table.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/table-sm.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/custom.css",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/urls.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/tables.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/js/bootstrap-table.js",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/fixtures/speeches.json",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/pdf.css",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/weekend.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/actions_table_speakers_out.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/add_edit_speaker_out.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/helpers.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/models.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/midweek.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/add_meeting.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/edit_meeting.html",
 		"/home/muriloventuroso/.mycroft/mycroft.conf",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/forms.py",
@@ -815,7 +842,7 @@
 	],
 	"find":
 	{
-		"height": 39.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -836,6 +863,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"FormTransaction",
+			"min",
+			"duration",
 			"8010551432628738",
 			"transfer_handler",
 			"CLIENTE_VIP",
@@ -960,10 +990,7 @@
 			"DROPDOWN_ITEM",
 			"DROPDOWN_MENU",
 			"ClassName",
-			"dropdown-menu",
-			".toggle",
-			"toggle",
-			"top"
+			"dropdown-menu"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1025,89 +1052,59 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "financial/helpers.py",
+					"file": "financial/templates/add_transactions.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16410,
+						"buffer_size": 4003,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3707,
-								3707
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1161.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "meetings/forms.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 14566,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3413,
-								3413
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 465.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "meetings/templates/pdf/weekend.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2505,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1093,
-								1093
+								1119,
+								1119
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 456.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "financial/forms.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4423,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1024,
+								1024
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
@@ -1119,20 +1116,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "meetings/views.py",
+					"buffer": 2,
+					"file": "financial/views.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 34689,
+						"buffer_size": 18476,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								25157,
-								25157
+								4128,
+								4128
 							]
 						],
 						"settings":
@@ -1142,10 +1139,135 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 8216.0,
+						"translation.y": 1321.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"file": "financial/templates/pdf/S30-1.png",
+					"semi_transient": true,
+					"stack_index": 2,
+					"type": "image"
+				},
+				{
+					"buffer": 3,
+					"file": "financial/templates/actions_table_transactions.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 702,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								698,
+								698
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "financial/migrations/0015_auto_20191001_1654.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 555,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								548,
+								548
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "financial/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4484,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3075,
+								3075
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 559.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "financial/templates/edit_transaction.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6430,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1629,
+								1629
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 409.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1153,11 +1275,11 @@
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 28.0
 	},
 	"input":
 	{
-		"height": 39.0
+		"height": 40.0
 	},
 	"layout":
 	{
@@ -1214,7 +1336,7 @@
 	"project": "sgc.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 52.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1234,7 +1356,7 @@
 		[
 			[
 				"",
-				"~/Dev/Python/pbx-env/otimapbx/otimapbx.sublime-project"
+				"~/Dev/Python/mkt-env/otima-mkt/mkt.sublime-project"
 			]
 		],
 		"width": 380.0

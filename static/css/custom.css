@@ -46,3 +46,33 @@ html, body{
 .suggest {
   cursor: pointer;
 }
+.boxItem{
+  position: relative;
+  border: 1px solid #ced4da !important;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.removeItem{
+  position: absolute;
+  margin: -8px;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.removeItem:hover{
+  color: #ff0000;
+  font-size: 17px;
+}
+.addItemSub{
+  position: absolute;
+  margin: -8px;
+  right: 40px;
+  top: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.addItemSub:hover{
+  color: blue;
+  font-size: 17px;
+}

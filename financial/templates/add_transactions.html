@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %} - {{page_title}}{% endblock %}
+
+{% block breadcrumb %}
+
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <h4 class="page-title">{{page_title}}</h4>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'transactions' %}">{% trans 'Transactions' %}</a></li>
+                <li class="breadcrumb-item active">{{page_title}}</li>
+            </ol>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block body %}
+<div class="row col-12 card card-body">
+
+    <form id="form" action"." method="post" class="form-horizontal"autocomplete=off>
+
+        {% csrf_token %}
+        <button type="button" class="btn btn-success addItem"><span class="fa fa-plus fa-lg"></span> {% trans 'Add' %}</button>
+        <div id="boxTransactions">
+        </div>
+
+        <button id="submit" class="btn btn-primary pull-right" type="submit">{% trans 'Send' %}</button>
+    </form>
+</div>
+<div id="transactionModel" class="card border-primary card-body boxItem" style="display:none">
+    <div class="row">
+        <input type="hidden" name="id"/>
+        <input type="hidden" name="top_id"/>
+        <div class="col-lg-1">
+            {% bootstrap_field form.date %}
+        </div>
+        <div class="col-lg-2">
+            {% bootstrap_field form.description %}
+        </div>
+        <div class="col-lg-2">
+            {% bootstrap_field form.tc %}
+        </div>
+        <div class="col-lg-2">
+            {% bootstrap_field form.tt %}
+        </div>
+        <div class="col-lg-2">
+            {% bootstrap_field form.td %}
+        </div>
+        <div class="col-lg-1">
+            {% bootstrap_field form.value %}
+        </div>
+        <div class="col-lg-2">
+            {% bootstrap_field form.category %}
+        </div>
+        <div class="pull-right"><span class="fa fa-plus fa-lg addItemSub"></span> <span class="fa fa-times fa-lg removeItem"></span></div>
+        <div class="transactions col-lg-12 pl-5">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script>
+    function makeid(length) {
+       var result           = '';
+       var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+       var charactersLength = characters.length;
+       for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+       }
+       return result;
+    }
+    $(document).ready(function() {
+        function insert_transaction(top_id){
+            var box = $('#transactionModel').clone();
+            box.attr('id', '');
+            box.show();
+            box.find('select').selectpicker({"actionsBox": true, "liveSearch": true, "liveSearchNormalize": true});
+            box.find('input[name="date"]').datetimepicker({format: 'DD/MM/YYYY'}).find('input').addClass("form-control");
+            box.find('input[name="id"]').val(makeid(10));
+            if(top_id != null){
+                box.find('input[name="top_id"]').val(top_id);
+                box.find('.addItemSub').remove();
+                $('#boxTransactions').find('input[value="' + top_id + '"][name="id"]').parent().children('.transactions').append(box);
+            }else{
+                $('#boxTransactions').append(box);
+            }
+        }
+        insert_transaction(null);
+
+        $('.addItem').on('click', function(e){
+            insert_transaction(null);
+        });
+        $('#boxTransactions').on('click', '.addItemSub', function(e){
+            var top_id = $(this).parent().parent().children('input[name="id"]').val();
+            console.log(top_id);
+            insert_transaction(top_id);
+        });
+        $('#boxTransactions').on('click', '.removeItem', function(){
+            $(this).parent().parent().parent().remove();
+        });
+    });
+</script>
+{% endblock %}

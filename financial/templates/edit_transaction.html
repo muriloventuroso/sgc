@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block title %} - {{page_title}}{% endblock %}
+
+{% block breadcrumb %}
+
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <h4 class="page-title">{{page_title}}</h4>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'transactions' %}">{% trans 'Transactions' %}</a></li>
+                <li class="breadcrumb-item active">{{page_title}}</li>
+            </ol>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block body %}
+<div class="row col-12 card card-body">
+
+    <form id="boxTransactions" action"." method="post" class="form-horizontal" autocomplete=off>
+
+        {% csrf_token %}
+        <div class="card border-primary card-body boxItem">
+            <div class="row">
+                <div class="col-lg-1">
+                    {% bootstrap_field form.date %}
+                </div>
+                <div class="col-lg-2">
+                    {% bootstrap_field form.description %}
+                </div>
+                <div class="col-lg-2">
+                    {% bootstrap_field form.tc %}
+                </div>
+                <div class="col-lg-2">
+                    {% bootstrap_field form.tt %}
+                </div>
+                <div class="col-lg-2">
+                    {% bootstrap_field form.td %}
+                </div>
+                <div class="col-lg-1">
+                    {% bootstrap_field form.value %}
+                </div>
+                <div class="col-lg-2">
+                    {% bootstrap_field form.category %}
+                </div>
+                <div class="pull-right"><span class="fa fa-plus fa-lg addItemSub"></span> <span class="fa fa-times fa-lg removeItem"></span></div>
+                <div class="transactions col-lg-12 pl-5">
+                    {% for s in sub_transactions %}
+                        <div class="card border-primary card-body boxItem">
+                            <div class="row">
+                                <div class="col-lg-1">
+                                    {% bootstrap_field s.date %}
+                                </div>
+                                <div class="col-lg-2">
+                                    {% bootstrap_field s.description %}
+                                </div>
+                                <div class="col-lg-2">
+                                    {% bootstrap_field s.tc %}
+                                </div>
+                                <div class="col-lg-2">
+                                    {% bootstrap_field s.tt %}
+                                </div>
+                                <div class="col-lg-2">
+                                    {% bootstrap_field s.td %}
+                                </div>
+                                <div class="col-lg-1">
+                                    {% bootstrap_field s.value %}
+                                </div>
+                                <div class="col-lg-2">
+                                    {% bootstrap_field s.category %}
+                                </div>
+                                <div class="pull-right"><span class="fa fa-times fa-lg removeItem"></span></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <button id="submit" class="btn btn-primary pull-right" type="submit">{% trans 'Send' %}</button>
+    </form>
+</div>
+<div id="transactionModel" class="card border-primary card-body boxItem" style="display:none">
+    <div class="row">
+        <div class="col-lg-1">
+            {% bootstrap_field new_form.date %}
+        </div>
+        <div class="col-lg-2">
+            {% bootstrap_field new_form.description %}
+        </div>
+        <div class="col-lg-2">
+            {% bootstrap_field new_form.tc %}
+        </div>
+        <div class="col-lg-2">
+            {% bootstrap_field new_form.tt %}
+        </div>
+        <div class="col-lg-2">
+            {% bootstrap_field new_form.td %}
+        </div>
+        <div class="col-lg-1">
+            {% bootstrap_field new_form.value %}
+        </div>
+        <div class="col-lg-2">
+            {% bootstrap_field new_form.category %}
+        </div>
+        <div class="pull-right"> <span class="fa fa-times fa-lg removeItem"></span></div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script>
+    function makeid(length) {
+       var result           = '';
+       var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+       var charactersLength = characters.length;
+       for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+       }
+       return result;
+    }
+    $(document).ready(function() {
+        function insert_transaction(top_id){
+            var box = $('#transactionModel').clone();
+            box.attr('id', '');
+            box.show();
+            box.find('select').selectpicker({"actionsBox": true, "liveSearch": true, "liveSearchNormalize": true});
+            box.find('input[name="date"]').datetimepicker({format: 'DD/MM/YYYY'}).find('input').addClass("form-control");
+            box.find('input[name="id"]').val(makeid(10));
+            $('#boxTransactions').find('.transactions').append(box);
+        }
+        $('#boxTransactions').on('click', '.addItemSub', function(e){
+            var top_id = $(this).parent().parent().children('input[name="id"]').val();
+            console.log(top_id);
+            insert_transaction(top_id);
+        });
+        $('#boxTransactions').on('click', '.removeItem', function(){
+            $(this).parent().parent().parent().remove();
+        });
+    });
+</script>
+{% endblock %}

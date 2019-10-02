@@ -4,9 +4,13 @@ from congregations.models import Congregation
 from django.contrib.auth.models import User
 TRANSACTION_CODE = [
     ('C', _("Congregation")),
+    ('CE', _("Congregation (Electronic)")),
     ('O', _("World Wide Work")),
-    ('D', _("Expense")),
-    ('F', _("Construction of the Subsidiary"))
+    ('D', _("Account Deposit")),
+    ('G', _("Expense")),
+    ('F', _("Construction of the Subsidiary")),
+    ('J', _("Interest")),
+    ('OE', _("Specific objective"))
 ]
 TRANSACTION_TYPE = [
     ('R', _("Receips")),
@@ -36,6 +40,20 @@ class TransactionCategory(models.Model):
         verbose_name_plural = _("Transaction Categories")
 
 
+class SubTransaction(models.Model):
+    date = models.DateField(verbose_name=_("Date"))
+    description = models.TextField(verbose_name=_("Description"))
+    tc = models.CharField(max_length=1, verbose_name=_("Transaction Code"), choices=TRANSACTION_CODE, blank=True)
+    tt = models.CharField(max_length=1, verbose_name=_("Transaction Type"), choices=TRANSACTION_TYPE)
+    td = models.CharField(max_length=2, verbose_name=_("Transaction Direction"), choices=TRANSACTION_DIRECTION)
+    value = models.FloatField(verbose_name=_("Value"), default=0)
+    category = models.ForeignKey(
+        TransactionCategory, on_delete=models.PROTECT, verbose_name=_("Category"), null=True, blank=True)
+
+    class Meta:
+        abstract = True
+
+
 class Transaction(models.Model):
     _id = models.ObjectIdField()
     date = models.DateField(verbose_name=_("Date"))
@@ -50,6 +68,7 @@ class Transaction(models.Model):
     category = models.ForeignKey(
         TransactionCategory, on_delete=models.PROTECT, verbose_name=_("Category"), null=True, blank=True)
     hide_from_sheet = models.BooleanField(verbose_name=_("Hide from Transaction Sheet"), default=False)
+    sub_transactions = models.ArrayModelField(model_container=SubTransaction)
 
     objects = models.DjongoManager()
 

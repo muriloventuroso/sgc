@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django_tables2.config import RequestConfig
 from django_tables2 import Column
-from financial.models import Transaction, TransactionCategory, MonthlySummary
+from financial.models import Transaction, TransactionCategory, MonthlySummary, SubTransaction
 from financial.tables import TableTransactions, TableTransactionCategories, TableMonthlySummary, TableConfrontation
 from financial.forms import (
     FormTransaction, FormSearchTransaction, FormGeneratePDF, FormSearchTransactionCategory, FormTransactionCategory,
@@ -41,8 +41,31 @@ def transactions(request):
             filter_data['td'] = data['td']
     if not request.user.is_staff:
         filter_data['congregation_id'] = profile.congregation_id
-    data = Transaction.objects.filter(**filter_data)
-    table = TableTransactions(data)
+    data = Transaction.objects.filter(**filter_data).select_related('category')
+    new_data = []
+    for t in data:
+        new_data.append({
+            'pk': t.pk,
+            'date': t.date,
+            'description': t.description,
+            'tc': t.get_tc_display(),
+            'td': t.get_td_display(),
+            'tt': t.get_tt_display(),
+            'category': str(t.category) if t.category else "",
+            'value': t.value
+        })
+        if t.sub_transactions:
+            for s in t.sub_transactions:
+                new_data.append({
+                    'date': s.date,
+                    'description': s.description,
+                    'tc': s.get_tc_display(),
+                    'td': s.get_td_display(),
+                    'tt': s.get_tt_display(),
+                    'category': str(s.category) if s.category else "",
+                    'value': s.value
+                })
+    table = TableTransactions(new_data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
     return render(request, 'transactions.html', {
@@ -56,19 +79,63 @@ def transactions(request):
 def add_transaction(request):
     profile = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
-        form = FormTransaction(request.LANGUAGE_CODE, request.POST)
-        if form.is_valid():
-            transaction = form.save(commit=False)
-            transaction.congregation_id = profile.congregation_id
-            transaction.user = request.user
-            transaction.date = transaction.date + datetime.timedelta(hours=6)
-            transaction.save()
-            messages.success(request, _("Transaction added successfully"))
-            return redirect_with_next(request, 'transactions')
+        transactions = []
+        tops = {}
+        for i, date in enumerate(request.POST.getlist('date')):
+            category = request.POST.getlist('category')[i]
+            if request.LANGUAGE_CODE == 'en':
+                date = datetime.datetime.strptime(date, '%Y-%m-%d')
+            else:
+                date = datetime.datetime.strptime(date, '%d/%m/%Y')
+            transactions.append({
+                'date': date,
+                'description': request.POST.getlist('description')[i],
+                'tc': request.POST.getlist('tc')[i],
+                'td': request.POST.getlist('td')[i],
+                'tt': request.POST.getlist('tt')[i],
+                'value': float(request.POST.getlist('value')[i]),
+                'category_id': category if category else None,
+                'id': request.POST.getlist('id')[i],
+                'top_id': request.POST.getlist('top_id')[i]
+            })
+        for transaction in [x for x in transactions if x['top_id']]:
+            if transaction['top_id'] not in tops:
+                tops[transaction['top_id']] = []
+            tops[transaction['top_id']].append(SubTransaction(
+                date=transaction['date'],
+                description=transaction['description'],
+                tc=transaction['tc'],
+                td=transaction['td'],
+                tt=transaction['tt'],
+                value=float(transaction['value']),
+                category_id=transaction['category_id']
+            ))
+        for transaction in [x for x in transactions if not x['top_id']]:
+            if transaction['id'] in tops:
+                subs = tops[transaction['id']]
+                value = sum([float(x.value) for x in subs])
+            else:
+                subs = []
+                value = transaction['value']
+            Transaction(
+                date=transaction['date'],
+                description=transaction['description'],
+                tc=transaction['tc'],
+                td=transaction['td'],
+                tt=transaction['tt'],
+                value=float(value),
+                category_id=transaction['category_id'],
+                sub_transactions=subs,
+                congregation_id=profile.congregation_id,
+                user_id=request.user.id
+            ).save()
+
+        messages.success(request, _("Transaction added successfully"))
+        return redirect_with_next(request, 'transactions')
     else:
         form = FormTransaction(request.LANGUAGE_CODE)
-    return render(request, 'add_edit_transaction.html', {
-        'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Add Transaction")
+    return render(request, 'add_transactions.html', {
+        'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Add Transactions")
     })
 
 
@@ -76,15 +143,47 @@ def add_transaction(request):
 def edit_transaction(request, transaction_id):
     transaction = get_object_or_404(Transaction, pk=transaction_id)
     if request.method == 'POST':
-        form = FormTransaction(request.LANGUAGE_CODE, request.POST, instance=transaction)
-        if form.is_valid():
-            form.save()
-            messages.success(request, _("Transaction edited successfully"))
-            return redirect_with_next(request, 'transactions')
-    else:
-        form = FormTransaction(request.LANGUAGE_CODE, instance=transaction)
-    return render(request, 'add_edit_transaction.html', {
-        'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Edit Transaction")
+
+        transaction.sub_transactions = []
+        for i, date in enumerate(request.POST.getlist('date')):
+            category = request.POST.getlist('category')[i]
+            if request.LANGUAGE_CODE == 'en':
+                date = datetime.datetime.strptime(date, '%Y-%m-%d')
+            else:
+                date = datetime.datetime.strptime(date, '%d/%m/%Y')
+            item = {
+                'date': date,
+                'description': request.POST.getlist('description')[i],
+                'tc': request.POST.getlist('tc')[i],
+                'td': request.POST.getlist('td')[i],
+                'tt': request.POST.getlist('tt')[i],
+                'value': float(request.POST.getlist('value')[i]),
+                'category_id': category if category else None
+            }
+            if i == 0:
+                transaction.date = item['date']
+                transaction.description = item['description']
+                transaction.tc = item['tc']
+                transaction.td = item['td']
+                transaction.tt = item['tt']
+                transaction.value = float(item['value'])
+                transaction.category_id = item['category_id']
+            else:
+                transaction.sub_transactions.append(SubTransaction(**item))
+        if transaction.sub_transactions:
+            transaction.value = sum([float(x.value) for x in transaction.sub_transactions])
+        transaction.save()
+        messages.success(request, _("Transaction edited successfully"))
+        return redirect_with_next(request, 'transactions')
+
+    form = FormTransaction(request.LANGUAGE_CODE, instance=transaction)
+    new_form = FormTransaction(request.LANGUAGE_CODE)
+    sub_transactions = []
+    for s in transaction.sub_transactions:
+        sub_transactions.append(FormTransaction(request.LANGUAGE_CODE, instance=s))
+    return render(request, 'edit_transaction.html', {
+        'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Edit Transaction"),
+        'transaction': transaction, 'new_form': new_form, 'sub_transactions': sub_transactions
     })
 
 

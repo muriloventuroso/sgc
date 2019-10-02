@@ -151,7 +151,6 @@
                         type: 'GET',
                         data: {type: 'midweek', date: date},
                         success: function(data) {
-                            console.log(data);
                             $('input[name="reading_week"]').val(data.reading_week);
                             $('input[name="initial_song"]').val(data.first_song);
                             $('input[name="second_song"]').val(data.second_song);

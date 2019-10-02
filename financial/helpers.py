@@ -1,4 +1,6 @@
 from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 import locale
 import calendar
 import io
@@ -8,12 +10,17 @@ from dateutil.relativedelta import relativedelta
 from financial.models import Transaction, MonthlySummary, TransactionContent
 from congregations.models import Congregation, CongregationRole
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+pdfmetrics.registerFont(TTFont('Roboto', 'static/fonts/RobotoSlab-Regular.ttf'))
 ANNOT_KEY = '/Annots'
 ANNOT_FIELD_KEY = '/T'
 ANNOT_VAL_KEY = '/V'
 ANNOT_RECT_KEY = '/Rect'
 SUBTYPE_KEY = '/Subtype'
 WIDGET_SUBTYPE_KEY = '/Widget'
+DEFAULT_EXPENSES = [
+    '5cbdaa89b9c49b000c671da8', '5ccc447cc75dbf6e6bb40a9d', '5ccc447cc75dbf6e6bb40a9d', '5d94edcec75dbf593d8a886f',
+    '5ccc4130c75dbf6b6f2ab1ca'
+]
 
 
 def stringWidth2(pdf, string, font, size, charspace):
@@ -42,7 +49,7 @@ class TransactionSheetPdf(object):
         self.stream = io.BytesIO()
         self.pdf = canvas.Canvas(self.stream)
         self.pdf.setTitle('Transaction Sheet')
-        self.pdf.setFont("Helvetica", 10)
+        self.pdf.setFont("Roboto", 7)
         self.set_page1()
         self.num_page = 1
         self.sum_r_i = 0
@@ -56,24 +63,25 @@ class TransactionSheetPdf(object):
     def set_page2(self):
         self.num_page = 2
         self.pdf.showPage()
-        self.pdf.setFont("Helvetica", 10)
+        self.pdf.setFont("Roboto", 7)
         self.pdf.drawImage('financial/templates/pdf/S26-2.png', 0, 0, width=600, height=850)
 
     def set_sum(self, sum_a, sum_b, sum_c, sum_d, y):
+        self.pdf.setFont("Roboto", 9)
         value = "{0:.2f}".format(sum_a).replace('.', ',')
-        x = 318 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+        x = 318 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
         self.pdf.drawString(x, y, value)
 
         value = "{0:.2f}".format(sum_b).replace('.', ',')
-        x = 371 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+        x = 371 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
         self.pdf.drawString(x, y, value)
 
         value = "{0:.2f}".format(sum_c).replace('.', ',')
-        x = 424 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+        x = 424 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
         self.pdf.drawString(x, y, value)
 
         value = "{0:.2f}".format(sum_d).replace('.', ',')
-        x = 474 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+        x = 474 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
         self.pdf.drawString(x, y, value)
 
     def generate_header(self):
@@ -86,79 +94,106 @@ class TransactionSheetPdf(object):
     def generate_transactions(self):
 
         count, sum_a, sum_b, sum_c, sum_d = 0, 0, 0, 0, 0
-        page = 1
 
         y = 729.0
 
         for transaction in self.transactions:
+            self.pdf.setFont("Roboto", 7)
             self.pdf.drawString(25, y, transaction.date.strftime("%d"))
             self.pdf.drawString(45, y, transaction.description)
+            self.pdf.setFont("Roboto", 9)
             self.pdf.drawString(253, y, transaction.tc)
             value = "%.2f" % transaction.value
             value = value.replace('.', ',')
             if transaction.tt == 'R':
                 if transaction.td == "I":
-                    x = 317 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+                    x = 316 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
                     self.pdf.drawString(x, y, value)
                     sum_a += float(transaction.value)
                     self.sum_r_i += float(transaction.value)
                 else:
-                    x = 370 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+                    x = 369 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
                     self.pdf.drawString(x, y, value)
                     sum_b += float(transaction.value)
                     self.sum_r_o += float(transaction.value)
             if transaction.tt == 'C':
                 if transaction.td == "OI":
-                    x = 371 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+                    x = 369 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
                     self.pdf.drawString(x, y, value)
-                    x = 424 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+                    x = 421 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
                     self.pdf.drawString(x, y, value)
                     sum_b += float(transaction.value)
                     sum_c += float(transaction.value)
                     self.sum_r_o += float(transaction.value)
                     self.sum_c_i += float(transaction.value)
                 elif transaction.td == "I":
-                    x = 424 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+                    x = 422 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
                     self.pdf.drawString(x, y, value)
                     sum_c += float(transaction.value)
                     self.sum_c_i += float(transaction.value)
                 else:
-                    x = 474 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+                    x = 473 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
                     self.pdf.drawString(x, y, value)
                     sum_d += float(transaction.value)
                     self.sum_c_o += float(transaction.value)
+            for sub_transaction in transaction.sub_transactions:
+                y -= 12.8
+                count += 1
+                self.pdf.setFont("Roboto", 7)
+                self.pdf.drawString(50, y, sub_transaction.description)
+                sub_value = ' [' + "%.2f" % sub_transaction.value + ']'
+                x = 253 - stringWidth2(self.pdf, sub_value, "Roboto", 7, 1)
+                self.pdf.drawString(x, y, sub_value)
+                self.pdf.setFont("Roboto", 9)
+                self.pdf.drawString(253, y, sub_transaction.tc)
+                if count == 51:
+                    self.set_sum(sum_a, sum_b, sum_c, sum_d, 55)
+                    self.pdf.showPage()
+                    self.set_page1()
+                    y = 729
+                    self.pdf.setFont("Roboto", 7)
+                    self.pdf.drawString(50, y, "Totais da primeira folha")
+                    self.pdf.setFont("Roboto", 9)
+                    self.set_sum(sum_a, sum_b, sum_c, sum_d, y)
             y -= 12.8
             count += 1
-            if count == 47:
-                page = 2
+            if count == 52:
                 self.set_sum(sum_a, sum_b, sum_c, sum_d, 55)
-                self.set_page2()
-                self.set_sum(sum_a, sum_b, sum_c, sum_d, 763)
-                sum_a, sum_b, sum_c, sum_d = 0
+                self.pdf.showPage()
+                self.set_page1()
                 y = 729
-        if page == 1:
-            self.set_sum(sum_a, sum_b, sum_c, sum_d, 55)
-            self.set_page2()
-            if count < 47:
-                self.set_sum(sum_a, sum_b, sum_c, sum_d, 763)
-                self.set_sum(sum_a, sum_b, sum_c, sum_d, 463)
-        else:
-            self.set_sum(sum_a, sum_b, sum_c, sum_d, 463)
+                self.pdf.setFont("Roboto", 7)
+                self.pdf.drawString(50, y, "Totais da primeira folha")
+                self.pdf.setFont("Roboto", 9)
+                self.set_sum(sum_a, sum_b, sum_c, sum_d, y)
+        self.set_sum(sum_a, sum_b, sum_c, sum_d, 55)
+        self.set_page2()
 
     def generate_confrontation(self):
-        self.pdf.drawString(180, 403, self.end_date.strftime('%d de %B de %Y'))
+        self.pdf.setFont("Roboto", 10)
+        self.pdf.drawString(300, 772, datetime.now().strftime('%d de %B de %Y'))
 
-        self.pdf.drawString(148, 350, "{0:.2f}".format(self.sum_r_i).replace('.', ','))
-        self.pdf.drawString(148, 337, "{0:.2f}".format(self.sum_r_o).replace('.', ','))
-        self.pdf.drawString(235, 324, "{0:.2f}".format(self.sum_r_i - self.sum_r_o).replace('.', ','))
+        self.pdf.setFont("Roboto", 9)
+        self.pdf.drawString(250, 730, "{0:.2f}".format(
+            float(self.balance) + self.sum_c_i - self.sum_c_o + self.sum_r_i - self.sum_r_o).replace('.', ','))
+        self.pdf.drawString(250, 676, "{0:.2f}".format(
+            float(self.balance) + self.sum_c_i - self.sum_c_o + self.sum_r_i - self.sum_r_o).replace('.', ','))
+        self.pdf.drawString(250, 434, "{0:.2f}".format(
+            float(self.balance) + self.sum_c_i - self.sum_c_o + self.sum_r_i - self.sum_r_o).replace('.', ','))
 
-        self.pdf.drawString(148, 270, str(self.balance).replace('.', ','))
-        self.pdf.drawString(148, 257, "{0:.2f}".format(self.sum_c_i).replace('.', ','))
-        self.pdf.drawString(148, 244, "{0:.2f}".format(self.sum_c_o).replace('.', ','))
-        self.pdf.drawString(235, 231, "{0:.2f}".format(
+        self.pdf.drawString(170, 357, self.end_date.strftime('%d de %B de %Y'))
+        self.pdf.drawString(190, 320, "0,00")
+        self.pdf.drawString(190, 305, "{0:.2f}".format(self.sum_r_i).replace('.', ','))
+        self.pdf.drawString(190, 290, "{0:.2f}".format(self.sum_r_o).replace('.', ','))
+        self.pdf.drawString(250, 275, "{0:.2f}".format(self.sum_r_i - self.sum_r_o).replace('.', ','))
+
+        self.pdf.drawString(190, 238, str(self.balance).replace('.', ','))
+        self.pdf.drawString(190, 223, "{0:.2f}".format(self.sum_c_i).replace('.', ','))
+        self.pdf.drawString(190, 208, "{0:.2f}".format(self.sum_c_o).replace('.', ','))
+        self.pdf.drawString(250, 190, "{0:.2f}".format(
             float(self.balance) + self.sum_c_i - self.sum_c_o).replace('.', ','))
 
-        self.pdf.drawString(235, 110, "{0:.2f}".format(
+        self.pdf.drawString(250, 88, "{0:.2f}".format(
             float(self.balance) + self.sum_c_i - self.sum_c_o + self.sum_r_i - self.sum_r_o).replace('.', ','))
 
     def generate(self):
@@ -202,12 +237,15 @@ class MonthlyReportPdf(object):
         self.stream = io.BytesIO()
         self.pdf = canvas.Canvas(self.stream)
         self.pdf.setTitle('Monthly Report')
-        self.pdf.setFont("Helvetica", 10)
+        self.pdf.setFont("Roboto", 10)
         self.set_page1()
         self.sum_receipts = 0
+        self.sum_receipts_eletronic = 0
         self.sum_expenses = 0
         self.sum_world_wide = 0
+        self.sum_specific_objective = 0
         self.sum_construction_subsidiary = 0
+        self.a, self.b, self.c, self.d, self.e, self.f, self.g, self.h, self.i = 0, 0, 0, 0, 0, 0, 0, 0, 0
 
     def set_page1(self):
         self.pdf.drawImage('financial/templates/pdf/S30-1.png', 0, 0, width=600, height=850)
@@ -215,38 +253,41 @@ class MonthlyReportPdf(object):
     def set_page2(self):
         self.num_page = 2
         self.pdf.showPage()
-        self.pdf.setFont("Helvetica", 10)
+        self.pdf.setFont("Roboto", 7)
         self.pdf.drawImage('financial/templates/pdf/S30-2.png', 0, 0, width=600, height=850)
 
     def set_sum(self, sum_a, sum_b, sum_c, sum_d, y):
         value = "{0:.2f}".format(sum_a).replace('.', ',')
-        x = 318 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+        x = 318 - stringWidth2(self.pdf, value, "Roboto", 7, 1)
         self.pdf.drawString(x, y, value)
 
         value = "{0:.2f}".format(sum_b).replace('.', ',')
-        x = 371 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+        x = 371 - stringWidth2(self.pdf, value, "Roboto", 7, 1)
         self.pdf.drawString(x, y, value)
 
         value = "{0:.2f}".format(sum_c).replace('.', ',')
-        x = 424 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+        x = 424 - stringWidth2(self.pdf, value, "Roboto", 7, 1)
         self.pdf.drawString(x, y, value)
 
         value = "{0:.2f}".format(sum_d).replace('.', ',')
-        x = 474 - stringWidth2(self.pdf, value, "Helvetica", 10, 1)
+        x = 474 - stringWidth2(self.pdf, value, "Roboto", 7, 1)
         self.pdf.drawString(x, y, value)
 
     def generate_header(self):
-        self.pdf.drawString(120, 702, self.congregation.name + " / " + self.congregation.circuit)
-        self.pdf.drawString(420, 702, self.start_date.strftime("%B").upper() + " / " + self.start_date.strftime("%Y"))
-        self.pdf.drawString(490, 617, str(self.balance).replace('.', ','))
+        self.pdf.setFont("Roboto", 11)
+        self.pdf.drawString(120, 706, self.congregation.name + " / " + self.congregation.circuit)
+        self.pdf.drawString(420, 706, self.start_date.strftime("%B").upper() + " / " + self.start_date.strftime("%Y"))
+        self.pdf.drawString(494, 688, str(self.balance).replace('.', ','))
 
     def generate_transactions(self):
-
+        self.pdf.setFont("Roboto", 10)
         receipt_cats = {}
         expense_cats = {}
 
+        self.a = float(self.balance)
+
         for transaction in self.transactions:
-            if transaction.tc in ('C', 'O', 'F'):
+            if transaction.tc in ('C', 'O', 'F', 'CE', 'OE'):
                 if transaction.category_id:
                     if str(transaction.category_id) not in receipt_cats:
                         receipt_cats[str(transaction.category_id)] = {'name': transaction.category.name, 'value': 0}
@@ -258,65 +299,96 @@ class MonthlyReportPdf(object):
                     self.sum_construction_subsidiary += float(transaction.value)
                 elif transaction.tc == "C":
                     self.sum_receipts += float(transaction.value)
-            elif transaction.tc == 'D':
+                elif transaction.tc == "CE":
+                    self.sum_receipts_eletronic += float(transaction.value)
+                elif transaction.tc == "OE":
+                    self.sum_specific_objective += float(transaction.value)
+            elif transaction.tc == 'G':
                 if transaction.category_id:
                     if str(transaction.category_id) not in expense_cats:
                         expense_cats[str(transaction.category_id)] = {'name': transaction.category.name, 'value': 0}
                     expense_cats[str(transaction.category_id)]['value'] += float(transaction.value)
                 self.sum_expenses += float(transaction.value)
-        y = 553
+            for sub_transaction in transaction.sub_transactions:
+                if sub_transaction.tc == 'G':
+                    if sub_transaction.category_id:
+                        if str(sub_transaction.category_id) not in expense_cats:
+                            expense_cats[str(sub_transaction.category_id)] = {
+                                'name': sub_transaction.category.name, 'value': 0}
+                        expense_cats[str(sub_transaction.category_id)]['value'] += float(sub_transaction.value)
+                    self.sum_expenses += float(sub_transaction.value)
+        self.pdf.drawString(355, 633, "{0:.2f}".format(self.sum_receipts).replace('.', ','))
+        self.pdf.drawString(355, 618, "{0:.2f}".format(self.sum_receipts_eletronic).replace('.', ','))
+        y = 603
         for key, value in receipt_cats.items():
             self.pdf.drawString(60, y, value['name'])
-            self.pdf.drawString(300, y, "{0:.2f}".format(value['value']).replace('.', ','))
-            y -= 18
+            self.pdf.drawString(355, y, "{0:.2f}".format(value['value']).replace('.', ','))
+            y -= 15
+        self.b = self.sum_receipts + self.sum_receipts_eletronic + self.sum_specific_objective
+        self.pdf.drawString(420, 577, "{0:.2f}".format(self.b).replace('.', ','))
 
-        self.pdf.drawString(390, 480, "{0:.2f}".format(self.sum_receipts).replace('.', ','))
+        self.pdf.drawString(355, 545, "{0:.2f}".format(self.sum_world_wide).replace('.', ','))
+        self.pdf.drawString(59, 529, str(_("Donates to Construction of the Subsidiary")))
+        self.pdf.drawString(355, 530, "{0:.2f}".format(self.sum_construction_subsidiary).replace('.', ','))
+        self.c = self.sum_world_wide + self.sum_construction_subsidiary
+        self.pdf.drawString(420, 498, "{0:.2f}".format(self.c).replace('.', ','))
+        self.d = self.b + self.c
+        self.pdf.drawString(494, 482, "{0:.2f}".format(self.d).replace('.', ','))
 
-        y = 429.2
+        if '5cbdaa89b9c49b000c671da8' in expense_cats:
+            self.pdf.drawString(355, 431, "{0:.2f}".format(
+                expense_cats['5cbdaa89b9c49b000c671da8']['value']).replace('.', ','))
+        if '5d94f8afc75dbf5bb53000c7' in expense_cats:
+            self.pdf.drawString(355, 416, "{0:.2f}".format(
+                expense_cats['5d94f8afc75dbf5bb53000c7']['value']).replace('.', ','))
+        if '5ccc447cc75dbf6e6bb40a9d' in expense_cats:
+            self.pdf.drawString(355, 390, "{0:.2f}".format(
+                expense_cats['5ccc447cc75dbf6e6bb40a9d']['value']).replace('.', ','))
+        if '5d94edcec75dbf593d8a886f' in expense_cats:
+            self.pdf.drawString(355, 375, "{0:.2f}".format(
+                expense_cats['5d94edcec75dbf593d8a886f']['value']).replace('.', ','))
+        if '5ccc4130c75dbf6b6f2ab1ca' in expense_cats:
+            self.pdf.drawString(355, 348, "{0:.2f}".format(
+                expense_cats['5ccc4130c75dbf6b6f2ab1ca']['value']).replace('.', ','))
+        y = 333
         for key, value in expense_cats.items():
+            if key in DEFAULT_EXPENSES:
+                continue
             self.pdf.drawString(60, y, value['name'])
-            self.pdf.drawString(300, y, "{0:.2f}".format(value['value']).replace('.', ','))
-            y -= 18
+            self.pdf.drawString(355, y, "{0:.2f}".format(value['value']).replace('.', ','))
+            y -= 15
+        self.e = self.sum_expenses
+        self.pdf.drawString(420, 305, "{0:.2f}".format(self.e).replace('.', ','))
 
-        self.pdf.drawString(390, 285, "{0:.2f}".format(self.sum_expenses).replace('.', ','))
+        self.pdf.drawString(355, 278, "{0:.2f}".format(self.sum_world_wide).replace('.', ','))
+        self.pdf.drawString(59, 263, str(_("Donates to Construction of the Subsidiary")))
+        self.pdf.drawString(355, 263, "{0:.2f}".format(self.sum_construction_subsidiary).replace('.', ','))
+        self.f = self.sum_world_wide + self.sum_construction_subsidiary
 
-        self.pdf.drawString(490, 265, "{0:.2f}".format(self.sum_receipts - self.sum_expenses).replace('.', ','))
+        self.pdf.drawString(420, 235, "{0:.2f}".format(self.f).replace('.', ','))
 
-        self.pdf.drawString(490, 247, "{0:.2f}".format(
-            float(self.balance) + self.sum_receipts - self.sum_expenses).replace('.', ','))
+        self.g = self.e + self.f
 
-        self.pdf.drawString(490, 105, "{0:.2f}".format(
-            float(self.balance) + self.sum_receipts - self.sum_expenses).replace('.', ','))
+        self.pdf.drawString(492, 222, "{0:.2f}".format(self.g).replace('.', ','))
 
-    def generate_confrontation(self):
-        self.pdf.drawString(490, 767, str(self.balance).replace('.', ','))
+        self.h = self.d - self.g
 
-        self.pdf.drawString(300, 717, "{0:.2f}".format(self.sum_receipts).replace('.', ','))
-        self.pdf.drawString(300, 681, "{0:.2f}".format(self.sum_world_wide).replace('.', ','))
-        if self.sum_construction_subsidiary > 0:
-            self.pdf.drawString(70, 664, str(_("To Construction of the Subsidiary")))
-            self.pdf.drawString(300, 664, "{0:.2f}".format(self.sum_construction_subsidiary).replace('.', ','))
-        self.pdf.drawString(390, 628, "{0:.2f}".format(
-            self.sum_receipts + self.sum_world_wide + self.sum_construction_subsidiary).replace('.', ','))
+        self.pdf.drawString(492, 205, "{0:.2f}".format(self.h).replace('.', ','))
+        self.i = self.a + self.h
 
-        self.pdf.drawString(300, 578, "{0:.2f}".format(self.sum_expenses).replace('.', ','))
-        self.pdf.drawString(300, 540, "{0:.2f}".format(
-            self.sum_world_wide + self.sum_construction_subsidiary).replace('.', ','))
-        self.pdf.drawString(390, 503, "{0:.2f}".format(
-            self.sum_expenses + self.sum_world_wide + self.sum_construction_subsidiary).replace('.', ','))
+        self.pdf.drawString(492, 185, "{0:.2f}".format(self.i).replace('.', ','))
 
-        self.pdf.drawString(487, 450, "{0:.2f}".format(
-            float(self.balance) + self.sum_receipts - self.sum_expenses).replace('.', ','))
-        self.pdf.drawString(400, 410, self.account_servant_name)
+        self.pdf.drawString(492, 95, "{0:.2f}".format(self.i).replace('.', ','))
+        self.pdf.setFont("Roboto", 11)
+        self.pdf.drawString(300, 70, self.account_servant_name)
 
     def generante_announcement(self):
-        self.pdf.drawString(140, 251, self.start_date.strftime("%B").upper())
-        self.pdf.drawString(395, 251, "{0:.2f}".format(self.sum_receipts).replace('.', ','))
-        self.pdf.drawString(230, 221, "{0:.2f}".format(self.sum_expenses).replace('.', ','))
-        self.pdf.drawString(490, 221, "{0:.2f}".format(
-            float(self.balance) + self.sum_receipts - self.sum_expenses).replace('.', ','))
-        self.pdf.drawString(180, 160, "{0:.2f}".format(
-            self.sum_world_wide + self.sum_construction_subsidiary).replace('.', ','))
+        self.pdf.setFont("Roboto", 11)
+        self.pdf.drawString(150, 681, self.start_date.strftime("%B").upper())
+        self.pdf.drawString(495, 681, "{0:.2f}".format(self.b).replace('.', ','))
+        self.pdf.drawString(360, 650, "{0:.2f}".format(self.e).replace('.', ','))
+        self.pdf.drawString(125, 617, "{0:.2f}".format(self.i).replace('.', ','))
+        self.pdf.drawString(490, 617, "{0:.2f}".format(self.f).replace('.', ','))
 
     def generate_summary(self):
         transactions = []
@@ -344,7 +416,6 @@ class MonthlyReportPdf(object):
         self.generate_header()
         self.generate_transactions()
         self.set_page2()
-        self.generate_confrontation()
         self.generante_announcement()
         self.generate_summary()
 

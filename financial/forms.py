@@ -19,7 +19,8 @@ class FormTransaction(forms.ModelForm):
 
     class Meta:
         model = Transaction
-        exclude = ('_id', 'congregation', 'user')
+        exclude = ('_id', 'congregation', 'user', 'hide_from_sheet', 'sub_transactions')
+        widgets = {'description': forms.TextInput}
 
 
 class FormSearchTransaction(forms.Form):
