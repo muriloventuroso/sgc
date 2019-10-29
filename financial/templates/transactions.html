@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load currency %}
 {% block title %} - {{page_title}}{% endblock %}
 {% block breadcrumb %}
 <div class="page-title-box">
@@ -25,6 +26,14 @@
 
 {% block body %}
 {% include 'search_box.html' with form=form %}
+<div class="row col-12 card card-body">
+    <h3>{% trans "Summary" %}</h3>
+    <div class="row">
+        {% for key, item in summary.items %}
+        <div class="col-lg-2"><strong>{{item.name}}: </strong>{{item.value|currency}}</div>
+        {% endfor %}
+    </div>
+</div>
 <div class="row col-12 card card-body">
     {% render_table table "table_sm.html" %}
 </div>

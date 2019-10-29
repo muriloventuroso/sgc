@@ -520,10 +520,10 @@
 	"buffers":
 	[
 		{
-			"file": "financial/models.py",
+			"file": "financial/templates/add_transactions.html",
 			"settings":
 			{
-				"buffer_size": 4484,
+				"buffer_size": 4003,
 				"line_ending": "Unix"
 			}
 		}
@@ -540,16 +540,16 @@
 		"selected_items":
 		[
 			[
+				"push",
+				"Git: Push"
+			],
+			[
 				"comm",
 				"Git: Commit"
 			],
 			[
 				"add",
 				"Git: Add All"
-			],
-			[
-				"push",
-				"Git: Push"
 			],
 			[
 				"omm",
@@ -647,10 +647,13 @@
 	"expanded_folders":
 	[
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial"
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates"
 	],
 	"file_history":
 	[
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/models.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/midweek.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/import_history.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/add_transactions.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/forms.py",
@@ -658,12 +661,10 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/helpers.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/actions_table_transactions.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/migrations/0015_auto_20191001_1654.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/models.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/edit_transaction.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css/custom.css",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/models.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/midweek.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/weekend.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/add_meeting.html",
@@ -1001,29 +1002,29 @@
 			[
 				{
 					"buffer": 0,
-					"file": "financial/models.py",
+					"file": "financial/templates/add_transactions.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4484,
+						"buffer_size": 4003,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1119,
+								1119
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 456.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1115,7 +1116,7 @@
 		[
 			[
 				"",
-				"~/Dev/Python/mkt-env/otima-mkt/mkt.sublime-project"
+				"~/Dev/Python/pbx-env/otimapbx/otimapbx.sublime-project"
 			]
 		],
 		"width": 380.0

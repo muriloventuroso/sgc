@@ -41,6 +41,7 @@ def transactions(request):
             filter_data['td'] = data['td']
     if not request.user.is_staff:
         filter_data['congregation_id'] = profile.congregation_id
+    summary = {}
     data = Transaction.objects.filter(**filter_data).select_related('category')
     new_data = []
     for t in data:
@@ -54,6 +55,9 @@ def transactions(request):
             'category': str(t.category) if t.category else "",
             'value': t.value
         })
+        if t.tc not in summary:
+            summary[t.tc] = {'name': t.get_tc_display(), 'value': 0}
+        summary[t.tc]['value'] += t.value
         if t.sub_transactions:
             for s in t.sub_transactions:
                 new_data.append({
@@ -65,13 +69,18 @@ def transactions(request):
                     'category': str(s.category) if s.category else "",
                     'value': s.value
                 })
+                if s.tc not in summary:
+                    summary[s.tc] = {'name': t.get_tc_display(), 'value': 0}
+                summary[s.tc]['value'] += s.value
     table = TableTransactions(new_data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
+    print(summary)
     return render(request, 'transactions.html', {
         'request': request, 'table': table, 'form': form,
         'page_group': 'financial', 'page_title': _("Transactions"),
-        'next': request.GET.copy().urlencode()
+        'next': request.GET.copy().urlencode(),
+        'summary': summary
     })
 
 
