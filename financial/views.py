@@ -75,7 +75,6 @@ def transactions(request):
     table = TableTransactions(new_data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
-    print(summary)
     return render(request, 'transactions.html', {
         'request': request, 'table': table, 'form': form,
         'page_group': 'financial', 'page_title': _("Transactions"),
