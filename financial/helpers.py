@@ -30,8 +30,10 @@ def stringWidth2(pdf, string, font, size, charspace):
 
 
 class TransactionSheetPdf(object):
-    def __init__(self, month, balance, congregation_id):
+    def __init__(self, month, balance, congregation_id, checks=[], data_off={}):
         self.balance = balance
+        self.checks = checks
+        self.data_off = data_off
         self.congregation = Congregation.objects.get(pk=congregation_id)
         self.start_date = datetime.combine(month, time.min)
         self.last_day = calendar.monthrange(self.start_date.year, self.start_date.month)[1]
@@ -175,13 +177,47 @@ class TransactionSheetPdf(object):
         self.pdf.setFont("Roboto", 10)
         self.pdf.drawString(300, 772, datetime.now().strftime('%d de %B de %Y'))
 
+        item1 = float(self.balance) + self.sum_c_i - self.sum_c_o + self.sum_r_i - self.sum_r_o
+
         self.pdf.setFont("Roboto", 9)
-        self.pdf.drawString(250, 730, "{0:.2f}".format(
-            float(self.balance) + self.sum_c_i - self.sum_c_o + self.sum_r_i - self.sum_r_o).replace('.', ','))
-        self.pdf.drawString(250, 676, "{0:.2f}".format(
-            float(self.balance) + self.sum_c_i - self.sum_c_o + self.sum_r_i - self.sum_r_o).replace('.', ','))
-        self.pdf.drawString(250, 434, "{0:.2f}".format(
-            float(self.balance) + self.sum_c_i - self.sum_c_o + self.sum_r_i - self.sum_r_o).replace('.', ','))
+        self.pdf.drawString(250, 730, "{0:.2f}".format(item1).replace('.', ','))
+        item2 = 0.0
+        if 'deposits' in self.data_off and self.data_off["deposits"]:
+            item2 = float(self.data_off["deposits"])
+            self.pdf.drawString(250, 705, "{0:.2f}".format(item2).replace('.', ','))
+        item3 = 0.0
+        if 'bank_fees' in self.data_off and self.data_off["bank_fees"]:
+            item3 = float(self.data_off["bank_fees"])
+            self.pdf.drawString(250, 690, "{0:.2f}".format(item3).replace('.', ','))
+        item4 = item1 + item2 + item3
+        self.pdf.drawString(250, 676, "{0:.2f}".format(item4).replace('.', ','))
+
+        y = 621
+        item6 = 0.0
+        self.pdf.setFont("Roboto", 8)
+        for check in self.checks:
+            self.pdf.drawString(35, y, check["n_confirmation"])
+            self.pdf.drawString(190, y, "{0:.2f}".format(float(check["value"])).replace('.', ','))
+            item6 += float(check["value"])
+            y -= 15
+        self.pdf.setFont("Roboto", 10)
+        if item6:
+            self.pdf.drawString(250, 498, "{0:.2f}".format(item6).replace('.', ','))
+        item7 = 0.0
+        if 'bank_interest' in self.data_off and self.data_off["bank_interest"]:
+            item7 = float(self.data_off["bank_interest"])
+            self.pdf.drawString(250, 483, "{0:.2f}".format(item7).replace('.', ','))
+
+        item8 = 0.0
+        if 'eletronic' in self.data_off and self.data_off["eletronic"]:
+            item8 = float(self.data_off["eletronic"])
+            self.pdf.drawString(250, 457, "{0:.2f}".format(item8).replace('.', ','))
+
+        sum_off = item6 + item7 + item8
+
+        item9 = item4 - sum_off
+
+        self.pdf.drawString(250, 434, "{0:.2f}".format(item9).replace('.', ','))
 
         self.pdf.drawString(170, 357, self.end_date.strftime('%d de %B de %Y'))
         self.pdf.drawString(190, 320, "0,00")
@@ -190,13 +226,14 @@ class TransactionSheetPdf(object):
         self.pdf.drawString(250, 275, "{0:.2f}".format(self.sum_r_i - self.sum_r_o).replace('.', ','))
 
         self.pdf.drawString(190, 238, str(self.balance).replace('.', ','))
-        self.pdf.drawString(190, 223, "{0:.2f}".format(self.sum_c_i).replace('.', ','))
+        self.pdf.drawString(190, 223, "{0:.2f}".format(self.sum_c_i - sum_off).replace('.', ','))
         self.pdf.drawString(190, 208, "{0:.2f}".format(self.sum_c_o).replace('.', ','))
         self.pdf.drawString(250, 190, "{0:.2f}".format(
-            float(self.balance) + self.sum_c_i - self.sum_c_o).replace('.', ','))
+            float(self.balance) + self.sum_c_i - self.sum_c_o - sum_off).replace('.', ','))
 
         self.pdf.drawString(250, 88, "{0:.2f}".format(
-            float(self.balance) + self.sum_c_i - self.sum_c_o + self.sum_r_i - self.sum_r_o).replace('.', ','))
+            float(self.balance) + self.sum_c_i - self.sum_c_o + self.sum_r_i - self.sum_r_o - sum_off
+        ).replace('.', ','))
 
     def generate(self):
         self.generate_header()
@@ -402,6 +439,13 @@ class MonthlyReportPdf(object):
                     transactions_tc[tc] = TransactionContent(tc=tc, count=0, value=0)
                 transactions_tc[tc].count += 1
                 transactions_tc[tc].value += float(transaction.value)
+            for sub_transaction in transaction.sub_transactions:
+                tc = sub_transaction.tc
+                if tc:
+                    if tc not in transactions_tc:
+                        transactions_tc[tc] = TransactionContent(tc=tc, count=0, value=0)
+                    transactions_tc[tc].count += 1
+                    transactions_tc[tc].value += float(sub_transaction.value)
         for key, value in transactions_tc.items():
             transactions.append(value)
         summary = MonthlySummary.objects.filter(

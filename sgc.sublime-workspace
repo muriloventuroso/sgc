@@ -4,16 +4,36 @@
 		"selected_items":
 		[
 			[
+				"hep",
+				"help_text"
+			],
+			[
+				"Decim",
+				"DecimalField\tclass"
+			],
+			[
+				"valu",
+				"value_checks"
+			],
+			[
+				"value",
+				"value_checks\tstatement"
+			],
+			[
+				"sum",
+				"summary"
+			],
+			[
+				"filter",
+				"filter_data\tstatement"
+			],
+			[
 				"Tran",
 				"Transaction\tclass"
 			],
 			[
 				"set",
 				"setFont"
-			],
-			[
-				"sum",
-				"sum_expenses\tstatement"
 			],
 			[
 				"sub",
@@ -494,36 +514,16 @@
 			[
 				"valor",
 				"valor_cx_entrada"
-			],
-			[
-				"caixa",
-				"caixaentradasms"
-			],
-			[
-				"dados",
-				"dados_relatorio"
-			],
-			[
-				"Valida",
-				"ValidationError"
-			],
-			[
-				"object_",
-				"object_json_repr"
-			],
-			[
-				"exclu",
-				"exclude_fields"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "financial/templates/add_transactions.html",
+			"file": "financial/views.py",
 			"settings":
 			{
-				"buffer_size": 4003,
+				"buffer_size": 19589,
 				"line_ending": "Unix"
 			}
 		}
@@ -648,17 +648,27 @@
 	[
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates"
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templatetags",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templatetags"
 	],
 	"file_history":
 	[
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/models.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/midweek.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/import_history.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/add_transactions.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/helpers.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/pdf_financial.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/forms.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templatetags/currency.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/helpers.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/transactions.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/models.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/add_transactions.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/midweek.html",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/import_history.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/actions_table_transactions.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/migrations/0015_auto_20191001_1654.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/edit_transaction.html",
@@ -668,7 +678,6 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/weekend.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/add_meeting.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/base.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/tables.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/confrontation.html",
@@ -691,7 +700,6 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/templates/publishers/publishers.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/monthly_summary.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/transactioncategories.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/transactions.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/meeting_audiences.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/meetings.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/speakers_out.html",
@@ -756,7 +764,6 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/__init__.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/add_edit_transactions.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/generate_pdf.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/helpers.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templates/home.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/js/bootstrap-datetimepicker.js",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/users/templates/actions_table_users.html",
@@ -777,9 +784,7 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/.gitignore",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/locale/pt_BR/LC_MESSAGES/django.po",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/Procfile",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/admin.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/.git/config",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/designations.html"
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/admin.py"
 	],
 	"find":
 	{
@@ -790,6 +795,7 @@
 		"height": 104.0,
 		"where_history":
 		[
+			"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
 			"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial",
 			"/home/muriloventuroso/Dev/Python/sgc-env/sgc/djongo",
 			"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
@@ -805,6 +811,14 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"cronfont",
+			"Sum(",
+			"Sum",
+			"sum_expenses",
+			"1137775128",
+			"generate",
+			"locale",
+			"MonthlySummary",
 			"pri",
 			"print",
 			"transactionModel",
@@ -924,15 +938,7 @@
 			"SESSION_ENGINE",
 			"django.core.context_processors.i18n",
 			"fuzzy",
-			"btn-",
-			"format_value",
-			"reading",
-			"reader",
-			"null=True",
-			"FormLivingChristiansContent",
-			"Congregation",
-			"congregations",
-			"Congregations"
+			"btn-"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1002,29 +1008,29 @@
 			[
 				{
 					"buffer": 0,
-					"file": "financial/templates/add_transactions.html",
-					"semi_transient": false,
+					"file": "financial/views.py",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 4003,
+						"buffer_size": 19589,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1119,
-								1119
+								16914,
+								16914
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"syntax": "Packages/Python/Python.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 456.0,
+						"translation.y": 6997.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

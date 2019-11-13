@@ -30,7 +30,7 @@
     <h3>{% trans "Summary" %}</h3>
     <div class="row">
         {% for key, item in summary.items %}
-        <div class="col-lg-2"><strong>{{item.name}}: </strong>{{item.value|currency}}</div>
+        <div class="col-lg-2" style="height: 50px;"><strong>{{item.name}}: </strong>{{item.value|currency}}</div>
         {% endfor %}
     </div>
 </div>

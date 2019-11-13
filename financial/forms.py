@@ -60,11 +60,31 @@ class FormGeneratePDF(forms.Form):
         label=_("Type PDF"), choices=[('', ''), ('s26', _("Transaction Sheet")), ('s30', _("Monthly Report"))],
         initial='', required=True)
     month = forms.DateField(
-        label=_("Start Date"), required=False, input_formats=['%Y-%m', '%m/%Y'],
+        label=_("Month"), required=False, input_formats=['%Y-%m', '%m/%Y'],
         widget=DateWidget(
             attrs={'id': "start_date", 'data-format': "YYYY-MM"},
             usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM'}))
     balance = forms.DecimalField(label=_("Balance"), required=False)
+
+
+class FormOffTransaction(forms.Form):
+    deposits = forms.DecimalField(
+        label=_("Off Deposits"), required=False,
+        help_text=_("Deposits recorded in the Transaction Sheet but not appearing on the statement"))
+    bank_fees = forms.DecimalField(
+        label=_("Bank Fees"), required=False,
+        help_text=_("Bank Fees Not Recorded on Transaction Sheet"))
+    bank_interest = forms.DecimalField(
+        label=_("Bank Interest"), required=False,
+        help_text=_("Bank Interest Not Recorded on Transaction Sheet"))
+    eletronic = forms.DecimalField(
+        label=_("Eletronic Donates"), required=False,
+        help_text=_("Donations made electronically unregistered in the Transaction Sheet"))
+
+
+class FormUnverifiedChecks(forms.Form):
+    n_confirmation = forms.CharField(label=_("Número de Confirmação"), required=False)
+    value = forms.DecimalField(label=_("Value"), required=False)
 
 
 class FormTransactionCategory(forms.ModelForm):

@@ -12,7 +12,7 @@ from financial.models import Transaction, TransactionCategory, MonthlySummary, S
 from financial.tables import TableTransactions, TableTransactionCategories, TableMonthlySummary, TableConfrontation
 from financial.forms import (
     FormTransaction, FormSearchTransaction, FormGeneratePDF, FormSearchTransactionCategory, FormTransactionCategory,
-    FormMonthlySummary)
+    FormMonthlySummary, FormUnverifiedChecks, FormOffTransaction)
 from financial.helpers import TransactionSheetPdf, MonthlyReportPdf
 from sgc.helpers import redirect_with_next
 from users.models import UserProfile
@@ -55,9 +55,10 @@ def transactions(request):
             'category': str(t.category) if t.category else "",
             'value': t.value
         })
-        if t.tc not in summary:
-            summary[t.tc] = {'name': t.get_tc_display(), 'value': 0}
-        summary[t.tc]['value'] += t.value
+        if t.tc:
+            if t.tc not in summary:
+                summary[t.tc] = {'name': t.get_tc_display(), 'value': 0}
+            summary[t.tc]['value'] += t.value
         if t.sub_transactions:
             for s in t.sub_transactions:
                 new_data.append({
@@ -69,9 +70,10 @@ def transactions(request):
                     'category': str(s.category) if s.category else "",
                     'value': s.value
                 })
-                if s.tc not in summary:
-                    summary[s.tc] = {'name': t.get_tc_display(), 'value': 0}
-                summary[s.tc]['value'] += s.value
+                if s.tc:
+                    if s.tc not in summary:
+                        summary[s.tc] = {'name': s.get_tc_display(), 'value': 0}
+                    summary[s.tc]['value'] += s.value
     table = TableTransactions(new_data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
@@ -211,7 +213,17 @@ def generate_pdf(request):
         if form.is_valid():
             data = form.cleaned_data
             if data['type_pdf'] == 's26':
-                s26 = TransactionSheetPdf(data['month'], data['balance'], profile.congregation_id)
+                checks = []
+                for i, n_confirmaation in enumerate(request.POST.getlist('n_confirmation')):
+                    checks.append({
+                        'n_confirmation': n_confirmaation,
+                        'value': request.POST.getlist('value')[i]
+                    })
+                data_off = {}
+                formOffTransaction = FormOffTransaction(request.POST)
+                if formOffTransaction.is_valid():
+                    data_off = formOffTransaction.cleaned_data
+                s26 = TransactionSheetPdf(data['month'], data['balance'], profile.congregation_id, checks, data_off)
                 s26.generate()
                 pdf_file = s26.save()
 
@@ -231,8 +243,11 @@ def generate_pdf(request):
 
     else:
         form = FormGeneratePDF(request.LANGUAGE_CODE)
-    return render(request, 'generate_pdf.html', {
+    formChecks = FormUnverifiedChecks()
+    formOffTransaction = FormOffTransaction()
+    return render(request, 'pdf_financial.html', {
         'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Generate PDF"),
+        'formChecks': formChecks, 'formOffTransaction': formOffTransaction
     })
 
 
