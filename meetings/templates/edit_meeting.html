@@ -114,12 +114,20 @@
                 <div class="card-body">
                     <h4 class="card-title">{% trans 'Designations' %}</h4>
                     <div class="row">
-                    {% for f in form_designations %}
-                    <div class="col-lg-3 field-designation">
-                        {% bootstrap_field f addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
+                        <div class="col-lg-3 field-designation">
+                            {% bootstrap_field form_designations.soundman addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
+                        </div>
+                        {% for i in range_attendants %}
+                        <div class="col-lg-3 field-designation">
+                            {% bootstrap_field form_designations.attendant addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
+                        </div>
+                        {% endfor %}
+                        {% for i in range_mic_passers %}
+                        <div class="col-lg-3 field-designation">
+                            {% bootstrap_field form_designations.mic_passer addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-success pull-right">{% trans 'Send' %}</button>
@@ -166,6 +174,20 @@
             $('#boxMidweekContent').show();
             $('#boxWeekendContent').hide();
         }
+        var attendants_ids = [{% for a in meeting.designations.attendants_id %}"{{a}}", {% endfor %}];
+        var mic_passers_ids = [{% for m in meeting.designations.mic_passers_id %}"{{m}}", {% endfor %}];
+        $('select[name="attendant"]').each(function(index, el) {
+            if(index < attendants_ids.length){
+                $(this).val(attendants_ids[index]);
+                $(this).selectpicker('refresh');
+            }
+        });
+        $('select[name="mic_passer"]').each(function(index, el) {
+            if(index < mic_passers_ids.length){
+                $(this).val(mic_passers_ids[index]);
+                $(this).selectpicker('refresh');
+            }
+        });
         $('select[name=reading]').each(function(index, el) {
             if($(this).val()=="False"){
                 $(this).parent().parent().parent().find('label[for=id_person_reading]').parent().hide();

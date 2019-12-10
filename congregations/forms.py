@@ -7,7 +7,7 @@ from congregations.models import Congregation, Group, Publisher, TAGS, Congregat
 class FormCongregation(forms.ModelForm):
     class Meta:
         model = Congregation
-        fields = ('name', 'circuit', 'city', 'state', 'n_rooms')
+        fields = ('name', 'circuit', 'city', 'state', 'n_rooms', 'n_attendants', 'n_mic_passers')
 
 
 class FormSearchCongregation(forms.Form):
@@ -20,7 +20,7 @@ class FormSearchCongregation(forms.Form):
 class FormGroup(forms.ModelForm):
     class Meta:
         model = Group
-        fields = ('name', 'congregation',)
+        fields = ('name', )
 
 
 class FormSearchGroup(forms.Form):
@@ -28,6 +28,9 @@ class FormSearchGroup(forms.Form):
 
 
 class FormPublisher(forms.ModelForm):
+    def __init__(self, congregation_id, *args, **kwargs):
+        super(FormPublisher, self).__init__(*args, **kwargs)
+        self.fields['group'].queryset = Group.objects.filter(congregation_id=congregation_id)
     tags = forms.MultipleChoiceField(label=_("Tags"), choices=TAGS)
     baptism_date = forms.DateField(
         label=_("Baptism Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
@@ -37,20 +40,13 @@ class FormPublisher(forms.ModelForm):
 
     class Meta:
         model = Publisher
-        exclude = ('_id', 'creation_date', 'update_date')
+        exclude = ('_id', 'creation_date', 'update_date', 'congregation')
 
 
 class FormSearchPublisher(forms.Form):
-    def __init__(self, user_profile, *args, **kwargs):
-        super(FormSearchPublisher, self).__init__(*args, **kwargs)
-        if user_profile.user.is_staff:
-            self.fields['congregation'].queryset = Congregation.objects.all()
-        else:
-            del self.fields['congregation']
     name = forms.CharField(label=_("Name"), required=False)
     tags = forms.MultipleChoiceField(label=_("TAGS"), choices=TAGS, required=False)
     group = forms.CharField(label=_("Group"), required=False)
-    congregation = forms.ModelChoiceField(label=_("Congregation"), queryset=Congregation.objects.none(), required=False)
 
 
 class FormCongregationRole(forms.ModelForm):

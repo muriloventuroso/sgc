@@ -25,3 +25,9 @@ def previous(some_list, current_index):
         return some_list[int(current_index) - 1]
     except Exception:
         return ''
+
+
+@register.filter
+def list_names(names):
+    n_names = [str(x) for x in names]
+    return ', '.join(n_names)

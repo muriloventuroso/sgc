@@ -520,10 +520,27 @@
 	"buffers":
 	[
 		{
-			"file": "financial/views.py",
+			"file": "financial/helpers.py",
 			"settings":
 			{
-				"buffer_size": 19589,
+				"buffer_size": 22486,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "requirements.txt",
+			"settings":
+			{
+				"buffer_size": 830,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Procfile",
+			"settings":
+			{
+				"buffer_size": 53,
 				"line_ending": "Unix"
 			}
 		}
@@ -647,11 +664,6 @@
 	"expanded_folders":
 	[
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templatetags",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/templatetags"
 	],
@@ -811,6 +823,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"MonthlySummary",
 			"cronfont",
 			"Sum(",
 			"Sum",
@@ -937,8 +950,7 @@
 			"table-midweek",
 			"SESSION_ENGINE",
 			"django.core.context_processors.i18n",
-			"fuzzy",
-			"btn-"
+			"fuzzy"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1003,24 +1015,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "financial/views.py",
-					"semi_transient": true,
+					"file": "financial/helpers.py",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 19589,
+						"buffer_size": 22486,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16914,
-								16914
+								11103,
+								11103
 							]
 						],
 						"settings":
@@ -1030,7 +1042,63 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 6997.0,
+						"translation.y": 8478.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "requirements.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 830,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								577,
+								577
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/requirementstxt/requirementstxt.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Procfile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 53,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								53,
+								53
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1122,7 +1190,7 @@
 		[
 			[
 				"",
-				"~/Dev/Python/pbx-env/otimapbx/otimapbx.sublime-project"
+				"~/Dev/Python/mkt-env/otima-mkt/mkt.sublime-project"
 			]
 		],
 		"width": 380.0

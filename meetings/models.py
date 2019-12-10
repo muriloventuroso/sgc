@@ -104,6 +104,12 @@ class Designations(models.Model):
     mic_passer2 = models.ForeignKey(
         Publisher, verbose_name=_("Mic Passer 2"), null=True, blank=True, on_delete=models.SET_NULL,
         related_name="designations_mic_passer2")
+    attendants = models.ArrayReferenceField(
+        to=Publisher, verbose_name=_("Attendants"), on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="designations_attendants")
+    mic_passers = models.ArrayReferenceField(
+        to=Publisher, verbose_name=_("Mic Passers"), on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="designations_mic_passers")
 
 
 class Meeting(models.Model):

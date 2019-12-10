@@ -11,12 +11,6 @@ from congregations.models import Publisher, Congregation
 class FormMeeting(forms.ModelForm):
     def __init__(self, user_profile, language, *args, **kwargs):
         super(FormMeeting, self).__init__(*args, **kwargs)
-        if user_profile.user.is_staff:
-            self.fields['congregation'].queryset = Congregation.objects.all()
-        else:
-            self.fields['congregation'].queryset = user_profile.congregations.all()
-        self.fields['congregation'].widget.attrs['disabled'] = True
-        self.fields['congregation'].required = False
         if language == 'en':
             self.fields['date'].widget.options['format'] = "YYYY-MM-DD"
         elif language == 'pt-br':
@@ -29,7 +23,7 @@ class FormMeeting(forms.ModelForm):
 
     class Meta:
         model = Meeting
-        fields = ('date', 'congregation', 'type_meeting')
+        fields = ('date', 'type_meeting')
 
 
 class FormSearchMeeting(forms.Form):
@@ -151,18 +145,21 @@ class FormDesignations(forms.ModelForm):
         super(FormDesignations, self).__init__(*args, **kwargs)
         self.fields['soundman'].queryset = Publisher.objects.filter(
             tags__in=['soundman'], congregation_id=congregation_id)
-        self.fields['attendant1'].queryset = Publisher.objects.filter(
+        self.fields['attendant'].queryset = Publisher.objects.filter(
             tags__in=['attendant'], congregation_id=congregation_id)
-        self.fields['attendant2'].queryset = Publisher.objects.filter(
-            tags__in=['attendant'], congregation_id=congregation_id)
-        self.fields['mic_passer1'].queryset = Publisher.objects.filter(
+        self.fields['mic_passer'].queryset = Publisher.objects.filter(
             tags__in=['mic_passer'], congregation_id=congregation_id)
-        self.fields['mic_passer2'].queryset = Publisher.objects.filter(
-            tags__in=['mic_passer'], congregation_id=congregation_id)
+
+    attendant = forms.ModelChoiceField(
+        label=_("Attendant"), queryset=Publisher.objects.none(),
+        required=False)
+    mic_passer = forms.ModelChoiceField(
+        label=_("Mic Passer"), queryset=Publisher.objects.none(),
+        required=False)
 
     class Meta:
         model = Designations
-        fields = ('soundman', 'attendant1', 'attendant2', 'mic_passer1', 'mic_passer2')
+        fields = ('soundman', )
 
 
 class FormGeneratePDF(forms.Form):

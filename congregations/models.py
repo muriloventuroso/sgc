@@ -31,6 +31,14 @@ class Congregation(models.Model):
         MaxValueValidator(2),
         MinValueValidator(1)
     ])
+    n_attendants = models.IntegerField(default=2, verbose_name=_("Number of Attendants"), validators=[
+        MaxValueValidator(5),
+        MinValueValidator(1)
+    ])
+    n_mic_passers = models.IntegerField(default=2, verbose_name=_("Number of Mic Passers"), validators=[
+        MaxValueValidator(5),
+        MinValueValidator(1)
+    ])
 
     objects = models.DjongoManager()
 

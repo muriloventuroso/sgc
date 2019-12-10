@@ -65,6 +65,8 @@ def add_meeting(request):
             meeting.congregation_id = congregation_id
             if form_designations.is_valid():
                 meeting.designations = form_designations.save(commit=False)
+                meeting.designations.attendants_id = request.POST.getlist('attendant')
+                meeting.designations.mic_passers_id = request.POST.getlist('mic_passer')
             if meeting.type_meeting == 'w':
                 if form_weekendcontent.is_valid():
                     meeting.weekend_content = form_weekendcontent.save(commit=False)
@@ -136,7 +138,8 @@ def add_meeting(request):
         'form_midweekcontent': form_midweekcontent, 'form_treasurescontent': form_treasurescontent,
         'form_applyyourselfcontent': form_applyyourselfcontent,
         'form_livingchristianscontent': form_livingchristianscontent,
-        'congregation_id': congregation_id
+        'congregation_id': congregation_id, 'range_attendants': range(profile.congregation.n_attendants),
+        'range_mic_passers': range(profile.congregation.n_mic_passers),
     })
 
 
@@ -157,6 +160,8 @@ def edit_meeting(request, meeting_id):
             meeting.congregation_id = congregation_id
             if form_designations.is_valid():
                 meeting.designations = form_designations.save(commit=False)
+                meeting.designations.attendants_id = request.POST.getlist('attendant')
+                meeting.designations.mic_passers_id = request.POST.getlist('mic_passer')
             if meeting.type_meeting == 'w':
                 if form_weekendcontent.is_valid():
                     old_theme = meeting.weekend_content.theme
@@ -250,7 +255,10 @@ def edit_meeting(request, meeting_id):
         'form_livingchristianscontent': form_livingchristianscontent,
         'list_form_treasurescontent': list_form_treasurescontent,
         'list_form_applyyourselfcontent': list_form_applyyourselfcontent,
-        'list_form_livingchristianscontent': list_form_livingchristianscontent
+        'list_form_livingchristianscontent': list_form_livingchristianscontent,
+        'range_attendants': range(profile.congregation.n_attendants),
+        'range_mic_passers': range(profile.congregation.n_mic_passers),
+        'meeting': meeting
     })
 
 

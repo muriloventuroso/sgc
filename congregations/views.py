@@ -102,10 +102,12 @@ def groups(request):
 
 @login_required
 def add_group(request):
+    profile = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
         form = FormGroup(request.POST)
         if form.is_valid():
-            form.save()
+            item = form.save(commit=False)
+            item.congregation_id = profile.congregation_id
             messages.success(request, _("Group added successfully"))
             return redirect_with_next(request, 'groups')
     else:
@@ -117,7 +119,10 @@ def add_group(request):
 
 @login_required
 def edit_group(request, group_id):
+    profile = UserProfile.objects.get(user=request.user)
     group = get_object_or_404(Group, pk=group_id)
+    if group.congregation_id != profile.congregation_id:
+        return redirect_with_next(request, 'groups')
     if request.method == 'POST':
         form = FormGroup(request.POST, instance=group)
         if form.is_valid():
@@ -133,7 +138,10 @@ def edit_group(request, group_id):
 
 @login_required
 def delete_group(request, group_id):
+    profile = UserProfile.objects.get(user=request.user)
     group = get_object_or_404(Group, pk=group_id)
+    if group.congregation_id != profile.congregation_id:
+        return redirect_with_next(request, 'groups')
     group.delete()
     messages.success(request, _("Group deleted successfully"))
     return redirect_with_next(request, 'groups')
@@ -152,11 +160,7 @@ def publishers(request):
             filter_data['tags__in'] = data['tags']
         if 'group' in data and data['group']:
             filter_data['group__name__icontains'] = data['group']
-    if not request.user.is_staff:
-        filter_data['congregation_id'] = profile.congregation_id
-    else:
-        if 'congregation' in data and data['congregation']:
-            filter_data['congregation'] = data['congregation']
+    filter_data['congregation_id'] = profile.congregation_id
     data = Publisher.objects.filter(**filter_data)
     table = TablePublishers(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
@@ -169,14 +173,15 @@ def publishers(request):
 
 @login_required
 def add_publisher(request):
+    profile = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
-        form = FormPublisher(request.POST)
+        form = FormPublisher(profile.congregation_id, request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, _("Publisher added successfully"))
             return redirect_with_next(request, 'publishers')
     else:
-        form = FormPublisher()
+        form = FormPublisher(profile.congregation_id)
     return render(request, 'publishers/add_edit_publisher.html', {
         'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Add Publisher")
     })
@@ -184,15 +189,18 @@ def add_publisher(request):
 
 @login_required
 def edit_publisher(request, publisher_id):
+    profile = UserProfile.objects.get(user=request.user)
     publisher = get_object_or_404(Publisher, pk=publisher_id)
+    if publisher.congregation_id != profile.congregation_id:
+        return redirect_with_next(request, 'publishers')
     if request.method == 'POST':
-        form = FormPublisher(request.POST, instance=publisher)
+        form = FormPublisher(profile.congregation_id, request.POST, instance=publisher)
         if form.is_valid():
             form.save()
             messages.success(request, _("Publisher edited successfully"))
             return redirect_with_next(request, 'publishers')
     else:
-        form = FormPublisher(instance=publisher, initial={'tags': publisher.tags})
+        form = FormPublisher(profile.congregation_id, instance=publisher, initial={'tags': publisher.tags})
     return render(request, 'publishers/add_edit_publisher.html', {
         'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Edit Publisher")
     })
@@ -200,7 +208,10 @@ def edit_publisher(request, publisher_id):
 
 @login_required
 def delete_publisher(request, publisher_id):
+    profile = UserProfile.objects.get(user=request.user)
     publisher = get_object_or_404(Publisher, pk=publisher_id)
+    if publisher.congregation_id != profile.congregation_id:
+        return redirect_with_next(request, 'publishers')
     publisher.delete()
     messages.success(request, _("Publisher deleted successfully"))
     return redirect_with_next(request, 'publishers')
@@ -217,8 +228,7 @@ def congregation_roles(request):
             filter_data['publsher__full_name__icontains'] = data['publsher']
         if 'role' in data and data['role']:
             filter_data['role'] = data['role']
-    if not request.user.is_staff:
-        filter_data['congregation_id'] = profile.congregation_id
+    filter_data['congregation_id'] = profile.congregation_id
     data = CongregationRole.objects.filter(**filter_data)
     table = TableCongregationRoles(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
@@ -250,13 +260,16 @@ def add_congregation_role(request):
 
 @login_required
 def edit_congregation_role(request, congregation_role_id):
+    profile = UserProfile.objects.get(user=request.user)
     congregation_role = get_object_or_404(Congregation, pk=congregation_role_id)
+    if congregation_role.congregation_id != profile.congregation_id:
+        return redirect_with_next(request, 'congregation_roles')
     if request.method == 'POST':
         form = FormCongregationRole(request.POST, instance=congregation_role)
         if form.is_valid():
             form.save()
-            messages.success(request, _("Congregation edited successfully"))
-            return redirect_with_next(request, 'congregations')
+            messages.success(request, _("Congregation Role edited successfully"))
+            return redirect_with_next(request, 'congregation_roles')
     else:
         form = FormCongregationRole(instance=congregation_role)
     return render(request, 'congregations/add_edit_congregation_role.html', {
