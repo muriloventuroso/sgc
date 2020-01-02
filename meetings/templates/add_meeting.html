@@ -261,15 +261,17 @@
                 var elem = $(this);
                 var exists = false;
                 if(value && value.length > 5){
-                    $('select option[value='+value+']').each(function(index, el) {
-                        if($(this).parent().val()==value && !elem.is($(this).parent()) && $(this).parent().val().length > 5){
-                            exists = true;
-                            $(this).parent().parent().addClass('invalid-select');
-                            $(this).parent().parent().find('.invalid-feedback').remove();
-                            var html = '<div style="display:block" class="invalid-feedback">{% trans "Duplicate Entry" %}</div>';
-                            $(this).parent().parent().append(html);
-                        }
-                    });
+                    try{
+                        $('select option[value='+value+']').each(function(index, el) {
+                            if($(this).parent().val()==value && !elem.is($(this).parent()) && $(this).parent().val().length > 5){
+                                exists = true;
+                                $(this).parent().parent().addClass('invalid-select');
+                                $(this).parent().parent().find('.invalid-feedback').remove();
+                                var html = '<div style="display:block" class="invalid-feedback">{% trans "Duplicate Entry" %}</div>';
+                                $(this).parent().parent().append(html);
+                            }
+                        });
+                    }catch{}
                 }
                 if(exists == false){
                     $(this).parent().removeClass('invalid-select');

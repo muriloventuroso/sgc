@@ -4,7 +4,7 @@
     <div class="box-item">
         <table class="table-midweek">
             <tr>
-                <td class="date-midweek" colspan=2>{{meeting.date}} | {{meeting.midweek_content.reading_week}}</td>
+                <td style="width: 430px" class="date-midweek" colspan=2>{{meeting.date}} | {{meeting.midweek_content.reading_week}}</td>
                 <td class="small-title pull-right" style="width: {% if rooms == 2 %}150{%else%}60{% endif %}px">{% trans 'President' %}:</td>
                 <td style="width: 150px">{{meeting.midweek_content.president|default_if_none:""}}</td>
             </tr>

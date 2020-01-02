@@ -341,6 +341,7 @@ def suggest_publisher(request):
     filter_m = {}
     list_publishers_meetings = []
     list_publishers = []
+    profile = UserProfile.objects.get(user=request.user)
     if 'date' not in request.GET or not request.GET['date']:
         return HttpResponse(status=401)
     date = datetime.datetime.strptime(request.GET['date'], '%d/%m/%Y')
@@ -350,8 +351,9 @@ def suggest_publisher(request):
         return HttpResponse(status=401)
 
     if 'congregation_id' not in request.GET or not request.GET['congregation_id']:
-        return HttpResponse(status=401)
-    congregation_id = request.GET['congregation_id']
+        congregation_id = profile.congregation_id
+    else:
+        congregation_id = request.GET['congregation_id']
     filter_m['congregation_id'] = congregation_id
     meetings = Meeting.objects.filter(**filter_m).order_by('-date')
     if request.GET['type'] == 'soundman':
@@ -363,32 +365,26 @@ def suggest_publisher(request):
                     meeting.designations.soundman_id and str(meeting.designations.soundman_id)
                     not in list_publishers_meetings):
                 list_publishers_meetings.append(str(meeting.designations.soundman_id))
-    elif request.GET['type'] == 'attendant1' or request.GET['type'] == 'attendant2':
+    elif request.GET['type'] == 'attendant':
         list_publishers = [
             (str(p._id), p.full_name) for p in Publisher.objects.filter(
                 tags__in=['attendant'], congregation_id=congregation_id)]
         for meeting in meetings:
-            if (
-                    meeting.designations.attendant1_id and str(meeting.designations.attendant1_id)
-                    not in list_publishers_meetings):
-                list_publishers_meetings.append(str(meeting.designations.attendant1_id))
-            if (
-                    meeting.designations.attendant2_id and str(meeting.designations.attendant2_id)
-                    not in list_publishers_meetings):
-                list_publishers_meetings.append(str(meeting.designations.attendant2_id))
-    elif request.GET['type'] == 'mic_passer1' or request.GET['type'] == 'mic_passer2':
+            if not meeting.designations.attendants_id:
+                continue
+            for attendant_id in meeting.designations.attendants_id:
+                if attendant_id and str(attendant_id) not in list_publishers_meetings:
+                    list_publishers_meetings.append(str(attendant_id))
+    elif request.GET['type'] == 'mic_passer':
         list_publishers = [
             (str(p._id), p.full_name) for p in Publisher.objects.filter(
                 tags__in=['mic_passer'], congregation_id=congregation_id)]
         for meeting in meetings:
-            if (
-                    meeting.designations.mic_passer1_id and str(meeting.designations.mic_passer1_id)
-                    not in list_publishers_meetings):
-                list_publishers_meetings.append(str(meeting.designations.mic_passer1_id))
-            if (
-                    meeting.designations.mic_passer2_id and str(meeting.designations.mic_passer2_id)
-                    not in list_publishers_meetings):
-                list_publishers_meetings.append(str(meeting.designations.mic_passer2_id))
+            if not meeting.designations.mic_passers_id:
+                continue
+            for mic_passer_id in meeting.designations.mic_passers_id:
+                if mic_passer_id and str(mic_passer_id) not in list_publishers_meetings:
+                    list_publishers_meetings.append(str(mic_passer_id))
     elif request.GET['type'] == 'stage':
         list_publishers = [
             (str(p._id), p.full_name) for p in Publisher.objects.filter(
