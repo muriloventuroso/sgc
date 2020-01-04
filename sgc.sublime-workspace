@@ -523,8 +523,25 @@
 			"file": "meetings/views.py",
 			"settings":
 			{
-				"buffer_size": 36045,
+				"buffer_size": 35621,
 				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "meetings/templates/pdf/midweek.html",
+			"settings":
+			{
+				"buffer_size": 4506,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "meetings/templates/meetings.html",
+			"settings":
+			{
+				"buffer_size": 1834,
 				"line_ending": "Unix"
 			}
 		},
@@ -541,7 +558,7 @@
 			"file": "meetings/templates/add_meeting.html",
 			"settings":
 			{
-				"buffer_size": 15786,
+				"buffer_size": 15876,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -550,7 +567,7 @@
 			"file": "meetings/templates/edit_meeting.html",
 			"settings":
 			{
-				"buffer_size": 15722,
+				"buffer_size": 15812,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -569,14 +586,6 @@
 			{
 				"buffer_size": 8853,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "congregations/models.py",
-			"settings":
-			{
-				"buffer_size": 4138,
 				"line_ending": "Unix"
 			}
 		},
@@ -711,6 +720,8 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templatetags"
 	],
 	"file_history":
@@ -870,6 +881,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"Student",
+			"$('select option[value='+value+']').each(function(index, el) {",
 			"previous",
 			"two-names",
 			"designa",
@@ -995,9 +1008,7 @@
 			"User",
 			"elder",
 			"white",
-			"print",
-			"addon_before",
-			"duration"
+			"print"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1062,7 +1073,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -1071,15 +1082,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 36045,
+						"buffer_size": 35621,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								15303,
-								15303
+								21074,
+								21074
 							]
 						],
 						"settings":
@@ -1089,14 +1100,74 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4371.0,
+						"translation.y": 6598.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "meetings/templates/pdf/midweek.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4506,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								997,
+								997
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "meetings/templates/meetings.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1834,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "meetings/forms.py",
 					"semi_transient": false,
 					"settings":
@@ -1122,71 +1193,71 @@
 						"translation.y": 2451.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "meetings/templates/add_meeting.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15786,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4260,
-								4260
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1259.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "meetings/templates/edit_meeting.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15722,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9572,
-								9572
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3121.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
+					"file": "meetings/templates/add_meeting.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15876,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13259,
+								13259
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4622.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "meetings/templates/edit_meeting.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15812,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13171,
+								13171
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4565.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
 					"file": "meetings/templates/pdf/designations.html",
 					"semi_transient": false,
 					"settings":
@@ -1212,11 +1283,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 7,
 					"file": "meetings/models.py",
 					"semi_transient": false,
 					"settings":
@@ -1228,8 +1299,8 @@
 						"selection":
 						[
 							[
-								5350,
-								5350
+								5388,
+								5388
 							]
 						],
 						"settings":
@@ -1242,41 +1313,11 @@
 						"translation.y": 1482.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "congregations/models.py",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 4138,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1933,
-								1933
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 513.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "congregations/forms.py",
 					"semi_transient": false,
 					"settings":
@@ -1302,7 +1343,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
