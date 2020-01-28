@@ -150,7 +150,7 @@ def delete_group(request, group_id):
 @login_required
 def publishers(request):
     profile = UserProfile.objects.get(user=request.user)
-    form = FormSearchPublisher(profile, request.GET)
+    form = FormSearchPublisher(request.GET)
     filter_data = {}
     if form.is_valid():
         data = form.cleaned_data
