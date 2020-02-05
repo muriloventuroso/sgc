@@ -263,6 +263,8 @@ class MonthlyReportPdf(object):
                     self.end_date - relativedelta(months=1)]).first()
             if summary:
                 self.balance = summary.final_balance
+        if not self.balance:
+            self.balance = 0
         self.congregation = Congregation.objects.get(pk=congregation_id)
         account_servant = CongregationRole.objects.filter(
             congregation_id=congregation_id, role="account_servant").first()
@@ -452,7 +454,7 @@ class MonthlyReportPdf(object):
             congregation_id=self.congregation_id, date__range=[self.start_date, self.end_date]).first()
         if not summary:
             summary = MonthlySummary(congregation_id=self.congregation_id)
-        summary.date = datetime.now().replace(month=self.start_date.month)
+        summary.date = datetime.now().replace(month=self.start_date.month).replace(year=self.start_date.year)
         summary.carried_balance = float(self.balance)
         summary.final_balance = float(float(self.balance) + self.sum_receipts - self.sum_expenses)
         summary.transactions = transactions
