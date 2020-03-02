@@ -41,8 +41,10 @@ class TransactionCategory(models.Model):
 
 
 class SubTransaction(models.Model):
-    date = models.DateField(verbose_name=_("Date"))
-    description = models.TextField(verbose_name=_("Description"))
+    date = models.DateField(verbose_name=_("Date"), blank=True, null=True)
+    description = models.TextField(
+        verbose_name=_("Description"), help_text=_("Leave blank for a transaction on the same line as the main one"),
+        blank=True)
     tc = models.CharField(max_length=1, verbose_name=_("Transaction Code"), choices=TRANSACTION_CODE, blank=True)
     tt = models.CharField(max_length=1, verbose_name=_("Transaction Type"), choices=TRANSACTION_TYPE)
     td = models.CharField(max_length=2, verbose_name=_("Transaction Direction"), choices=TRANSACTION_DIRECTION)
@@ -56,8 +58,8 @@ class SubTransaction(models.Model):
 
 class Transaction(models.Model):
     _id = models.ObjectIdField()
-    date = models.DateField(verbose_name=_("Date"))
-    description = models.TextField(verbose_name=_("Description"))
+    date = models.DateField(verbose_name=_("Date"), blank=True)
+    description = models.TextField(verbose_name=_("Description"), blank=True)
     tc = models.CharField(max_length=1, verbose_name=_("Transaction Code"), choices=TRANSACTION_CODE, blank=True)
     tt = models.CharField(max_length=1, verbose_name=_("Transaction Type"), choices=TRANSACTION_TYPE)
     td = models.CharField(max_length=2, verbose_name=_("Transaction Direction"), choices=TRANSACTION_DIRECTION)

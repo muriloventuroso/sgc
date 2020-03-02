@@ -46,6 +46,8 @@ class TransactionSheetPdf(object):
                     self.end_date - relativedelta(months=1)]).first()
             if summary:
                 self.balance = summary.final_balance
+        if not self.balance:
+            self.balance = 0
         self.transactions = Transaction.objects.filter(
             date__range=[self.start_date, self.end_date], congregation_id=congregation_id, hide_from_sheet=False)
         self.stream = io.BytesIO()
@@ -121,16 +123,7 @@ class TransactionSheetPdf(object):
                     sum_b += float(transaction.value)
                     self.sum_r_o += float(transaction.value)
             if transaction.tt == 'C':
-                if transaction.td == "OI":
-                    x = 369 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
-                    self.pdf.drawString(x, y, value)
-                    x = 421 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
-                    self.pdf.drawString(x, y, value)
-                    sum_b += float(transaction.value)
-                    sum_c += float(transaction.value)
-                    self.sum_r_o += float(transaction.value)
-                    self.sum_c_i += float(transaction.value)
-                elif transaction.td == "I":
+                if transaction.td == "I":
                     x = 422 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
                     self.pdf.drawString(x, y, value)
                     sum_c += float(transaction.value)
@@ -141,15 +134,43 @@ class TransactionSheetPdf(object):
                     sum_d += float(transaction.value)
                     self.sum_c_o += float(transaction.value)
             for sub_transaction in transaction.sub_transactions:
-                y -= 12.8
+                value = "%.2f" % transaction.value
+                value = value.replace('.', ',')
+                if sub_transaction.description:
+                    y -= 12.8
                 count += 1
-                self.pdf.setFont("Roboto", 7)
-                self.pdf.drawString(50, y, sub_transaction.description)
-                sub_value = ' [' + "%.2f" % sub_transaction.value + ']'
-                x = 253 - stringWidth2(self.pdf, sub_value, "Roboto", 7, 1)
-                self.pdf.drawString(x, y, sub_value)
-                self.pdf.setFont("Roboto", 9)
-                self.pdf.drawString(253, y, sub_transaction.tc)
+                if sub_transaction.description:
+                    self.pdf.setFont("Roboto", 7)
+                    self.pdf.drawString(50, y, sub_transaction.description)
+                    sub_value = ' [' + "%.2f" % sub_transaction.value + ']'
+                    x = 253 - stringWidth2(self.pdf, sub_value, "Roboto", 7, 1)
+                    self.pdf.drawString(x, y, sub_value)
+                    self.pdf.setFont("Roboto", 9)
+                    self.pdf.drawString(253, y, sub_transaction.tc)
+                else:
+                    self.pdf.setFont("Roboto", 9)
+                    if sub_transaction.tt == 'R':
+                        if sub_transaction.td == "I":
+                            x = 316 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
+                            self.pdf.drawString(x, y, value)
+                            sum_a += float(sub_transaction.value)
+                            self.sum_r_i += float(sub_transaction.value)
+                        else:
+                            x = 369 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
+                            self.pdf.drawString(x, y, value)
+                            sum_b += float(sub_transaction.value)
+                            self.sum_r_o += float(transaction.value)
+                    elif sub_transaction.tt == 'C':
+                        if sub_transaction.td == "I":
+                            x = 422 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
+                            self.pdf.drawString(x, y, value)
+                            sum_c += float(sub_transaction.value)
+                            self.sum_c_i += float(sub_transaction.value)
+                        else:
+                            x = 473 - stringWidth2(self.pdf, value, "Roboto", 9, 1)
+                            self.pdf.drawString(x, y, value)
+                            sum_d += float(sub_transaction.value)
+                            self.sum_c_o += float(transaction.value)
                 if count == 51:
                     self.set_sum(sum_a, sum_b, sum_c, sum_d, 55)
                     self.pdf.showPage()

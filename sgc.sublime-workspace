@@ -520,10 +520,29 @@
 	"buffers":
 	[
 		{
-			"file": "congregations/views.py",
+			"file": "financial/models.py",
 			"settings":
 			{
-				"buffer_size": 12263,
+				"buffer_size": 4628,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "financial/views.py",
+			"settings":
+			{
+				"buffer_size": 19973,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "financial/helpers.py",
+			"settings":
+			{
+				"buffer_size": 23011,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
@@ -648,10 +667,15 @@
 	[
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc"
 	],
 	"file_history":
 	[
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/views.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/helpers.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/weekend.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/midweek.html",
@@ -663,12 +687,9 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/models.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templatetags/pdf.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/helpers.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/requirements.txt",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/models.py",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/Procfile",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/pdf_financial.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/forms.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templatetags/currency.py",
@@ -783,7 +804,7 @@
 	],
 	"find":
 	{
-		"height": 28.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -807,6 +828,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"MonthlySummary",
 			"Student",
 			"$('select option[value='+value+']').each(function(index, el) {",
 			"previous",
@@ -933,8 +955,7 @@
 			"import User",
 			"User",
 			"elder",
-			"white",
-			"print"
+			"white"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -999,24 +1020,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "congregations/views.py",
+					"file": "financial/models.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12263,
+						"buffer_size": 4628,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6255,
-								6255
+								2211,
+								2211
 							]
 						],
 						"settings":
@@ -1026,7 +1047,67 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2736.0,
+						"translation.y": 683.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "financial/views.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19973,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7221,
+								7221
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3089.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "financial/helpers.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23011,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13349,
+								13349
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4998.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1118,7 +1199,7 @@
 		[
 			[
 				"",
-				"~/Dev/Python/pbxsite-env/pbxsite/pbxsite.sublime-project"
+				"~/Dev/Python/mkt-env/otima-mkt/mkt.sublime-project"
 			]
 		],
 		"width": 380.0

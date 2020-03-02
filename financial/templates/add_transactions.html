@@ -58,7 +58,11 @@
         <div class="col-lg-2">
             {% bootstrap_field form.category %}
         </div>
-        <div class="pull-right"><span class="fa fa-plus fa-lg addItemSub"></span> <span class="fa fa-times fa-lg removeItem"></span></div>
+        <div class="pull-right">
+            <span class="fa fa-exchange fa-lg addInlineItem"></span>
+            <span class="fa fa-plus fa-lg addItemSub"></span>
+            <span class="fa fa-times fa-lg removeItem"></span>
+        </div>
         <div class="transactions col-lg-12 pl-5">
         </div>
     </div>
@@ -77,16 +81,23 @@
        return result;
     }
     $(document).ready(function() {
-        function insert_transaction(top_id){
+        function insert_transaction(top_id, inline=false){
             var box = $('#transactionModel').clone();
             box.attr('id', '');
             box.show();
             box.find('select').selectpicker({"actionsBox": true, "liveSearch": true, "liveSearchNormalize": true});
             box.find('input[name="date"]').datetimepicker({format: 'DD/MM/YYYY'}).find('input').addClass("form-control");
             box.find('input[name="id"]').val(makeid(10));
+            if(inline){
+                box.find('label[for="date"]').parent().hide();
+                box.find('label[for="id_description"]').parent().hide();
+                box.find('label[for="id_tc"]').parent().hide();
+                box.find('label[for="id_category"]').parent().hide();
+            }
             if(top_id != null){
                 box.find('input[name="top_id"]').val(top_id);
                 box.find('.addItemSub').remove();
+                box.find('.addInlineItem').remove();
                 $('#boxTransactions').find('input[value="' + top_id + '"][name="id"]').parent().children('.transactions').append(box);
             }else{
                 $('#boxTransactions').append(box);
@@ -99,8 +110,11 @@
         });
         $('#boxTransactions').on('click', '.addItemSub', function(e){
             var top_id = $(this).parent().parent().children('input[name="id"]').val();
-            console.log(top_id);
             insert_transaction(top_id);
+        });
+        $('#boxTransactions').on('click', '.addInlineItem', function(e){
+            var top_id = $(this).parent().parent().children('input[name="id"]').val();
+            insert_transaction(top_id, true);
         });
         $('#boxTransactions').on('click', '.removeItem', function(){
             $(this).parent().parent().parent().remove();

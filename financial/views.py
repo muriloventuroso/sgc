@@ -91,8 +91,13 @@ def add_transaction(request):
     if request.method == 'POST':
         transactions = []
         tops = {}
+        last_date = None
         for i, date in enumerate(request.POST.getlist('date')):
             category = request.POST.getlist('category')[i]
+            top_id = request.POST.getlist('top_id')[i]
+            if not date and top_id and last_date:
+                date = last_date
+            last_date = date
             if request.LANGUAGE_CODE == 'en':
                 date = datetime.datetime.strptime(date, '%Y-%m-%d')
             else:
@@ -155,8 +160,13 @@ def edit_transaction(request, transaction_id):
     if request.method == 'POST':
 
         transaction.sub_transactions = []
+        last_date = None
         for i, date in enumerate(request.POST.getlist('date')):
             category = request.POST.getlist('category')[i]
+            top_id = request.POST.getlist('top_id')[i]
+            if not date and top_id and last_date:
+                date = last_date
+            last_date = date
             if request.LANGUAGE_CODE == 'en':
                 date = datetime.datetime.strptime(date, '%Y-%m-%d')
             else:

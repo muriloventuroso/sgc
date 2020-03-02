@@ -76,3 +76,15 @@ html, body{
   color: blue;
   font-size: 17px;
 }
+.addInlineItem{
+  position: absolute;
+  margin: -8px;
+  right: 60px;
+  top: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.addInlineItem:hover{
+  color: blue;
+  font-size: 17px;
+}
