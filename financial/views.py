@@ -374,7 +374,7 @@ def monthly_summary(request):
 def confrontation(request):
     profile = UserProfile.objects.get(user=request.user)
     form = FormMonthlySummary(request.LANGUAGE_CODE, request.GET)
-    count = []
+    count = None
     if request.GET:
         if form.is_valid():
             data = form.cleaned_data
@@ -417,6 +417,7 @@ def confrontation(request):
                 data_db2 = list(Transaction.objects.mongo_aggregate([
                     {"$unwind": "$sub_transactions"},
                     {"$match": {
+                        "sub_transactions.description": "",
                         "date": {"$gte": start_date, '$lte': end_date},
                         "congregation_id": profile.congregation_id,
                         "hide_from_sheet": False}},
@@ -471,6 +472,7 @@ def confrontation(request):
                     data_db2 = dict(data_db2[0])
                     del data_db2['_id']
                     datas_db.append(data_db2)
+                print(datas_db)
                 count = Counter()
                 for d in datas_db:
                     count.update(d)
@@ -489,7 +491,11 @@ def confrontation(request):
                         count['account_carried_balance'] = balance
                         count['account_final_balance'] = (
                             balance + count['sum_account_in'] - count['sum_account_out'])
-    table = TableConfrontation([count])
+    if count:
+        data_table = [count]
+    else:
+        data_table = []
+    table = TableConfrontation(data_table)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
     return render(request, 'confrontation.html', {
