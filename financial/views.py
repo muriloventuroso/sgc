@@ -374,7 +374,7 @@ def monthly_summary(request):
 def confrontation(request):
     profile = UserProfile.objects.get(user=request.user)
     form = FormMonthlySummary(request.LANGUAGE_CODE, request.GET)
-    data_db = []
+    count = []
     if request.GET:
         if form.is_valid():
             data = form.cleaned_data
