@@ -1,5 +1,6 @@
 import datetime
 import calendar
+from collections import Counter
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
@@ -382,6 +383,7 @@ def confrontation(request):
                 last_day = calendar.monthrange(start_date.year, start_date.month)[1]
                 end_date = datetime.datetime.combine(start_date.replace(day=last_day), datetime.time.max)
                 data_db = list(Transaction.objects.mongo_aggregate([
+
                     {"$match": {
                         "date": {"$gte": start_date, '$lte': end_date},
                         "congregation_id": profile.congregation_id,
@@ -396,20 +398,12 @@ def confrontation(request):
                             },
                             "sum_receipts_out": {
                                 "$sum": {
-                                    "$cond": [
-                                        {"$or": [
-                                            {"$and": [
-                                                {"$eq": ["$td", "O"]}, {"$eq": ["$tt", "R"]}]},
-                                            {"$and": [
-                                                {"$eq": ["$td", "OI"]}, {"$eq": ["$tt", "C"]}]}]},
-                                        "$value", 0]
+                                    "$cond": [{"$and": [{"$eq": ["$td", "O"]}, {"$eq": ["$tt", "R"]}]}, "$value", 0]
                                 }
                             },
                             "sum_account_in": {
                                 "$sum": {
-                                    "$cond": [{"$and": [{"$or": [
-                                        {"$eq": ["$td", "I"]},
-                                        {"$eq": ["$td", "OI"]}]}, {"$eq": ["$tt", "C"]}]}, "$value", 0]
+                                    "$cond": [{"$and": [{"$eq": ["$td", "I"]}, {"$eq": ["$tt", "C"]}]}, "$value", 0]
                                 }
                             },
                             "sum_account_out": {
@@ -420,10 +414,71 @@ def confrontation(request):
                         }
                     }
                 ]))
+                data_db2 = list(Transaction.objects.mongo_aggregate([
+                    {"$unwind": "$sub_transactions"},
+                    {"$match": {
+                        "date": {"$gte": start_date, '$lte': end_date},
+                        "congregation_id": profile.congregation_id,
+                        "hide_from_sheet": False}},
+                    {
+                        "$group": {
+                            "_id": None,
+                            "sum_receipts_in": {
+                                "$sum": {
+                                    "$cond": [
+                                        {"$and": [
+                                            {"$eq": ["$sub_transactions.td", "I"]},
+                                            {"$eq": ["$sub_transactions.tt", "R"]}
+                                        ]}, "$sub_transactions.value", 0]
+                                }
+                            },
+                            "sum_receipts_out": {
+                                "$sum": {
+                                    "$cond": [
+                                        {"$and": [
+                                            {"$eq": ["$sub_transactions.td", "O"]},
+                                            {"$eq": ["$sub_transactions.tt", "R"]}
+                                        ]}, "$sub_transactions.value", 0]
+                                }
+                            },
+                            "sum_account_in": {
+                                "$sum": {
+                                    "$cond": [
+                                        {"$and": [
+                                            {"$eq": ["$sub_transactions.td", "I"]},
+                                            {"$eq": ["$sub_transactions.tt", "C"]}
+                                        ]}, "$sub_transactions.value", 0]
+                                }
+                            },
+                            "sum_account_out": {
+                                "$sum": {
+                                    "$cond": [
+                                        {"$and": [
+                                            {"$eq": ["$sub_transactions.td", "O"]},
+                                            {"$eq": ["$sub_transactions.tt", "C"]}
+                                        ]}, "$sub_transactions.value", 0]
+                                }
+                            },
+                        }
+                    }
+                ]))
+                datas_db = []
                 if data_db:
-                    data_db[0]['month'] = data['month'].strftime("%m/%Y")
-                    data_db[0]['receipts_final_balance'] = (
-                        data_db[0]['sum_receipts_in'] - data_db[0]['sum_receipts_out'])
+                    data_db = dict(data_db[0])
+                    del data_db['_id']
+                    datas_db.append(data_db)
+                if data_db2:
+                    data_db2 = dict(data_db2[0])
+                    del data_db2['_id']
+                    datas_db.append(data_db2)
+                count = Counter()
+                for d in datas_db:
+                    count.update(d)
+                count = dict(count)
+                if count:
+                    count['month'] = data['month'].strftime("%m/%Y")
+                    count['receipts_final_balance'] = (
+                        count['sum_receipts_in'] - count['sum_receipts_out'])
                     summary = MonthlySummary.objects.filter(
                         congregation_id=profile.congregation_id,
                         date__range=[
@@ -431,10 +486,10 @@ def confrontation(request):
                             end_date - relativedelta(months=1)]).first()
                     if summary:
                         balance = float(summary.final_balance)
-                        data_db[0]['account_carried_balance'] = balance
-                        data_db[0]['account_final_balance'] = (
-                            balance + data_db[0]['sum_account_in'] - data_db[0]['sum_account_out'])
-    table = TableConfrontation(data_db)
+                        count['account_carried_balance'] = balance
+                        count['account_final_balance'] = (
+                            balance + count['sum_account_in'] - count['sum_account_out'])
+    table = TableConfrontation([count])
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
     return render(request, 'confrontation.html', {

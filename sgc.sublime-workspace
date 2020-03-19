@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"su",
+				"sub_transaction\tstatement"
+			],
+			[
 				"le",
 				"length"
 			],
@@ -268,10 +272,6 @@
 				"apply_yourself"
 			],
 			[
-				"su",
-				"suggest_meeting"
-			],
-			[
 				"s",
 				"suggest_publisher"
 			],
@@ -520,19 +520,19 @@
 	"buffers":
 	[
 		{
-			"file": "financial/models.py",
+			"file": "financial/templates/add_transactions.html",
 			"settings":
 			{
-				"buffer_size": 4628,
+				"buffer_size": 4666,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "financial/views.py",
+			"file": "financial/templates/edit_transaction.html",
 			"settings":
 			{
-				"buffer_size": 19973,
+				"buffer_size": 7019,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -541,7 +541,32 @@
 			"file": "financial/helpers.py",
 			"settings":
 			{
-				"buffer_size": 23011,
+				"buffer_size": 23801,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "financial/views.py",
+			"settings":
+			{
+				"buffer_size": 19973,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "financial/models.py",
+			"settings":
+			{
+				"buffer_size": 4639,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "static/css/custom.css",
+			"settings":
+			{
+				"buffer_size": 1658,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -669,12 +694,14 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc"
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/static/css"
 	],
 	"file_history":
 	[
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/helpers.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/views.py",
+		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/models.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/congregations/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/views.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates/pdf/weekend.html",
@@ -696,7 +723,6 @@
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/settings.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/sgc/helpers.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/transactions.html",
-		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/models.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/add_transactions.html",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/import_history.py",
 		"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial/templates/actions_table_transactions.html",
@@ -811,6 +837,7 @@
 		"height": 104.0,
 		"where_history":
 		[
+			"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
 			"/home/muriloventuroso/Dev/Python/sgc-env/sgc/meetings/templates",
 			"/home/muriloventuroso/Dev/Python/sgc-env/sgc",
 			"/home/muriloventuroso/Dev/Python/sgc-env/sgc/financial",
@@ -828,6 +855,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"pymongo",
+			"addItemSub",
+			"addInlineItem",
 			"MonthlySummary",
 			"Student",
 			"$('select option[value='+value+']').each(function(index, el) {",
@@ -952,10 +982,7 @@
 			"congregation",
 			"Congregation",
 			"congregation",
-			"import User",
-			"User",
-			"elder",
-			"white"
+			"import User"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1020,24 +1047,84 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "financial/models.py",
+					"file": "financial/templates/add_transactions.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4628,
+						"buffer_size": 4666,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2211,
-								2211
+								2794,
+								2794
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1411.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "financial/templates/edit_transaction.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7019,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2963,
+								2963
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 855.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "financial/helpers.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23801,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13317,
+								13317
 							]
 						],
 						"settings":
@@ -1047,16 +1134,16 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 683.0,
+						"translation.y": 5211.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 3,
 					"file": "financial/views.py",
-					"semi_transient": false,
+					"semi_transient": true,
 					"settings":
 					{
 						"buffer_size": 19973,
@@ -1066,8 +1153,8 @@
 						"selection":
 						[
 							[
-								7221,
-								7221
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1077,27 +1164,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3089.0,
+						"translation.y": 7680.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "financial/helpers.py",
+					"buffer": 4,
+					"file": "financial/models.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 23011,
+						"buffer_size": 4639,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13349,
-								13349
+								1341,
+								1341
 							]
 						],
 						"settings":
@@ -1107,10 +1194,213 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4998.0,
+						"translation.y": 228.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "static/css/custom.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1658,
+						"regions":
+						{
+							"col_0000001F":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										523,
+										539
+									],
+									[
+										601,
+										617
+									],
+									[
+										682,
+										698
+									]
+								],
+								"scope": "col_0000001F"
+							},
+							"col_0000001F_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_0000001F_circle.png",
+								"regions":
+								[
+									[
+										501,
+										501
+									],
+									[
+										579,
+										579
+									],
+									[
+										660,
+										660
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_0000FFFF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										1452,
+										1456
+									],
+									[
+										1632,
+										1636
+									]
+								],
+								"scope": "col_0000FFFF"
+							},
+							"col_0000FFFF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_0000FFFF_circle.png",
+								"regions":
+								[
+									[
+										1443,
+										1443
+									],
+									[
+										1623,
+										1623
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_28A745FF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										408,
+										415
+									]
+								],
+								"scope": "col_28A745FF"
+							},
+							"col_28A745FF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_28A745FF_circle.png",
+								"regions":
+								[
+									[
+										388,
+										388
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_CED4DAFF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										249,
+										256
+									],
+									[
+										1067,
+										1074
+									]
+								],
+								"scope": "col_CED4DAFF"
+							},
+							"col_CED4DAFF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_CED4DAFF_circle.png",
+								"regions":
+								[
+									[
+										229,
+										229
+									],
+									[
+										1047,
+										1047
+									]
+								],
+								"scope": "col_gutter"
+							},
+							"col_FF0000FF":
+							{
+								"flags": 16,
+								"regions":
+								[
+									[
+										795,
+										799
+									],
+									[
+										844,
+										848
+									],
+									[
+										1275,
+										1282
+									]
+								],
+								"scope": "col_FF0000FF"
+							},
+							"col_FF0000FF_icon":
+							{
+								"flags": 16,
+								"icon": "Packages/User/Color Highlight.cache/col_FF0000FF_circle.png",
+								"regions":
+								[
+									[
+										786,
+										786
+									],
+									[
+										828,
+										828
+									],
+									[
+										1266,
+										1266
+									]
+								],
+								"scope": "col_gutter"
+							}
+						},
+						"selection":
+						[
+							[
+								1544,
+								1544
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 789.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -1179,7 +1469,7 @@
 	"project": "sgc.sublime-project",
 	"replace":
 	{
-		"height": 52.0
+		"height": 72.0
 	},
 	"save_all_on_build": true,
 	"select_file":
