@@ -472,7 +472,6 @@ def confrontation(request):
                     data_db2 = dict(data_db2[0])
                     del data_db2['_id']
                     datas_db.append(data_db2)
-                print(datas_db)
                 count = Counter()
                 for d in datas_db:
                     count.update(d)
