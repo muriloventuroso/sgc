@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
+from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
 from django.contrib.auth import update_session_auth_hash
@@ -11,6 +12,7 @@ from users.models import UserProfile
 from users.tables import TableUsers
 from users.forms import FormUser, FormSearchUser, FormUserProfile, FormEditUser
 from sgc.helpers import redirect_with_next
+from congregations.models import Publisher
 
 
 @login_required
@@ -125,3 +127,29 @@ def set_password(request, user_id):
     return render(request, 'set_password.html', {
         'form': form, 'page_group': 'admin', 'page_title': _("Set Password")
     })
+
+
+@login_required
+def get_resources(request):
+    profile = UserProfile.objects.get(user=request.user)
+
+    if 'congregation_id' in request.GET and request.GET['congregation_id'] and request.user.is_staff:
+        congregation_id = request.GET['congregation_id']
+    else:
+        congregation_id = profile.congregation_id
+
+    user_id = None
+    if 'user_id' in request.GET and request.GET['user_id']:
+        user_id = request.GET['user_id']
+
+    ret = {}
+    ret['publishers'] = [
+        [x.name, str(x._id), False] for x in Publisher.objects.filter(congregation_id=congregation_id)]
+
+    if user_id:
+        user = UserProfile.objects.get(user_id=user_id)
+        for publisher in ret['publishers']:
+            if publisher[1] == user.publisher_id:
+                publisher[2] = True
+
+    return JsonResponse(ret)

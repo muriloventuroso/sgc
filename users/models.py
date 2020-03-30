@@ -1,7 +1,7 @@
 from djongo import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from congregations.models import Congregation
+from congregations.models import Congregation, Publisher
 
 
 class UserProfile(models.Model):
@@ -9,6 +9,8 @@ class UserProfile(models.Model):
     user = models.ForeignKey(User, models.CASCADE)
     congregation = models.ForeignKey(
         Congregation, verbose_name=_("Congregation"), null=True, blank=True, on_delete=models.SET_NULL)
+    publisher = models.ForeignKey(
+        Publisher, verbose_name=_("Publisher"), null=True, blank=True, on_delete=models.SET_NULL)
 
     objects = models.DjongoManager()
 

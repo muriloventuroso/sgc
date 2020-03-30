@@ -19,8 +19,7 @@ TRANSACTION_TYPE = [
 ]
 TRANSACTION_DIRECTION = [
     ('I', _("In")),
-    ('O', _("Out")),
-    ('OI', _("Out - In"))
+    ('O', _("Out"))
 ]
 
 

@@ -8,5 +8,6 @@ urlpatterns = [
     path('add/', users.views.add_user, {}, 'add_user'),
     path('password/', users.views.change_password, {}, 'change_password'),
     path('<user_id>/password/', users.views.set_password, {}, 'set_password'),
+    path('resources/', users.views.get_resources, {}, 'user_resources'),
     path('', users.views.users, {}, 'users'),
 ]

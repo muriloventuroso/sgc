@@ -244,7 +244,7 @@
         {% endif %}
         $('select').each(function(){
             if($(this).is(':visible')){
-                $(this).selectpicker({liveSearch: true});
+                $(this).selectpicker({liveSearch: true, liveSearchNormalize:true});
             }
         });
         $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pt-BR']);

@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import password_validation
 from users.models import UserProfile
 from django.contrib.auth.models import User
-from congregations.models import Congregation
+from congregations.models import Congregation, Publisher
 
 
 class FormUser(forms.ModelForm):
@@ -44,7 +44,7 @@ class FormSearchUser(forms.Form):
         if user_profile.user.is_staff:
             self.fields['congregation'].queryset = Congregation.objects.all()
         else:
-            self.fields['congregation'].queryset = user_profile.congregations.all()
+            self.fields['congregation'].queryset = Congregation.objects.filter(_id=user_profile.congregation_id)
     username = forms.CharField(label=_("Username"), required=False)
     congregation = forms.ModelChoiceField(queryset=Congregation.objects.none(), label=_("Congregation"), required=False)
 
@@ -54,7 +54,8 @@ class FormUserProfile(forms.ModelForm):
         super(FormUserProfile, self).__init__(*args, **kwargs)
         if not is_staff:
             del self.fields['congregation']
+        self.fields['publisher'].queryset = Publisher.objects.none()
 
     class Meta:
         model = UserProfile
-        fields = ('congregation', )
+        fields = ('congregation', 'publisher')

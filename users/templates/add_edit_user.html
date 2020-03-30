@@ -33,3 +33,40 @@
 </div>
 
 {% endblock %}
+
+{% block extrajs %}
+<script>
+    $(document).ready(function() {
+        {% if request.user.is_staff %}
+        $('select[name="congregation"]').on('change', function(){
+            get_resources();
+        });
+        {% else %}
+        get_resources();
+        {% endif %}
+
+        function get_resources(){
+            lock = true;
+            $.ajax({
+                url: '{% url "user_resources" %}',
+                type: 'GET',
+                data: {'congregation_id': $('select[name="congregation"]').val(), 'user_id': '{{user_id}}'},
+                success: function(data){
+                    $('select[name="publisher"]').find('option').remove();
+                    $('select[name="publisher"]').append("<option value=''>---------</option>");
+                    for (var i = 0; i < data.publishers.length; i++) {
+                        if(data.publishers[i][2] == true){
+                            $('select[name="publisher"]').append('<option selected="selected" value="' + data.publishers[i][1] + '">' + data.publishers[i][0] + '</option>');
+                        }else{
+                            $('select[name="publisher"]').append('<option value="' + data.publishers[i][1] + '">' + data.publishers[i][0] + '</option>');
+                        }
+                    }
+                    $('select[name="publisher"]').selectpicker('refresh');
+
+                    lock = false;
+                }
+            });
+        };
+    });
+</script>
+{% endblock %}

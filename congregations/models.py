@@ -92,6 +92,10 @@ class Publisher(models.Model):
         verbose_name = _("Publisher")
         verbose_name_plural = _("Publishers")
 
+    @property
+    def name(self):
+        return self.full_name.split(' ')[0] + ' ' + self.full_name.split(' ')[-1]
+
 
 class CongregationRole(models.Model):
     _id = models.ObjectIdField(primary_key=True)

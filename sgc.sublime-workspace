@@ -549,7 +549,7 @@
 			"file": "financial/views.py",
 			"settings":
 			{
-				"buffer_size": 19973,
+				"buffer_size": 22640,
 				"line_ending": "Unix"
 			}
 		},
@@ -584,16 +584,16 @@
 		"selected_items":
 		[
 			[
-				"push",
-				"Git: Push"
-			],
-			[
 				"comm",
 				"Git: Commit"
 			],
 			[
 				"add",
 				"Git: Add All"
+			],
+			[
+				"push",
+				"Git: Push"
 			],
 			[
 				"omm",
@@ -1137,24 +1137,24 @@
 						"translation.y": 5211.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
 					"file": "financial/views.py",
-					"semi_transient": true,
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 19973,
+						"buffer_size": 22640,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								21195,
+								21195
 							]
 						],
 						"settings":
@@ -1164,7 +1164,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 7680.0,
+						"translation.y": 8582.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1183,8 +1183,8 @@
 						"selection":
 						[
 							[
-								1341,
-								1341
+								1358,
+								1358
 							]
 						],
 						"settings":
@@ -1194,10 +1194,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 228.0,
+						"translation.y": 513.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1489,7 +1489,7 @@
 		[
 			[
 				"",
-				"~/Dev/Python/mkt-env/otima-mkt/mkt.sublime-project"
+				"~/Dev/Python/enginesms-env/engine-sms/enginesms.sublime-project"
 			]
 		],
 		"width": 380.0
