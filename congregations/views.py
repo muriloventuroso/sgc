@@ -175,13 +175,17 @@ def publishers(request):
 def add_publisher(request):
     profile = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
-        form = FormPublisher(profile.congregation_id, request.POST)
+        form = FormPublisher(request.user.is_staff, profile.congregation_id, request.POST)
         if form.is_valid():
-            form.save()
+            item = form.save(commit=False)
+            if not request.user.is_staff:
+                item.congregation_id = profile.congregation_id
+            item.save()
+            
             messages.success(request, _("Publisher added successfully"))
             return redirect_with_next(request, 'publishers')
     else:
-        form = FormPublisher(profile.congregation_id)
+        form = FormPublisher(request.user.is_staff, profile.congregation_id)
     return render(request, 'publishers/add_edit_publisher.html', {
         'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Add Publisher")
     })
@@ -194,13 +198,16 @@ def edit_publisher(request, publisher_id):
     if publisher.congregation_id != profile.congregation_id:
         return redirect_with_next(request, 'publishers')
     if request.method == 'POST':
-        form = FormPublisher(profile.congregation_id, request.POST, instance=publisher)
+        form = FormPublisher(request.user.is_staff, profile.congregation_id, request.POST, instance=publisher)
         if form.is_valid():
-            form.save()
+            item = form.save(commit=False)
+            if not request.user.is_staff:
+                item.congregation_id = profile.congregation_id
+            item.save()
             messages.success(request, _("Publisher edited successfully"))
             return redirect_with_next(request, 'publishers')
     else:
-        form = FormPublisher(profile.congregation_id, instance=publisher, initial={'tags': publisher.tags})
+        form = FormPublisher(request.user.is_staff, profile.congregation_id, instance=publisher, initial={'tags': publisher.tags})
     return render(request, 'publishers/add_edit_publisher.html', {
         'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Edit Publisher")
     })

@@ -28,9 +28,11 @@ class FormSearchGroup(forms.Form):
 
 
 class FormPublisher(forms.ModelForm):
-    def __init__(self, congregation_id, *args, **kwargs):
+    def __init__(self, is_staff, congregation_id, *args, **kwargs):
         super(FormPublisher, self).__init__(*args, **kwargs)
         self.fields['group'].queryset = Group.objects.filter(congregation_id=congregation_id)
+        if not is_staff:
+            del self.fields['congregation']
     tags = forms.MultipleChoiceField(label=_("Tags"), choices=TAGS)
     baptism_date = forms.DateField(
         label=_("Baptism Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
@@ -40,7 +42,7 @@ class FormPublisher(forms.ModelForm):
 
     class Meta:
         model = Publisher
-        exclude = ('_id', 'creation_date', 'update_date', 'congregation')
+        exclude = ('_id', 'creation_date', 'update_date')
 
 
 class FormSearchPublisher(forms.Form):
