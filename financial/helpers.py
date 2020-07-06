@@ -477,7 +477,7 @@ class MonthlyReportPdf(object):
             summary = MonthlySummary(congregation_id=self.congregation_id)
         summary.date = datetime.now().replace(month=self.start_date.month).replace(year=self.start_date.year)
         summary.carried_balance = float(self.balance)
-        summary.final_balance = float(float(self.balance) + self.sum_receipts - self.sum_expenses)
+        summary.final_balance = self.i
         summary.transactions = transactions
         summary.save()
 
