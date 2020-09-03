@@ -19,7 +19,7 @@ SUBTYPE_KEY = '/Subtype'
 WIDGET_SUBTYPE_KEY = '/Widget'
 DEFAULT_EXPENSES = [
     '5cbdaa89b9c49b000c671da8', '5ccc447cc75dbf6e6bb40a9d', '5ccc447cc75dbf6e6bb40a9d', '5d94edcec75dbf593d8a886f',
-    '5ccc4130c75dbf6b6f2ab1ca'
+    '5ccc4130c75dbf6b6f2ab1ca', '5d94f8afc75dbf5bb53000c7'
 ]
 
 
