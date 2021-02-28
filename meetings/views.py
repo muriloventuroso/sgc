@@ -458,7 +458,7 @@ def suggest_meeting(request):
     second_song = s.find('div', {'id': 'section4'}).findAll('li')[0].find('a').text.split(' ')[1]
     third_song = s.find('div', {'id': 'section4'}).findAll('li')[-1].find('a').text.split(' ')[1]
     treasures = []
-    for t in s.find('div', {'id': 'section2'}).findAll('p', {'class': 'su'}):
+    for t in s.find('div', {'id': 'section2'}).findAll('p', {'class': 'so'}):
         duration = re.search(r'\(([0-9].*\))', t.text).group(1).split(")")[0]
         try:
             title = t.text[:t.text.index(duration)].strip().rstrip(",.:('").strip().rstrip(",.:('")
@@ -479,7 +479,7 @@ def suggest_meeting(request):
             pass
 
     apply_yourself = []
-    for a in s.find('div', {'id': 'section3'}).findAll('p', {'class': 'su'}):
+    for a in s.find('div', {'id': 'section3'}).findAll('p', {'class': 'so'}):
         duration = re.search(r'\(([0-9].*\))', a.text).group(1).split(")")[0]
         try:
             for i in range(congregation.n_rooms):
@@ -491,7 +491,7 @@ def suggest_meeting(request):
         except Exception:
             pass
     living_christians = []
-    for l in s.find('div', {'id': 'section4'}).findAll('p', {'class': 'su'})[1:-2]:
+    for l in s.find('div', {'id': 'section4'}).findAll('p', {'class': 'so'})[1:-2]:
         duration = re.search(r'\(([0-9].*\))', l.text).group(1).split(")")[0]
         try:
             living_christians.append({
