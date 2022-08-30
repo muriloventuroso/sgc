@@ -1,16 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
 from django.contrib.auth import update_session_auth_hash
 from django_tables2.config import RequestConfig
-from django.contrib.auth.models import User
-from users.models import UserProfile
+from users.models import User
 from users.tables import TableUsers
-from users.forms import FormUser, FormSearchUser, FormUserProfile, FormEditUser
+from users.forms import FormUser, FormSearchUser, FormEditUser
 from sgc.helpers import redirect_with_next
 from congregations.models import Publisher
 
@@ -18,16 +17,16 @@ from congregations.models import Publisher
 @login_required
 @staff_member_required
 def users(request):
-    profile = UserProfile.objects.get(user=request.user)
-    form = FormSearchUser(profile, request.GET)
+    form = FormSearchUser(request.user, request.GET)
     filter_data = {}
     if form.is_valid():
         data = form.cleaned_data
-        if 'username' in data and data['username']:
-            filter_data['user__username__icontains'] = data['username']
-        if 'congregation' in data and data['congregation']:
-            filter_data['congregations__in'] = [data['congregation']]
-    data = UserProfile.objects.filter(**filter_data)
+        if data.get('email'):
+            filter_data['_id__in'] = [x["_id"] for x in User.objects.mongo_find({"email": {
+                "$regex": data['email'], "$options": "i"}})]
+        if data.get('congregation'):
+            filter_data['congregation_id'] = data['congregation']
+    data = User.objects.select_related("congregation").filter(**filter_data)
     table = TableUsers(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)
@@ -42,19 +41,14 @@ def users(request):
 def add_user(request):
     if request.method == 'POST':
         form = FormUser(request.user.is_staff, request.POST)
-        form_profile = FormUserProfile(request.user.is_staff, request.POST)
-        if form.is_valid() and form_profile.is_valid():
+        if form.is_valid():
             user = form.save()
-            up = form_profile.save(commit=False)
-            up.user = user
-            up.save()
             messages.success(request, _("User added successfully"))
             return redirect_with_next(request, 'users')
     else:
         form = FormUser(request.user.is_staff)
-        form_profile = FormUserProfile(request.user.is_staff)
     return render(request, 'add_edit_user.html', {
-        'request': request, 'form': form, 'form_profile': form_profile,
+        'request': request, 'form': form,
         'page_group': 'admin', 'page_title': _("Add User")
     })
 
@@ -63,20 +57,17 @@ def add_user(request):
 @staff_member_required
 def edit_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    user_profile = get_object_or_404(UserProfile, user_id=user_id)
     if request.method == 'POST':
         form = FormEditUser(request.user.is_staff, request.POST, instance=user)
-        form_profile = FormUserProfile(request.user.is_staff, request.POST, instance=user_profile)
-        if form.is_valid() and form_profile.is_valid():
+        if form.is_valid():
             form.save()
-            form_profile.save()
             messages.success(request, _("User edited successfully"))
             return redirect_with_next(request, 'users')
     else:
         form = FormEditUser(request.user.is_staff, instance=user)
-        form_profile = FormUserProfile(request.user.is_staff, instance=user_profile)
+
     return render(request, 'add_edit_user.html', {
-        'request': request, 'form': form, 'form_profile': form_profile,
+        'request': request, 'form': form,
         'page_group': 'admin', 'page_title': _("Edit User")
     })
 
@@ -97,7 +88,8 @@ def change_password(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
-            messages.success(request, _('Your password was successfully updated.'))
+            messages.success(request, _(
+                'Your password was successfully updated.'))
             return redirect('users')
         else:
             messages.warning(request, _('Please correct the error below.'))
@@ -131,12 +123,11 @@ def set_password(request, user_id):
 
 @login_required
 def get_resources(request):
-    profile = UserProfile.objects.get(user=request.user)
 
     if 'congregation_id' in request.GET and request.GET['congregation_id'] and request.user.is_staff:
         congregation_id = request.GET['congregation_id']
     else:
-        congregation_id = profile.congregation_id
+        congregation_id = request.user.congregation_id
 
     user_id = None
     if 'user_id' in request.GET and request.GET['user_id']:
@@ -147,7 +138,7 @@ def get_resources(request):
         [x.name, str(x._id), False] for x in Publisher.objects.filter(congregation_id=congregation_id)]
 
     if user_id:
-        user = UserProfile.objects.get(user_id=user_id)
+        user = User.objects.get(_id=user_id)
         for publisher in ret['publishers']:
             if publisher[1] == user.publisher_id:
                 publisher[2] = True

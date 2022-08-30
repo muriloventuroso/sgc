@@ -6,9 +6,9 @@ from math import floor
 from django import template
 from django.contrib.messages import constants as message_constants
 from django.template import Context
-from django.utils import six
+import six
 from django.utils.safestring import mark_safe
-from django.utils.six.moves.urllib.parse import (
+from six.moves.urllib.parse import (
     parse_qs,
     urlencode,
     urlparse,

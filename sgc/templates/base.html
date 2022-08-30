@@ -242,6 +242,22 @@
             deselectAllText: 'Desmarcar Todos'
         };
         {% endif %}
+        $(".datetime-field").datetimepicker({
+            format: 'DD/MM/YYYY HH:mm',
+            locale: '{{LANGUAGE_CODE}}'
+        }).attr('autocomplete', 'off').find('input').addClass("form-control");
+        $(".date-field").datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: '{{LANGUAGE_CODE}}'
+        }).attr('autocomplete', 'off').find('input').addClass("form-control");
+        $(".time-field").datetimepicker({
+            format: 'HH:mm',
+            locale: '{{LANGUAGE_CODE}}'
+        }).attr('autocomplete', 'off').find('input').addClass("form-control");
+        $(".month-field").datetimepicker({
+            format: 'MM/YYYY',
+            locale: '{{LANGUAGE_CODE}}'
+        }).attr('autocomplete', 'off').find('input').addClass("form-control");
         $('select').each(function(){
             if($(this).is(':visible')){
                 $(this).selectpicker({liveSearch: true, liveSearchNormalize:true});

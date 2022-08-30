@@ -1,13 +1,13 @@
 from django import forms
-from django.utils.translation import ugettext_lazy as _
-from datetimewidget.widgets import DateWidget
+from django.utils.translation import gettext_lazy as _
 from congregations.models import Congregation, Group, Publisher, TAGS, CongregationRole, ROLES
 
 
 class FormCongregation(forms.ModelForm):
     class Meta:
         model = Congregation
-        fields = ('name', 'circuit', 'city', 'state', 'n_rooms', 'n_attendants', 'n_mic_passers')
+        fields = ('name', 'circuit', 'city', 'state',
+                  'n_rooms', 'n_attendants', 'n_mic_passers')
 
 
 class FormSearchCongregation(forms.Form):
@@ -30,15 +30,15 @@ class FormSearchGroup(forms.Form):
 class FormPublisher(forms.ModelForm):
     def __init__(self, is_staff, congregation_id, *args, **kwargs):
         super(FormPublisher, self).__init__(*args, **kwargs)
-        self.fields['group'].queryset = Group.objects.filter(congregation_id=congregation_id)
+        self.fields['group'].queryset = Group.objects.filter(
+            congregation_id=congregation_id)
         if not is_staff:
             del self.fields['congregation']
-    tags = forms.MultipleChoiceField(label=_("Tags"), choices=TAGS)
+    tags = forms.MultipleChoiceField(
+        label=_("Tags"), choices=TAGS, required=False)
     baptism_date = forms.DateField(
         label=_("Baptism Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        widget=DateWidget(
-            attrs={'id': "start_date", 'data-format': "YYYY-MM-DD"},
-            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+        widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
 
     class Meta:
         model = Publisher
@@ -47,16 +47,22 @@ class FormPublisher(forms.ModelForm):
 
 class FormSearchPublisher(forms.Form):
     name = forms.CharField(label=_("Name"), required=False)
-    tags = forms.MultipleChoiceField(label=_("TAGS"), choices=TAGS, required=False)
+    tags = forms.MultipleChoiceField(
+        label=_("TAGS"), choices=TAGS, required=False)
     group = forms.CharField(label=_("Group"), required=False)
 
 
 class FormCongregationRole(forms.ModelForm):
+    def __init__(self, congregation_id, *args, **kwargs):
+        super(FormCongregationRole, self).__init__(*args, **kwargs)
+        self.fields['publisher'].queryset = Publisher.objects.filter(
+            congregation_id=congregation_id, gender="m")
+
     class Meta:
         model = CongregationRole
         fields = ('role', 'publisher')
 
 
 class FormSearchCongregationRole(forms.Form):
-    publisher = forms.CharField(label=_("Publisher"), required=False)
-    role = forms.MultipleChoiceField(label=_("Role"), choices=ROLES, required=False)
+    role = forms.MultipleChoiceField(
+        label=_("Role"), choices=ROLES, required=False)

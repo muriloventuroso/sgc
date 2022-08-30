@@ -17,12 +17,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MonthlySummary',
             fields=[
-                ('_id', djongo.models.fields.ObjectIdField(auto_created=True, primary_key=True, serialize=False)),
+                ('_id', djongo.models.fields.ObjectIdField(
+                    auto_created=True, primary_key=True, serialize=False)),
                 ('date', models.DateField(verbose_name='Date')),
-                ('carried_balance', models.DecimalField(decimal_places=2, default=0, max_digits=10, verbose_name='Carried Balance')),
-                ('final_balance', models.DecimalField(decimal_places=2, default=0, max_digits=10, verbose_name='Final Balance')),
-                ('transactions', djongo.models.fields.ArrayModelField(model_container=financial.models.TransactionContent)),
-                ('congregation', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='congregations.Congregation', verbose_name='Congregation')),
+                ('carried_balance', models.DecimalField(decimal_places=2,
+                 default=0, max_digits=10, verbose_name='Carried Balance')),
+                ('final_balance', models.DecimalField(decimal_places=2,
+                 default=0, max_digits=10, verbose_name='Final Balance')),
+                ('transactions', djongo.models.fields.ArrayField(
+                    model_container=financial.models.TransactionContent)),
+                ('congregation', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 to='congregations.Congregation', verbose_name='Congregation')),
             ],
             options={
                 'verbose_name': 'Monthly Summary',

@@ -15,7 +15,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='transaction',
             name='sub_transactions',
-            field=djongo.models.fields.ArrayModelField(default=[], model_container=financial.models.SubTransaction),
+            field=djongo.models.fields.ArrayField(
+                default=[], model_container=financial.models.SubTransaction),
             preserve_default=False,
         ),
     ]

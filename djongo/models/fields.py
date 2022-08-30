@@ -5,16 +5,20 @@ in place of Django's standard models module.
 Djongo Fields is where custom fields for working with
 MongoDB is defined.
 
- - EmbeddedModelField
- - ArrayModelField
+ - EmbeddedField
+ - ArrayField
  - ArrayReferenceField
  - GenericReferenceField
 
 These are the main fields for working with MongoDB.
 """
 
+# THIS FILE WAS CHANGED ON - 28 Mar 2022
+
 import functools
+import json
 import typing
+import bson
 
 from bson import ObjectId
 from django import forms
@@ -23,15 +27,20 @@ from django.db import connections as pymongo_connections
 from django.db import router, connections, transaction
 from django.db.models import (
     Manager, Model, Field, AutoField,
-    ForeignKey, BigAutoField
-)
+    ForeignKey, BigAutoField, DecimalField)
+from django.utils import version
+from django.db.models.fields.related import RelatedField
 from django.forms import modelform_factory
 from django.utils.functional import cached_property
 from django.utils.html import format_html_join, format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from bson.decimal128 import Decimal128
-from djongo.models import DecimalField
+from djongo.exceptions import NotSupportedError, print_warn
+
+django_major = int(version.get_version().split('.')[0])
+
+if django_major >= 3:
+    from django.db.models.fields import AutoFieldMixin, AutoFieldMeta
 
 
 def make_mdl(model, model_dict):
@@ -47,12 +56,6 @@ def make_mdl(model, model_dict):
 
 def useful_field(field):
     return field.concrete and not isinstance(field, (AutoField, BigAutoField))
-
-
-class ModelSubterfuge:
-
-    def __init__(self, embedded_model):
-        self.subterfuge = embedded_model
 
 
 class DjongoManager(Manager):
@@ -72,66 +75,250 @@ class DjongoManager(Manager):
 
     @property
     def _client(self):
-        return (
-            pymongo_connections[self.db]
+        return (pymongo_connections[self.db]
                 .cursor()
-                .db_conn[self.model._meta.db_table]
-        )
+                .db_conn[self.model._meta.db_table])
 
 
-class FormlessField(Field):
+class MongoField(Field):
     empty_strings_allowed = False
+
+
+class JSONField(MongoField):
+    def get_prep_value(self, value):
+        if isinstance(value, str):
+            return [value]
+        if not isinstance(value, (dict, list)):
+            raise ValueError(
+                f'Value: {value} must be of type dict/list'
+            )
+        return value
+
+    def to_python(self, value):
+        if not isinstance(value, (dict, list)):
+            raise ValueError(
+                f'Value: {value} stored in DB must be of type dict/list'
+                'Did you miss any Migrations?'
+            )
+        return value
+
+
+class ModelField(MongoField):
+    """
+    Allows for the inclusion of an instance of an abstract model as
+    a field inside a document.
+    """
+    base_type = dict
+
+    def __init__(self,
+                 model_container: typing.Type[Model],
+                 *args, **kwargs):
+        self.model_container = model_container
+        self.model_container._meta.abstract = False
+        self._validate_container()
+        super().__init__(*args, **kwargs)
+
+    def _validate_container(self):
+        for field in self.model_container._meta._get_fields(reverse=False):
+            # if isinstance(field, (AutoField,
+            #                       BigAutoField,
+            #                       RelatedField)):
+            #     raise ValidationError(
+            #         f'Field "{field}" of model container:"{self.model_container}" '
+            #         f'cannot be of type "{type(field)}"')
+
+            if field.attname != field.column:
+                raise ValidationError(
+                    f'Field "{field}"  of model container:"{self.model_container}" '
+                    f'cannot be named as "{field.attname}", different from '
+                    f'column name "{field.column}"')
+
+            # if field.db_index:
+            #     print_warn('Embedded field index')
+            #     raise NotSupportedError(
+            #         f'This version of djongo does not support indexes on embedded fields'
+            #     )
+
+    def _value_thru_fields(self,
+                           func_name: str,
+                           value: dict,
+                           *other_args):
+        processed_value = {}
+        for field in self.model_container._meta.get_fields():
+            try:
+                field_value = value[field.attname]
+            except KeyError:
+                continue
+            processed_value[field.attname] = getattr(
+                field, func_name)(field_value, *other_args)
+        return processed_value
+
+    def _save_value_thru_fields(self,
+                                func_name: str,
+                                value: dict,
+                                *other_args):
+        processed_value = {}
+        errors = {}
+        for field in self.model_container._meta.get_fields():
+            try:
+                try:
+                    field_value = value[field.attname]
+                except KeyError:
+                    raise ValidationError(
+                        f'Value for field "{field}" not supplied')
+                processed_value[field.attname] = getattr(
+                    field, func_name)(field_value, *other_args)
+            except ValidationError as e:
+                errors[field.name] = e.error_list
+
+        if errors:
+            e = ValidationError(errors)
+            raise ValidationError(str(e))
+
+        return processed_value
+
+    def _obj_thru_fields(self,
+                         func_name: str,
+                         obj: Model,
+                         *other_args):
+        processed_value = {}
+        for field in self.model_container._meta.get_fields():
+            processed_value[field.attname] = getattr(
+                field, func_name)(obj, *other_args)
+        return processed_value
+
+    def _value_thru_container(self, value):
+        processed_value = {}
+        inst = self.model_container(**value)
+        for field in self.model_container._meta.get_fields():
+            processed_value[field.attname] = getattr(inst, field.attname)
+
+        return processed_value
+
+    def validate(self, value, model_instance, validate_parent=True):
+        if validate_parent:
+            super().validate(value, model_instance)
+
+        if value is None:
+            super().validate(value, model_instance)
+            return
+
+        container_instance = self.model_container(**value)
+        self._value_thru_fields('validate', value, container_instance)
+
+    def value_to_string(self, obj):
+        value = self.value_from_object(obj)
+        if value is None:
+            raise TypeError(f'Type: {type(value)} cannot be serialized')
+
+        container_obj = self.model_container(**value)
+        processed_value = self._obj_thru_fields(
+            'value_to_string', container_obj)
+        return json.dumps(processed_value)
+
+    def value_from_object(self, obj):
+        value = super().value_from_object(obj)
+        if value is None:
+            return None
+
+        container_obj = self.model_container(**value)
+        processed_value = self._obj_thru_fields(
+            'value_from_object', container_obj)
+        return processed_value
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        kwargs['model_container'] = self.model_container
+        return name, path, args, kwargs
+
+    def get_db_prep_save(self, value, connection):
+        if value is None:
+            return None
+
+        if not isinstance(value, self.base_type):
+            raise ValueError(
+                f'Value: {value} must be an instance of {self.base_type}')
+
+        processed_value = self._save_value_thru_fields('get_db_prep_save',
+                                                       value,
+                                                       connection)
+        return processed_value
+
+    def get_prep_value(self, value):
+        if (value is None or
+                not isinstance(value, self.base_type)):
+            return value
+
+        processed_value = self._value_thru_fields('get_prep_value',
+                                                  value)
+        return processed_value
+
+    def from_db_value(self, value, *args):
+        return self.to_python(value)
+
+    def to_python(self, value):
+        """
+        Overrides Django's default to_python to allow correct
+        translation to instance.
+        """
+        if value is None:
+            return None
+
+        if isinstance(value, str):
+            value = json.loads(value)
+
+        if not isinstance(value, self.base_type):
+            raise ValidationError(
+                f'Value: {value} must be an instance of {self.base_type}')
+
+        value = self._value_thru_container(value)
+        processed_value = self._value_thru_fields('to_python', value)
+        return processed_value
+
+
+class DecimalMongoField(DecimalField):
+
+    def get_db_prep_save(self, value, connection):
+        return bson.Decimal128(value)
+
+    def get_prep_value(self, value):
+        print("get_prep_value   ", value)
+        value = super().get_prep_value(value)
+        return bson.Decimal128(self.to_python(value))
+
+class FormedField(ModelField):
+
+    def __init__(self,
+                 model_container: typing.Type[Model],
+                 model_form_class: typing.Type[forms.ModelForm] = None,
+                 model_form_kwargs: dict = None,
+                 *args, **kwargs):
+        super().__init__(model_container, *args, **kwargs)
+        self.model_form_class = model_form_class
+
+        if model_form_kwargs is None:
+            model_form_kwargs = {}
+        self.model_form_kwargs = model_form_kwargs
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        if self.model_form_class is not None:
+            kwargs['model_form_class'] = self.model_form_class
+        if self.model_form_kwargs:
+            kwargs['model_form_kwargs'] = self.model_form_kwargs
+        return name, path, args, kwargs
 
     def formfield(self, **kwargs):
-        defaults = {}
+        defaults = {
+            'form_class': EmbeddedFormField,
+            'model_container': self.model_container,
+            'model_form_class': self.model_form_class,
+            'model_form_kw': self.model_form_kwargs,
+            'name': self.attname
+        }
+
+        defaults.update(kwargs)
         return super().formfield(**defaults)
-
-
-class ListField(FormlessField):
-    """
-    MongoDB allows the saving of python lists as BSON Array type data. The `ListField` is useful in such cases.
-    """
-    empty_strings_allowed = False
-
-    def get_db_prep_value(self, value, connection, prepared=False):
-        if prepared:
-            return value
-        if not isinstance(value, list):
-            raise ValueError(
-                f'Value: {value} must be of type list'
-            )
-        return value
-
-    def to_python(self, value):
-        if not isinstance(value, list):
-            raise ValueError(
-                f'Value: {value} stored in DB must be of type list'
-                'Did you miss any Migrations?'
-            )
-        return value
-
-
-class DictField(FormlessField):
-    """
-    MongoDB allows the saving of python dicts as BSON object type data. The `DictField` is useful in such cases.
-    """
-    empty_strings_allowed = False
-
-    def get_db_prep_value(self, value, connection, prepared=False):
-        if not isinstance(value, dict):
-            raise ValueError(
-                f'Value: {value} must be of type dict'
-            )
-        return value
-
-    def to_python(self, value):
-        if not isinstance(value, dict):
-            raise ValueError(
-                f'Value: {value} stored in DB must be of type dict'
-                'Did you miss any Migrations?'
-            )
-        return value
-
 
 class ArrayModelField(Field):
     """
@@ -221,7 +408,7 @@ class ArrayModelField(Field):
 
         return ret
 
-    def from_db_value(self, value, expression, connection, context):
+    def from_db_value(self, value, expression, connection):
         return self.to_python(value)
 
     def to_python(self, value):
@@ -270,6 +457,80 @@ class ArrayModelField(Field):
             raise ValidationError(errors)
 
 
+class ArrayField(FormedField):
+    """
+    Implements an array of objects inside the document.
+
+    The allowed object type is defined on model declaration. The
+    declared instance will accept a python list of instances of the
+    given model as its contents.
+
+    The model of the container must be declared as abstract, thus should
+    not be treated as a collection of its own.
+    """
+    empty_strings_allowed = False
+    base_type = list
+
+    def _value_thru_container(self, value):
+        post_value = []
+        for _dict in value:
+            post_value.append(super()._value_thru_container(_dict))
+        return post_value
+
+    def _value_thru_fields(self,
+                           func_name: str,
+                           value: typing.Union[list, dict],
+                           *other_args):
+        if isinstance(value, dict):
+            return super()._value_thru_fields(func_name,
+                                              value,
+                                              *other_args)
+
+        processed_value = []
+        for pre_dict in value:
+            post_dict = super()._value_thru_fields(func_name,
+                                                   pre_dict,
+                                                   *other_args)
+            processed_value.append(post_dict)
+        return processed_value
+
+    def _save_value_thru_fields(self,
+                                func_name: str,
+                                value: typing.Union[list, dict],
+                                *other_args):
+        processed_value = []
+        for pre_dict in value:
+            post_dict = super()._save_value_thru_fields(func_name,
+                                                        pre_dict,
+                                                        *other_args)
+            processed_value.append(post_dict)
+        return processed_value
+
+    def value_to_string(self, obj):
+        value = self.value_from_object(obj)
+        processed_value = []
+        for _dict in value:
+            container_obj = self.model_container(**_dict)
+            post_dict = self._obj_thru_fields('value_to_string', container_obj)
+            processed_value.append(post_dict)
+        return json.dumps(processed_value)
+
+    def value_from_object(self, obj):
+        value = getattr(obj, self.attname)
+        processed_value = []
+        for _dict in value:
+            container_obj = self.model_container(**_dict)
+            post_dict = self._obj_thru_fields(
+                'value_from_object', container_obj)
+            processed_value.append(post_dict)
+        return processed_value
+
+    def validate(self, value, model_instance, validate_parent=True):
+        super(ModelField, self).validate(value, model_instance)
+        for _dict in value:
+            super().validate(_dict, model_instance, validate_parent=False)
+
+
 def _get_model_form_class(model_form_class, model_container, admin, request):
     if not model_form_class:
         form_kwargs = dict(
@@ -284,6 +545,14 @@ def _get_model_form_class(model_form_class, model_container, admin, request):
         model_form_class = modelform_factory(model_container, **form_kwargs)
 
     return model_form_class
+
+
+class NestedFormSet(forms.formsets.BaseFormSet):
+    def add_fields(self, form, index):
+        for name, field in form.fields.items():
+            if isinstance(field, ArrayFormField):
+                field.name = '%s-%s' % (form.prefix, name)
+        super(NestedFormSet, self).add_fields(form, index)
 
 
 class ArrayFormField(forms.Field):
@@ -306,7 +575,7 @@ class ArrayFormField(forms.Field):
         }
 
         self.ArrayFormSet = forms.formset_factory(
-            self.model_form_class, can_delete=True)
+            self.model_form_class, formset=NestedFormSet, can_delete=True)
         super().__init__(error_messages=error_messages,
                          widget=widget, *args, **kwargs)
 
@@ -329,7 +598,7 @@ class ArrayFormField(forms.Field):
 
     def has_changed(self, initial, data):
         form_set_initial = []
-        for init in initial:
+        for init in initial or []:
             form_set_initial.append(
                 forms.model_to_dict(
                     init,
@@ -337,7 +606,8 @@ class ArrayFormField(forms.Field):
                     exclude=self.model_form_class._meta.exclude
                 )
             )
-        form_set = self.ArrayFormSet(data, initial=form_set_initial, prefix=self.name)
+        form_set = self.ArrayFormSet(
+            data, initial=form_set_initial, prefix=self.name)
         return form_set.has_changed()
 
     def get_bound_field(self, form, field_name):
@@ -360,7 +630,8 @@ class ArrayFormBoundField(forms.BoundField):
                             exclude=field.model_form_class._meta.exclude
                         ))
 
-        self.form_set = field.ArrayFormSet(data, initial=initial, prefix=name)
+        self.form_set = field.ArrayFormSet(
+            data, initial=initial, prefix=self.html_name)
 
     def __getitem__(self, idx):
         if not isinstance(idx, (int, slice)):
@@ -410,7 +681,13 @@ class ArrayFormWidget(forms.Widget):
         return True
 
 
-class EmbeddedModelField(Field):
+class ModelSubterfuge:
+
+    def __init__(self, embedded_model):
+        self.subterfuge = embedded_model
+
+
+class EmbeddedField(Field):
     """
     Allows for the inclusion of an instance of an abstract model as
     a field inside a document.
@@ -500,11 +777,12 @@ class EmbeddedModelField(Field):
             if not useful_field(fld):
                 continue
             fld_value = getattr(value, fld.attname)
-            mdl_ob[fld.attname] = fld.get_db_prep_value(fld_value, connection, prepared)
+            mdl_ob[fld.attname] = fld.get_db_prep_value(
+                fld_value, connection, prepared)
 
         return mdl_ob
 
-    def from_db_value(self, value, expression, connection, context):
+    def from_db_value(self, value, expression, connection):
         return self.to_python(value)
 
     def to_python(self, value):
@@ -530,6 +808,10 @@ class EmbeddedModelField(Field):
 
         defaults.update(kwargs)
         return super().formfield(**defaults)
+
+
+class EmbeddedField2(FormedField):
+    pass
 
 
 class EmbeddedFormField(forms.MultiValueField):
@@ -563,6 +845,8 @@ class EmbeddedFormField(forms.MultiValueField):
         for field_name, field in self.model_form.fields.items():
             if isinstance(field, (forms.ModelChoiceField, forms.ModelMultipleChoiceField)):
                 continue
+            elif isinstance(field, ArrayFormField):
+                field.name = '%s-%s' % (self.model_form.prefix, field_name)
             form_fields.append(field)
             mdl_form_field_names.append(field_name)
             widgets.append(field.widget)
@@ -577,7 +861,8 @@ class EmbeddedFormField(forms.MultiValueField):
 
     def get_bound_field(self, form, field_name):
         if form.prefix:
-            self.model_form.prefix = '{}-{}'.format(form.prefix, self.model_form.prefix)
+            self.model_form.prefix = '{}-{}'.format(
+                form.prefix, self.model_form.prefix)
         return EmbeddedFormBoundField(form, self, field_name)
 
     def bound_data(self, data, initial):
@@ -595,7 +880,8 @@ class EmbeddedFormBoundField(forms.BoundField):
 
     def __str__(self):
         instance = self.value()
-        model_form = self.field.model_form_class(instance=instance, **self.field.model_form_kwargs)
+        model_form = self.field.model_form_class(
+            instance=instance, **self.field.model_form_kwargs)
 
         return mark_safe(f'<table>\n{ model_form.as_table() }\n</table>')
 
@@ -635,24 +921,39 @@ class EmbeddedFormWidget(forms.MultiWidget):
 
 class ObjectIdFieldMixin:
     description = _("ObjectId")
+    empty_strings_allowed = False
 
     def get_db_prep_value(self, value, connection, prepared=False):
         return self.to_python(value)
 
     def to_python(self, value):
-        if isinstance(value, str):
+        if isinstance(value, str) and value:
             return ObjectId(value)
         return value
 
     def get_internal_type(self):
         return "ObjectIdField"
 
+    def rel_db_type(self, connection):
+        return self.db_type(connection)
+
+    def get_prep_value(self, value):
+        return self.to_python(value)
+
 
 class GenericObjectIdField(ObjectIdFieldMixin, Field):
-    empty_strings_allowed = False
+    pass
 
 
-class ObjectIdField(ObjectIdFieldMixin, AutoField):
+if django_major >= 3:
+    class _ObjectIdField(AutoFieldMixin, GenericObjectIdField, metaclass=AutoFieldMeta):
+        pass
+else:
+    class _ObjectIdField(ObjectIdFieldMixin, AutoField):
+        pass
+
+
+class ObjectIdField(_ObjectIdField, AutoField):
     """
     For every document inserted into a collection MongoDB internally creates an field.
     The field can be referenced from within the Model as _id.
@@ -694,8 +995,10 @@ class ArrayReferenceManagerMixin:
             return self._apply_rel_filters(queryset)
 
     def update_or_create(self, **kwargs):
-        db = router.db_for_write(self.instance.__class__, instance=self.instance)
-        obj, created = super(ArrayReferenceManagerMixin, self.db_manager(db)).update_or_create(**kwargs)
+        db = router.db_for_write(
+            self.instance.__class__, instance=self.instance)
+        obj, created = super(ArrayReferenceManagerMixin,
+                             self.db_manager(db)).update_or_create(**kwargs)
         # We only need to add() if created because if we got an object back
         # from get() then the relationship already exists.
         if created:
@@ -705,8 +1008,10 @@ class ArrayReferenceManagerMixin:
     update_or_create.alters_data = True
 
     def get_or_create(self, **kwargs):
-        db = router.db_for_write(self.instance.__class__, instance=self.instance)
-        obj, created = super(ArrayReferenceManagerMixin, self.db_manager(db)).get_or_create(**kwargs)
+        db = router.db_for_write(
+            self.instance.__class__, instance=self.instance)
+        obj, created = super(ArrayReferenceManagerMixin,
+                             self.db_manager(db)).get_or_create(**kwargs)
         # We only need to add() if created because if we got an object back
         # from get() then the relationship already exists.
         if created:
@@ -716,8 +1021,10 @@ class ArrayReferenceManagerMixin:
     get_or_create.alters_data = True
 
     def create(self, **kwargs):
-        db = router.db_for_write(self.instance.__class__, instance=self.instance)
-        new_obj = super(ArrayReferenceManagerMixin, self.db_manager(db)).create(**kwargs)
+        db = router.db_for_write(
+            self.instance.__class__, instance=self.instance)
+        new_obj = super(ArrayReferenceManagerMixin,
+                        self.db_manager(db)).create(**kwargs)
         self.add(new_obj)
         return new_obj
 
@@ -742,14 +1049,16 @@ def create_reverse_array_reference_manager(superclass, rel):
 
         def __call__(self, *, manager):
             manager = getattr(self.model, manager)
-            manager_class = create_reverse_array_reference_manager(manager.__class__, rel)
+            manager_class = create_reverse_array_reference_manager(
+                manager.__class__, rel)
             return manager_class(instance=self.instance)
 
         do_not_call_in_templates = True
 
         def _apply_rel_filters(self, queryset):
             queryset = super()._apply_rel_filters(queryset)
-            db = self._db or router.db_for_read(self.model, instance=self.instance)
+            db = self._db or router.db_for_read(
+                self.model, instance=self.instance)
             empty_strings_as_null = connections[db].features.interprets_empty_strings_as_nulls
 
             for field in self.field.foreign_related_fields:
@@ -830,7 +1139,8 @@ def create_forward_array_reference_manager(superclass, rel):
 
         def __call__(self, *, manager):
             manager = getattr(self.model, manager)
-            manager_class = create_forward_array_reference_manager(manager.__class__, rel)
+            manager_class = create_forward_array_reference_manager(
+                manager.__class__, rel)
             return manager_class(instance=self.instance)
 
         do_not_call_in_templates = True
@@ -863,7 +1173,8 @@ def create_forward_array_reference_manager(superclass, rel):
                 new_fks.add(getattr(obj, rh_field.get_attname()))
             fks.update(new_fks)
 
-            db = router.db_for_write(self.instance.__class__, instance=self.instance)
+            db = router.db_for_write(
+                self.instance.__class__, instance=self.instance)
             self.instance_manager.db_manager(db).mongo_update(
                 self._make_filter(),
                 {
@@ -889,7 +1200,8 @@ def create_forward_array_reference_manager(superclass, rel):
         def _remove(self, to_del):
             fks = getattr(self.instance, self.field.attname)
             fks.difference_update(to_del)
-            db = self._db or router.db_for_write(self.instance.__class__, instance=self.instance)
+            db = self._db or router.db_for_write(
+                self.instance.__class__, instance=self.instance)
             self.instance_manager.db_manager(db).mongo_update(
                 self._make_filter(),
                 {
@@ -902,7 +1214,8 @@ def create_forward_array_reference_manager(superclass, rel):
             )
 
         def clear(self):
-            db = router.db_for_write(self.instance.__class__, instance=self.instance)
+            db = router.db_for_write(
+                self.instance.__class__, instance=self.instance)
             self.instance_manager.db_manager(db).mongo_update(
                 self._make_filter(),
                 {
@@ -918,7 +1231,8 @@ def create_forward_array_reference_manager(superclass, rel):
         def set(self, objs, *, clear=False):
             objs = tuple(objs)
 
-            db = router.db_for_write(self.through, instance=self.instance)
+            db = router.db_for_write(
+                self.instance.__class__, instance=self.instance)
             with transaction.atomic(using=db, savepoint=False):
                 if clear:
                     self.clear()
@@ -926,7 +1240,8 @@ def create_forward_array_reference_manager(superclass, rel):
                 else:
                     fks = getattr(self.instance, self.field.attname)
                     rh_field = self.field.foreign_related_fields[0]
-                    new_fks = set(getattr(obj, rh_field.get_attname()) for obj in objs)
+                    new_fks = set(getattr(obj, rh_field.get_attname())
+                                  for obj in objs)
                     to_del = fks - new_fks
                     self._remove(to_del)
                     fks = getattr(self.instance, self.field.attname)
@@ -1041,7 +1356,7 @@ class ArrayReferenceField(ForeignKey):
             for obj in sub_objs:
                 getattr(obj, field.name).db_manager(using).remove(*instances)
 
-    def from_db_value(self, value, expression, connection, context):
+    def from_db_value(self, value, expression, connection, context=None):
         return self.to_python(value)
 
     def to_python(self, value):
@@ -1052,21 +1367,35 @@ class ArrayReferenceField(ForeignKey):
     def get_db_prep_value(self, value, connection, prepared=False):
         if value is None:
             return []
+        elif isinstance(value, set):
+            return list(value)
         return value
         # return super().get_db_prep_value(value, connection, prepared)
 
     def get_db_prep_save(self, value, connection):
-        if value is None:
-            return []
-        return list(value)
+        return self.get_db_prep_value(value, connection)
+        # if value is None:
+        #     return []
+        # return list(value)
 
+    def validate(self, value, model_instance):
+        pass
+        # super().validate(list(value), model_instance)
 
-class MongoDecimalField(DecimalField):
-    def to_python(self, value):
-        if isinstance(value, Decimal128):
-            value = self.format_number(value.to_decimal())
-        return super().to_python(value)
+    def save_form_data(self, instance, data):
+        getattr(instance, self.name).set(list(data), clear=True)
 
-    def get_prep_value(self, value):
-        value = super().get_prep_value(value)
-        return "{0:.2f}".format(value)
+    def formfield(self, *, using=None, **kwargs):
+        defaults = {
+            'form_class': forms.ModelMultipleChoiceField,
+            'queryset': self.remote_field.model._default_manager.using(using),
+            **kwargs,
+        }
+        # If initial is passed in, it's a list of related objects, but the
+        # MultipleChoiceField takes a list of IDs.
+        if defaults.get('initial') is not None:
+            initial = defaults['initial']
+            if callable(initial):
+                initial = initial()
+            defaults['initial'] = [i.pk for i in initial]
+        return super().formfield(**defaults)

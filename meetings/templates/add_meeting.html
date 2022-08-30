@@ -141,17 +141,17 @@
             }
         });
         $('#boxWeekendContent select').each(function(){
-            $(this).selectpicker({liveSearch: true});
+            $(this).selectpicker({liveSearch: true, "liveSearchNormalize": true});
         });
         $('#boxMidweekContent select').each(function(){
-            $(this).selectpicker({liveSearch: true});
+            $(this).selectpicker({liveSearch: true, "liveSearchNormalize": true});
         });
         $('select[name=type_meeting]').on('change', function(){
             if($(this).val() == 'w'){
                 $('#boxMidweekContent').hide();
                 $('#boxWeekendContent').show();
             }else{
-                var date = $('#date').val();
+                var date = $('input[name="date"]').val();
                 if(date != ""){
                     $('#spinner-midweek').show();
                     $.ajax({
@@ -212,7 +212,7 @@
             var box = $('#boxTreasuresContentModel').clone();
             box.attr('id', '');
             box.find('select').each(function(){
-                $(this).selectpicker({liveSearch: true});
+                $(this).selectpicker({liveSearch: true, "liveSearchNormalize": true});
             });
             box.find('label[for=id_person_reading]').parent().hide();
             box.show();
@@ -223,7 +223,7 @@
             var box = $('#boxApplyYourselfContentModel').clone();
             box.attr('id', '');
             box.find('select').each(function(){
-                $(this).selectpicker({liveSearch: true});
+                $(this).selectpicker({liveSearch: true, "liveSearchNormalize": true});
             });
             box.show();
             $('#boxApplyYourself').append(box);
@@ -235,7 +235,7 @@
             var box = $('#boxLivingChristiansContentModel').clone();
             box.attr('id', '');
             box.find('select').each(function(){
-                $(this).selectpicker({liveSearch: true});
+                $(this).selectpicker({liveSearch: true, "liveSearchNormalize": true});
             });
             box.show();
             $('#boxLivingChristians').append(box);
@@ -297,7 +297,7 @@
         });
 
         $('form').on('click', '.suggest', function(){
-            var date = $('#date').val();
+            var date = $('input[name="date"]').val();
             var select = $(this).parent().parent().parent().find('select');
             var type = select.attr('name');
             var congregation_id = $("#id_congregation").val();

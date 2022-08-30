@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from bootstrap4.utils import render_tag, add_css_class
 
 from .text import text_value

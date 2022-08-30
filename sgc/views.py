@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.contrib.auth.forms import AuthenticationForm
+from sgc.forms import AuthForm
 from django.contrib.auth import login as auth_login
 from django.shortcuts import HttpResponseRedirect
 
@@ -16,9 +16,9 @@ def home(request):
 def login(request):
     """Make login."""
 
-    form = AuthenticationForm()
+    form = AuthForm(request)
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = AuthForm(request, request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
             next_page = request.GET.get('next', '/')
@@ -28,6 +28,8 @@ def login(request):
             else:
                 next_page = ''
             return HttpResponseRedirect('/' + next_page)
+        else:
+            print(form.errors)
 
     return render(request, 'login.html', {
         'request': request,

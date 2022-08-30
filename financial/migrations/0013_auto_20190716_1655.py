@@ -2,6 +2,7 @@
 
 from django.db import migrations
 import djongo.models.fields
+from django.db.models import DecimalField
 
 
 class Migration(migrations.Migration):
@@ -14,6 +15,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='transaction',
             name='value',
-            field=djongo.models.fields.MongoDecimalField(decimal_places=2, default=0, max_digits=10, verbose_name='Value'),
+            field=DecimalField(
+                decimal_places=2, default=0, max_digits=10, verbose_name='Value'),
         ),
     ]

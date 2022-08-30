@@ -1,25 +1,18 @@
 import string
 from django import forms
-from django.utils.translation import ugettext_lazy as _
-from datetimewidget.widgets import DateWidget
+from django.utils.translation import gettext_lazy as _
 from meetings.models import (
     Meeting, Designations, WeekendContent, MidweekContent, TreasuresContent, ApplyYourselfContent,
     LivingChristiansContent, MeetingAudience, SpeakerOut, Speech)
 from congregations.models import Publisher, Congregation
+from bson.objectid import ObjectId
 
 
 class FormMeeting(forms.ModelForm):
-    def __init__(self, user_profile, language, *args, **kwargs):
-        super(FormMeeting, self).__init__(*args, **kwargs)
-        if language == 'en':
-            self.fields['date'].widget.options['format'] = "YYYY-MM-DD"
-        elif language == 'pt-br':
-            self.fields['date'].widget.options['format'] = "DD/MM/YYYY"
+
     date = forms.DateField(
         label=_("Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        widget=DateWidget(
-            attrs={'id': "date", 'data-format': "YYYY-MM-DD"},
-            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+        widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
 
     class Meta:
         model = Meeting
@@ -27,24 +20,13 @@ class FormMeeting(forms.ModelForm):
 
 
 class FormSearchMeeting(forms.Form):
-    def __init__(self, language, *args, **kwargs):
-        super(FormSearchMeeting, self).__init__(*args, **kwargs)
-        if language == 'en':
-            self.fields['start_date'].widget.options['format'] = "YYYY-MM-DD"
-            self.fields['end_date'].widget.options['format'] = "YYYY-MM-DD"
-        elif language == 'pt-br':
-            self.fields['start_date'].widget.options['format'] = "DD/MM/YYYY"
-            self.fields['end_date'].widget.options['format'] = "DD/MM/YYYY"
+
     start_date = forms.DateField(
         label=_("Start Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        widget=DateWidget(
-            attrs={'id': "start_date", 'data-format': "YYYY-MM-DD"},
-            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+        widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
     end_date = forms.DateField(
         label=_("End Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        widget=DateWidget(
-            attrs={'id': "end_date", 'data-format': "YYYY-MM-DD"},
-            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+        widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
     type_meeting = forms.ChoiceField(
         label=_("Type Meeting"), choices=[('', ''), ('w', _("Weekend")), ('m', _("Midweek"))],
         initial='', required=False)
@@ -57,12 +39,14 @@ class FormWeekendContent(forms.ModelForm):
             tags__in=['ministerial_servant', 'elder'], congregation_id=congregation_id)
         self.fields['reader'].queryset = Publisher.objects.filter(
             tags__in=['reader_w'], congregation_id=congregation_id)
-        self.fields['theme'].choices = [('', '')] + [(x.theme, str(x)) for x in Speech.objects.all().order_by('number')]
+        self.fields['theme'].choices = [
+            ('', '')] + [(x.theme, str(x)) for x in Speech.objects.all().order_by('number')]
     theme = forms.ChoiceField(label=_("Theme"), required=False)
 
     class Meta:
         model = WeekendContent
-        fields = ('president', 'speaker', 'speaker_congregation', 'theme', 'reader')
+        fields = ('president', 'speaker',
+                  'speaker_congregation', 'theme', 'reader')
 
 
 class FormMidweekContent(forms.ModelForm):
@@ -84,7 +68,7 @@ class FormMidweekContent(forms.ModelForm):
 class FormTreasuresContent(forms.ModelForm):
     def __init__(self, congregation_id, *args, **kwargs):
         super(FormTreasuresContent, self).__init__(*args, **kwargs)
-        congregation = Congregation.objects.get(pk=congregation_id)
+        congregation = Congregation.objects.get(pk=ObjectId(congregation_id))
         self.fields['person_treasure'].queryset = Publisher.objects.filter(
             tags__in=['elder', 'ministerial_servant'], congregation_id=congregation_id)
         self.fields['person_reading'].queryset = Publisher.objects.filter(
@@ -93,12 +77,14 @@ class FormTreasuresContent(forms.ModelForm):
             (x.upper(), x.upper()) for x in list(string.ascii_lowercase)[:congregation.n_rooms]]
         if self.instance and self.instance.room_treasure:
             if list(string.ascii_lowercase).index(self.instance.room_treasure.lower()) + 1 > congregation.n_rooms:
-                self.fields["room_treasure"].choices.append((self.instance.room_treasure, self.instance.room_treasure))
+                self.fields["room_treasure"].choices.append(
+                    (self.instance.room_treasure, self.instance.room_treasure))
 
     person_reading = forms.ModelChoiceField(
         label=_("Person Reading"), queryset=Publisher.objects.none(),
         required=False)
-    reading = forms.ChoiceField(label=_("Reading"), choices=[(False, _("No")), (True, _("Yes"))], initial=0)
+    reading = forms.ChoiceField(label=_("Reading"), choices=[
+                                (False, _("No")), (True, _("Yes"))], initial=0)
 
     class Meta:
         model = TreasuresContent
@@ -109,7 +95,7 @@ class FormTreasuresContent(forms.ModelForm):
 class FormApplyYourselfContent(forms.ModelForm):
     def __init__(self, congregation_id, *args, **kwargs):
         super(FormApplyYourselfContent, self).__init__(*args, **kwargs)
-        congregation = Congregation.objects.get(pk=congregation_id)
+        congregation = Congregation.objects.get(pk=ObjectId(congregation_id))
         self.fields['student'].queryset = Publisher.objects.filter(
             tags__in=['student'], congregation_id=congregation_id)
         self.fields['assistant'].queryset = Publisher.objects.filter(
@@ -118,7 +104,8 @@ class FormApplyYourselfContent(forms.ModelForm):
             (x.upper(), x.upper()) for x in list(string.ascii_lowercase)[:congregation.n_rooms]]
         if self.instance and self.instance.room_apply:
             if list(string.ascii_lowercase).index(self.instance.room_apply.lower()) + 1 > congregation.n_rooms:
-                self.fields["room_apply"].choices.append((self.instance.room_apply, self.instance.room_apply))
+                self.fields["room_apply"].choices.append(
+                    (self.instance.room_apply, self.instance.room_apply))
 
     class Meta:
         model = ApplyYourselfContent
@@ -163,73 +150,33 @@ class FormDesignations(forms.ModelForm):
 
 
 class FormGeneratePDF(forms.Form):
-    def __init__(self, language, *args, **kwargs):
-        super(FormGeneratePDF, self).__init__(*args, **kwargs)
-        if language == 'en':
-            self.fields['start_date'].widget.options['format'] = "YYYY-MM-DD"
-            self.fields['end_date'].widget.options['format'] = "YYYY-MM-DD"
-        elif language == 'pt-br':
-            self.fields['start_date'].widget.options['format'] = "DD/MM/YYYY"
-            self.fields['end_date'].widget.options['format'] = "DD/MM/YYYY"
+
     type_pdf = forms.ChoiceField(
         label=_("Type PDF"), choices=[('', ''), ('w', _("Weekend")), ('m', _("Midweek")), ('d', _('Designations'))],
         initial='', required=True)
     start_date = forms.DateField(
         label=_("Start Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        widget=DateWidget(
-            attrs={'id': "start_date", 'data-format': "YYYY-MM-DD"},
-            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+        widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
     end_date = forms.DateField(
         label=_("End Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        widget=DateWidget(
-            attrs={'id': "end_date", 'data-format': "YYYY-MM-DD"},
-            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+        widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
 
 
 class FormSearchMeetingAudience(forms.Form):
-    def __init__(self, language, *args, **kwargs):
-        super(FormSearchMeetingAudience, self).__init__(*args, **kwargs)
-        if language == 'en':
-            self.fields['start_date'].widget.options['format'] = "YYYY-MM-DD"
-            self.fields['end_date'].widget.options['format'] = "YYYY-MM-DD"
-        elif language == 'pt-br':
-            self.fields['start_date'].widget.options['format'] = "DD/MM/YYYY"
-            self.fields['end_date'].widget.options['format'] = "DD/MM/YYYY"
+
     start_date = forms.DateField(
         label=_("Start Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        widget=DateWidget(
-            attrs={'id': "start_date", 'data-format': "YYYY-MM-DD"},
-            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+        widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
     end_date = forms.DateField(
         label=_("End Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        widget=DateWidget(
-            attrs={'id': "end_date", 'data-format': "YYYY-MM-DD"},
-            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+        widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
 
 
 class FormMeetingAudience(forms.ModelForm):
-    def __init__(self, language, *args, **kwargs):
-        super(FormMeetingAudience, self).__init__(*args, **kwargs)
 
-        if language == 'en':
-            self.fields['date'].widget.options['format'] = "YYYY-MM-DD"
-            if self.instance:
-                kwargs.update(initial={
-                    # 'field': 'value'
-                    'date': self.instance.date.strftime("%Y-%m-%d")
-                })
-        elif language == 'pt-br':
-            self.fields['date'].widget.options['format'] = "DD/MM/YYYY"
-            if self.instance and self.instance.date:
-                kwargs.update(initial={
-                    # 'field': 'value'
-                    'date': self.instance.date.strftime("%d/%m/%Y")
-                })
     date = forms.DateField(
         label=_("Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        widget=DateWidget(
-            attrs={'id': "date", 'data-format': "YYYY-MM-DD"},
-            usel10n=True, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+        widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
 
     class Meta:
         model = MeetingAudience
@@ -237,50 +184,24 @@ class FormMeetingAudience(forms.ModelForm):
 
 
 class FormSearchSpeakerOut(forms.Form):
-    def __init__(self, language, *args, **kwargs):
-        super(FormSearchSpeakerOut, self).__init__(*args, **kwargs)
-        if language == 'en':
-            self.fields['start_date'].widget.options['format'] = "YYYY-MM-DD"
-            self.fields['end_date'].widget.options['format'] = "YYYY-MM-DD"
-        elif language == 'pt-br':
-            self.fields['start_date'].widget.options['format'] = "DD/MM/YYYY"
-            self.fields['end_date'].widget.options['format'] = "DD/MM/YYYY"
+
     start_date = forms.DateField(
         label=_("Start Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        widget=DateWidget(
-            attrs={'id': "start_date", 'data-format': "YYYY-MM-DD"},
-            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+        widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
     end_date = forms.DateField(
         label=_("End Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        widget=DateWidget(
-            attrs={'id': "end_date", 'data-format': "YYYY-MM-DD"},
-            usel10n=False, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+        widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
 
 
 class FormSpeakerOut(forms.ModelForm):
-    def __init__(self, congregation_id, language, *args, **kwargs):
+    def __init__(self, congregation_id, *args, **kwargs):
         super(FormSpeakerOut, self).__init__(*args, **kwargs)
         self.fields['speaker'].queryset = Publisher.objects.filter(
             tags__in=['ministerial_servant', 'elder'], congregation_id=congregation_id)
-        if language == 'en':
-            self.fields['date'].widget.options['format'] = "YYYY-MM-DD"
-            if self.instance:
-                kwargs.update(initial={
-                    # 'field': 'value'
-                    'date': self.instance.date.strftime("%Y-%m-%d")
-                })
-        elif language == 'pt-br':
-            self.fields['date'].widget.options['format'] = "DD/MM/YYYY"
-            if self.instance and self.instance.date:
-                kwargs.update(initial={
-                    # 'field': 'value'
-                    'date': self.instance.date.strftime("%d/%m/%Y")
-                })
+
     date = forms.DateField(
         label=_("Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
-        widget=DateWidget(
-            attrs={'id': "date", 'data-format': "YYYY-MM-DD"},
-            usel10n=True, bootstrap_version=4, options={'format': 'YYYY-MM-DD'}))
+        widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
 
     class Meta:
         model = SpeakerOut

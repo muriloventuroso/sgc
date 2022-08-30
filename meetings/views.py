@@ -4,41 +4,40 @@ import re
 import string
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django_tables2.config import RequestConfig
 from django_tables2 import Column
 from meetings.models import (
-    Meeting, TreasuresContent, ApplyYourselfContent, LivingChristiansContent, MeetingAudience, SpeakerOut, CountSpeech)
+    Designations, Meeting, MidweekContent, TreasuresContent, ApplyYourselfContent, LivingChristiansContent, MeetingAudience, SpeakerOut, CountSpeech, WeekendContent)
 from meetings.tables import TableMeetings, TableMeetingAudience, TableSpeakerOut, TableCountSpeech
 from meetings.forms import (
     FormSearchMeeting, FormMeeting, FormDesignations, FormWeekendContent, FormMidweekContent, FormTreasuresContent,
     FormApplyYourselfContent, FormLivingChristiansContent, FormGeneratePDF, FormMeetingAudience,
     FormSearchMeetingAudience, FormSpeakerOut, FormSearchSpeakerOut)
 from congregations.models import Publisher
-from users.models import UserProfile
 from sgc import settings
 from sgc.helpers import redirect_with_next
+from bson.objectid import ObjectId
 
 
 @login_required
 def meetings(request):
-    profile = UserProfile.objects.get(user=request.user)
-    form = FormSearchMeeting(request.LANGUAGE_CODE, request.GET)
+    form = FormSearchMeeting(request.GET)
     filter_m = {}
     if form.is_valid():
         data = form.cleaned_data
         if 'start_date' in data and data['start_date']:
-            filter_m['date__gte'] = data['start_date']
+            filter_m['date__range'] = [data['start_date'], data['end_date']]
         else:
             filter_m['date__gte'] = datetime.datetime.now()
-        if 'end_date' in data and data['end_date']:
-            filter_m['date__lte'] = data['end_date']
+        # if 'end_date' in data and data['end_date']:
+        #     filter_m['date__lte'] = data['end_date']
         if 'type_meeting' in data and data['type_meeting']:
             filter_m['type_meeting'] = data['type_meeting']
     if not request.user.is_staff:
-        filter_m['congregation_id'] = profile.congregation_id
+        filter_m['congregation_id'] = request.user.congregation_id
     data = Meeting.objects.filter(**filter_m)
     table = TableMeetings(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
@@ -52,11 +51,10 @@ def meetings(request):
 
 @login_required
 def add_meeting(request):
-    profile = UserProfile.objects.get(user=request.user)
-    congregation_id = profile.congregation_id
+    congregation_id = request.user.congregation_id
     initital = {'congregation': congregation_id}
     if request.method == 'POST':
-        form = FormMeeting(profile, request.LANGUAGE_CODE, request.POST, initial=initital)
+        form = FormMeeting(request.POST, initial=initital)
         form_designations = FormDesignations(congregation_id, request.POST)
         form_midweekcontent = FormMidweekContent(congregation_id, request.POST)
         form_weekendcontent = FormWeekendContent(congregation_id, request.POST)
@@ -65,35 +63,45 @@ def add_meeting(request):
             meeting.congregation_id = congregation_id
             if form_designations.is_valid():
                 meeting.designations = form_designations.save(commit=False)
-                meeting.designations.attendants_id = request.POST.getlist('attendant')
-                meeting.designations.mic_passers_id = request.POST.getlist('mic_passer')
+                meeting.designations.attendants_id = request.POST.getlist(
+                    'attendant')
+                meeting.designations.mic_passers_id = request.POST.getlist(
+                    'mic_passer')
             if meeting.type_meeting == 'w':
                 if form_weekendcontent.is_valid():
-                    meeting.weekend_content = form_weekendcontent.save(commit=False)
+                    meeting.weekend_content = form_weekendcontent.save(
+                        commit=False)
                     count_speech = CountSpeech.objects.filter(speech__theme=meeting.weekend_content.theme)\
                         .filter(congregation_id=congregation_id).first()
                     if count_speech:
                         if meeting.date.strftime("%d/%m/%y") not in count_speech.dates:
-                            count_speech.dates.append(meeting.date.strftime("%d/%m/%y"))
+                            count_speech.dates.append(
+                                meeting.date.strftime("%d/%m/%y"))
                             count_speech.save()
             else:
                 if form_midweekcontent.is_valid():
-                    meeting.midweek_content = form_midweekcontent.save(commit=False)
+                    meeting.midweek_content = form_midweekcontent.save(
+                        commit=False)
                     meeting.midweek_content.treasures = []
                     meeting.midweek_content.apply_yourself = []
                     meeting.midweek_content.living_christians = []
                     for i, title_treasure in enumerate(request.POST.getlist('title_treasure')):
                         item = TreasuresContent(
                             title_treasure=title_treasure,
-                            room_treasure=request.POST.getlist('room_treasure')[i],
-                            reading=True if str(request.POST.getlist('reading')[i]) == 'True' else False,
-                            duration_treasure=request.POST.getlist('duration_treasure')[i]
+                            room_treasure=request.POST.getlist(
+                                'room_treasure')[i],
+                            reading=True if str(request.POST.getlist(
+                                'reading')[i]) == 'True' else False,
+                            duration_treasure=request.POST.getlist(
+                                'duration_treasure')[i]
                         )
                         if item.reading:
-                            person_reading_id = request.POST.getlist('person_reading')[i]
+                            person_reading_id = request.POST.getlist('person_reading')[
+                                i]
                             item.person_treasure_id = person_reading_id if person_reading_id else None
                         else:
-                            person_treasure_id = request.POST.getlist('person_treasure')[i]
+                            person_treasure_id = request.POST.getlist(
+                                'person_treasure')[i]
                             item.person_treasure_id = person_treasure_id if person_treasure_id else None
                         meeting.midweek_content.treasures.append(item)
                     for i, title_apply in enumerate(request.POST.getlist('title_apply')):
@@ -102,7 +110,8 @@ def add_meeting(request):
                         item = ApplyYourselfContent(
                             title_apply=title_apply,
                             room_apply=request.POST.getlist('room_apply')[i],
-                            duration_apply=request.POST.getlist('duration_apply')[i],
+                            duration_apply=request.POST.getlist(
+                                'duration_apply')[i],
                             student_id=student_id if student_id else None,
                             assistant_id=assistant_id if assistant_id else None,
                         )
@@ -110,10 +119,12 @@ def add_meeting(request):
                         meeting.midweek_content.apply_yourself.append(item)
                     for i, title_living in enumerate(request.POST.getlist('title_living')):
                         reader_id = request.POST.getlist('reader')[i]
-                        person_living_id = request.POST.getlist('person_living')[i]
+                        person_living_id = request.POST.getlist('person_living')[
+                            i]
                         item = LivingChristiansContent(
                             title_living=title_living,
-                            duration_living=request.POST.getlist('duration_living')[i],
+                            duration_living=request.POST.getlist(
+                                'duration_living')[i],
                             person_living_id=person_living_id if person_living_id else None,
                             reader_id=reader_id if reader_id else None,
                         )
@@ -125,7 +136,7 @@ def add_meeting(request):
             return redirect_with_next(request, 'meetings')
 
     else:
-        form = FormMeeting(profile, request.LANGUAGE_CODE, initial=initital)
+        form = FormMeeting(initial=initital)
         form_designations = FormDesignations(congregation_id)
         form_weekendcontent = FormWeekendContent(congregation_id)
         form_midweekcontent = FormMidweekContent(congregation_id)
@@ -138,20 +149,19 @@ def add_meeting(request):
         'form_midweekcontent': form_midweekcontent, 'form_treasurescontent': form_treasurescontent,
         'form_applyyourselfcontent': form_applyyourselfcontent,
         'form_livingchristianscontent': form_livingchristianscontent,
-        'congregation_id': congregation_id, 'range_attendants': range(profile.congregation.n_attendants),
-        'range_mic_passers': range(profile.congregation.n_mic_passers),
+        'congregation_id': congregation_id, 'range_attendants': range(request.user.congregation.n_attendants),
+        'range_mic_passers': range(request.user.congregation.n_mic_passers),
     })
 
 
 @login_required
 def edit_meeting(request, meeting_id):
-    meeting = get_object_or_404(Meeting, pk=meeting_id)
-    profile = UserProfile.objects.get(user=request.user)
+    meeting = get_object_or_404(Meeting, pk=ObjectId(meeting_id))
     meeting.date = meeting.date.strftime('%d/%m/%Y')
     congregation_id = meeting.congregation_id
     initital = {'congregation': congregation_id}
     if request.method == 'POST':
-        form = FormMeeting(profile, request.LANGUAGE_CODE, request.POST, instance=meeting, initial=initital)
+        form = FormMeeting(request.POST, instance=meeting, initial=initital)
         form_designations = FormDesignations(congregation_id, request.POST)
         form_weekendcontent = FormWeekendContent(congregation_id, request.POST)
         form_midweekcontent = FormMidweekContent(congregation_id, request.POST)
@@ -160,43 +170,54 @@ def edit_meeting(request, meeting_id):
             meeting.congregation_id = congregation_id
             if form_designations.is_valid():
                 meeting.designations = form_designations.save(commit=False)
-                meeting.designations.attendants_id = request.POST.getlist('attendant')
-                meeting.designations.mic_passers_id = request.POST.getlist('mic_passer')
+                meeting.designations.attendants_id = request.POST.getlist(
+                    'attendant')
+                meeting.designations.mic_passers_id = request.POST.getlist(
+                    'mic_passer')
             if meeting.type_meeting == 'w':
                 if form_weekendcontent.is_valid():
                     old_theme = meeting.weekend_content.theme
-                    meeting.weekend_content = form_weekendcontent.save(commit=False)
+                    meeting.weekend_content = form_weekendcontent.save(
+                        commit=False)
                     if old_theme != meeting.weekend_content.theme:
                         count_speech = CountSpeech.objects.filter(speech__theme=old_theme)\
                             .filter(congregation_id=congregation_id).first()
                         if count_speech:
                             if meeting.date.strftime("%d/%m/%y") in count_speech.dates:
-                                count_speech.dates.remove(meeting.date.strftime("%d/%m/%y"))
+                                count_speech.dates.remove(
+                                    meeting.date.strftime("%d/%m/%y"))
                                 count_speech.save()
                     count_speech = CountSpeech.objects.filter(speech__theme=meeting.weekend_content.theme)\
                         .filter(congregation_id=congregation_id).first()
                     if count_speech:
                         if meeting.date.strftime("%d/%m/%y") not in count_speech.dates:
-                            count_speech.dates.append(meeting.date.strftime("%d/%m/%y"))
+                            count_speech.dates.append(
+                                meeting.date.strftime("%d/%m/%y"))
                             count_speech.save()
             else:
                 if form_midweekcontent.is_valid():
-                    meeting.midweek_content = form_midweekcontent.save(commit=False)
+                    meeting.midweek_content = form_midweekcontent.save(
+                        commit=False)
                     meeting.midweek_content.treasures = []
                     meeting.midweek_content.apply_yourself = []
                     meeting.midweek_content.living_christians = []
                     for i, title_treasure in enumerate(request.POST.getlist('title_treasure')):
                         item = TreasuresContent(
                             title_treasure=title_treasure,
-                            room_treasure=request.POST.getlist('room_treasure')[i],
-                            reading=True if str(request.POST.getlist('reading')[i]) == 'True' else False,
-                            duration_treasure=request.POST.getlist('duration_treasure')[i]
+                            room_treasure=request.POST.getlist(
+                                'room_treasure')[i],
+                            reading=True if str(request.POST.getlist(
+                                'reading')[i]) == 'True' else False,
+                            duration_treasure=request.POST.getlist(
+                                'duration_treasure')[i]
                         )
                         if item.reading:
-                            person_reading_id = request.POST.getlist('person_reading')[i]
+                            person_reading_id = request.POST.getlist('person_reading')[
+                                i]
                             item.person_treasure_id = person_reading_id if person_reading_id else None
                         else:
-                            person_treasure_id = request.POST.getlist('person_treasure')[i]
+                            person_treasure_id = request.POST.getlist(
+                                'person_treasure')[i]
                             item.person_treasure_id = person_treasure_id if person_treasure_id else None
                         meeting.midweek_content.treasures.append(item)
                     for i, title_apply in enumerate(request.POST.getlist('title_apply')):
@@ -205,7 +226,8 @@ def edit_meeting(request, meeting_id):
                         item = ApplyYourselfContent(
                             title_apply=title_apply,
                             room_apply=request.POST.getlist('room_apply')[i],
-                            duration_apply=request.POST.getlist('duration_apply')[i],
+                            duration_apply=request.POST.getlist(
+                                'duration_apply')[i],
                             student_id=student_id if student_id else None,
                             assistant_id=assistant_id if assistant_id else None,
                         )
@@ -213,10 +235,12 @@ def edit_meeting(request, meeting_id):
                         meeting.midweek_content.apply_yourself.append(item)
                     for i, title_living in enumerate(request.POST.getlist('title_living')):
                         reader_id = request.POST.getlist('reader')[i]
-                        person_living_id = request.POST.getlist('person_living')[i]
+                        person_living_id = request.POST.getlist('person_living')[
+                            i]
                         item = LivingChristiansContent(
                             title_living=title_living,
-                            duration_living=request.POST.getlist('duration_living')[i],
+                            duration_living=request.POST.getlist(
+                                'duration_living')[i],
                             person_living_id=person_living_id if person_living_id else None,
                             reader_id=reader_id if reader_id else None,
                         )
@@ -227,10 +251,13 @@ def edit_meeting(request, meeting_id):
             messages.success(request, _("Meeting edited successfully"))
             return redirect_with_next(request, 'meetings')
     else:
-        form = FormMeeting(profile, request.LANGUAGE_CODE, instance=meeting)
-        form_designations = FormDesignations(congregation_id, instance=meeting.designations)
-        form_weekendcontent = FormWeekendContent(congregation_id, instance=meeting.weekend_content)
-        form_midweekcontent = FormMidweekContent(congregation_id, instance=meeting.midweek_content)
+        form = FormMeeting(instance=meeting)
+        form_designations = FormDesignations(
+            congregation_id, instance=meeting.designations)
+        form_weekendcontent = FormWeekendContent(
+            congregation_id, instance=meeting.weekend_content)
+        form_midweekcontent = FormMidweekContent(
+            congregation_id, instance=meeting.midweek_content)
     list_form_treasurescontent = []
     list_form_applyyourselfcontent = []
     list_form_livingchristianscontent = []
@@ -239,11 +266,14 @@ def edit_meeting(request, meeting_id):
             initial = {}
             if f.reading and f.person_treasure_id:
                 initial['person_reading'] = f.person_treasure
-            list_form_treasurescontent.append(FormTreasuresContent(congregation_id, instance=f, initial=initial))
+            list_form_treasurescontent.append(FormTreasuresContent(
+                congregation_id, instance=f, initial=initial))
         for f in meeting.midweek_content.apply_yourself:
-            list_form_applyyourselfcontent.append(FormApplyYourselfContent(congregation_id, instance=f))
+            list_form_applyyourselfcontent.append(
+                FormApplyYourselfContent(congregation_id, instance=f))
         for f in meeting.midweek_content.living_christians:
-            list_form_livingchristianscontent.append(FormLivingChristiansContent(congregation_id, instance=f))
+            list_form_livingchristianscontent.append(
+                FormLivingChristiansContent(congregation_id, instance=f))
     form_treasurescontent = FormTreasuresContent(congregation_id)
     form_applyyourselfcontent = FormApplyYourselfContent(congregation_id)
     form_livingchristianscontent = FormLivingChristiansContent(congregation_id)
@@ -256,15 +286,15 @@ def edit_meeting(request, meeting_id):
         'list_form_treasurescontent': list_form_treasurescontent,
         'list_form_applyyourselfcontent': list_form_applyyourselfcontent,
         'list_form_livingchristianscontent': list_form_livingchristianscontent,
-        'range_attendants': range(profile.congregation.n_attendants),
-        'range_mic_passers': range(profile.congregation.n_mic_passers),
+        'range_attendants': range(request.user.congregation.n_attendants),
+        'range_mic_passers': range(request.user.congregation.n_mic_passers),
         'meeting': meeting
     })
 
 
 @login_required
 def delete_meeting(request, meeting_id):
-    meeting = get_object_or_404(Meeting, pk=meeting_id)
+    meeting = get_object_or_404(Meeting, pk=ObjectId(meeting_id))
     meeting.delete()
     messages.success(request, _("Meeting deleted successfully"))
     return redirect('meetings')
@@ -276,12 +306,11 @@ def generate_pdf(request):
     from django.template.loader import render_to_string
     from django.http import HttpResponse
     from meetings.helpers import get_page_body
-    profile = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
-        form = FormGeneratePDF(request.LANGUAGE_CODE, request.POST)
+        form = FormGeneratePDF(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            filter_m = {'congregation_id': profile.congregation_id}
+            filter_m = {'congregation_id': request.user.congregation_id}
             rooms = 1
             if data['type_pdf'] == 'd':
                 template = 'pdf/designations.html'
@@ -309,7 +338,7 @@ def generate_pdf(request):
             context = {'meetings': meetings, 'rooms': rooms}
             if data['type_pdf'] == 'w':
                 context['speakers_out'] = SpeakerOut.objects.filter(date__range=[data['start_date'], data['end_date']])\
-                    .filter(congregation_id=profile.congregation_id)
+                    .filter(congregation_id=request.user.congregation_id)
             layout = render_to_string(template, context)
             html = HTML(string=layout)
             main_doc = html.render(stylesheets=[CSS('static/css/pdf.css')])
@@ -318,7 +347,8 @@ def generate_pdf(request):
             header = html.render(stylesheets=[CSS('static/css/pdf.css')])
             header_page = header.pages[0]
             header_body = get_page_body(header_page._page_box.all_children())
-            header_body = header_body.copy_with_children(header_body.all_children())
+            header_body = header_body.copy_with_children(
+                header_body.all_children())
 
             for i, page in enumerate(main_doc.pages):
                 page_body = get_page_body(page._page_box.all_children())
@@ -329,7 +359,7 @@ def generate_pdf(request):
             response['Content-Disposition'] = 'attachment; filename="report.pdf"'
             return response
     else:
-        form = FormGeneratePDF(request.LANGUAGE_CODE)
+        form = FormGeneratePDF()
     return render(request, 'generate_pdf.html', {
         'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Generate PDF"),
     })
@@ -341,17 +371,16 @@ def suggest_publisher(request):
     filter_m = {}
     list_publishers_meetings = []
     list_publishers = []
-    profile = UserProfile.objects.get(user=request.user)
     if 'date' not in request.GET or not request.GET['date']:
-        return HttpResponse(status=401)
+        return HttpResponse(status=400)
     date = datetime.datetime.strptime(request.GET['date'], '%d/%m/%Y')
     filter_m['date__lte'] = date
 
     if 'type' not in request.GET or not request.GET['type']:
-        return HttpResponse(status=401)
+        return HttpResponse(status=400)
 
     if 'congregation_id' not in request.GET or not request.GET['congregation_id']:
-        congregation_id = profile.congregation_id
+        congregation_id = request.user.congregation_id
     else:
         congregation_id = request.GET['congregation_id']
     filter_m['congregation_id'] = congregation_id
@@ -362,9 +391,11 @@ def suggest_publisher(request):
                 tags__in=['soundman'], congregation_id=congregation_id)]
         for meeting in meetings:
             if (
-                    meeting.designations.soundman_id and str(meeting.designations.soundman_id)
+                    meeting.designations.soundman_id and str(
+                        meeting.designations.soundman_id)
                     not in list_publishers_meetings):
-                list_publishers_meetings.append(str(meeting.designations.soundman_id))
+                list_publishers_meetings.append(
+                    str(meeting.designations.soundman_id))
     elif request.GET['type'] == 'attendant':
         list_publishers = [
             (str(p._id), p.full_name) for p in Publisher.objects.filter(
@@ -391,7 +422,8 @@ def suggest_publisher(request):
                 tags__in=['stage'], congregation_id=congregation_id)]
         for meeting in meetings:
             if meeting.designations.stage_id and str(meeting.designations.stage_id) not in list_publishers_meetings:
-                list_publishers_meetings.append(str(meeting.designations.stage_id))
+                list_publishers_meetings.append(
+                    str(meeting.designations.stage_id))
     elif request.GET['type'] == 'reader_w':
         list_publishers = [
             (str(p._id), p.full_name) for p in Publisher.objects.filter(
@@ -400,9 +432,11 @@ def suggest_publisher(request):
             if meeting.type_meeting == 'm':
                 continue
             if (
-                    meeting.weekend_content.reader_id and str(meeting.weekend_content.reader_id)
+                    meeting.weekend_content.reader_id and str(
+                        meeting.weekend_content.reader_id)
                     not in list_publishers_meetings):
-                list_publishers_meetings.append(str(meeting.weekend_content.reader_id))
+                list_publishers_meetings.append(
+                    str(meeting.weekend_content.reader_id))
     elif request.GET['type'] == 'reader_m':
         list_publishers = [
             (str(p._id), p.full_name) for p in Publisher.objects.filter(
@@ -444,8 +478,7 @@ def suggest_meeting(request):
     if request.GET['type'] != 'midweek':
         return HttpResponse(status=401)
 
-    user_profile = UserProfile.objects.select_related('congregation').get(user=request.user)
-    congregation = user_profile.congregation
+    congregation = request.user.congregation
 
     date = datetime.datetime.strptime(request.GET['date'], '%d/%m/%Y')
     url = settings.URL_JW_MEETINGS_PT + date.strftime('%Y/%m/%d')
@@ -455,13 +488,16 @@ def suggest_meeting(request):
     s = BeautifulSoup(plain, "html.parser")
     reading_week = s.find('h2', {'id': 'p2'}).text.capitalize()
     first_song = s.find('p', {'id': 'p3'}).find('a').text.split(' ')[1]
-    second_song = s.find('div', {'id': 'section4'}).findAll('li')[0].find('a').text.split(' ')[1]
-    third_song = s.find('div', {'id': 'section4'}).findAll('li')[-1].find('a').text.split(' ')[1]
+    second_song = s.find('div', {'id': 'section4'}).findAll('li')[
+        0].find('a').text.split(' ')[1]
+    third_song = s.find('div', {'id': 'section4'}).findAll(
+        'li')[-1].find('a').text.split(' ')[1]
     treasures = []
     for t in s.find('div', {'id': 'section2'}).findAll('p', {'class': 'so'}):
         duration = re.search(r'\(([0-9].*\))', t.text).group(1).split(")")[0]
         try:
-            title = t.text[:t.text.index(duration)].strip().rstrip(",.:('").strip().rstrip(",.:('")
+            title = t.text[:t.text.index(duration)].strip().rstrip(
+                ",.:('").strip().rstrip(",.:('")
             if 'Leitura' in title:
                 n_rooms = congregation.n_rooms
                 reading = True
@@ -515,8 +551,7 @@ def suggest_meeting(request):
 
 @login_required
 def meeting_audiences(request):
-    profile = UserProfile.objects.get(user=request.user)
-    form = FormSearchMeetingAudience(request.LANGUAGE_CODE, request.GET)
+    form = FormSearchMeetingAudience(request.GET)
     filter_data = {}
     if form.is_valid():
         data = form.cleaned_data
@@ -527,7 +562,7 @@ def meeting_audiences(request):
         if 'end_date' in data and data['end_date']:
             filter_data['date__lte'] = data['end_date']
     if not request.user.is_staff:
-        filter_data['congregation_id'] = profile.congregation_id
+        filter_data['congregation_id'] = request.user.congregation_id
     data = MeetingAudience.objects.filter(**filter_data)
     table = TableMeetingAudience(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
@@ -541,25 +576,25 @@ def meeting_audiences(request):
 
 def add_meeting_audience(request):
     if request.user.is_authenticated:
-        profile = UserProfile.objects.get(user=request.user)
-        congregation_id = profile.congregation_id
+        congregation_id = request.user.congregation_id
     else:
         if 'congregation_id' in request.GET and request.GET['congregation_id']:
             congregation_id = request.GET['congregation_id']
         else:
             return HttpResponse(status=401)
     if request.method == 'POST':
-        form = FormMeetingAudience(request.LANGUAGE_CODE, request.POST)
+        form = FormMeetingAudience(request.POST)
         if form.is_valid():
             meeting_audience = form.save(commit=False)
             for i, absence in enumerate(request.POST.getlist('absences')):
-                meeting_audience.absences.add(Publisher.objects.get(pk=absence))
+                meeting_audience.absences.add(
+                    Publisher.objects.get(pk=ObjectId(absence)))
             meeting_audience.congregation_id = congregation_id
             meeting_audience.save()
             messages.success(request, _("Meeting Audience added successfully"))
             return redirect_with_next(request, 'meeting_audiences')
     else:
-        form = FormMeetingAudience(request.LANGUAGE_CODE)
+        form = FormMeetingAudience()
     all_publishers = Publisher.objects.filter(congregation_id=congregation_id)
     if request.user.is_authenticated:
         return render(request, 'add_edit_meeting_audience.html', {
@@ -575,21 +610,26 @@ def add_meeting_audience(request):
 
 @login_required
 def edit_meeting_audience(request, meeting_audience_id):
-    meeting_audience = get_object_or_404(MeetingAudience, pk=meeting_audience_id)
+    meeting_audience = get_object_or_404(
+        MeetingAudience, pk=ObjectId(meeting_audience_id))
     if request.method == 'POST':
-        form = FormMeetingAudience(request.LANGUAGE_CODE, request.POST, instance=meeting_audience)
+        form = FormMeetingAudience(request.POST, instance=meeting_audience)
         if form.is_valid():
             meeting_audience = form.save(commit=False)
             meeting_audience.absences.clear()
             for i, absence in enumerate(request.POST.getlist('absences')):
-                meeting_audience.absences.add(Publisher.objects.get(pk=absence))
+                meeting_audience.absences.add(
+                    Publisher.objects.get(pk=ObjectId(absence)))
             meeting_audience.save()
-            messages.success(request, _("Meeting Audience edited successfully"))
+            messages.success(request, _(
+                "Meeting Audience edited successfully"))
             return redirect_with_next(request, 'meeting_audiences')
     else:
-        form = FormMeetingAudience(request.LANGUAGE_CODE, instance=meeting_audience)
-    checked_publishers = [x.pk for x in meeting_audience.absences.get_queryset()]
-    all_publishers = Publisher.objects.filter(congregation_id=meeting_audience.congregation_id)
+        form = FormMeetingAudience(instance=meeting_audience)
+    checked_publishers = [
+        x.pk for x in meeting_audience.absences.get_queryset()]
+    all_publishers = Publisher.objects.filter(
+        congregation_id=meeting_audience.congregation_id)
     return render(request, 'add_edit_meeting_audience.html', {
         'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Edit Meeting Audience"),
         'checked_publishers': checked_publishers, 'all_publishers': all_publishers
@@ -598,7 +638,8 @@ def edit_meeting_audience(request, meeting_audience_id):
 
 @login_required
 def delete_meeting_audience(request, meeting_audience_id):
-    meeting_audience = get_object_or_404(MeetingAudience, pk=meeting_audience_id)
+    meeting_audience = get_object_or_404(
+        MeetingAudience, pk=ObjectId(meeting_audience_id))
     meeting_audience.delete()
     messages.success(request, _("Meeting Audience deleted successfully"))
     return redirect_with_next(request, 'meeting_audiences')
@@ -606,8 +647,7 @@ def delete_meeting_audience(request, meeting_audience_id):
 
 @login_required
 def speakers_out(request):
-    profile = UserProfile.objects.get(user=request.user)
-    form = FormSearchSpeakerOut(request.LANGUAGE_CODE, request.GET)
+    form = FormSearchSpeakerOut(request.GET)
     filter_data = {}
     if form.is_valid():
         data = form.cleaned_data
@@ -618,7 +658,7 @@ def speakers_out(request):
         if 'end_date' in data and data['end_date']:
             filter_data['date__lte'] = data['end_date']
     if not request.user.is_staff:
-        filter_data['congregation_id'] = profile.congregation_id
+        filter_data['congregation_id'] = request.user.congregation_id
     data = SpeakerOut.objects.filter(**filter_data)
     table = TableSpeakerOut(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
@@ -632,11 +672,10 @@ def speakers_out(request):
 
 @login_required
 def add_speaker_out(request):
-    profile = UserProfile.objects.get(user=request.user)
-    congregation_id = profile.congregation_id
+    congregation_id = request.user.congregation_id
 
     if request.method == 'POST':
-        form = FormSpeakerOut(profile.congregation_id, request.LANGUAGE_CODE, request.POST)
+        form = FormSpeakerOut(request.user.congregation_id, request.POST)
         if form.is_valid():
             speaker_out = form.save(commit=False)
             speaker_out.congregation_id = congregation_id
@@ -644,7 +683,7 @@ def add_speaker_out(request):
             messages.success(request, _("Speaker Out added successfully"))
             return redirect_with_next(request, 'speakers_out')
     else:
-        form = FormSpeakerOut(profile.congregation_id, request.LANGUAGE_CODE)
+        form = FormSpeakerOut(request.user.congregation_id)
 
     return render(request, 'add_edit_speaker_out.html', {
         'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Add Speaker Out"),
@@ -653,16 +692,17 @@ def add_speaker_out(request):
 
 @login_required
 def edit_speaker_out(request, speaker_out_id):
-    profile = UserProfile.objects.get(user=request.user)
-    speaker_out = get_object_or_404(SpeakerOut, pk=speaker_out_id)
+    speaker_out = get_object_or_404(SpeakerOut, pk=ObjectId(speaker_out_id))
     if request.method == 'POST':
-        form = FormSpeakerOut(profile.congregation_id, request.LANGUAGE_CODE, request.POST, instance=speaker_out)
+        form = FormSpeakerOut(
+            request.user.congregation_id, request.POST, instance=speaker_out)
         if form.is_valid():
             speaker_out = form.save()
             messages.success(request, _("Speaker Out edited successfully"))
             return redirect_with_next(request, 'speakers_out')
     else:
-        form = FormSpeakerOut(profile.congregation_id, request.LANGUAGE_CODE, instance=speaker_out)
+        form = FormSpeakerOut(request.user.congregation_id,
+                              instance=speaker_out)
     return render(request, 'add_edit_speaker_out.html', {
         'request': request, 'form': form, 'page_group': 'meetings', 'page_title': _("Edit Speaker Out"),
     })
@@ -670,7 +710,7 @@ def edit_speaker_out(request, speaker_out_id):
 
 @login_required
 def delete_speaker_out(request, speaker_out_id):
-    speaker_out = get_object_or_404(SpeakerOut, pk=speaker_out_id)
+    speaker_out = get_object_or_404(SpeakerOut, pk=ObjectId(speaker_out_id))
     speaker_out.delete()
     messages.success(request, _("Speaker Out deleted successfully"))
     return redirect_with_next(request, 'speakers_out')
@@ -678,8 +718,7 @@ def delete_speaker_out(request, speaker_out_id):
 
 @login_required
 def speeches(request):
-    profile = UserProfile.objects.get(user=request.user)
-    data_db = CountSpeech.objects.filter(congregation_id=profile.congregation_id).select_related('speech')\
+    data_db = CountSpeech.objects.filter(congregation_id=request.user.congregation_id).select_related('speech')\
         .order_by('speech__number')
     data = []
     date_keys = []

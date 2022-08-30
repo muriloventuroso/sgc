@@ -7,11 +7,11 @@ from django.forms.utils import flatatt
 from django.template import Variable, VariableDoesNotExist
 from django.template.base import FilterExpression, TemplateSyntaxError, kwarg_re
 from django.template.loader import get_template
-from django.utils import six
+import six
 from django.utils.encoding import force_str
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-from django.utils.six.moves.urllib.parse import (
+from six.moves.urllib.parse import (
     parse_qs,
     urlencode,
     urlparse,
@@ -66,7 +66,8 @@ def parse_token_contents(parser, token):
         for bit in bits:
             match = kwarg_re.match(bit)
             if not match:
-                raise TemplateSyntaxError('Malformed arguments to tag "{}"'.format(tag))
+                raise TemplateSyntaxError(
+                    'Malformed arguments to tag "{}"'.format(tag))
             name, value = match.groups()
             if name:
                 kwargs[name] = parser.compile_filter(value)
@@ -88,7 +89,8 @@ def add_css_class(css_classes, css_class, prepend=False):
     Add a CSS class to a string of CSS classes
     """
     classes_list = split_css_classes(css_classes)
-    classes_to_add = [c for c in split_css_classes(css_class) if c not in classes_list]
+    classes_to_add = [c for c in split_css_classes(
+        css_class) if c not in classes_list]
     if prepend:
         classes_list = classes_to_add + classes_list
     else:
@@ -101,7 +103,8 @@ def remove_css_class(css_classes, css_class):
     Remove a CSS class from a string of CSS classes
     """
     remove = set(split_css_classes(css_class))
-    classes_list = [c for c in split_css_classes(css_classes) if c not in remove]
+    classes_list = [c for c in split_css_classes(
+        css_classes) if c not in remove]
     return " ".join(classes_list)
 
 

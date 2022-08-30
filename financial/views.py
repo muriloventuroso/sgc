@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django_tables2.config import RequestConfig
 from django_tables2 import Column
@@ -16,13 +16,12 @@ from financial.forms import (
     FormMonthlySummary, FormUnverifiedChecks, FormOffTransaction)
 from financial.helpers import TransactionSheetPdf, MonthlyReportPdf
 from sgc.helpers import redirect_with_next
-from users.models import UserProfile
+from bson.objectid import ObjectId
 
 
 @login_required
 def transactions(request):
-    profile = UserProfile.objects.get(user=request.user)
-    form = FormSearchTransaction(request.LANGUAGE_CODE, request.GET)
+    form = FormSearchTransaction(request.GET)
     filter_data = {}
     if form.is_valid():
         data = form.cleaned_data
@@ -41,7 +40,7 @@ def transactions(request):
         if 'td' in data and data['td']:
             filter_data['td'] = data['td']
     if not request.user.is_staff:
-        filter_data['congregation_id'] = profile.congregation_id
+        filter_data['congregation_id'] = request.user.congregation_id
     summary = {}
     data = Transaction.objects.filter(**filter_data).select_related('category')
     new_data = []
@@ -73,7 +72,8 @@ def transactions(request):
                 })
                 if s.tc:
                     if s.tc not in summary:
-                        summary[s.tc] = {'name': s.get_tc_display(), 'value': 0}
+                        summary[s.tc] = {
+                            'name': s.get_tc_display(), 'value': 0}
                     summary[s.tc]['value'] += s.value
     table = TableTransactions(new_data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
@@ -88,7 +88,6 @@ def transactions(request):
 
 @login_required
 def add_transaction(request):
-    profile = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
         transactions = []
         tops = {}
@@ -142,14 +141,14 @@ def add_transaction(request):
                 value=float(value),
                 category_id=transaction['category_id'],
                 sub_transactions=subs,
-                congregation_id=profile.congregation_id,
+                congregation_id=request.user.congregation_id,
                 user_id=request.user.id
             ).save()
 
         messages.success(request, _("Transaction added successfully"))
         return redirect_with_next(request, 'transactions')
     else:
-        form = FormTransaction(request.LANGUAGE_CODE)
+        form = FormTransaction()
     return render(request, 'add_transactions.html', {
         'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Add Transactions")
     })
@@ -157,7 +156,7 @@ def add_transaction(request):
 
 @login_required
 def edit_transaction(request, transaction_id):
-    transaction = get_object_or_404(Transaction, pk=transaction_id)
+    transaction = get_object_or_404(Transaction, pk=ObjectId(transaction_id))
     if request.method == 'POST':
 
         transaction.sub_transactions = []
@@ -192,16 +191,18 @@ def edit_transaction(request, transaction_id):
             else:
                 transaction.sub_transactions.append(SubTransaction(**item))
         if transaction.sub_transactions:
-            transaction.value = sum([float(x.value) for x in transaction.sub_transactions])
+            transaction.value = sum([float(x.value)
+                                    for x in transaction.sub_transactions])
         transaction.save()
         messages.success(request, _("Transaction edited successfully"))
         return redirect_with_next(request, 'transactions')
 
-    form = FormTransaction(request.LANGUAGE_CODE, instance=transaction)
-    new_form = FormTransaction(request.LANGUAGE_CODE)
+    form = FormTransaction(instance=transaction)
+    new_form = FormTransaction()
     sub_transactions = []
     for s in transaction.sub_transactions:
-        sub_transactions.append(FormTransaction(request.LANGUAGE_CODE, instance=s))
+        sub_transactions.append(FormTransaction(
+            instance=s))
     return render(request, 'edit_transaction.html', {
         'request': request, 'form': form, 'page_group': 'financial', 'page_title': _("Edit Transaction"),
         'transaction': transaction, 'new_form': new_form, 'sub_transactions': sub_transactions
@@ -210,7 +211,7 @@ def edit_transaction(request, transaction_id):
 
 @login_required
 def delete_transaction(request, transaction_id):
-    transaction = get_object_or_404(Transaction, pk=transaction_id)
+    transaction = get_object_or_404(Transaction, pk=ObjectId(transaction_id))
     transaction.delete()
     messages.success(request, _("Transaction deleted successfully"))
     return redirect_with_next(request, 'transactions')
@@ -218,9 +219,8 @@ def delete_transaction(request, transaction_id):
 
 @login_required
 def generate_pdf(request):
-    profile = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
-        form = FormGeneratePDF(request.LANGUAGE_CODE, request.POST)
+        form = FormGeneratePDF(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             if data['type_pdf'] == 's26':
@@ -234,26 +234,32 @@ def generate_pdf(request):
                 formOffTransaction = FormOffTransaction(request.POST)
                 if formOffTransaction.is_valid():
                     data_off = formOffTransaction.cleaned_data
-                s26 = TransactionSheetPdf(data['month'], data['balance'], profile.congregation_id, checks, data_off)
+                s26 = TransactionSheetPdf(
+                    data['month'], data['balance'], request.user.congregation_id, checks, data_off)
                 s26.generate()
                 pdf_file = s26.save()
 
-                response = HttpResponse(pdf_file, content_type='application/pdf')
-                response['Content-Disposition'] = 'attachment; filename="' + str(_("Transaction Sheet")) + '.pdf"'
+                response = HttpResponse(
+                    pdf_file, content_type='application/pdf')
+                response['Content-Disposition'] = 'attachment; filename="' + \
+                    str(_("Transaction Sheet")) + '.pdf"'
                 return response
             elif data['type_pdf'] == 's30':
-                s30 = MonthlyReportPdf(data['month'], data['balance'], profile.congregation_id)
+                s30 = MonthlyReportPdf(
+                    data['month'], data['balance'], request.user.congregation_id)
                 s30.generate()
                 pdf_file = s30.save()
 
-                response = HttpResponse(pdf_file, content_type='application/pdf')
-                response['Content-Disposition'] = 'attachment; filename="' + str(_("Monthly Report")) + '.pdf"'
+                response = HttpResponse(
+                    pdf_file, content_type='application/pdf')
+                response['Content-Disposition'] = 'attachment; filename="' + \
+                    str(_("Monthly Report")) + '.pdf"'
                 return response
         else:
             print(form.errors)
 
     else:
-        form = FormGeneratePDF(request.LANGUAGE_CODE)
+        form = FormGeneratePDF()
     formChecks = FormUnverifiedChecks()
     formOffTransaction = FormOffTransaction()
     return render(request, 'pdf_financial.html', {
@@ -264,7 +270,6 @@ def generate_pdf(request):
 
 @login_required
 def transactioncategories(request):
-    profile = UserProfile.objects.get(user=request.user)
     form = FormSearchTransactionCategory(request.GET)
     filter_data = {}
     if form.is_valid():
@@ -272,7 +277,7 @@ def transactioncategories(request):
         if 'name' in data and data['name']:
             filter_data['name__icontains'] = data['name']
     if not request.user.is_staff:
-        filter_data['congregation_id'] = profile.congregation_id
+        filter_data['congregation_id'] = request.user.congregation_id
     data = TransactionCategory.objects.filter(**filter_data)
     table = TableTransactionCategories(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
@@ -286,15 +291,15 @@ def transactioncategories(request):
 
 @login_required
 def add_transactioncategory(request):
-    profile = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
         form = FormTransactionCategory(request.POST)
         if form.is_valid():
             transactioncategory = form.save(commit=False)
-            transactioncategory.congregation_id = profile.congregation_id
+            transactioncategory.congregation_id = request.user.congregation_id
             transactioncategory.user = request.user
             transactioncategory.save()
-            messages.success(request, _("Transaction Category added successfully"))
+            messages.success(request, _(
+                "Transaction Category added successfully"))
             return redirect_with_next(request, 'transactioncategories')
     else:
         form = FormTransactionCategory()
@@ -305,12 +310,15 @@ def add_transactioncategory(request):
 
 @login_required
 def edit_transactioncategory(request, category_id):
-    transactioncategory = get_object_or_404(TransactionCategory, pk=category_id)
+    transactioncategory = get_object_or_404(
+        TransactionCategory, pk=ObjectId(category_id))
     if request.method == 'POST':
-        form = FormTransactionCategory(request.POST, instance=transactioncategory)
+        form = FormTransactionCategory(
+            request.POST, instance=transactioncategory)
         if form.is_valid():
             form.save()
-            messages.success(request, _("Transaction Category edited successfully"))
+            messages.success(request, _(
+                "Transaction Category edited successfully"))
             return redirect_with_next(request, 'transactioncategories')
     else:
         form = FormTransactionCategory(instance=transactioncategory)
@@ -321,7 +329,8 @@ def edit_transactioncategory(request, category_id):
 
 @login_required
 def delete_transactioncategory(request, category_id):
-    transactioncategory = get_object_or_404(TransactionCategory, pk=category_id)
+    transactioncategory = get_object_or_404(
+        TransactionCategory, pk=ObjectId(category_id))
     transactioncategory.delete()
     messages.success(request, _("Transaction Category deleted successfully"))
     return redirect_with_next(request, 'transactioncategories')
@@ -329,19 +338,21 @@ def delete_transactioncategory(request, category_id):
 
 @login_required
 def monthly_summary(request):
-    profile = UserProfile.objects.get(user=request.user)
-    form = FormMonthlySummary(request.LANGUAGE_CODE, request.GET)
+    form = FormMonthlySummary(request.GET)
     filter_data = {}
     if form.is_valid():
         data = form.cleaned_data
         if 'month' in data and data['month']:
-            start_date = datetime.datetime.combine(data['month'], datetime.time.min)
-            last_day = calendar.monthrange(start_date.year, start_date.month)[1]
-            end_date = datetime.datetime.combine(start_date.replace(day=last_day), datetime.time.max)
+            start_date = datetime.datetime.combine(
+                data['month'], datetime.time.min)
+            last_day = calendar.monthrange(
+                start_date.year, start_date.month)[1]
+            end_date = datetime.datetime.combine(
+                start_date.replace(day=last_day), datetime.time.max)
             filter_data["date__range"] = [start_date, end_date]
 
     if not request.user.is_staff:
-        filter_data['congregation_id'] = profile.congregation_id
+        filter_data['congregation_id'] = request.user.congregation_id
     data_db = MonthlySummary.objects.filter(**filter_data)
     data = []
     extra_columns = []
@@ -372,21 +383,23 @@ def monthly_summary(request):
 
 @login_required
 def confrontation(request):
-    profile = UserProfile.objects.get(user=request.user)
-    form = FormMonthlySummary(request.LANGUAGE_CODE, request.GET)
+    form = FormMonthlySummary(request.GET)
     count = None
     if request.GET:
         if form.is_valid():
             data = form.cleaned_data
             if 'month' in data and data['month']:
-                start_date = datetime.datetime.combine(data['month'], datetime.time.min)
-                last_day = calendar.monthrange(start_date.year, start_date.month)[1]
-                end_date = datetime.datetime.combine(start_date.replace(day=last_day), datetime.time.max)
+                start_date = datetime.datetime.combine(
+                    data['month'], datetime.time.min)
+                last_day = calendar.monthrange(
+                    start_date.year, start_date.month)[1]
+                end_date = datetime.datetime.combine(
+                    start_date.replace(day=last_day), datetime.time.max)
                 data_db = list(Transaction.objects.mongo_aggregate([
 
                     {"$match": {
                         "date": {"$gte": start_date, '$lte': end_date},
-                        "congregation_id": profile.congregation_id,
+                        "congregation_id": request.user.congregation_id,
                         "hide_from_sheet": False}},
                     {
                         "$group": {
@@ -419,7 +432,7 @@ def confrontation(request):
                     {"$match": {
                         "sub_transactions.description": "",
                         "date": {"$gte": start_date, '$lte': end_date},
-                        "congregation_id": profile.congregation_id,
+                        "congregation_id": request.user.congregation_id,
                         "hide_from_sheet": False}},
                     {
                         "$group": {
@@ -428,8 +441,10 @@ def confrontation(request):
                                 "$sum": {
                                     "$cond": [
                                         {"$and": [
-                                            {"$eq": ["$sub_transactions.td", "I"]},
-                                            {"$eq": ["$sub_transactions.tt", "R"]}
+                                            {"$eq": [
+                                                "$sub_transactions.td", "I"]},
+                                            {"$eq": [
+                                                "$sub_transactions.tt", "R"]}
                                         ]}, "$sub_transactions.value", 0]
                                 }
                             },
@@ -437,8 +452,10 @@ def confrontation(request):
                                 "$sum": {
                                     "$cond": [
                                         {"$and": [
-                                            {"$eq": ["$sub_transactions.td", "O"]},
-                                            {"$eq": ["$sub_transactions.tt", "R"]}
+                                            {"$eq": [
+                                                "$sub_transactions.td", "O"]},
+                                            {"$eq": [
+                                                "$sub_transactions.tt", "R"]}
                                         ]}, "$sub_transactions.value", 0]
                                 }
                             },
@@ -446,8 +463,10 @@ def confrontation(request):
                                 "$sum": {
                                     "$cond": [
                                         {"$and": [
-                                            {"$eq": ["$sub_transactions.td", "I"]},
-                                            {"$eq": ["$sub_transactions.tt", "C"]}
+                                            {"$eq": [
+                                                "$sub_transactions.td", "I"]},
+                                            {"$eq": [
+                                                "$sub_transactions.tt", "C"]}
                                         ]}, "$sub_transactions.value", 0]
                                 }
                             },
@@ -455,8 +474,10 @@ def confrontation(request):
                                 "$sum": {
                                     "$cond": [
                                         {"$and": [
-                                            {"$eq": ["$sub_transactions.td", "O"]},
-                                            {"$eq": ["$sub_transactions.tt", "C"]}
+                                            {"$eq": [
+                                                "$sub_transactions.td", "O"]},
+                                            {"$eq": [
+                                                "$sub_transactions.tt", "C"]}
                                         ]}, "$sub_transactions.value", 0]
                                 }
                             },
@@ -481,7 +502,7 @@ def confrontation(request):
                     count['receipts_final_balance'] = (
                         count['sum_receipts_in'] - count['sum_receipts_out'])
                     summary = MonthlySummary.objects.filter(
-                        congregation_id=profile.congregation_id,
+                        congregation_id=request.user.congregation_id,
                         date__range=[
                             start_date - relativedelta(months=1),
                             end_date - relativedelta(months=1)]).first()

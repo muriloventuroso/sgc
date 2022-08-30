@@ -21,7 +21,8 @@ from django.forms import (
     CheckboxSelectMultiple,
 )
 from django.forms.widgets import SelectDateWidget
-from django.forms.forms import BaseForm, BoundField
+from django.forms.forms import BaseForm
+from django.forms import BoundField
 from django.forms.formsets import BaseFormSet
 from django.utils.html import conditional_escape, escape, strip_tags
 from django.utils.safestring import mark_safe
@@ -47,7 +48,8 @@ class BaseRenderer(object):
 
     def __init__(self, *args, **kwargs):
         self.layout = kwargs.get("layout", "")
-        self.form_group_class = kwargs.get("form_group_class", FORM_GROUP_CLASS)
+        self.form_group_class = kwargs.get(
+            "form_group_class", FORM_GROUP_CLASS)
         self.field_class = kwargs.get("field_class", "")
         self.label_class = kwargs.get("label_class", "")
         self.show_help = kwargs.get("show_help", True)
@@ -57,10 +59,12 @@ class BaseRenderer(object):
         self.set_placeholder = kwargs.get("set_placeholder", True)
         self.size = self.parse_size(kwargs.get("size", ""))
         self.horizontal_label_class = kwargs.get(
-            "horizontal_label_class", get_bootstrap_setting("horizontal_label_class")
+            "horizontal_label_class", get_bootstrap_setting(
+                "horizontal_label_class")
         )
         self.horizontal_field_class = kwargs.get(
-            "horizontal_field_class", get_bootstrap_setting("horizontal_field_class")
+            "horizontal_field_class", get_bootstrap_setting(
+                "horizontal_field_class")
         )
 
     def parse_size(self, size):
@@ -159,7 +163,8 @@ class FormRenderer(BaseRenderer):
 
     def __init__(self, form, *args, **kwargs):
         if not isinstance(form, BaseForm):
-            raise BootstrapError('Parameter "form" should contain a valid Django Form.')
+            raise BootstrapError(
+                'Parameter "form" should contain a valid Django Form.')
         self.form = form
         super(FormRenderer, self).__init__(*args, **kwargs)
         self.error_css_class = kwargs.get("error_css_class", None)
@@ -292,7 +297,8 @@ class FieldRenderer(BaseRenderer):
             self.error_css_class = error_css_class
         else:
             self.error_css_class = getattr(
-                field.form, "error_css_class", get_bootstrap_setting("error_css_class")
+                field.form, "error_css_class", get_bootstrap_setting(
+                    "error_css_class")
             )
         if required_css_class is not None:
             self.required_css_class = required_css_class
@@ -326,7 +332,8 @@ class FieldRenderer(BaseRenderer):
             widget, ReadOnlyPasswordHashWidget
         ):
             # Render this is a static control
-            classes = add_css_class(classes, "form-control-static", prepend=True)
+            classes = add_css_class(
+                classes, "form-control-static", prepend=True)
         elif not isinstance(widget, self.WIDGETS_NO_FORM_CONTROL):
             classes = add_css_class(classes, "form-control", prepend=True)
             # For these widget types, add the size class here
@@ -445,7 +452,8 @@ class FieldRenderer(BaseRenderer):
         if isinstance(self.widget, CheckboxInput):
             # Wrap checkboxes
             # Note checkboxes do not get size classes, see #318
-            html = '<div class="form-check">{content}</div>'.format(content=html)
+            html = '<div class="form-check">{content}</div>'.format(
+                content=html)
         return html
 
     def make_input_group_addon(self, inner_class, outer_class, content):
@@ -563,14 +571,16 @@ class FieldRenderer(BaseRenderer):
         form_group_class = self.form_group_class
         if self.field.errors:
             if self.error_css_class:
-                form_group_class = add_css_class(form_group_class, self.error_css_class)
+                form_group_class = add_css_class(
+                    form_group_class, self.error_css_class)
         else:
             if self.field.form.is_bound:
                 form_group_class = add_css_class(
                     form_group_class, self.success_css_class
                 )
         if self.field.field.required and self.required_css_class:
-            form_group_class = add_css_class(form_group_class, self.required_css_class)
+            form_group_class = add_css_class(
+                form_group_class, self.required_css_class)
         if self.layout == "horizontal":
             form_group_class = add_css_class(form_group_class, "row")
         return form_group_class
@@ -608,7 +618,8 @@ class InlineFieldRenderer(FieldRenderer):
 
     def add_error_attrs(self):
         field_title = self.widget.attrs.get("title", "")
-        field_title += " " + " ".join([strip_tags(e) for e in self.field_errors])
+        field_title += " " + " ".join([strip_tags(e)
+                                      for e in self.field_errors])
         self.widget.attrs["title"] = field_title.strip()
 
     def add_widget_attrs(self):

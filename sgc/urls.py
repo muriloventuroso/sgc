@@ -37,7 +37,7 @@ if settings.ADMIN_ENABLED:
         path('admin/', admin.site.urls)
     )
 
-if 'rosetta' in settings.INSTALLED_APPS:
-    urlpatterns += i18n_patterns(
-        path('rosetta/', include('rosetta.urls'))
-    )
+# if 'rosetta' in settings.INSTALLED_APPS:
+#     urlpatterns += i18n_patterns(
+#         path('rosetta/', include('rosetta.urls'))
+#     )

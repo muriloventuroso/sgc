@@ -1,14 +1,16 @@
-from django.db.models import __all__ as models_all
+from django.db.models import __all__ as django_models
 from django.db.models import *
 
 from .fields import (
-    ArrayModelField, ListField, DjongoManager,
-    EmbeddedModelField, ArrayReferenceField, ObjectIdField,
-    GenericObjectIdField, DictField, MongoDecimalField
+    ArrayField, DjongoManager,
+    EmbeddedField, ArrayReferenceField, ObjectIdField,
+    GenericObjectIdField, JSONField, MongoField, ArrayModelField,
+    DecimalMongoField
 )
 
-__all__ = models_all + [
-    'DjongoManager', 'ListField', 'ArrayModelField',
-    'EmbeddedModelField', 'ArrayReferenceField', 'ObjectIdField',
-    'GenericObjectIdField', 'DictField', 'MongoDecimalField'
+__all__ = django_models + [
+    'DjongoManager', 'ArrayField',
+    'EmbeddedField', 'ArrayReferenceField', 'ObjectIdField',
+    'GenericObjectIdField', 'JSONField', 'MongoField', 'ArrayModelField',
+    'DecimalMongoField'
 ]
