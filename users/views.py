@@ -42,7 +42,10 @@ def add_user(request):
     if request.method == 'POST':
         form = FormUser(request.user.is_staff, request.POST)
         if form.is_valid():
+            data = form.cleaned_data
             user = form.save()
+            user.set_password(data['password'])
+            user.save()
             messages.success(request, _("User added successfully"))
             return redirect_with_next(request, 'users')
     else:

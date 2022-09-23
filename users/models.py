@@ -35,3 +35,7 @@ class User(AbstractBaseUser):
         verbose_name = _('user')
         verbose_name_plural = _('users')
         ordering = ['email']
+
+    @property
+    def username(self):
+        return self.email
