@@ -25,10 +25,45 @@
     <form id="form" action"." method="post" class="form-horizontal"autocomplete=off>
 
         {% csrf_token %}
-        {% bootstrap_form form %}
+        {% bootstrap_field form.date %}
+        {% bootstrap_field form.congregation_dest %}
+        {% bootstrap_field form.speaker %}
+        <div id="boxTheme" class="row">
+            <div class="col-lg-11">
+                <div id="themeList">
+                    {% bootstrap_field form.theme %}
+                </div>
+                <div id="themeStr" style="display:none">
+                    {% bootstrap_field form.theme_str %}
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <button id="btnChangeTheme" type="button" class="btn btn-success" style="margin-top: 30px;"><i class="fa fa-edit"></i></button>
+            </div>
+        </div>
 
-        <button id="submit" class="btn btn-primary pull-right" type="submit">{% trans 'Send' %}</button>
+        <button id="submit"  class="btn btn-primary pull-right" type="submit">{% trans 'Send' %}</button>
     </form>
 </div>
 
+{% endblock %}
+{% block extrajs %}
+<script>
+    $(document).ready(function() {
+        $('#btnChangeTheme').on('click', function(){
+            if($('#themeList').is(":visible")){
+                $('#themeList').hide();
+                $('#themeStr').show();
+            }else{
+                $('#themeStr').find('input').val("");
+                $('#themeList').show();
+                $('#themeStr').hide();
+            }
+        });
+        if($('#themeStr').find('input').val() != "" && $('#themeList').find('select').val() == ""){
+            $('#themeList').hide();
+            $('#themeStr').show();
+        }
+    });
+</script>
 {% endblock %}

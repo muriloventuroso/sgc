@@ -41,7 +41,15 @@ class FormWeekendContent(forms.ModelForm):
             tags__in=['reader_w'], congregation_id=congregation_id)
         self.fields['theme'].choices = [
             ('', '')] + [(x.theme, str(x)) for x in Speech.objects.all().order_by('number')]
+        if self.instance and hasattr(self.instance, "theme"):
+            self.initial["theme_str"] = self.instance.theme
     theme = forms.ChoiceField(label=_("Theme"), required=False)
+    theme_str = forms.CharField(label=_("Theme"), required=False)
+
+    def clean(self):
+        if self.cleaned_data["theme_str"]:
+            self.cleaned_data["theme"] = self.cleaned_data["theme_str"]
+        return self.cleaned_data
 
     class Meta:
         model = WeekendContent
@@ -198,10 +206,21 @@ class FormSpeakerOut(forms.ModelForm):
         super(FormSpeakerOut, self).__init__(*args, **kwargs)
         self.fields['speaker'].queryset = Publisher.objects.filter(
             tags__in=['ministerial_servant', 'elder'], congregation_id=congregation_id)
+        self.fields['theme'].choices = [
+            ('', '')] + [(x.theme, str(x)) for x in Speech.objects.all().order_by('number')]
+        if self.instance and hasattr(self.instance, "theme"):
+            self.initial["theme_str"] = self.instance.theme
+    theme = forms.ChoiceField(label=_("Theme"), required=False)
+    theme_str = forms.CharField(label=_("Theme"), required=False)
 
     date = forms.DateField(
         label=_("Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
         widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
+
+    def clean(self):
+        if self.cleaned_data["theme_str"]:
+            self.cleaned_data["theme"] = self.cleaned_data["theme_str"]
+        return self.cleaned_data
 
     class Meta:
         model = SpeakerOut

@@ -31,7 +31,19 @@
                     {% bootstrap_field form_weekendcontent.president %}
                     {% bootstrap_field form_weekendcontent.speaker %}
                     {% bootstrap_field form_weekendcontent.speaker_congregation %}
-                    {% bootstrap_field form_weekendcontent.theme %}
+                    <div id="boxTheme" class="row">
+                        <div class="col-lg-11">
+                            <div id="themeList">
+                                {% bootstrap_field form_weekendcontent.theme %}
+                            </div>
+                            <div id="themeStr" style="display:none">
+                                {% bootstrap_field form_weekendcontent.theme_str %}
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <button id="btnChangeTheme" type="button" class="btn btn-success" style="margin-top: 30px;"><i class="fa fa-edit"></i></button>
+                        </div>
+                    </div>
                     {% bootstrap_field form_weekendcontent.reader addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
                 </div>
             </div>
@@ -160,6 +172,20 @@
 {% block extrajs %}
 <script>
     $(document).ready(function() {
+        $('#btnChangeTheme').on('click', function(){
+            if($('#themeList').is(":visible")){
+                $('#themeList').hide();
+                $('#themeStr').show();
+            }else{
+                $('#themeStr').find('input').val("");
+                $('#themeList').show();
+                $('#themeStr').hide();
+            }
+        });
+        if($('#themeStr').find('input').val() != "" && $('#themeList').find('select').val() == ""){
+            $('#themeList').hide();
+            $('#themeStr').show();
+        }
         $('form').on('submit', function(){
             if($('select[name="type_meeting"]').val() == 'w'){
                 $('#boxMidweekContent').remove();

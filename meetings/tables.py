@@ -5,7 +5,8 @@ from meetings.models import Meeting, MeetingAudience, SpeakerOut, CountSpeech
 
 class TableMeetings(tables.Table):
 
-    alter = tables.TemplateColumn(template_name='actions_table_meetings.html', verbose_name=_("Alter"))
+    alter = tables.TemplateColumn(
+        template_name='actions_table_meetings.html', verbose_name=_("Alter"))
 
     class Meta(object):
         attrs = {"class": "table"}
@@ -15,7 +16,8 @@ class TableMeetings(tables.Table):
 
 class TableMeetingAudience(tables.Table):
 
-    alter = tables.TemplateColumn(template_name='actions_table_meeting_audiences.html', verbose_name=_('Alter'))
+    alter = tables.TemplateColumn(
+        template_name='actions_table_meeting_audiences.html', verbose_name=_('Alter'))
 
     class Meta(object):
         attrs = {"class": "table"}
@@ -25,12 +27,13 @@ class TableMeetingAudience(tables.Table):
 
 class TableSpeakerOut(tables.Table):
 
-    alter = tables.TemplateColumn(template_name='actions_table_speakers_out.html', verbose_name=_('Alter'))
+    alter = tables.TemplateColumn(
+        template_name='actions_table_speakers_out.html', verbose_name=_('Alter'))
 
     class Meta(object):
         attrs = {"class": "table"}
         model = SpeakerOut
-        fields = ('date', 'speaker', 'congregation_dest')
+        fields = ('date', 'speaker', 'theme', 'congregation_dest')
 
 
 class TableCountSpeech(tables.Table):
