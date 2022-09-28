@@ -21,7 +21,7 @@ django-rosetta==0.8.1
 django-tables2==2.4.1
 dnspython==1.16.0
 gunicorn==19.9.0
-html5lib==1.0.1
+html5lib==1.1
 idna==2.7
 joblib==1.1.0
 microsofttranslator==0.8
@@ -47,13 +47,13 @@ scipy==1.9.0
 six==1.11.0
 soupsieve==1.8
 sqlparse==0.4.2
-tinycss2==0.6.1
+tinycss2==1.1.1
 toml==0.10.2
 tqdm==4.64.0
 typing==3.6.6
 uhashring==1.1
 urllib3==1.23
 waitress==1.3.1
-WeasyPrint==0.42.3
+weasyprint==56.1
 webencodings==0.5.1
 whitenoise==6.2.0
