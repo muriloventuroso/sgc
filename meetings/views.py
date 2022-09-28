@@ -28,12 +28,12 @@ def meetings(request):
     filter_m = {}
     if form.is_valid():
         data = form.cleaned_data
-        if 'start_date' in data and data['start_date']:
-            filter_m['date__range'] = [data['start_date'], data['end_date']]
+        if data.get('start_date'):
+            filter_m['date__gte'] = data['start_date']
         else:
             filter_m['date__gte'] = datetime.datetime.now()
-        # if 'end_date' in data and data['end_date']:
-        #     filter_m['date__lte'] = data['end_date']
+        if data.get('end_date'):
+            filter_m['date__lte'] = data['end_date']
         if 'type_meeting' in data and data['type_meeting']:
             filter_m['type_meeting'] = data['type_meeting']
     if not request.user.is_staff:

@@ -24,7 +24,6 @@ class FormSearchTransaction(forms.Form):
     end_date = forms.DateField(
         label=_("End Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],
         widget=forms.widgets.DateInput(attrs={'class': 'date-field'}))
-    description = forms.CharField(label=_("Description"), required=False)
     tc = forms.ChoiceField(label=_("Transaction Code"), choices=[
                            ('', ''), ] + TRANSACTION_CODE, required=False)
     tt = forms.ChoiceField(label=_("Transaction Type"), choices=[
