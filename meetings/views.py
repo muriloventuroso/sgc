@@ -323,7 +323,7 @@ def generate_pdf(request):
                 template = 'pdf/midweek.html'
                 template_header = 'pdf/header_midweek.html'
                 filter_m['type_meeting'] = 'm'
-            meetings = Meeting.objects.filter(date__range=[data['start_date'], data['end_date']]).filter(**filter_m)\
+            meetings = Meeting.objects.filter(date__gte=data['start_date'], date__lt=data['end_date']).filter(**filter_m)\
                 .order_by('date')
             for meeting in meetings:
                 if meeting.midweek_content:
@@ -342,18 +342,15 @@ def generate_pdf(request):
             layout = render_to_string(template, context)
             html = HTML(string=layout)
             main_doc = html.render(stylesheets=[CSS('static/css/pdf.css')])
-
             html = HTML(string=render_to_string(template_header))
             header = html.render(stylesheets=[CSS('static/css/pdf.css')])
             header_page = header.pages[0]
             header_body = get_page_body(header_page._page_box.all_children())
             header_body = header_body.copy_with_children(
                 header_body.all_children())
-
             for i, page in enumerate(main_doc.pages):
                 page_body = get_page_body(page._page_box.all_children())
                 page_body.children += header_body.all_children()
-
             pdf_file = main_doc.write_pdf()
             response = HttpResponse(pdf_file, content_type='application/pdf')
             response['Content-Disposition'] = 'attachment; filename="report.pdf"'

@@ -64,16 +64,19 @@ p {
 }
 .date-item {
     font-weight: bold;
+    font-family: 'Ubuntu';
     font-style: italic;
-    font-size: 16px;
+    font-size: 18px;
 }
 .date-item2 {
     font-weight: bold;
+    font-family: 'Ubuntu';
     font-style: italic;
-    font-size: 14px;
+    font-size: 15px;
 }
 .title-item {
     font-weight: bold;
+    font-family: 'Ubuntu';
     font-style: italic;
     font-size: 18px;
 }
@@ -93,6 +96,7 @@ hr {
 }
 .title-designation {
     font-weight: bold;
+    font-family: 'Ubuntu';
     width: 100px;
 }
 .two-names {
@@ -111,8 +115,9 @@ tr {
     text-align: right;
 }
 .date-midweek{
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
+    font-family: 'Ubuntu';
     text-transform: uppercase;
     width: 400px;
 }
@@ -124,18 +129,21 @@ tr {
     background-color: #5a6a70;
     padding: 3px;
     font-weight: bold;
+    font-family: 'Ubuntu';
 }
 .title-apply {
     color: white;
     background-color: #c18626;
     padding: 3px;
     font-weight: bold;
+    font-family: 'Ubuntu';
 }
 .title-living {
     color: white;
     background-color: #961526;
     padding: 3px;
     font-weight: bold;
+    font-family: 'Ubuntu';
 }
 .table-midweek {
     font-size: 12px;
