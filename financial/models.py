@@ -13,7 +13,7 @@ TRANSACTION_CODE = [
     ('F', _("Construction of the Subsidiary")),
     ('J', _("Interest")),
     ('OE', _("Specific objective")),
-    ('GP', _("Expense paid for by Bethel"))
+    ('GP', _("Expense paid by Bethel"))
 ]
 TRANSACTION_TYPE = [
     ('R', _("Receips")),
