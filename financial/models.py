@@ -59,9 +59,6 @@ class SubTransaction(models.Model):
     category = models.ForeignKey(
         TransactionCategory, on_delete=models.PROTECT, verbose_name=_("Category"), null=True, blank=True)
 
-    class Meta:
-        abstract = True
-
 
 class Transaction(models.Model):
     _id = ObjectIdField()

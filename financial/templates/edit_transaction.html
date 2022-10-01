@@ -146,7 +146,7 @@
             box.find('input[name="date"]').datetimepicker({format: 'DD/MM/YYYY'}).find('input').addClass("form-control");
             box.find('input[name="id"]').val(makeid(10));
             if(inline){
-                box.find('label[for="date"]').parent().hide();
+                box.find('label[for="id_date"]').parent().hide();
                 box.find('label[for="id_description"]').parent().hide();
                 box.find('label[for="id_tc"]').parent().hide();
                 box.find('label[for="id_category"]').parent().hide();
@@ -155,7 +155,6 @@
         }
         $('#boxTransactions').on('click', '.addItemSub', function(e){
             var top_id = $(this).parent().parent().children('input[name="id"]').val();
-            console.log(top_id);
             insert_transaction(top_id);
         });
         $('#boxTransactions').on('click', '.addInlineItem', function(e){
