@@ -12,7 +12,8 @@ TRANSACTION_CODE = [
     ('G', _("Expense")),
     ('F', _("Construction of the Subsidiary")),
     ('J', _("Interest")),
-    ('OE', _("Specific objective"))
+    ('OE', _("Specific objective")),
+    ('GP', _("Expense paid for by Bethel"))
 ]
 TRANSACTION_TYPE = [
     ('R', _("Receips")),
