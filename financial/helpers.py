@@ -539,7 +539,7 @@ class MonthlyReportPdf(object):
         for key, value in transactions_tc.items():
             transactions.append(value)
         summary = MonthlySummary.objects.filter(
-            congregation_id=self.congregation_id, date__range=[self.start_date, self.end_date]).first()
+            congregation_id=self.congregation_id, date__gte=self.start_date, date__lt=self.end_date).first()
         if not summary:
             summary = MonthlySummary(congregation_id=self.congregation_id)
         summary.date = datetime.now().replace(

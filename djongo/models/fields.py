@@ -49,6 +49,7 @@ def make_mdl(model, model_dict):
     """
     for field_name in model_dict:
         field = model._meta.get_field(field_name)
+        print(field.to_python)
         model_dict[field_name] = field.to_python(model_dict[field_name])
 
     return model(**model_dict)
@@ -286,6 +287,12 @@ class DecimalMongoField(DecimalField):
         value = super().get_prep_value(value)
         return bson.Decimal128(self.to_python(value))
 
+    def to_python(self, value):
+        if isinstance(value, bson.Decimal128):
+            return value.to_decimal()
+        return super().to_python(value)
+
+
 class FormedField(ModelField):
 
     def __init__(self,
@@ -319,6 +326,7 @@ class FormedField(ModelField):
 
         defaults.update(kwargs)
         return super().formfield(**defaults)
+
 
 class ArrayModelField(Field):
     """
@@ -403,7 +411,8 @@ class ArrayModelField(Field):
                 if not useful_field(fld):
                     continue
                 fld_value = getattr(a_mdl, fld.attname)
-                mdl_ob[fld.attname] = fld.get_db_prep_value(fld_value, connection, prepared)
+                mdl_ob[fld.attname] = fld.get_db_prep_value(
+                    fld_value, connection, prepared)
             ret.append(mdl_ob)
 
         return ret
