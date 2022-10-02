@@ -404,7 +404,7 @@ class MonthlyReportPdf(object):
                     self.sum_receipts_eletronic += float(transaction.value)
                 elif transaction.tc == "OE":
                     self.sum_specific_objective += float(transaction.value)
-            elif transaction.tc == 'G':
+            elif transaction.tc in ('G', 'GP'):
                 if transaction.category_id:
                     if str(transaction.category_id) not in expense_cats:
                         expense_cats[str(transaction.category_id)] = {
@@ -413,7 +413,7 @@ class MonthlyReportPdf(object):
                                  ]['value'] += float(transaction.value)
                 self.sum_expenses += float(transaction.value)
             for sub_transaction in transaction.sub_transactions:
-                if sub_transaction.tc == 'G':
+                if sub_transaction.tc in ('G', 'GP'):
                     if sub_transaction.category_id:
                         if str(sub_transaction.category_id) not in expense_cats:
                             expense_cats[str(sub_transaction.category_id)] = {
