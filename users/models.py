@@ -39,3 +39,7 @@ class User(AbstractBaseUser):
     @property
     def username(self):
         return self.email
+
+    @property
+    def id(self):
+        return self._id

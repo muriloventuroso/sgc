@@ -140,7 +140,7 @@ def add_transaction(request):
                 category_id=transaction['category_id'],
                 sub_transactions=subs,
                 congregation_id=request.user.congregation_id,
-                user_id=request.user.id
+                user=request.user
             ).save()
 
         messages.success(request, _("Transaction added successfully"))
