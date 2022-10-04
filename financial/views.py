@@ -240,7 +240,7 @@ def generate_pdf(request):
                 response = HttpResponse(
                     pdf_file, content_type='application/pdf')
                 response['Content-Disposition'] = 'attachment; filename="' + \
-                    str(_("Transaction Sheet")) + '.pdf"'
+                    's26.pdf"'
                 return response
             elif data['type_pdf'] == 's30':
                 s30 = MonthlyReportPdf(
@@ -251,7 +251,7 @@ def generate_pdf(request):
                 response = HttpResponse(
                     pdf_file, content_type='application/pdf')
                 response['Content-Disposition'] = 'attachment; filename="' + \
-                    str(_("Monthly Report")) + '.pdf"'
+                    's30.pdf"'
                 return response
         else:
             print(form.errors)

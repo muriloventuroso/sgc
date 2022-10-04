@@ -49,7 +49,6 @@ def make_mdl(model, model_dict):
     """
     for field_name in model_dict:
         field = model._meta.get_field(field_name)
-        print(field.to_python)
         model_dict[field_name] = field.to_python(model_dict[field_name])
 
     return model(**model_dict)
@@ -283,7 +282,6 @@ class DecimalMongoField(DecimalField):
         return bson.Decimal128(value)
 
     def get_prep_value(self, value):
-        print("get_prep_value   ", value)
         value = super().get_prep_value(value)
         return bson.Decimal128(self.to_python(value))
 

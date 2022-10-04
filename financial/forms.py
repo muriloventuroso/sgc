@@ -38,7 +38,7 @@ class FormGeneratePDF(forms.Form):
         label=_("Type PDF"), choices=[('', ''), ('s26', _("Transaction Sheet")), ('s30', _("Monthly Report"))],
         initial='', required=True)
     month = forms.DateField(
-        label=_("Month"), required=False, input_formats=['%Y-%m', '%m/%Y'],
+        label=_("Month"), required=True, input_formats=['%Y-%m', '%m/%Y'],
         widget=forms.widgets.DateInput(attrs={'class': 'month-field'}))
     balance = forms.DecimalField(label=_("Balance"), required=False)
 
