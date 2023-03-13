@@ -50,7 +50,7 @@ class TransactionSheetPdf(object):
                     self.start_date - relativedelta(months=1),
                     self.end_date - relativedelta(months=1)]).first()
             if summary:
-                self.balance = summary.final_balance
+                self.balance = summary.final_balance.to_decimal()
         if not self.balance:
             self.balance = 0
         self.transactions = Transaction.objects.filter(
@@ -314,7 +314,7 @@ class MonthlyReportPdf(object):
                     self.start_date - relativedelta(months=1),
                     self.end_date - relativedelta(months=1)]).first()
             if summary:
-                self.balance = summary.final_balance
+                self.balance = summary.final_balance.to_decimal()
         if not self.balance:
             self.balance = 0
         self.congregation = Congregation.objects.get(
