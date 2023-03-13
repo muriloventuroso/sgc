@@ -11,7 +11,7 @@ class TableCongregations(tables.Table):
     class Meta(object):
         attrs = {"class": "table"}
         model = Congregation
-        fields = ('name', 'circuit', 'city', 'state')
+        fields = ('name', 'number', 'circuit', 'city', 'state')
 
 
 class TableGroups(tables.Table):

@@ -24,5 +24,6 @@ urlpatterns = [
     path('pdf/', meetings.views.generate_pdf, {}, 'generate_pdf'),
     path('suggest/publisher/', meetings.views.suggest_publisher, {}, 'suggest_publisher'),
     path('suggest/meeting/', meetings.views.suggest_meeting, {}, 'suggest_meeting'),
+    path('board/<congregation_id>/', meetings.views.bulletin_board, {}, 'bulletin_board'),
     path('', meetings.views.meetings, {}, 'meetings'),
 ]

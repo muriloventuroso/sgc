@@ -25,6 +25,30 @@ body {
     font-weight: normal;
     font-style: italic;
 }
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Ubuntul';
+    src: url('../fonts/Ubuntu-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
 @page {
     size: a4 portrait;
     margin: 30mm 17mm 17mm 17mm;
@@ -146,6 +170,7 @@ tr {
     font-family: 'Ubuntu';
 }
 .table-midweek {
+    width: 100%;
     font-size: 12px;
     margin-bottom: 10px;
 }
@@ -154,4 +179,9 @@ tr {
     .box-item{
         page-break-inside: avoid;
     }
+}
+.box-board {
+    max-width: 800px;
+    padding-top: 0.5rem;
+    margin: auto;
 }

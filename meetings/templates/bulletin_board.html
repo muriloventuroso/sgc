@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load language %}
+{% block extrahead %}
+<link href="{% static 'css/pdf.css' %}" rel="stylesheet">
+{% endblock %}
+{% block menu %}
+    <div class="topbar">
+
+        <!-- LOGO -->
+        <div class="topbar-left">
+            <a href="#" class="logo">
+                <span>
+                    {% trans "Bulletin Board" %}
+                </span>
+            </a>
+        </div>
+        <nav class="navbar-custom">
+            <ul class="navbar-right d-flex list-inline float-right mb-0">
+
+                
+
+            </ul>
+
+            <ul class="list-inline menu-left mb-0">
+                <li class="float-left">
+                    <button class="button-menu-mobile open-left waves-effect">
+                        <i class="mdi mdi-menu"></i>
+                    </button>
+                </li>
+
+            </ul>
+
+        </nav>
+    </div>
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left side-menu">
+        <div class="slimscroll-menu" id="remove-scroll">
+
+            <!--- Sidemenu -->
+            <div id="sidebar-menu">
+                <!-- Left Menu Start -->
+                <ul class="metismenu" id="side-menu">
+                    <li>
+                            <a href="{% url 'bulletin_board' congregation_id %}?type=midweek" class="waves-effect"><span> {% trans "Midweek" %} </span></a>
+                    </li>
+                    <li>
+                            <a href="{% url 'bulletin_board' congregation_id %}?type=weekend" class="waves-effect"><span> {% trans "Weekend" %} </span></a>
+                    </li>
+                    <li>
+                            <a href="{% url 'bulletin_board' congregation_id %}?type=designations" class="waves-effect"><span> {% trans "Designations" %} </span></a>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- Sidebar -->
+            <div class="clearfix"></div>
+
+        </div>
+        <!-- Sidebar -left -->
+
+    </div>
+
+    <!-- Left Panel -->
+    {% endblock %}
+{% block title %} - {{page_title}}{% endblock %}
+{% block body %}
+    <div class="box-board">
+        <h2 class="text-center">{{title}}</h2>
+        {{layout|safe}}
+    </div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}
+{% block breadcrumb %}
+{% endblock %}
+{% block boxbreadcrumb %}
+{% endblock %}

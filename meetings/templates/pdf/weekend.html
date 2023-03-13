@@ -8,9 +8,9 @@
             <table class="table-weekend">
                 <tr>
                     <td class="title-designation">{% trans 'Speaker' %}:</td>
-                    <td class="two-names">{{meeting.weekend_content.speaker}}</td>
+                    <td class="two-names">{{meeting.weekend_content.speaker|default_if_none:""}}</td>
                     <td class="title-designation pull-right">{% trans 'Congregation' %}:</td>
-                    <td class="two-names">{{meeting.weekend_content.speaker_congregation}}</td>
+                    <td class="two-names">{{meeting.weekend_content.speaker_congregation|default_if_none:""}}</td>
                 </tr>
                 <tr>
                     <td class="title-designation">{% trans 'Theme' %}:</td>
@@ -18,7 +18,7 @@
                 </tr>
                 <tr>
                     <td class="title-designation">{% trans 'President' %}:</td>
-                    <td class="two-names">{{meeting.weekend_content.president}}</td>
+                    <td class="two-names">{{meeting.weekend_content.president|default_if_none:""}}</td>
                     <td class="title-designation pull-right">{% trans 'Reader' %}:</td>
                     <td class="two-names">{{meeting.weekend_content.reader|default_if_none:""}}</td>
                 </tr>
@@ -38,13 +38,13 @@
                 <table class="table-weekend">
                     <tr>
                         <td class="title-designation">{% trans 'Speaker' %}:</td>
-                        <td class="two-names">{{speaker.speaker}}</td>
+                        <td class="two-names">{{speaker.speaker|default_if_none:""}}</td>
                         <td class="title-designation pull-right">{% trans 'Congregation' %}:</td>
-                        <td class="two-names">{{speaker.congregation_dest}}</td>
+                        <td class="two-names">{{speaker.congregation_dest|default_if_none:""}}</td>
                     </tr>
                     <tr>
                         <td class="title-designation">{% trans 'Theme' %}:</td>
-                        <td class="two-names" colspan=3>{{speaker.theme}}</td>
+                        <td class="two-names" colspan=3>{{speaker.theme|default_if_none:""}}</td>
                     </tr>
                 </table>
             </div>

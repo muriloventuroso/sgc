@@ -24,6 +24,7 @@ ROLES = [
 class Congregation(models.Model):
     _id = models.ObjectIdField()
     name = models.CharField(max_length=180, verbose_name=_("Name"))
+    number = models.CharField(max_length=20, verbose_name=_("Number"))
     circuit = models.CharField(max_length=20, verbose_name=_("Circuit"))
     city = models.CharField(max_length=80, verbose_name=_("City"))
     state = models.CharField(max_length=2, verbose_name=_("State"))
@@ -39,6 +40,7 @@ class Congregation(models.Model):
         MaxValueValidator(5),
         MinValueValidator(1)
     ])
+    enable_board = models.BooleanField(default=False, verbose_name=_("Enable Bulletin Board"))
 
     objects = models.DjongoManager()
 
