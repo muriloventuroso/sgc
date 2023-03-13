@@ -160,7 +160,7 @@ class FormDesignations(forms.ModelForm):
 class FormGeneratePDF(forms.Form):
 
     type_pdf = forms.ChoiceField(
-        label=_("Type PDF"), choices=[('', ''), ('w', _("Weekend")), ('m', _("Midweek")), ('d', _('Designations'))],
+        label=_("Type PDF"), choices=[('', ''), ('w', _("Weekend")), ('m', _("Midweek")), ('d', _('Designations')), ('s', _('Designation sheet'))],
         initial='', required=True)
     start_date = forms.DateField(
         label=_("Start Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],

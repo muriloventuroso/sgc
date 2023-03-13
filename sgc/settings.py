@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django_tables2',
     'bootstrap4',
     'bootstrap_datepicker',
-    'rosetta',
     'sgc',
     'congregations',
     'meetings',

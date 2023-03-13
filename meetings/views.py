@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django_tables2.config import RequestConfig
 from django_tables2 import Column
+from meetings.helpers import DesignationsSheetPdf
 from meetings.models import (
     Designations, Meeting, MidweekContent, TreasuresContent, ApplyYourselfContent, LivingChristiansContent, MeetingAudience, SpeakerOut, CountSpeech, WeekendContent)
 from meetings.tables import TableMeetings, TableMeetingAudience, TableSpeakerOut, TableCountSpeech
@@ -311,50 +312,64 @@ def generate_pdf(request):
         if form.is_valid():
             data = form.cleaned_data
             filter_m = {'congregation_id': request.user.congregation_id}
-            rooms = 1
-            if data['type_pdf'] == 'd':
-                template = 'pdf/designations.html'
-                template_header = 'pdf/header_designations.html'
-            elif data['type_pdf'] == 'w':
-                template = 'pdf/weekend.html'
-                template_header = 'pdf/header_weekend.html'
-                filter_m['type_meeting'] = 'w'
-            elif data['type_pdf'] == 'm':
-                template = 'pdf/midweek.html'
-                template_header = 'pdf/header_midweek.html'
+            if data['type_pdf'] == "s":
                 filter_m['type_meeting'] = 'm'
-            meetings = Meeting.objects.filter(date__gte=data['start_date'], date__lt=data['end_date']).filter(**filter_m)\
-                .order_by('date')
-            for meeting in meetings:
-                if meeting.midweek_content:
-                    for treasure in meeting.midweek_content.treasures:
-                        if treasure.room_treasure == "B":
-                            rooms = 2
-                            break
-                    for apply_y in meeting.midweek_content.apply_yourself:
-                        if apply_y.room_apply == "B":
-                            rooms = 2
-                            break
-            context = {'meetings': meetings, 'rooms': rooms}
-            if data['type_pdf'] == 'w':
-                context['speakers_out'] = SpeakerOut.objects.filter(date__range=[data['start_date'], data['end_date']])\
-                    .filter(congregation_id=request.user.congregation_id)
-            layout = render_to_string(template, context)
-            html = HTML(string=layout)
-            main_doc = html.render(stylesheets=[CSS('static/css/pdf.css')])
-            html = HTML(string=render_to_string(template_header))
-            header = html.render(stylesheets=[CSS('static/css/pdf.css')])
-            header_page = header.pages[0]
-            header_body = get_page_body(header_page._page_box.all_children())
-            header_body = header_body.copy_with_children(
-                header_body.all_children())
-            for i, page in enumerate(main_doc.pages):
-                page_body = get_page_body(page._page_box.all_children())
-                page_body.children += header_body.all_children()
-            pdf_file = main_doc.write_pdf()
-            response = HttpResponse(pdf_file, content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-            return response
+                meetings = Meeting.objects.filter(date__gte=data['start_date'], date__lt=data['end_date']).filter(**filter_m)\
+                    .order_by('date')
+                s89 = DesignationsSheetPdf(meetings)
+                s89.generate()
+                pdf_file = s89.save()
+
+                response = HttpResponse(
+                    pdf_file, content_type='application/pdf')
+                response['Content-Disposition'] = 'attachment; filename="' + \
+                    's89.pdf"'
+                return response
+            else:
+                rooms = 1
+                if data['type_pdf'] == 'd':
+                    template = 'pdf/designations.html'
+                    template_header = 'pdf/header_designations.html'
+                elif data['type_pdf'] == 'w':
+                    template = 'pdf/weekend.html'
+                    template_header = 'pdf/header_weekend.html'
+                    filter_m['type_meeting'] = 'w'
+                elif data['type_pdf'] == 'm':
+                    template = 'pdf/midweek.html'
+                    template_header = 'pdf/header_midweek.html'
+                    filter_m['type_meeting'] = 'm'
+                meetings = Meeting.objects.filter(date__gte=data['start_date'], date__lt=data['end_date']).filter(**filter_m)\
+                    .order_by('date')
+                for meeting in meetings:
+                    if meeting.midweek_content:
+                        for treasure in meeting.midweek_content.treasures:
+                            if treasure.room_treasure == "B":
+                                rooms = 2
+                                break
+                        for apply_y in meeting.midweek_content.apply_yourself:
+                            if apply_y.room_apply == "B":
+                                rooms = 2
+                                break
+                context = {'meetings': meetings, 'rooms': rooms}
+                if data['type_pdf'] == 'w':
+                    context['speakers_out'] = SpeakerOut.objects.filter(date__range=[data['start_date'], data['end_date']])\
+                        .filter(congregation_id=request.user.congregation_id)
+                layout = render_to_string(template, context)
+                html = HTML(string=layout)
+                main_doc = html.render(stylesheets=[CSS('static/css/pdf.css')])
+                html = HTML(string=render_to_string(template_header))
+                header = html.render(stylesheets=[CSS('static/css/pdf.css')])
+                header_page = header.pages[0]
+                header_body = get_page_body(header_page._page_box.all_children())
+                header_body = header_body.copy_with_children(
+                    header_body.all_children())
+                for i, page in enumerate(main_doc.pages):
+                    page_body = get_page_body(page._page_box.all_children())
+                    page_body.children += header_body.all_children()
+                pdf_file = main_doc.write_pdf()
+                response = HttpResponse(pdf_file, content_type='application/pdf')
+                response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+                return response
     else:
         form = FormGeneratePDF()
     return render(request, 'generate_pdf.html', {
