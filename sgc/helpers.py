@@ -6,8 +6,7 @@ from django.shortcuts import redirect
 def get_mongo_url():
     if 'MONGODB_URI' in os.environ:
         url = os.environ['MONGODB_URI']
-        print(url)
-        return {'HOST': url}
+        return {'host': url}
     return {}
 
 
