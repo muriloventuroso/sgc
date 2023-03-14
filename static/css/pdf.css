@@ -185,3 +185,6 @@ tr {
     padding-top: 0.5rem;
     margin: auto;
 }
+b, strong {
+    font-weight: bold;
+}

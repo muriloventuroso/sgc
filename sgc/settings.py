@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'meetings',
     'users',
     'financial',
-    'preaching'
+    'preaching',
+    'board',
 ]
 
 MIDDLEWARE = [

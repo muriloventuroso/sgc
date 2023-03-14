@@ -1,0 +1,30 @@
+<div class="row mt-5">
+    {% for group in groups %}
+        <div class="col-lg-4">
+            <table class="table table-bordered table-striped table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th><h6>{{ group.group.name }}</h6></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if group.group.leader %}
+                        <tr>
+                            <td><strong>1 - {{ group.group.leader }}<strong></td>
+                        </tr>
+                    {% endif %}
+                    {% if group.group.assistant %}
+                        <tr>
+                            <td><strong>{% if group.group.leader %} 2 - {%else%} 1 - {%endif%}{{ group.group.assistant }}<strong></td>
+                        </tr>
+                    {% endif %}
+                    {% for member in group.publishers %}
+                        <tr>
+                            <td>{{ member.count }} - {{ member.name }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+</div>

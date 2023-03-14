@@ -20,7 +20,7 @@ from meetings.forms import (
     FormSearchMeeting, FormMeeting, FormDesignations, FormWeekendContent, FormMidweekContent, FormTreasuresContent,
     FormApplyYourselfContent, FormLivingChristiansContent, FormGeneratePDF, FormMeetingAudience,
     FormSearchMeetingAudience, FormSpeakerOut, FormSearchSpeakerOut)
-from congregations.models import Congregation, Publisher
+from congregations.models import Congregation, Group, Publisher
 from sgc import settings
 from sgc.helpers import redirect_with_next
 from bson.objectid import ObjectId
@@ -804,6 +804,10 @@ def bulletin_board(request, congregation_id):
         context = {'meetings': meetings, 'rooms': rooms}
 
         layout = render_to_string(template, context)
+    elif type_board == 'groups':
+        template = 'pdf/groups.html'
+        title = _("Groups")
+        groups = Group.objects.filter(congregation_id=congregation._id).order_by('name')
     return render(request, 'bulletin_board.html', {
         'request': request, 'layout': layout, 'congregation_id': congregation_id, 'type_board': type_board,
         'page_group': 'meetings', 'page_title': _("Bulletin Board"), 'title': title,

@@ -111,6 +111,7 @@ def add_group(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.congregation_id = request.user.congregation_id
+            item.save()
             messages.success(request, _("Group added successfully"))
             return redirect_with_next(request, 'groups')
     else:

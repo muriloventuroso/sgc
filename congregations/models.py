@@ -41,6 +41,7 @@ class Congregation(models.Model):
         MinValueValidator(1)
     ])
     enable_board = models.BooleanField(default=False, verbose_name=_("Enable Bulletin Board"))
+    theocratic_agenda = models.TextField(verbose_name=_("Theocratic Agenda"), blank=True, null=True)
 
     objects = models.DjongoManager()
 
@@ -57,7 +58,8 @@ class Group(models.Model):
     name = models.CharField(max_length=80, verbose_name=_("Name"))
     congregation = models.ForeignKey(Congregation, verbose_name=_(
         "Congregation"), on_delete=models.CASCADE)
-
+    leader = models.ForeignKey('congregations.Publisher', verbose_name=_("Leader"), on_delete=models.SET_NULL, null=True, blank=True, related_name='leader')
+    assistant = models.ForeignKey('congregations.Publisher', verbose_name=_("Assistant"), on_delete=models.SET_NULL, null=True, blank=True, related_name='assistant')
     objects = models.DjongoManager()
 
     def __str__(self):

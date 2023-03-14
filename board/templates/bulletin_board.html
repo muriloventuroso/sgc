@@ -41,13 +41,19 @@
                 <!-- Left Menu Start -->
                 <ul class="metismenu" id="side-menu">
                     <li>
-                            <a href="{% url 'bulletin_board' congregation_id %}?type=midweek" class="waves-effect"><span> {% trans "Midweek" %} </span></a>
+                        <a href="{% url 'bulletin_board' congregation_id %}?type=midweek" class="waves-effect"><span> {% trans "Midweek" %} </span></a>
                     </li>
                     <li>
-                            <a href="{% url 'bulletin_board' congregation_id %}?type=weekend" class="waves-effect"><span> {% trans "Weekend" %} </span></a>
+                        <a href="{% url 'bulletin_board' congregation_id %}?type=weekend" class="waves-effect"><span> {% trans "Weekend" %} </span></a>
                     </li>
                     <li>
-                            <a href="{% url 'bulletin_board' congregation_id %}?type=designations" class="waves-effect"><span> {% trans "Designations" %} </span></a>
+                        <a href="{% url 'bulletin_board' congregation_id %}?type=designations" class="waves-effect"><span> {% trans "Attendants and Sound System" %} </span></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'bulletin_board' congregation_id %}?type=groups" class="waves-effect"><span> {% trans "Service Groups" %} </span></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'bulletin_board' congregation_id %}?type=agenda" class="waves-effect"><span> {% trans "Theocratic Agenda" %} </span></a>
                     </li>
 
                 </ul>

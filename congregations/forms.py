@@ -7,7 +7,7 @@ class FormCongregation(forms.ModelForm):
     class Meta:
         model = Congregation
         fields = ('name', 'number', 'circuit', 'city', 'state',
-                  'n_rooms', 'n_attendants', 'n_mic_passers', 'enable_board')
+                  'n_rooms', 'n_attendants', 'n_mic_passers', 'enable_board', 'theocratic_agenda')
 
 
 class FormSearchCongregation(forms.Form):
@@ -18,9 +18,20 @@ class FormSearchCongregation(forms.Form):
 
 
 class FormGroup(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(FormGroup, self).__init__(*args, **kwargs)
+        if hasattr(self.instance, '_id') and self.instance._id:
+            self.fields['leader'].queryset = Publisher.objects.filter(
+                congregation_id=self.instance.congregation_id, gender="m", tags__in=['elder', 'ministerial_servant'])
+            self.fields['assistant'].queryset = Publisher.objects.filter(
+                congregation_id=self.instance.congregation_id, gender="m", tags__in=['elder', 'ministerial_servant'])
+        else:
+            del self.fields['leader']
+            del self.fields['assistant']
+        
     class Meta:
         model = Group
-        fields = ('name', )
+        fields = ('name', 'leader', 'assistant')
 
 
 class FormSearchGroup(forms.Form):
