@@ -1,5 +1,7 @@
+from smtplib import SMTPResponseException
 import pymongo
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
@@ -29,7 +31,7 @@ def congregations(request):
         if 'state' in data and data['state']:
             filter_data['state'] = {"$regex": data['state'], '$options': 'i'}
     if not request.user.is_staff:
-        filter_data['congregation_id'] = request.user.congregation_id
+        filter_data['_id'] = request.user.congregation_id
     data = Congregation.objects.mongo_find(
         filter_data).sort("name", pymongo.ASCENDING)
     table = TableCongregations(data)
@@ -43,6 +45,7 @@ def congregations(request):
 
 
 @login_required
+@staff_member_required
 def add_congregation(request):
     if request.method == 'POST':
         form = FormCongregation(request.POST)
@@ -61,6 +64,8 @@ def add_congregation(request):
 def edit_congregation(request, congregation_id):
     congregation = get_object_or_404(
         Congregation, pk=ObjectId(congregation_id))
+    if not request.user.is_staff and congregation._id != request.user.congregation_id:
+        return SMTPResponseException(status=403)
     if request.method == 'POST':
         form = FormCongregation(request.POST, instance=congregation)
         if form.is_valid():
@@ -75,6 +80,7 @@ def edit_congregation(request, congregation_id):
 
 
 @login_required
+@staff_member_required
 def delete_congregation(request, congregation_id):
     congregation = get_object_or_404(
         Congregation, pk=ObjectId(congregation_id))
