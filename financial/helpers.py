@@ -404,22 +404,32 @@ class MonthlyReportPdf(object):
                     self.sum_receipts_eletronic += float(transaction.value)
                 elif transaction.tc == "OE":
                     self.sum_specific_objective += float(transaction.value)
-            elif transaction.tc in ('G', 'GP'):
+            elif transaction.tc in ('G', 'GP', 'J'):
                 if transaction.category_id:
                     if str(transaction.category_id) not in expense_cats:
                         expense_cats[str(transaction.category_id)] = {
                             'name': transaction.category.name, 'value': 0}
                     expense_cats[str(transaction.category_id)
                                  ]['value'] += float(transaction.value)
+                elif transaction.tc == "J":
+                    if 'J' not in expense_cats:
+                        expense_cats['J'] = {
+                            'name': str(_("Interest")), 'value': 0}
+                    expense_cats['J']['value'] += float(transaction.value)
                 self.sum_expenses += float(transaction.value)
             for sub_transaction in transaction.sub_transactions:
-                if sub_transaction.tc in ('G', 'GP'):
+                if sub_transaction.tc in ('G', 'GP', 'J'):
                     if sub_transaction.category_id:
                         if str(sub_transaction.category_id) not in expense_cats:
                             expense_cats[str(sub_transaction.category_id)] = {
                                 'name': sub_transaction.category.name, 'value': 0}
                         expense_cats[str(sub_transaction.category_id)
                                      ]['value'] += float(sub_transaction.value)
+                    elif sub_transaction.tc == "J":
+                        if 'J' not in expense_cats:
+                            expense_cats['J'] = {
+                                'name': str(_("Interest")), 'value': 0}
+                        expense_cats['J']['value'] += float(sub_transaction.value)
                     self.sum_expenses += float(sub_transaction.value)
         self.pdf.drawString(355, 633, "{0:.2f}".format(
             self.sum_receipts).replace('.', ','))

@@ -8,4 +8,4 @@ register = template.Library()
 
 @register.filter
 def currency(num):
-    return locale.currency(num, grouping=True, symbol='R$')
+    return locale.currency(num, grouping=True, symbol='')
