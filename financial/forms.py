@@ -60,7 +60,7 @@ class FormOffTransaction(forms.Form):
 
 class FormUnverifiedChecks(forms.Form):
     n_confirmation = forms.CharField(
-        label=_("Número de Confirmação"), required=False)
+        label=_("Confirmation Number"), required=False)
     value = forms.DecimalField(label=_("Value"), required=False)
 
 

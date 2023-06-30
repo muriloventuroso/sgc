@@ -7,7 +7,7 @@ class FormCongregation(forms.ModelForm):
     class Meta:
         model = Congregation
         fields = ('name', 'number', 'circuit', 'city', 'state',
-                  'n_rooms', 'n_attendants', 'n_mic_passers', 'enable_board', 'theocratic_agenda')
+                  'n_rooms', 'n_soundman', 'n_attendants', 'n_mic_passers', 'n_zoom', 'enable_board', 'theocratic_agenda')
 
 
 class FormSearchCongregation(forms.Form):

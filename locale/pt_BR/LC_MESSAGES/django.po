@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-14 09:33-0300\n"
+"POT-Creation-Date: 2023-06-30 14:35-0300\n"
 "PO-Revision-Date: 2020-01-02 10:08-0306\n"
 "Last-Translator: b'  <muriloventuroso@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,47 +19,43 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.8.1\n"
 
 #: board/templates/bulletin_board.html:13 board/views.py:81
-#: meetings/views.py:813 sgc/templates/base.html:175
+#: meetings/views.py:835 sgc/templates/base.html:175
 msgid "Bulletin Board"
 msgstr "Quadro de Anúncios"
 
 #: board/templates/bulletin_board.html:44 meetings/forms.py:31
-#: meetings/forms.py:163 meetings/models.py:119
+#: meetings/forms.py:171 meetings/models.py:122
 msgid "Midweek"
 msgstr "Meio de Semana"
 
 #: board/templates/bulletin_board.html:47 meetings/forms.py:31
-#: meetings/forms.py:163 meetings/models.py:119
+#: meetings/forms.py:171 meetings/models.py:122
 msgid "Weekend"
 msgstr "Fim de Semana"
 
-#: board/templates/bulletin_board.html:50 meetings/forms.py:163
-#: meetings/templates/add_meeting.html:100
+#: board/templates/bulletin_board.html:50 board/views.py:29
+#: meetings/forms.py:171 meetings/templates/add_meeting.html:100
 #: meetings/templates/edit_meeting.html:127
-msgid "Designations"
-msgstr "Designações"
+#: meetings/templates/pdf/header_designations.html:1 meetings/views.py:808
+msgid "Attendants and Sound System"
+msgstr "Indicadores e Sistema Sonoro"
 
 #: board/templates/bulletin_board.html:53 board/views.py:52
 msgid "Service Groups"
 msgstr "Grupos de Serviço"
 
 #: board/templates/bulletin_board.html:56 board/views.py:76
-#: congregations/models.py:44
+#: congregations/models.py:53
 msgid "Theocratic Agenda"
 msgstr "Agenda Teocrática"
 
 #: board/views.py:26 meetings/templates/pdf/header_midweek.html:1
-#: meetings/views.py:783
+#: meetings/views.py:805
 msgid "Schedule of the Midweek Meeting"
 msgstr "Programação da Reunião de Meio de Semana"
 
-#: board/views.py:29 meetings/templates/pdf/header_designations.html:1
-#: meetings/views.py:786
-msgid "Attendants and Sound System"
-msgstr "Indicadores e Sistema Sonoro"
-
 #: board/views.py:33 meetings/templates/pdf/header_weekend.html:1
-#: meetings/views.py:790
+#: meetings/views.py:812
 msgid "Public Meeting and Study of Watchtower"
 msgstr "Reunião Pública e Estudo de A Sentinela"
 
@@ -70,20 +66,20 @@ msgid "close"
 msgstr "fechar"
 
 #: congregations/forms.py:14 congregations/forms.py:38
-#: congregations/forms.py:60 congregations/models.py:26
-#: congregations/models.py:58 financial/forms.py:75 financial/models.py:31
+#: congregations/forms.py:60 congregations/models.py:27
+#: congregations/models.py:67 financial/forms.py:75 financial/models.py:31
 msgid "Name"
 msgstr "Nome"
 
-#: congregations/forms.py:15 congregations/models.py:28
+#: congregations/forms.py:15 congregations/models.py:29
 msgid "Circuit"
 msgstr "Circuito"
 
-#: congregations/forms.py:16 congregations/models.py:29
+#: congregations/forms.py:16 congregations/models.py:30
 msgid "City"
 msgstr "Cidade"
 
-#: congregations/forms.py:17 congregations/models.py:30
+#: congregations/forms.py:17 congregations/models.py:31
 msgid "State"
 msgstr "Estado"
 
@@ -91,7 +87,7 @@ msgstr "Estado"
 msgid "Tags"
 msgstr "Tags"
 
-#: congregations/forms.py:51 congregations/models.py:89
+#: congregations/forms.py:51 congregations/models.py:98
 msgid "Baptism Date"
 msgstr "Data de Batismo"
 
@@ -99,12 +95,12 @@ msgstr "Data de Batismo"
 msgid "TAGS"
 msgstr "TAGS"
 
-#: congregations/forms.py:63 congregations/models.py:69
-#: congregations/models.py:95
+#: congregations/forms.py:63 congregations/models.py:78
+#: congregations/models.py:104
 msgid "Group"
 msgstr "Grupo"
 
-#: congregations/forms.py:79 congregations/models.py:119
+#: congregations/forms.py:79 congregations/models.py:128
 msgid "Role"
 msgstr "Função"
 
@@ -112,17 +108,16 @@ msgstr "Função"
 msgid "Ministerial Servant"
 msgstr "Servo Ministerial"
 
-#: congregations/models.py:6 meetings/forms.py:149
+#: congregations/models.py:6 meetings/forms.py:154
 msgid "Attendant"
 msgstr "Indicador"
 
-#: congregations/models.py:7 meetings/models.py:90
-#: meetings/templates/pdf/designations.html:11
+#: congregations/models.py:7
 msgid "Soundman"
 msgstr "Sonoplasta"
 
-#: congregations/models.py:8 meetings/forms.py:152
-#: meetings/templates/pdf/designations.html:15
+#: congregations/models.py:8 meetings/forms.py:157
+#: meetings/templates/pdf/designations.html:20
 msgid "Mic Passer"
 msgstr "Mic Volante"
 
@@ -149,133 +144,145 @@ msgstr "Ancião"
 msgid "Student"
 msgstr "Estudante"
 
-#: congregations/models.py:14 meetings/models.py:93
-#: meetings/templates/pdf/designations.html:18
+#: congregations/models.py:14 meetings/models.py:96
 msgid "Stage"
 msgstr "Palco"
 
-#: congregations/models.py:17
+#: congregations/models.py:15 meetings/forms.py:160 meetings/models.py:93
+#: meetings/templates/pdf/designations.html:24
+msgid "Zoom"
+msgstr "Zoom"
+
+#: congregations/models.py:18
 msgid "Account Servant"
 msgstr "Servo de Contas"
 
-#: congregations/models.py:18
+#: congregations/models.py:19
 msgid "Secretary"
 msgstr "Secretário"
 
-#: congregations/models.py:19
+#: congregations/models.py:20
 msgid "Coordinator"
 msgstr "Coordenador"
 
-#: congregations/models.py:20
+#: congregations/models.py:21
 msgid "Superintendent of Service"
 msgstr "Superintendente de Serviço"
 
-#: congregations/models.py:27 meetings/models.py:176
+#: congregations/models.py:28 meetings/models.py:179
 msgid "Number"
 msgstr "Número"
 
-#: congregations/models.py:31
+#: congregations/models.py:32
 msgid "Number of Rooms"
 msgstr "Número de Salas"
 
-#: congregations/models.py:35
+#: congregations/models.py:36
 msgid "Number of Attendants"
 msgstr "Número de Indicadores"
 
-#: congregations/models.py:39
+#: congregations/models.py:40
 msgid "Number of Mic Passers"
 msgstr "Número de Mic Volante"
 
-#: congregations/models.py:43
+#: congregations/models.py:44
+msgid "Number for Audio/Video"
+msgstr "Número para Áudio/Vídeo"
+
+#: congregations/models.py:48
+msgid "Number for Zoom"
+msgstr "Número para Zoom"
+
+#: congregations/models.py:52
 msgid "Enable Bulletin Board"
 msgstr "Ativar Quadro de Anúncios"
 
-#: congregations/models.py:52 congregations/models.py:60
-#: congregations/models.py:93 congregations/models.py:117 financial/models.py:8
-#: financial/models.py:33 financial/models.py:76 financial/models.py:113
-#: meetings/models.py:121 meetings/models.py:145 meetings/models.py:164
-#: meetings/models.py:190 meetings/templates/pdf/weekend.html:12
+#: congregations/models.py:61 congregations/models.py:69
+#: congregations/models.py:102 congregations/models.py:126
+#: financial/models.py:8 financial/models.py:33 financial/models.py:76
+#: financial/models.py:113 meetings/models.py:124 meetings/models.py:148
+#: meetings/models.py:167 meetings/models.py:193
+#: meetings/templates/pdf/weekend.html:12
 #: meetings/templates/pdf/weekend.html:42 preaching/models.py:20
-#: preaching/models.py:48 users/forms.py:53 users/models.py:10
-#: users/tables.py:9
+#: preaching/models.py:48 sgc/templates/base.html:123 users/forms.py:53
+#: users/models.py:10 users/tables.py:9
 msgid "Congregation"
 msgstr "Congregação"
 
-#: congregations/models.py:53
+#: congregations/models.py:62
 #: congregations/templates/congregations/add_edit_congregation.html:12
-#: congregations/views.py:40 sgc/templates/base.html:123
-#: sgc/templates/base.html:125
+#: congregations/views.py:42 sgc/templates/base.html:125
 msgid "Congregations"
 msgstr "Congregações"
 
-#: congregations/models.py:61
+#: congregations/models.py:70
 msgid "Leader"
 msgstr "Dirigente"
 
-#: congregations/models.py:62 meetings/models.py:42
+#: congregations/models.py:71 meetings/models.py:42
 #: meetings/templates/pdf/midweek.html:52
 msgid "Assistant"
 msgstr "Ajudante"
 
-#: congregations/models.py:70
+#: congregations/models.py:79
 #: congregations/templates/groups/add_edit_group.html:12
-#: congregations/views.py:102 meetings/views.py:809 sgc/templates/base.html:127
+#: congregations/views.py:108 meetings/views.py:831 sgc/templates/base.html:127
 msgid "Groups"
 msgstr "Grupos"
 
-#: congregations/models.py:75
+#: congregations/models.py:84
 msgid "Full Name"
 msgstr "Nome Completo"
 
-#: congregations/models.py:77
+#: congregations/models.py:86
 msgid "Address"
 msgstr "Endereço"
 
-#: congregations/models.py:79 sgc/forms.py:15 users/forms.py:51
+#: congregations/models.py:88 sgc/forms.py:15 users/forms.py:51
 msgid "Email"
 msgstr "Email"
 
-#: congregations/models.py:81
+#: congregations/models.py:90
 msgid "Phone"
 msgstr "Telefone"
 
-#: congregations/models.py:83
+#: congregations/models.py:92
 msgid "Cellphone"
 msgstr "Celular"
 
-#: congregations/models.py:85
+#: congregations/models.py:94
 msgid "Creation Date"
 msgstr "Data de Criação"
 
-#: congregations/models.py:87
+#: congregations/models.py:96
 msgid "Update Date"
 msgstr "Data de Atualização"
 
-#: congregations/models.py:91
+#: congregations/models.py:100
 msgid "Gender"
 msgstr "Gênero"
 
-#: congregations/models.py:91
+#: congregations/models.py:100
 msgid "Female"
 msgstr "Feminino"
 
-#: congregations/models.py:91
+#: congregations/models.py:100
 msgid "Male"
 msgstr "Masculino"
 
-#: congregations/models.py:97 preaching/models.py:51
+#: congregations/models.py:106 preaching/models.py:51
 msgid "Is Active"
 msgstr "Ativo"
 
-#: congregations/models.py:106 congregations/models.py:121
+#: congregations/models.py:115 congregations/models.py:130
 #: preaching/forms.py:64 preaching/models.py:18 preaching/models.py:46
 #: users/models.py:12
 msgid "Publisher"
 msgstr "Publicador"
 
-#: congregations/models.py:107
+#: congregations/models.py:116
 #: congregations/templates/publishers/add_edit_publisher.html:12
-#: congregations/views.py:173 sgc/templates/base.html:128
+#: congregations/views.py:179 sgc/templates/base.html:128
 msgid "Publishers"
 msgstr "Publicadores"
 
@@ -389,9 +396,9 @@ msgstr "Home"
 #: financial/templates/edit_transaction.html:97
 #: meetings/templates/add_edit_meeting_audience.html:44
 #: meetings/templates/add_edit_speaker_out.html:45
-#: meetings/templates/add_meeting.html:118
+#: meetings/templates/add_meeting.html:125
 #: meetings/templates/add_meeting_audience_logout.html:34
-#: meetings/templates/edit_meeting.html:145
+#: meetings/templates/edit_meeting.html:152
 #: preaching/templates/add_edit_field_service_report.html:30
 #: preaching/templates/add_edit_pioneer.html:30
 #: users/templates/add_edit_user.html:30
@@ -400,90 +407,90 @@ msgid "Send"
 msgstr "Enviar"
 
 #: congregations/templates/congregations/add_edit_congregation_role.html:12
-#: congregations/views.py:247 sgc/templates/base.html:126
+#: congregations/views.py:253 sgc/templates/base.html:126
 msgid "Congregation Roles"
 msgstr "Funções da Congregação"
 
 #: congregations/templates/congregations/congregation_roles.html:17
-#: congregations/views.py:266
+#: congregations/views.py:272
 msgid "Add Congregation Role"
 msgstr "Adicionar Função da Congregação"
 
-#: congregations/templates/congregations/congregations.html:17
-#: congregations/views.py:56
+#: congregations/templates/congregations/congregations.html:18
+#: congregations/views.py:59
 msgid "Add Congregation"
 msgstr "Adicionar Congregação"
 
-#: congregations/templates/groups/groups.html:17 congregations/views.py:120
+#: congregations/templates/groups/groups.html:17 congregations/views.py:126
 msgid "Add Group"
 msgstr "Adicionar Grupo"
 
 #: congregations/templates/publishers/publishers.html:17
-#: congregations/views.py:195
+#: congregations/views.py:201
 msgid "Add Publisher"
 msgstr "Adicionar Publicador"
 
-#: congregations/views.py:51
+#: congregations/views.py:54
 msgid "Congregation added successfully"
 msgstr "Congregação adicionada com sucesso"
 
-#: congregations/views.py:68
+#: congregations/views.py:73
 msgid "Congregation edited successfully"
 msgstr "Congregação editada com sucesso"
 
-#: congregations/views.py:73
+#: congregations/views.py:78
 msgid "Edit Congregation"
 msgstr "Editar Congregação"
 
-#: congregations/views.py:82
+#: congregations/views.py:88
 msgid "Congregation deleted successfully"
 msgstr "Congregação deletada com sucesso"
 
-#: congregations/views.py:115
+#: congregations/views.py:121
 msgid "Group added successfully"
 msgstr "Grupo adicionado com sucesso"
 
-#: congregations/views.py:133
+#: congregations/views.py:139
 msgid "Group edited successfully"
 msgstr "Grupo editado com sucesso"
 
-#: congregations/views.py:138
+#: congregations/views.py:144
 msgid "Edit Group"
 msgstr "Editar Grupo"
 
-#: congregations/views.py:148
+#: congregations/views.py:154
 msgid "Group deleted successfully"
 msgstr "Grupo deletado com sucesso"
 
-#: congregations/views.py:189
+#: congregations/views.py:195
 msgid "Publisher added successfully"
 msgstr "Publicador adicionado com sucesso"
 
-#: congregations/views.py:212
+#: congregations/views.py:218
 msgid "Publisher edited successfully"
 msgstr "Publicado editado com sucesso"
 
-#: congregations/views.py:218
+#: congregations/views.py:224
 msgid "Edit Publisher"
 msgstr "Editar Publicador"
 
-#: congregations/views.py:228
+#: congregations/views.py:234
 msgid "Publisher deleted successfully"
 msgstr "Publicado deletado com sucesso"
 
-#: congregations/views.py:261
+#: congregations/views.py:267
 msgid "Congregation Role added successfully"
 msgstr "Função da Congregação adicionada com sucesso"
 
-#: congregations/views.py:283
+#: congregations/views.py:289
 msgid "Congregation Role edited successfully"
 msgstr "Função da Congregação editada com sucesso"
 
-#: congregations/views.py:289
+#: congregations/views.py:295
 msgid "Edit Congregation Role"
 msgstr "Editar Função da Congregação"
 
-#: congregations/views.py:300
+#: congregations/views.py:306
 msgid "Congregation Role deleted successfully"
 msgstr "Função da Congregação deletada com sucesso"
 
@@ -492,20 +499,20 @@ msgid "ObjectId"
 msgstr ""
 
 #: financial/forms.py:9 financial/models.py:48 financial/models.py:65
-#: financial/models.py:106 meetings/forms.py:14 meetings/forms.py:186
-#: meetings/forms.py:217 meetings/models.py:117 meetings/models.py:138
-#: meetings/models.py:156 preaching/forms.py:41 preaching/models.py:16
+#: financial/models.py:106 meetings/forms.py:14 meetings/forms.py:194
+#: meetings/forms.py:225 meetings/models.py:120 meetings/models.py:141
+#: meetings/models.py:159 preaching/forms.py:41 preaching/models.py:16
 msgid "Date"
 msgstr "Data"
 
-#: financial/forms.py:22 meetings/forms.py:25 meetings/forms.py:166
-#: meetings/forms.py:176 meetings/forms.py:197 preaching/forms.py:14
+#: financial/forms.py:22 meetings/forms.py:25 meetings/forms.py:174
+#: meetings/forms.py:184 meetings/forms.py:205 preaching/forms.py:14
 #: preaching/forms.py:27 preaching/forms.py:58 preaching/models.py:42
 msgid "Start Date"
 msgstr "Data Inicial"
 
-#: financial/forms.py:25 meetings/forms.py:28 meetings/forms.py:169
-#: meetings/forms.py:179 meetings/forms.py:200 preaching/forms.py:17
+#: financial/forms.py:25 meetings/forms.py:28 meetings/forms.py:177
+#: meetings/forms.py:187 meetings/forms.py:208 preaching/forms.py:17
 #: preaching/forms.py:30 preaching/forms.py:61 preaching/models.py:44
 msgid "End Date"
 msgstr "Data Final"
@@ -523,7 +530,7 @@ msgstr "Tipo da Transação"
 msgid "Transaction Direction"
 msgstr "Direção da Transação"
 
-#: financial/forms.py:38 meetings/forms.py:163
+#: financial/forms.py:38 meetings/forms.py:171
 msgid "Type PDF"
 msgstr "Tipo de PDF"
 
@@ -579,15 +586,19 @@ msgid "Donations made electronically unregistered in the Transaction Sheet"
 msgstr "Donativos feitas eletronicamente não registradas na Folha de Contas"
 
 #: financial/forms.py:63
-msgid "Número de Confirmação"
-msgstr ""
+msgid "Confirmation Number"
+msgstr "Número de Confirmação"
 
 #: financial/forms.py:64 financial/models.py:58 financial/models.py:73
 #: financial/models.py:101
 msgid "Value"
 msgstr "Valor"
 
-#: financial/helpers.py:441 financial/helpers.py:481
+#: financial/helpers.py:417 financial/helpers.py:431 financial/models.py:14
+msgid "Interest"
+msgstr "Juros"
+
+#: financial/helpers.py:451 financial/helpers.py:491
 msgid "Donates to Construction of the Subsidiary"
 msgstr "Donativos para a Construção da Filial"
 
@@ -611,10 +622,6 @@ msgstr "Despesa"
 msgid "Construction of the Subsidiary"
 msgstr "Construção da Filial"
 
-#: financial/models.py:14
-msgid "Interest"
-msgstr "Juros"
-
 #: financial/models.py:15
 msgid "Specific objective"
 msgstr "Objetivo Específico"
@@ -631,7 +638,7 @@ msgstr "Receitas"
 msgid "Checking Account"
 msgstr "Conta Bancária"
 
-#: financial/models.py:21 meetings/models.py:142
+#: financial/models.py:21 meetings/models.py:145
 msgid "Other"
 msgstr "Outro"
 
@@ -663,7 +670,7 @@ msgstr "Descrição"
 
 #: financial/models.py:50
 msgid "Leave blank for a transaction on the same line as the main one"
-msgstr ""
+msgstr "Deixe em branco para uma transação na mesma linha da principal"
 
 #: financial/models.py:60 financial/models.py:80
 msgid "Category"
@@ -687,7 +694,7 @@ msgstr "Transação"
 msgid "Transactions"
 msgstr "Transações"
 
-#: financial/models.py:99 meetings/models.py:143
+#: financial/models.py:99 meetings/models.py:146
 msgid "Count"
 msgstr "Contagem"
 
@@ -796,7 +803,7 @@ msgstr "Editar Transação"
 msgid "Transaction deleted successfully"
 msgstr "Transação deletada com sucesso"
 
-#: financial/views.py:264 meetings/views.py:378 sgc/templates/base.html:138
+#: financial/views.py:264 meetings/views.py:390 sgc/templates/base.html:138
 #: sgc/templates/base.html:154
 msgid "Generate PDF"
 msgstr "Gerar PDF"
@@ -817,13 +824,13 @@ msgstr "Editar Categoria de Transação"
 msgid "Transaction Category deleted successfully"
 msgstr "Categoria de Transação deletada com sucesso"
 
-#: meetings/forms.py:31 meetings/models.py:119
+#: meetings/forms.py:31 meetings/models.py:122
 msgid "Type Meeting"
 msgstr "Tipo de Reunião"
 
-#: meetings/forms.py:46 meetings/forms.py:47 meetings/forms.py:213
-#: meetings/forms.py:214 meetings/models.py:16 meetings/models.py:158
-#: meetings/models.py:175 meetings/templates/pdf/weekend.html:16
+#: meetings/forms.py:46 meetings/forms.py:47 meetings/forms.py:221
+#: meetings/forms.py:222 meetings/models.py:16 meetings/models.py:161
+#: meetings/models.py:178 meetings/templates/pdf/weekend.html:16
 #: meetings/templates/pdf/weekend.html:46
 msgid "Theme"
 msgstr "Tema"
@@ -844,7 +851,11 @@ msgstr "Não"
 msgid "Yes"
 msgstr "Sim"
 
-#: meetings/forms.py:163
+#: meetings/forms.py:151
+msgid "Audio/Vídeo"
+msgstr "Áudio/Vídeo"
+
+#: meetings/forms.py:171
 msgid "Designation sheet"
 msgstr "Folha de Designações"
 
@@ -853,7 +864,7 @@ msgstr "Folha de Designações"
 msgid "President"
 msgstr "Presidente"
 
-#: meetings/models.py:12 meetings/models.py:160
+#: meetings/models.py:12 meetings/models.py:163
 #: meetings/templates/pdf/weekend.html:10
 #: meetings/templates/pdf/weekend.html:40
 msgid "Speaker"
@@ -908,85 +919,89 @@ msgstr "Oração Final"
 msgid "Final Song"
 msgstr "Cântico Final"
 
-#: meetings/models.py:96
+#: meetings/models.py:90 meetings/templates/pdf/designations.html:14
+msgid "Audio/Video"
+msgstr "Áudio/Vídeo"
+
+#: meetings/models.py:99
 msgid "Attendant 1"
 msgstr "Indicador 1"
 
-#: meetings/models.py:99
+#: meetings/models.py:102
 msgid "Attendant 2"
 msgstr "Indicador 2"
 
-#: meetings/models.py:102
+#: meetings/models.py:105
 msgid "Mic Passer 1"
 msgstr "Mic Volante 1"
 
-#: meetings/models.py:105
+#: meetings/models.py:108
 msgid "Mic Passer 2"
 msgstr "Mic Volante 2"
 
-#: meetings/models.py:108 meetings/templates/pdf/designations.html:9
+#: meetings/models.py:111 meetings/templates/pdf/designations.html:10
 msgid "Attendants"
 msgstr "Indicadores"
 
-#: meetings/models.py:111
+#: meetings/models.py:114
 msgid "Mic Passers"
 msgstr "Mic Volante"
 
-#: meetings/models.py:132
+#: meetings/models.py:135
 msgid "Meeting"
 msgstr "Reunião"
 
-#: meetings/models.py:133 meetings/templates/add_meeting.html:12
+#: meetings/models.py:136 meetings/templates/add_meeting.html:12
 #: meetings/templates/edit_meeting.html:12 meetings/views.py:51
 #: sgc/templates/base.html:134
 msgid "Meetings"
 msgstr "Reuniões"
 
-#: meetings/models.py:139
+#: meetings/models.py:142
 msgid "Filled by"
 msgstr "Preenchido por"
 
-#: meetings/models.py:141 meetings/templates/add_edit_meeting_audience.html:32
+#: meetings/models.py:144 meetings/templates/add_edit_meeting_audience.html:32
 #: meetings/templates/add_meeting_audience_logout.html:22
 msgid "Absences"
 msgstr "Ausências"
 
-#: meetings/models.py:150 meetings/templates/add_meeting_audience_logout.html:4
+#: meetings/models.py:153 meetings/templates/add_meeting_audience_logout.html:4
 #: sgc/templates/base.html:136
 msgid "Meeting Audience"
 msgstr "Assistência da Reunião"
 
-#: meetings/models.py:151
+#: meetings/models.py:154
 msgid "Meetings Audience"
 msgstr "Assistência da Reuniões"
 
-#: meetings/models.py:162
+#: meetings/models.py:165
 msgid "Congregation Destination"
 msgstr "Congregação de Destino"
 
-#: meetings/models.py:169
+#: meetings/models.py:172
 msgid "Speaker Out"
 msgstr "Orador Saindo"
 
-#: meetings/models.py:170 meetings/templates/add_edit_speaker_out.html:12
-#: meetings/templates/pdf/weekend.html:32 meetings/views.py:682
+#: meetings/models.py:173 meetings/templates/add_edit_speaker_out.html:12
+#: meetings/templates/pdf/weekend.html:32 meetings/views.py:704
 #: sgc/templates/base.html:142
 msgid "Speakers Out"
 msgstr "Oradores Saindo"
 
-#: meetings/models.py:178
+#: meetings/models.py:181
 msgid "Last Update"
 msgstr "Última Atualização"
 
-#: meetings/models.py:188
+#: meetings/models.py:191
 msgid "Speech"
 msgstr "Discurso"
 
-#: meetings/models.py:191
+#: meetings/models.py:194
 msgid "Dates"
 msgstr "Datas"
 
-#: meetings/templates/add_edit_meeting_audience.html:12 meetings/views.py:586
+#: meetings/templates/add_edit_meeting_audience.html:12 meetings/views.py:608
 msgid "Meeting Audiences"
 msgstr "Assistência das Reuniões"
 
@@ -1015,8 +1030,8 @@ msgstr "Conteúdo Faça seu Melhor"
 msgid "Living Christians Content"
 msgstr "Conteúdo Vida Cristã"
 
-#: meetings/templates/add_meeting.html:296
-#: meetings/templates/edit_meeting.html:294
+#: meetings/templates/add_meeting.html:303
+#: meetings/templates/edit_meeting.html:315
 msgid "Duplicate Entry"
 msgstr "Entrada Duplicada"
 
@@ -1025,12 +1040,12 @@ msgstr "Entrada Duplicada"
 msgid "Search"
 msgstr "Pesquisar"
 
-#: meetings/templates/meeting_audiences.html:17 meetings/views.py:615
-#: meetings/views.py:620
+#: meetings/templates/meeting_audiences.html:17 meetings/views.py:637
+#: meetings/views.py:642
 msgid "Add Meeting Audience"
 msgstr "Adicionar Assistência da Reunião"
 
-#: meetings/templates/meetings.html:17 meetings/views.py:151
+#: meetings/templates/meetings.html:17 meetings/views.py:155
 msgid "Add Meeting"
 msgstr "Adicionar Reunião"
 
@@ -1060,59 +1075,59 @@ msgstr "Faça seu Melhor no Ministério"
 msgid "Living as Christians"
 msgstr "Nossa Vida Cristã"
 
-#: meetings/templates/speakers_out.html:17 meetings/views.py:703
+#: meetings/templates/speakers_out.html:17 meetings/views.py:725
 msgid "Add Speaker Out"
 msgstr "Adicionar Orador Sainte"
 
-#: meetings/views.py:139
+#: meetings/views.py:143
 msgid "Meeting added successfully"
 msgstr "Reunião adicionada com sucesso"
 
-#: meetings/views.py:255
+#: meetings/views.py:265
 msgid "Meeting edited successfully"
 msgstr "Reunião editada com sucesso"
 
-#: meetings/views.py:285
+#: meetings/views.py:295
 msgid "Edit Meeting"
 msgstr "Editar Reunião"
 
-#: meetings/views.py:303
+#: meetings/views.py:315
 msgid "Meeting deleted successfully"
 msgstr "Reunião deletada com sucesso"
 
-#: meetings/views.py:608
+#: meetings/views.py:630
 msgid "Meeting Audience added successfully"
 msgstr "Assistência da Reunião adicionada com sucesso"
 
-#: meetings/views.py:639
+#: meetings/views.py:661
 msgid "Meeting Audience edited successfully"
 msgstr "Assistência da Reunião editada com sucesso"
 
-#: meetings/views.py:648
+#: meetings/views.py:670
 msgid "Edit Meeting Audience"
 msgstr "Editar Assistência da Reunião"
 
-#: meetings/views.py:658
+#: meetings/views.py:680
 msgid "Meeting Audience deleted successfully"
 msgstr "Assistência da Reunião deletada com sucesso"
 
-#: meetings/views.py:697
+#: meetings/views.py:719
 msgid "Speaker Out added successfully"
 msgstr "Orador Sainte adicionado com sucesso"
 
-#: meetings/views.py:715
+#: meetings/views.py:737
 msgid "Speaker Out edited successfully"
 msgstr "Orador Sainte editado com sucesso"
 
-#: meetings/views.py:721
+#: meetings/views.py:743
 msgid "Edit Speaker Out"
 msgstr "Editar Orador Sainte"
 
-#: meetings/views.py:729
+#: meetings/views.py:751
 msgid "Speaker Out deleted successfully"
 msgstr "Orador Sainte deletado com sucesso"
 
-#: meetings/views.py:763 sgc/templates/base.html:140
+#: meetings/views.py:785 sgc/templates/base.html:140
 #: sgc/templates/base.html:143
 msgid "Speeches"
 msgstr "Discursos"
@@ -1218,10 +1233,12 @@ msgid ""
 "Please enter a correct %(username)s and password. Note that both fields may "
 "be case-sensitive."
 msgstr ""
+"Por favor entre com um %(username)s e senha corretos. Note que ambos os "
+"campos podem ser sensíveis a maiúsculas e minúsculas."
 
 #: sgc/forms.py:27
 msgid "This account is inactive."
-msgstr ""
+msgstr "Esta conta está inativa."
 
 #: sgc/settings.py:155
 msgid "English"
@@ -1265,7 +1282,7 @@ msgstr "Administração"
 msgid "Users"
 msgstr "Usuários"
 
-#: sgc/templates/base.html:200
+#: sgc/templates/base.html:199
 msgid "Close"
 msgstr "Fechar"
 
@@ -1309,25 +1326,19 @@ msgstr "%(count)s de %(total)s"
 
 #: users/models.py:14
 msgid "first name"
-msgstr ""
+msgstr "primeiro nome"
 
 #: users/models.py:16
-#, fuzzy
-#| msgid "Last Update"
 msgid "last name"
-msgstr "Última Atualização"
+msgstr "último nome"
 
 #: users/models.py:17
-#, fuzzy
-#| msgid "Address"
 msgid "email address"
-msgstr "Endereço"
+msgstr "endereço de email"
 
 #: users/models.py:19
-#, fuzzy
-#| msgid "Number"
 msgid "Phone Number"
-msgstr "Número"
+msgstr "Telefone"
 
 #: users/models.py:21
 msgid "staff status"
@@ -1338,10 +1349,8 @@ msgid "Designates whether the user can log into this admin site."
 msgstr ""
 
 #: users/models.py:24
-#, fuzzy
-#| msgid "Is Active"
 msgid "active"
-msgstr "Ativo"
+msgstr "ativo"
 
 #: users/models.py:25
 msgid ""
@@ -1358,10 +1367,8 @@ msgid "user"
 msgstr ""
 
 #: users/models.py:36
-#, fuzzy
-#| msgid "Users"
 msgid "users"
-msgstr "Usuários"
+msgstr "usuários"
 
 #: users/templates/actions_table_users.html:7 users/views.py:123
 msgid "Set Password"
@@ -1398,6 +1405,9 @@ msgstr "Por favor corrija o erro abaixo."
 #: users/views.py:116
 msgid "Password was successfully updated."
 msgstr "Senha atualizada com sucesso."
+
+#~ msgid "Designations"
+#~ msgstr "Designações"
 
 #~ msgid "Out - In"
 #~ msgstr "Saída - Entrada"

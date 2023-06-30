@@ -124,11 +124,13 @@
             </div>
             <div class="card" id="boxDesignations">
                 <div class="card-body">
-                    <h4 class="card-title">{% trans 'Designations' %}</h4>
+                    <h4 class="card-title">{% trans 'Attendants and Sound System' %}</h4>
                     <div class="row">
+                        {% for i in range_soundman %}
                         <div class="col-lg-3 field-designation">
                             {% bootstrap_field form_designations.soundman addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
                         </div>
+                        {% endfor %}
                         {% for i in range_attendants %}
                         <div class="col-lg-3 field-designation">
                             {% bootstrap_field form_designations.attendant addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
@@ -137,6 +139,11 @@
                         {% for i in range_mic_passers %}
                         <div class="col-lg-3 field-designation">
                             {% bootstrap_field form_designations.mic_passer addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
+                        </div>
+                        {% endfor %}
+                        {% for i in range_zoom %}
+                        <div class="col-lg-3 field-designation">
+                            {% bootstrap_field form_designations.zoom addon_after='<span class="fa fa-lightbulb-o suggest"></span>' %}
                         </div>
                         {% endfor %}
                     </div>
@@ -202,6 +209,8 @@
         }
         var attendants_ids = [{% for a in meeting.designations.attendants_id %}"{{a}}", {% endfor %}];
         var mic_passers_ids = [{% for m in meeting.designations.mic_passers_id %}"{{m}}", {% endfor %}];
+        var soundman_ids = [{% for s in meeting.designations.soundman_id %}"{{s}}", {% endfor %}];
+        var zoom_ids = [{% for z in meeting.designations.zoom_id %}"{{z}}", {% endfor %}];
         $('select[name="attendant"]').each(function(index, el) {
             if(index < attendants_ids.length){
                 $(this).val(attendants_ids[index]);
@@ -211,6 +220,18 @@
         $('select[name="mic_passer"]').each(function(index, el) {
             if(index < mic_passers_ids.length){
                 $(this).val(mic_passers_ids[index]);
+                $(this).selectpicker('refresh');
+            }
+        });
+        $('select[name="soundman"]').each(function(index, el) {
+            if(index < soundman_ids.length){
+                $(this).val(soundman_ids[index]);
+                $(this).selectpicker('refresh');
+            }
+        });
+        $('select[name="zoom"]').each(function(index, el) {
+            if(index < zoom_ids.length){
+                $(this).val(zoom_ids[index]);
                 $(this).selectpicker('refresh');
             }
         });

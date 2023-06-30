@@ -11,7 +11,8 @@ TAGS = [
     ('prayer', _("Prayer")),
     ('elder', _("Elder")),
     ('student', _("Student")),
-    ('stage', _("Stage"))
+    ('stage', _("Stage")),
+    ('zoom', _("Zoom")),
 ]
 ROLES = [
     ('account_servant', _("Account Servant")),
@@ -39,6 +40,14 @@ class Congregation(models.Model):
     n_mic_passers = models.IntegerField(default=2, verbose_name=_("Number of Mic Passers"), validators=[
         MaxValueValidator(5),
         MinValueValidator(1)
+    ])
+    n_soundman = models.IntegerField(default=2, verbose_name=_("Number for Audio/Video"), validators=[
+        MaxValueValidator(5),
+        MinValueValidator(1)
+    ])
+    n_zoom = models.IntegerField(default=1, verbose_name=_("Number for Zoom"), validators=[
+        MaxValueValidator(5),
+        MinValueValidator(0)
     ])
     enable_board = models.BooleanField(default=False, verbose_name=_("Enable Bulletin Board"))
     theocratic_agenda = models.TextField(verbose_name=_("Theocratic Agenda"), blank=True, null=True)

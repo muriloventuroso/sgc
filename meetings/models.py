@@ -86,9 +86,12 @@ class MidweekContent(models.Model):
 
 
 class Designations(models.Model):
-    soundman = models.ForeignKey(
-        Publisher, verbose_name=_("Soundman"), null=True, blank=True, on_delete=models.SET_NULL,
+    soundman = models.ArrayReferenceField(
+        to=Publisher, verbose_name=_("Audio/Video"), on_delete=models.SET_NULL, null=True, blank=True,
         related_name="designations_soundman")
+    zoom = models.ArrayReferenceField(
+        to=Publisher, verbose_name=_("Zoom"), on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="designations_zoom")
     stage = models.ForeignKey(
         Publisher, verbose_name=_("Stage"), null=True, blank=True, on_delete=models.SET_NULL,
         related_name="designations_stage")

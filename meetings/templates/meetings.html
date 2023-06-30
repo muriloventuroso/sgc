@@ -48,7 +48,6 @@
         if(start_date.val()==''){
             start_date.val(moment(start).format(format_date));
         }
-        console.log(format_date);
         var end_date = $('input[name="end_date"]');
         if(end_date.val()==''){
             end_date.val(moment(end).endOf('month').format(format_date));

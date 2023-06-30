@@ -67,10 +67,14 @@ def add_meeting(request):
             meeting.congregation_id = congregation_id
             if form_designations.is_valid():
                 meeting.designations = form_designations.save(commit=False)
+                meeting.designations.soundman_id = request.POST.getlist(
+                    'soundman')
                 meeting.designations.attendants_id = request.POST.getlist(
                     'attendant')
                 meeting.designations.mic_passers_id = request.POST.getlist(
                     'mic_passer')
+                meeting.designations.zoom_id = request.POST.getlist(
+                    'zoom')
             if meeting.type_meeting == 'w':
                 if form_weekendcontent.is_valid():
                     meeting.weekend_content = form_weekendcontent.save(
@@ -155,6 +159,8 @@ def add_meeting(request):
         'form_livingchristianscontent': form_livingchristianscontent,
         'congregation_id': congregation_id, 'range_attendants': range(request.user.congregation.n_attendants),
         'range_mic_passers': range(request.user.congregation.n_mic_passers),
+        'range_soundman': range(request.user.congregation.n_soundman),
+        'range_zoom': range(request.user.congregation.n_zoom),
     })
 
 
@@ -174,10 +180,14 @@ def edit_meeting(request, meeting_id):
             meeting.congregation_id = congregation_id
             if form_designations.is_valid():
                 meeting.designations = form_designations.save(commit=False)
+                meeting.designations.soundman_id = request.POST.getlist(
+                    'soundman')
                 meeting.designations.attendants_id = request.POST.getlist(
                     'attendant')
                 meeting.designations.mic_passers_id = request.POST.getlist(
                     'mic_passer')
+                meeting.designations.zoom_id = request.POST.getlist(
+                    'zoom')
             if meeting.type_meeting == 'w':
                 if form_weekendcontent.is_valid():
                     old_theme = meeting.weekend_content.theme
@@ -292,6 +302,8 @@ def edit_meeting(request, meeting_id):
         'list_form_livingchristianscontent': list_form_livingchristianscontent,
         'range_attendants': range(request.user.congregation.n_attendants),
         'range_mic_passers': range(request.user.congregation.n_mic_passers),
+        'range_soundman': range(request.user.congregation.n_soundman),
+        'range_zoom': range(request.user.congregation.n_zoom),
         'meeting': meeting
     })
 
@@ -430,6 +442,16 @@ def suggest_publisher(request):
             for mic_passer_id in meeting.designations.mic_passers_id:
                 if mic_passer_id and str(mic_passer_id) not in list_publishers_meetings:
                     list_publishers_meetings.append(str(mic_passer_id))
+    elif request.GET['type'] == 'zoom':
+        list_publishers = [
+            (str(p._id), p.full_name) for p in Publisher.objects.filter(
+                tags__in=['zoom'], congregation_id=congregation_id)]
+        for meeting in meetings:
+            if not meeting.designations.zoom_id:
+                continue
+            for zoom_id in meeting.designations.zoom_id:
+                if zoom_id and str(zoom_id) not in list_publishers_meetings:
+                    list_publishers_meetings.append(str(zoom_id))
     elif request.GET['type'] == 'stage':
         list_publishers = [
             (str(p._id), p.full_name) for p in Publisher.objects.filter(

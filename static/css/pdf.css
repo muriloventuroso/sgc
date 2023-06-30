@@ -51,12 +51,12 @@ body {
 }
 @page {
     size: a4 portrait;
-    margin: 30mm 17mm 17mm 17mm;
+    margin: 30mm 10mm 10mm 10mm;
 
 }
 html {
     font-family: 'Cantarell';
-    font-size: 14px;
+    font-size: 13px;
     font-weight: normal;
     color: #000000;
     background-color: white;
@@ -121,10 +121,10 @@ hr {
 .title-designation {
     font-weight: bold;
     font-family: 'Ubuntu';
-    width: 100px;
+    width: 110px;
 }
 .two-names {
-    width: 300px;
+    width: 290px;
 }
 .table-designations {
     margin-bottom: 10px;

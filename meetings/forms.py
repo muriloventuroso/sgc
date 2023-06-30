@@ -144,23 +144,31 @@ class FormDesignations(forms.ModelForm):
             tags__in=['attendant'], congregation_id=congregation_id)
         self.fields['mic_passer'].queryset = Publisher.objects.filter(
             tags__in=['mic_passer'], congregation_id=congregation_id)
+        self.fields['zoom'].queryset = Publisher.objects.filter(
+            tags__in=['zoom'], congregation_id=congregation_id)
 
+    soundman = forms.ModelChoiceField(
+        label=_("Audio/Vídeo"), queryset=Publisher.objects.none(),
+        required=False)
     attendant = forms.ModelChoiceField(
         label=_("Attendant"), queryset=Publisher.objects.none(),
         required=False)
     mic_passer = forms.ModelChoiceField(
         label=_("Mic Passer"), queryset=Publisher.objects.none(),
         required=False)
+    zoom = forms.ModelChoiceField(
+        label=_("Zoom"), queryset=Publisher.objects.none(),
+        required=False)
 
     class Meta:
         model = Designations
-        fields = ('soundman', )
+        fields = ()
 
 
 class FormGeneratePDF(forms.Form):
 
     type_pdf = forms.ChoiceField(
-        label=_("Type PDF"), choices=[('', ''), ('w', _("Weekend")), ('m', _("Midweek")), ('d', _('Designations')), ('s', _('Designation sheet'))],
+        label=_("Type PDF"), choices=[('', ''), ('w', _("Weekend")), ('m', _("Midweek")), ('d', _('Attendants and Sound System')), ('s', _('Designation sheet'))],
         initial='', required=True)
     start_date = forms.DateField(
         label=_("Start Date"), required=False, input_formats=['%Y-%m-%d', '%d/%m/%Y'],

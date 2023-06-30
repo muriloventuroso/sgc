@@ -1369,13 +1369,17 @@ class ArrayReferenceField(ForeignKey):
     def to_python(self, value):
         if value is None:
             return set()
-        return set(value)
+        if isinstance(value, ObjectId):
+            return [str(value)]
+        return value
 
     def get_db_prep_value(self, value, connection, prepared=False):
         if value is None:
             return []
         elif isinstance(value, set):
             return list(value)
+        elif isinstance(value, ObjectId):
+            return [str(value)]
         return value
         # return super().get_db_prep_value(value, connection, prepared)
 
