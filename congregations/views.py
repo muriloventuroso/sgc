@@ -166,11 +166,10 @@ def publishers(request):
         if 'tags' in data and data['tags']:
             filter_data['tags'] = {"$in": data['tags']}
         if 'group' in data and data['group']:
-            filter_data['group_id'] = {"$in": [x["_id"] for x in Group.objects.mongo_find(
-                {'name': {"$regex": data['group'], '$options': 'i'}})]}
+            filter_data['group_id__in'] = [x["_id"] for x in Group.objects.mongo_find(
+                {'name': {"$regex": data['group'], '$options': 'i'}})]
     filter_data['congregation_id'] = request.user.congregation_id
-    data = Publisher.objects.mongo_find(
-        filter_data).sort("full_name", pymongo.ASCENDING)
+    data = Publisher.objects.filter(**filter_data).order_by("full_name")
     table = TablePublishers(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
     RequestConfig(request).configure(table)

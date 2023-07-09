@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 TAGS = [
     ('ministerial_servant', _("Ministerial Servant")),
     ('attendant', _("Attendant")),
-    ('soundman', _('Soundman')),
+    ('soundman', _('Audio/Video')),
     ('mic_passer', _('Mic Passer')),
     ('reader_w', _("Reader Watchtower")),
     ('reader_m', _("Reader Midweek")),

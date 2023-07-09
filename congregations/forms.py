@@ -54,6 +54,12 @@ class FormPublisher(forms.ModelForm):
     class Meta:
         model = Publisher
         exclude = ('_id', 'creation_date', 'update_date')
+    
+    def clean_full_name(self):
+        full_name = self.cleaned_data['full_name']
+        if full_name:
+            full_name = full_name.strip()
+        return full_name
 
 
 class FormSearchPublisher(forms.Form):
