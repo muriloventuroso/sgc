@@ -97,8 +97,7 @@ def groups(request):
         data = form.cleaned_data
         if 'name' in data and data['name']:
             filter_data['name'] = {"$regex": data['name'], '$options': 'i'}
-    if not request.user.is_staff:
-        filter_data['congregation_id'] = request.user.congregation_id
+    filter_data['congregation_id'] = request.user.congregation_id
     data = Group.objects.mongo_find(
         filter_data).sort('name', pymongo.ASCENDING)
     table = TableGroups(data)
