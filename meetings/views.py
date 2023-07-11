@@ -160,6 +160,7 @@ def add_meeting(request):
         'range_mic_passers': range(request.user.congregation.n_mic_passers),
         'range_soundman': range(request.user.congregation.n_soundman),
         'range_zoom': range(request.user.congregation.n_zoom),
+        'next': request.GET.copy().urlencode()
     })
 
 
@@ -303,7 +304,8 @@ def edit_meeting(request, meeting_id):
         'range_mic_passers': range(request.user.congregation.n_mic_passers),
         'range_soundman': range(request.user.congregation.n_soundman),
         'range_zoom': range(request.user.congregation.n_zoom),
-        'meeting': meeting
+        'meeting': meeting,
+        'next': request.GET.copy().urlencode()
     })
 
 

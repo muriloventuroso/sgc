@@ -84,6 +84,7 @@ TEMPLATES = [
                 'django.templatetags.static',
                 'django.templatetags.i18n',
                 'sgc.templatetags.tagger',
+                'sgc.templatetags.get_next',
                 'bootstrap4.templatetags.bootstrap4',
                 'django_tables2.templatetags.django_tables2'
             ],

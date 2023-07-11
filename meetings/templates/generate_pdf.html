@@ -19,7 +19,7 @@
 {% block body %}
 <div class="row col-12 card card-body">
     <h4 class="mt-0 header-title">{% trans "Search" %}</h4>
-    <form method="post" action="." class="form-horizontal" role="form" autocomplete="off">
+    <form method="post" action=".?{% get_next request %}" class="form-horizontal" role="form" autocomplete="off">
         {% csrf_token %}
         <div class="row">
             {% for item in form %}

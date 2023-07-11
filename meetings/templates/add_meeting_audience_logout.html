@@ -12,7 +12,7 @@
     <div class="wrapper-page">
         <div class="row col-12 card card-body">
 
-            <form id="form" action"." method="post" class="form-horizontal"autocomplete=off>
+            <form id="form" action=".?{% get_next request %}" method="post" class="form-horizontal"autocomplete=off>
 
                 {% csrf_token %}
                 {% bootstrap_field form.date %}

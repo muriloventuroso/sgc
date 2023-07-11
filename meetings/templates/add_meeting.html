@@ -21,7 +21,7 @@
 
 {% block body %}
 <div class="row col-12 card card-body">
-    <form method="post" action=".?congregation={{congregation_id}}" autocomplete="off">
+    <form method="post" action=".?congregation={{congregation_id}}&{% get_next request %}" autocomplete="off">
         {% csrf_token %}
         {% bootstrap_form form %}
         <div class="card" id="boxWeekendContent" style="display: none">
