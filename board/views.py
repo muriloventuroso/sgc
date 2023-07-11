@@ -62,7 +62,7 @@ def bulletin_board(request, congregation_id):
                 count += 1
             if group.assistant:
                 count += 1
-            for p in Publisher.objects.filter(group_id=group._id):
+            for p in Publisher.objects.filter(group_id=group._id).order_by('full_name'):
                 if p != group.leader and p != group.assistant:
                     item['publishers'].append({
                         'name': str(p),

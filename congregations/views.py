@@ -161,14 +161,14 @@ def publishers(request):
     if form.is_valid():
         data = form.cleaned_data
         if 'name' in data and data['name']:
-            filter_data['full_name'] = {
-                "$regex": data['name'], '$options': 'i'}
+            filter_data['full_name__icontains'] = data['name']
         if 'tags' in data and data['tags']:
             filter_data['tags'] = {"$in": data['tags']}
         if 'group' in data and data['group']:
             filter_data['group_id__in'] = [x["_id"] for x in Group.objects.mongo_find(
                 {'name': {"$regex": data['group'], '$options': 'i'}})]
     filter_data['congregation_id'] = request.user.congregation_id
+    print(filter_data)
     data = Publisher.objects.filter(**filter_data).order_by("full_name")
     table = TablePublishers(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
@@ -196,7 +196,8 @@ def add_publisher(request):
         form = FormPublisher(request.user.is_staff,
                              request.user.congregation_id)
     return render(request, 'publishers/add_edit_publisher.html', {
-        'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Add Publisher")
+        'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Add Publisher"),
+        'next': request.GET.copy().urlencode()
     })
 
 
@@ -219,7 +220,8 @@ def edit_publisher(request, publisher_id):
         form = FormPublisher(request.user.is_staff, request.user.congregation_id,
                              instance=publisher, initial={'tags': publisher.tags})
     return render(request, 'publishers/add_edit_publisher.html', {
-        'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Edit Publisher")
+        'request': request, 'form': form, 'page_group': 'congregations', 'page_title': _("Edit Publisher"),
+        'next': request.GET.copy().urlencode()
     })
 
 
