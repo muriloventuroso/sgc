@@ -11,7 +11,6 @@ TAGS = [
     ('prayer', _("Prayer")),
     ('elder', _("Elder")),
     ('student', _("Student")),
-    ('stage', _("Stage")),
     ('zoom', _("Zoom")),
 ]
 ROLES = [

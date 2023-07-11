@@ -596,8 +596,7 @@ def meeting_audiences(request):
             filter_data['date__gte'] = datetime.datetime.now()
         if 'end_date' in data and data['end_date']:
             filter_data['date__lte'] = data['end_date']
-    if not request.user.is_staff:
-        filter_data['congregation_id'] = request.user.congregation_id
+    filter_data['congregation_id'] = request.user.congregation_id
     data = MeetingAudience.objects.filter(**filter_data)
     table = TableMeetingAudience(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
@@ -692,8 +691,7 @@ def speakers_out(request):
             filter_data['date__gte'] = datetime.datetime.now()
         if 'end_date' in data and data['end_date']:
             filter_data['date__lte'] = data['end_date']
-    if not request.user.is_staff:
-        filter_data['congregation_id'] = request.user.congregation_id
+    filter_data['congregation_id'] = request.user.congregation_id
     data = SpeakerOut.objects.filter(**filter_data)
     table = TableSpeakerOut(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
