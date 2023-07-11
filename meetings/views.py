@@ -40,8 +40,7 @@ def meetings(request):
             filter_m['date__lte'] = data['end_date']
         if 'type_meeting' in data and data['type_meeting']:
             filter_m['type_meeting'] = data['type_meeting']
-    if not request.user.is_staff:
-        filter_m['congregation_id'] = request.user.congregation_id
+    filter_m['congregation_id'] = request.user.congregation_id
     data = Meeting.objects.filter(**filter_m)
     table = TableMeetings(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)

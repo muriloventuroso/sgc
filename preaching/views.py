@@ -24,8 +24,7 @@ def pioneers(request):
             filter_data['start_date__gte'] = datetime.datetime.now()
         if 'end_date' in data and data['end_date']:
             filter_data['start_date__lte'] = data['end_date']
-    if not request.user.is_staff:
-        filter_data['congregation_id'] = request.user.congregation_id
+    filter_data['congregation_id'] = request.user.congregation_id
     data = Pioneer.objects.filter(**filter_data)
     table = TablePioneers(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)
@@ -93,8 +92,7 @@ def field_service_reports(request):
             filter_data['date__lte'] = data['end_date']
         if 'publisher' in data and data['publisher']:
             filter_data['publisher'] = data['publisher']
-    if not request.user.is_staff:
-        filter_data['congregation_id'] = request.user.congregation_id
+    filter_data['congregation_id'] = request.user.congregation_id
     data = FieldServiceReport.objects.filter(**filter_data)
     table = TableFieldServiceReports(data)
     table.paginate(page=request.GET.get('page', 1), per_page=25)

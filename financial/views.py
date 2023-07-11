@@ -37,8 +37,7 @@ def transactions(request):
             filter_data['tt'] = data['tt']
         if 'td' in data and data['td']:
             filter_data['td'] = data['td']
-    if not request.user.is_staff:
-        filter_data['congregation_id'] = request.user.congregation_id
+    filter_data['congregation_id'] = request.user.congregation_id
     summary = {}
     data = Transaction.objects.filter(**filter_data).select_related('category')
     new_data = []
