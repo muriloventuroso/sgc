@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.utils.translation import gettext_lazy as _
 from congregations.models import Congregation, Group, Publisher
-from meetings.models import Meeting
+from meetings.models import Meeting, SpeakerOut
 
 
 def bulletin_board(request, congregation_id):
@@ -45,6 +45,9 @@ def bulletin_board(request, congregation_id):
                         rooms = 2
                         break
         context = {'meetings': meetings, 'rooms': rooms}
+        if type_board == "weekend":
+            context['speakers_out'] = SpeakerOut.objects.filter(congregation_id=request.user.congregation_id, date__gte=start_date.strftime("%Y-%m-%d"), date__lt=end_date.strftime("%Y-%m-%d"))
+
 
         layout = render_to_string(template, context)
     elif type_board == 'groups':

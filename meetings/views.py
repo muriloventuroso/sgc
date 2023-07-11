@@ -365,8 +365,7 @@ def generate_pdf(request):
                                 break
                 context = {'meetings': meetings, 'rooms': rooms}
                 if data['type_pdf'] == 'w':
-                    context['speakers_out'] = SpeakerOut.objects.filter(date__range=[data['start_date'], data['end_date']])\
-                        .filter(congregation_id=request.user.congregation_id)
+                    context['speakers_out'] = SpeakerOut.objects.filter(congregation_id=request.user.congregation_id, date__range=[data['start_date'], data['end_date']])
                 layout = render_to_string(template, context)
                 html = HTML(string=layout)
                 main_doc = html.render(stylesheets=[CSS('static/css/pdf.css')])
