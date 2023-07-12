@@ -4,18 +4,18 @@
     <div class="box-item">
         <table class="table-midweek">
             <tr>
-                <td style="width: 60%" class="date-midweek" colspan=2>{{meeting.date}} | {{meeting.midweek_content.reading_week}}</td>
+                <td style="width: 60%" class="date-midweek" {% if rooms == 2 %}colspan=2{% endif %}>{{meeting.date}} | {{meeting.midweek_content.reading_week}}</td>
                 <td class="small-title pull-right" style="width: {% if rooms == 2 %}150{%else%}60{% endif %}px">{% trans 'President' %}:</td>
                 <td style="width: 150px">{{meeting.midweek_content.president|default_if_none:""}}</td>
             </tr>
             <tr>
-                <td colspan=2>{% trans 'Song' %} {{meeting.midweek_content.initial_song}}</td>
+                <td {% if rooms == 2 %}colspan=2{% endif %}>{% trans 'Song' %} {{meeting.midweek_content.initial_song}}</td>
                 <td class="small-title pull-right">{% trans 'Prayer' %}:</td>
                 <td>{{meeting.midweek_content.initial_prayer|default_if_none:""}}</td>
             </tr>
             <tr>
-                <td class="title-treasures" colspan=2>{% trans "Treasures From God's Word" %}</td>
-                <td class="small-title">{% if rooms == 2 %}{% trans 'Room B' %}{% endif %}</td>
+                <td class="title-treasures" {% if rooms == 2 %}colspan=2{% endif %}>{% trans "Treasures From God's Word" %}</td>
+                {% if rooms == 2 %}<td class="small-title">{% trans 'Room B' %}</td>{% endif %}
                 <td class="small-title">{% trans 'Room A' %}</td>
             </tr>
             {% for t in meeting.midweek_content.treasures %}
@@ -29,8 +29,6 @@
                 {% endif %}
                 {% if next_element.room_treasure == 'B' %}
                     <td>{{next_element.person_treasure}}</td>
-                {% else %}
-                <td></td>
                 {% endif %}
                 <td>{% if t.room_treasure == 'A' %}{{t.person_treasure|default_if_none:""}}{% endif %}</td>
             </tr>
@@ -39,7 +37,7 @@
             {% endwith %}
             {% endfor %}
             <tr>
-                <td class="title-apply" colspan=2>{% trans "Apply Yourself to the Field Ministry" %}</td>
+                <td class="title-apply" {% if rooms == 2 %}colspan=2{% endif %}>{% trans "Apply Yourself to the Field Ministry" %}</td>
                 <td></td>
                 <td></td>
             </tr>
@@ -52,8 +50,6 @@
                 <td class="small-title pull-right">{% if a.student %}{% trans 'Student' %}{% if a.assistant %} / {% trans 'Assistant' %}{% endif %}:{% endif %}</td>
                 {% if next_element.room_apply == 'B' %}
                     <td>{{next_element.student|default_if_none:""}}{% if next_element.assistant %} / {{next_element.assistant}}{% endif %}</td>
-                {% else %}
-                <td></td>
                 {% endif %}
                 <td>{% if a.room_apply == 'A' %}{{a.student|default_if_none:""}}{% if a.assistant %} / {{a.assistant}}{% endif %}{% endif %}</td>
             </tr>
@@ -62,24 +58,24 @@
             {% endwith %}
             {% endfor %}
             <tr>
-                <td class="title-living" colspan=2>{% trans "Living as Christians" %}</td>
+                <td class="title-living" {% if rooms == 2 %}colspan=2{% endif %}>{% trans "Living as Christians" %}</td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
-                <td colspan=2>{% trans 'Song' %} {{meeting.midweek_content.second_song}}</td>
+                <td {% if rooms == 2 %}colspan=2{% endif %}>{% trans 'Song' %} {{meeting.midweek_content.second_song}}</td>
                 <td></td>
                 <td></td>
             </tr>
             {% for l in meeting.midweek_content.living_christians %}
             <tr>
-                <td colspan=2>{{l.title_living}} ({{l.duration_living}})</td>
+                <td {% if rooms == 2 %}colspan=2{% endif %}>{{l.title_living}} ({{l.duration_living}})</td>
                 <td></td>
                 <td>{{l.person_living|default_if_none:""}}{% if l.reader %} / {{l.reader|default_if_none:""}}{% endif %}</td>
             </tr>
             {% endfor %}
             <tr>
-                <td colspan=2>{% trans 'Song' %} {{meeting.midweek_content.final_song}}</td>
+                <td {% if rooms == 2 %}colspan=2{% endif %}>{% trans 'Song' %} {{meeting.midweek_content.final_song}}</td>
                 <td class="small-title pull-right">{% trans 'Prayer' %}:</td>
                 <td>{{meeting.midweek_content.final_prayer|default_if_none:""}}</td>
             </tr>
