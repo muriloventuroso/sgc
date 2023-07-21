@@ -6,23 +6,23 @@
         <hr>
         <table class="table-designations">
             <tr>
-                {% if meeting.designations.attendants.all %}
+                {% if meeting.designations.attendants_id %}
                 <td class="title-designation">{% trans 'Attendants' %}:</td>
-                <td class="two-names">{{meeting.designations.attendants.all|list_names}}</td>
+                <td class="two-names">{% list_names meeting.designations.attendants.all meeting.designations.attendants_id %}</td>
                 {% endif %}
-                {% if meeting.designations.soundman.all %}
+                {% if meeting.designations.soundman_id %}
                 <td class="title-designation">{% trans 'Audio/Video' %}:</td>
-                <td class="two-names">{{meeting.designations.soundman.all|list_names}}</td>
+                <td class="two-names">{% list_names meeting.designations.soundman.all  meeting.designations.soundman_id %}</td>
                 {% endif %}
             </tr>
             <tr>
-                {% if meeting.designations.mic_passers.all %}
+                {% if meeting.designations.mic_passers_id %}
                 <td class="title-designation">{% trans 'Mic Passer' %}:</td>
-                <td class="two-names">{{meeting.designations.mic_passers.all|list_names}}</td>
+                <td class="two-names">{% list_names meeting.designations.mic_passers.all meeting.designations.mic_passers_id %}</td>
                 {% endif %}
-                {% if meeting.designations.zoom.all %}
+                {% if meeting.designations.zoom_id %}
                 <td class="title-designation">{% trans 'Zoom' %}:</td>
-                <td class="two-names">{{meeting.designations.zoom.all|list_names}}</td>
+                <td class="two-names">{% list_names meeting.designations.zoom.all meeting.designations.zoom_id %}</td>
                 {% endif %}
             </tr>
         </table>

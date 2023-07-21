@@ -47,11 +47,11 @@
             {% if a.room_apply == 'A' %}
             <tr>
                 <td>{{a.title_apply}} ({{a.duration_apply}})</td>
-                <td class="small-title pull-right">{% if a.student %}{% trans 'Student' %}{% if a.assistant %} / {% trans 'Assistant' %}{% endif %}:{% endif %}</td>
+                <td class="small-title pull-right">{% if a.student %}{% trans 'Student' %}{% if a.assistant_id %} / {% trans 'Assistant' %}{% endif %}:{% endif %}</td>
                 {% if next_element.room_apply == 'B' %}
-                    <td>{{next_element.student|default_if_none:""}}{% if next_element.assistant %} / {{next_element.assistant}}{% endif %}</td>
+                    <td>{{next_element.student|default_if_none:""}}{% if next_element.assistant_id %} / {{next_element.assistant}}{% endif %}</td>
                 {% endif %}
-                <td>{% if a.room_apply == 'A' %}{{a.student|default_if_none:""}}{% if a.assistant %} / {{a.assistant}}{% endif %}{% endif %}</td>
+                <td>{% if a.room_apply == 'A' %}{{a.student|default_if_none:""}}{% if a.assistant_id %} / {{a.assistant}}{% endif %}{% endif %}</td>
             </tr>
             {% endif %}
             {% endwith %}
@@ -71,7 +71,7 @@
             <tr>
                 <td {% if rooms == 2 %}colspan=2{% endif %}>{{l.title_living}} ({{l.duration_living}})</td>
                 <td></td>
-                <td>{{l.person_living|default_if_none:""}}{% if l.reader %} / {{l.reader|default_if_none:""}}{% endif %}</td>
+                <td>{{l.person_living|default_if_none:""}}{% if l.reader_id %} / {{l.reader|default_if_none:""}}{% endif %}</td>
             </tr>
             {% endfor %}
             <tr>

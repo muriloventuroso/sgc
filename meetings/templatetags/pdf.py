@@ -27,7 +27,14 @@ def previous(some_list, current_index):
         return ''
 
 
-@register.filter
-def list_names(names):
+@register.simple_tag
+def list_names(queryset, ids):
+    data = list(queryset)
+    names = []
+    for id in ids:
+        for d in data:
+            if str(d._id) == id:
+                names.append(d)
+                break
     n_names = [str(x) for x in names]
     return ', '.join(n_names)
