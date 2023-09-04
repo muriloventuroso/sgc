@@ -147,16 +147,16 @@ class FormDesignations(forms.ModelForm):
         self.fields['zoom'].queryset = Publisher.objects.filter(
             tags__in=['zoom'], congregation_id=congregation_id)
 
-    soundman = forms.ModelChoiceField(
+    soundman = forms.ModelMultipleChoiceField(
         label=_("Audio/Vídeo"), queryset=Publisher.objects.none(),
         required=False)
-    attendant = forms.ModelChoiceField(
+    attendant = forms.ModelMultipleChoiceField(
         label=_("Attendant"), queryset=Publisher.objects.none(),
         required=False)
-    mic_passer = forms.ModelChoiceField(
+    mic_passer = forms.ModelMultipleChoiceField(
         label=_("Mic Passer"), queryset=Publisher.objects.none(),
         required=False)
-    zoom = forms.ModelChoiceField(
+    zoom = forms.ModelMultipleChoiceField(
         label=_("Zoom"), queryset=Publisher.objects.none(),
         required=False)
 

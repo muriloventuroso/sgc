@@ -28,13 +28,16 @@ def previous(some_list, current_index):
 
 
 @register.simple_tag
-def list_names(queryset, ids):
-    data = list(queryset)
-    names = []
-    for id in ids:
-        for d in data:
-            if str(d._id) == id:
-                names.append(d)
-                break
-    n_names = [str(x) for x in names]
+def list_names(queryset, ids, names=None):
+    if names:
+        n_names = names
+    else:
+        data = list(queryset.all())
+        names = []
+        for id in ids:
+            for d in data:
+                if str(d._id) == id:
+                    names.append(d)
+                    break
+        n_names = [str(x) for x in names]
     return ', '.join(n_names)

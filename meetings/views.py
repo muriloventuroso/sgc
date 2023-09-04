@@ -12,7 +12,7 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django_tables2.config import RequestConfig
 from django_tables2 import Column
-from meetings.helpers import DesignationsSheetPdf
+from meetings.helpers import DesignationsSheetPdf, get_names
 from meetings.models import (
     Designations, Meeting, MidweekContent, TreasuresContent, ApplyYourselfContent, LivingChristiansContent, MeetingAudience, SpeakerOut, CountSpeech, WeekendContent)
 from meetings.tables import TableMeetings, TableMeetingAudience, TableSpeakerOut, TableCountSpeech
@@ -179,15 +179,21 @@ def edit_meeting(request, meeting_id):
             meeting = form.save(commit=False)
             meeting.congregation_id = congregation_id
             if form_designations.is_valid():
+                data = form_designations.cleaned_data
+                print(data)
                 meeting.designations = form_designations.save(commit=False)
                 meeting.designations.soundman_id = request.POST.getlist(
                     'soundman')
+                meeting.designations.soundman_names = get_names(list(data['soundman']), meeting.designations.soundman_id)
                 meeting.designations.attendants_id = request.POST.getlist(
                     'attendant')
+                meeting.designations.attendants_names = get_names(list(data['attendant']), meeting.designations.attendants_id)
                 meeting.designations.mic_passers_id = request.POST.getlist(
                     'mic_passer')
+                meeting.designations.mic_passers_names = get_names(list(data['mic_passer']), meeting.designations.mic_passers_id)
                 meeting.designations.zoom_id = request.POST.getlist(
                     'zoom')
+                meeting.designations.zoom_names = get_names(list(data['zoom']), meeting.designations.zoom_id)
             if meeting.type_meeting == 'w':
                 if form_weekendcontent.is_valid():
                     old_theme = meeting.weekend_content.theme

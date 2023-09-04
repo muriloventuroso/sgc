@@ -2,6 +2,7 @@ from djongo import models
 from djongo.models import ObjectIdField
 from django.utils.translation import gettext_lazy as _
 from congregations.models import Congregation, Publisher
+from djongo.models.fields import JSONField
 
 
 class WeekendContent(models.Model):
@@ -89,9 +90,11 @@ class Designations(models.Model):
     soundman = models.ArrayReferenceField(
         to=Publisher, verbose_name=_("Audio/Video"), on_delete=models.SET_NULL, null=True, blank=True,
         related_name="designations_soundman")
+    soundman_names = JSONField(default=[], null=True, blank=True)
     zoom = models.ArrayReferenceField(
         to=Publisher, verbose_name=_("Zoom"), on_delete=models.SET_NULL, null=True, blank=True,
         related_name="designations_zoom")
+    zoom_names = JSONField(default=[], null=True, blank=True)
     stage = models.ForeignKey(
         Publisher, verbose_name=_("Stage"), null=True, blank=True, on_delete=models.SET_NULL,
         related_name="designations_stage")
@@ -110,9 +113,11 @@ class Designations(models.Model):
     attendants = models.ArrayReferenceField(
         to=Publisher, verbose_name=_("Attendants"), on_delete=models.SET_NULL, null=True, blank=True,
         related_name="designations_attendants")
+    attendants_names = JSONField(default=[], null=True, blank=True)
     mic_passers = models.ArrayReferenceField(
         to=Publisher, verbose_name=_("Mic Passers"), on_delete=models.SET_NULL, null=True, blank=True,
         related_name="designations_mic_passers")
+    mic_passers_names = JSONField(default=[], null=True, blank=True)
 
 
 class Meeting(models.Model):

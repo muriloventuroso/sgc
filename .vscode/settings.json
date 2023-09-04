@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/muriloventuroso/Dev/Python/sgc-env/bin/python",
+    "python.pythonPath": "/Users/muriloventuroso/Dev/Python/sgc-env/bin/python",
     "python.linting.pycodestyleEnabled": false,
     "python.linting.pylintPath": "/home/muriloventuroso/Dev/Python/sgc-env/bin/pylint",
     "python.linting.pylintArgs": ["--load-plugins", "pylint_django", "--max-line-length=120"],

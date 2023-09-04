@@ -1,5 +1,6 @@
 import io
 from reportlab.pdfgen import canvas
+from bson.objectid import ObjectId
 
 
 def get_page_body(boxes):
@@ -222,3 +223,11 @@ class DesignationsSheetPdf(object):
         ret_pdf = self.stream.getvalue()
         self.stream.close()
         return ret_pdf
+
+def get_names(publishers, ids):
+    names = []
+    for p_id in ids:
+        for p in publishers:
+            if p._id == ObjectId(p_id):
+                names.append(p.name)
+    return names
