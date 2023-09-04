@@ -293,10 +293,17 @@
                 var value = $(this).val();
                 var elem = $(this);
                 var exists = false;
+                if(Array.isArray(value)){
+                    value = value[0];
+                }
                 if(value && value.length > 5){
                     try{
                         $('select option[value='+value+']').each(function(index, el) {
-                            if($(this).parent().val()==value && !elem.is($(this).parent()) && $(this).parent().val().length > 5){
+                            var itemValue = $(this).parent().val();
+                            if(Array.isArray(itemValue)){
+                                itemValue = itemValue[0];
+                            }
+                            if(itemValue==value && !elem.is($(this).parent()) && itemValue.length > 5){
                                 exists = true;
                                 $(this).parent().parent().addClass('invalid-select');
                                 $(this).parent().parent().find('.invalid-feedback').remove();

@@ -180,7 +180,6 @@ def edit_meeting(request, meeting_id):
             meeting.congregation_id = congregation_id
             if form_designations.is_valid():
                 data = form_designations.cleaned_data
-                print(data)
                 meeting.designations = form_designations.save(commit=False)
                 meeting.designations.soundman_id = request.POST.getlist(
                     'soundman')
@@ -194,6 +193,8 @@ def edit_meeting(request, meeting_id):
                 meeting.designations.zoom_id = request.POST.getlist(
                     'zoom')
                 meeting.designations.zoom_names = get_names(list(data['zoom']), meeting.designations.zoom_id)
+            else:
+                print(form_designations.errors)
             if meeting.type_meeting == 'w':
                 if form_weekendcontent.is_valid():
                     old_theme = meeting.weekend_content.theme
